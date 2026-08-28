@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FPL Copilot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#16011C; --panel:#26082F; --panel-2:#37003C;
+    --line:rgba(255,255,255,.09); --line-strong:rgba(255,255,255,.16);
+    --ink:#F2E9F6; --muted:#A98BB5;
+    --green:#00FF87; --cyan:#04F5FF; --pink:#FF2E7E; --amber:#FFC65B;
+    --f1:#00FF87; --f2:#4ce39a; --f3:#5c5470; --f4:#FF9F45; --f5:#FF2E7E;
+    --pitch1:#1f5c33; --pitch2:#1a4d2b;
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:radial-gradient(1200px 600px at 80% -10%,rgba(55,0,60,.9),transparent 60%),
+    radial-gradient(900px 500px at -10% 110%,rgba(0,255,135,.06),transparent 55%),var(--bg);
+    color:var(--ink);font-family:'Archivo',system-ui,sans-serif;-webkit-font-smoothing:antialiased;
+    min-height:100vh;padding:20px 14px 60px}
+  .wrap{max-width:1000px;margin:0 auto}
+  .top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+  .mark{display:flex;align-items:baseline;gap:9px}
+  .mark b{font-weight:900;font-size:19px;letter-spacing:-.02em}
+  .mark span{color:var(--green);font-weight:900}
+  .tagline{color:var(--muted);font:400 12px/1.3 'Space Mono',monospace}
+  .fresh{margin-left:auto;font:400 10px/1.3 'Space Mono',monospace;color:var(--muted);text-align:right}
+
+  .tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+  .tabs button{cursor:pointer;background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:10px 16px;color:var(--ink);font:800 13px/1 'Archivo';transition:border-color .15s}
+  .tabs button:hover{border-color:var(--line-strong)}
+  .tabs button.on{border-color:var(--green);box-shadow:0 0 0 1px var(--green) inset}
+  .tabs button:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+
+  .hero{background:linear-gradient(135deg,var(--panel-2),var(--panel));border:1px solid var(--line);
+    border-radius:18px;padding:18px 20px;display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+  .hero .tot{flex:1;min-width:180px}
+  .hero .lab{font:700 10px/1 'Space Mono',monospace;letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
+  .hero .big{font-weight:900;font-size:clamp(38px,10vw,60px);line-height:.9;letter-spacing:-.04em;color:var(--green)}
+  .hero .sub{font:400 12px/1.4 'Space Mono',monospace;color:var(--muted);margin-top:6px}
+  .hero .stats{display:flex;gap:18px;flex-wrap:wrap}
+  .stat .k{font:700 9px/1 'Space Mono',monospace;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+  .stat .v{font-weight:900;font-size:22px;letter-spacing:-.02em;margin-top:5px}
+
+  .h{display:flex;align-items:baseline;gap:10px;margin:20px 2px 12px}
+  .h .no{font:700 11px/1 'Space Mono',monospace;color:var(--green);letter-spacing:.1em}
+  .h .t{font-weight:800;font-size:15px}
+  .h .d{color:var(--muted);font:400 11px/1.3 'Space Mono',monospace;margin-left:auto}
+
+  /* pitch */
+  .pitch{background:repeating-linear-gradient(0deg,var(--pitch1) 0 46px,var(--pitch2) 46px 92px);
+    border:1px solid var(--line-strong);border-radius:18px;padding:16px 8px;position:relative;overflow:hidden}
+  .pitch::before{content:"";position:absolute;inset:14px;border:2px solid rgba(255,255,255,.16);border-radius:8px;pointer-events:none}
+  .rowline{display:flex;justify-content:center;gap:6px;position:relative;z-index:1;margin:5px 0;flex-wrap:wrap}
+  .p{width:90px;cursor:pointer;background:rgba(10,1,14,.72);border:1px solid rgba(255,255,255,.14);
+    border-radius:11px;padding:7px 5px 6px;text-align:center;transition:transform .15s,border-color .15s;position:relative}
+  .p:hover{transform:translateY(-2px);border-color:var(--green)}
+  .p.sel{border-color:var(--green);box-shadow:0 0 0 1px var(--green) inset}
+  .p:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+  .p .nm{font-weight:800;font-size:12px;line-height:1.05;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .p .fx{font:400 9px/1.2 'Space Mono',monospace;color:var(--muted);margin-top:2px}
+  .p .pts{font-weight:900;font-size:17px;letter-spacing:-.02em;margin-top:4px;color:var(--green)}
+  .p .badge{position:absolute;top:-6px;right:-6px;width:19px;height:19px;border-radius:50%;font:900 10px/19px 'Archivo';color:#16011C}
+  .badge.c{background:var(--green)} .badge.v{background:var(--cyan)}
+  .p .dot{position:absolute;top:6px;left:6px;width:8px;height:8px;border-radius:50%}
+  .dot.a{background:var(--green)} .dot.d{background:var(--amber)} .dot.i{background:var(--pink)}
+  .bench-strip{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px dashed rgba(255,255,255,.15)}
+
+  /* detail */
+  .detail{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 17px;margin-top:14px}
+  .dhead{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+  .dhead h2{margin:0;font-size:24px;font-weight:900;letter-spacing:-.02em}
+  .dhead .tag{font:700 10px/1 'Space Mono',monospace;padding:5px 8px;border-radius:7px;text-transform:uppercase}
+  .tag.a{color:var(--green);background:rgba(0,255,135,.12)}
+  .tag.d{color:var(--amber);background:rgba(255,198,91,.14)}
+  .tag.i{color:var(--pink);background:rgba(255,46,126,.14)}
+  .dhead .dproj{margin-left:auto;text-align:right}
+  .dproj .l{font:700 9px/1 'Space Mono',monospace;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+  .dproj .n{font-weight:900;font-size:30px;letter-spacing:-.03em;color:var(--green)}
+  .dgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .chain .cr{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--line)}
+  .chain .cr:last-child{border:0}
+  .chain .cl{font:400 12px/1.3 'Space Mono',monospace;color:var(--muted);flex:1}
+  .chain .cd{font-weight:900;font-size:15px;font-family:'Space Mono',monospace;color:var(--ink)}
+  .chain .run{font:400 10px/1 'Space Mono',monospace;color:var(--muted);width:60px;text-align:right}
+  .meta .row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line)}
+  .meta .row:last-child{border:0}
+  .meta .k{font:400 12px/1.3 'Space Mono',monospace;color:var(--muted)}
+  .meta .v{font:700 13px/1 'Space Mono',monospace}
+  .newsline{font:400 12px/1.5 'Archivo';margin:12px 0 0;padding-top:12px;border-top:1px solid var(--line)}
+  .newsline .flag{display:inline-block;font:700 9px/1 'Space Mono',monospace;padding:4px 7px;border-radius:6px;margin-right:8px;text-transform:uppercase;color:var(--amber);background:rgba(255,198,91,.14)}
+
+  /* ticker + concentration reuse */
+  .tick{display:grid;gap:6px;align-items:stretch}
+  .gwhead{font:700 9px/1 'Space Mono',monospace;color:var(--muted);text-align:center;padding:2px 0}
+  .lblhead{align-self:center}
+  .prow{display:contents}
+  .pcell{display:flex;flex-direction:column;justify-content:center;border-radius:9px;padding:8px 9px;min-height:50px}
+  .pcell.name{background:rgba(255,255,255,.03);border:1px solid var(--line)}
+  .pcell.name.hot{border-color:rgba(255,46,126,.5);background:rgba(255,46,126,.06)}
+  .pcell .cbadge{font:900 11px/1 'Space Mono',monospace;color:var(--cyan)}
+  .pcell .cbadge.hot{color:var(--pink)}
+  .pcell .cp{font:400 9px/1.25 'Space Mono',monospace;color:var(--muted);margin-top:3px}
+  .fcell{align-items:center;text-align:center;color:#16011C}
+  .fcell.f1,.fcell.f2{color:#16011C}.fcell.f3{color:var(--ink)}
+  .fcell.f1{background:var(--f1)}.fcell.f2{background:var(--f2)}.fcell.f3{background:var(--f3)}.fcell.f4{background:var(--f4)}.fcell.f5{background:var(--f5)}
+  .fcell .opp{font:700 10px/1.1 'Space Mono',monospace}
+  .fcell .fdr{font-weight:900;font-size:15px;margin-top:2px}
+  .avg{align-items:center;justify-content:center;text-align:center;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+  .avg .al{font:700 8px/1 'Space Mono',monospace;color:var(--muted)}
+  .avg .av{font-weight:900;font-size:17px;margin-top:3px}
+  .legend{display:flex;gap:7px;flex-wrap:wrap;align-items:center;font:700 10px/1 'Space Mono',monospace;color:var(--muted);margin:12px 2px 0}
+  .legend .sw{padding:4px 8px;border-radius:6px;color:#16011C}
+  .sw.f2{background:var(--f2)}.sw.f3{background:var(--f3);color:var(--ink)}.sw.f4{background:var(--f4)}.sw.f5{background:var(--f5)}
+  /* conc */
+  .headline{background:linear-gradient(135deg,var(--panel-2),var(--panel));border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:flex;gap:22px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+  .headline .bignum{font-weight:900;font-size:clamp(28px,7vw,42px);line-height:.9;letter-spacing:-.03em}
+  .headline .bignum .m{color:var(--pink)}.headline .bignum .arrow{color:var(--muted);margin:0 6px}
+  .headline .txt{font:400 12px/1.55 'Space Mono',monospace;color:var(--muted);flex:1;min-width:180px}
+  .blk{margin:0 0 12px}.blk:last-child{margin-bottom:0}
+  .bhead{display:flex;align-items:baseline;gap:8px;margin-bottom:6px}
+  .bhead .cnt{font-weight:900;font-size:15px;font-family:'Space Mono',monospace}
+  .bhead .fxn{font-weight:800;font-size:13px}
+  .bhead .who{font:400 11px/1.3 'Space Mono',monospace;color:var(--muted);margin-left:auto;text-align:right}
+  .bar{height:34px;border-radius:9px;display:flex;align-items:center;padding:0 12px;color:#16011C;font:900 13px/1 'Space Mono',monospace;min-width:64px}
+  .bar.f1{background:var(--f1)}.bar.f2{background:var(--f2)}.bar.f3{background:var(--f3);color:var(--ink)}.bar.f4{background:var(--f4)}.bar.f5{background:var(--f5)}
+  .bar .fdrtag{margin-left:auto;font-size:11px;opacity:.85}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px}
+  .setup{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px}
+  .setup h2{margin:0 0 10px;font-size:18px}
+  .setup code{background:rgba(0,0,0,.4);padding:2px 6px;border-radius:5px;font:700 12px 'Space Mono',monospace;color:var(--cyan)}
+  .setup ol{margin:12px 0 0;padding-left:20px;line-height:1.7;font-size:14px}
+  .foot{margin-top:24px;color:var(--muted);font:400 11px/1.7 'Space Mono',monospace;text-align:center;border-top:1px solid var(--line);padding-top:16px}
+  .hidden{display:none}
+  @media(max-width:560px){.dgrid{grid-template-columns:1fr}.p{width:66px}.p .nm{font-size:11px}.rowline{gap:4px}}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="mark"><b>FPL <span>COPILOT</span></b></div>
+    <div class="tagline" id="tagline">ładowanie…</div>
+    <div class="fresh" id="fresh"></div>
+  </div>
+
+  <div class="tabs" id="tabs" style="display:none">
+    <button data-tab="squad" class="on">Skład</button>
+    <button data-tab="fdr">Terminarz FDR</button>
+    <button data-tab="risk">Koncentracja</button>
+  </div>
+
+  <div id="app"></div>
+
+  <div class="foot" id="foot"></div>
+</div>
+
+<script>
+const FDR_LABEL = "Trudność rywala (FDR) z oficjalnego API FPL · xPts to model heurystyczny, nie oficjalny.";
+let DATA=null, CUR="squad", SEL=null;
+
+function fdrClass(f){return "f"+Math.max(1,Math.min(5,f||3))}
+function el(id){return document.getElementById(id)}
+function fmtMult(m){return "×"+m.toFixed(2)}
+
+async function boot(){
+  try{
+    const r = await fetch("data.json?"+Date.now());
+    if(!r.ok) throw 0;
+    DATA = await r.json();
+  }catch(e){ return renderSetup(); }
+  if(!DATA.squad || !DATA.squad.length) return renderSetup(true);
+
+  el("tagline").textContent = `${DATA.entry.name||"Twój skład"} · ${DATA.gw.name}`;
+  el("fresh").textContent = "dane: "+new Date(DATA.generated_at).toLocaleString("pl-PL");
+  el("foot").textContent = DATA.note || FDR_LABEL;
+  el("tabs").style.display="flex";
+  el("tabs").querySelectorAll("button").forEach(b=>b.onclick=()=>{CUR=b.dataset.tab;
+    el("tabs").querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));render();});
+  render();
+}
+
+function render(){ if(CUR==="squad")renderSquad(); else if(CUR==="fdr")renderFDR(); else renderRisk(); }
+
+/* ---------- SKŁAD ---------- */
+function renderSquad(){
+  const xi = DATA.squad.filter(p=>!p.on_bench).sort((a,b)=>a.order-b.order);
+  const bench = DATA.squad.filter(p=>p.on_bench).sort((a,b)=>a.order-b.order);
+  const rows={GK:[],DEF:[],MID:[],FWD:[]};
+  xi.forEach(p=>rows[p.pos]?.push(p));
+  const st = s => s==='a'?'a':(s==='d'?'d':'i');
+  const card = p=>`<button class="p ${SEL===p.id?'sel':''}" data-id="${p.id}">
+      <span class="dot ${st(p.status)}"></span>
+      ${p.is_captain?'<span class="badge c">C</span>':p.is_vice?'<span class="badge v">V</span>':''}
+      <span class="nm">${p.name}</span>
+      <span class="fx">${p.next?p.next.opp+" ("+p.next.ven+")":"—"}</span>
+      <span class="pts">${p.xpts.toFixed(1)}</span></button>`;
+  const pitch = ['GK','DEF','MID','FWD'].map(r=>`<div class="rowline">${rows[r].map(card).join("")}</div>`).join("");
+  const benchHtml = bench.map(card).join("");
+  const bank = DATA.entry.bank!=null?"£"+DATA.entry.bank.toFixed(1):"—";
+  const val  = DATA.entry.value!=null?"£"+DATA.entry.value.toFixed(1):"—";
+  el("app").innerHTML = `
+    <div class="hero">
+      <div class="tot"><div class="lab">Prognoza jedenastki (z C ×2)</div>
+        <div class="big">${DATA.totals.xi_xpts.toFixed(1)}</div>
+        <div class="sub">kapitan: ${DATA.totals.captain||"—"}</div></div>
+      <div class="stats">
+        <div class="stat"><div class="k">Pkt ogółem</div><div class="v">${DATA.entry.overall_points??"—"}</div></div>
+        <div class="stat"><div class="k">Bank</div><div class="v">${bank}</div></div>
+        <div class="stat"><div class="k">Wartość</div><div class="v">${val}</div></div>
+      </div>
+    </div>
+    <div class="h"><span class="no">01</span><span class="t">Boisko</span><span class="d">kliknij zawodnika → warstwy ↓</span></div>
+    <div class="pitch">${pitch}<div class="bench-strip">${benchHtml}</div></div>
+    <div id="detail"></div>`;
+  el("app").querySelectorAll(".p").forEach(b=>b.onclick=()=>{SEL=+b.dataset.id;renderSquad();
+    document.getElementById("detail").scrollIntoView({behavior:"smooth",block:"nearest"});});
+  renderDetail(DATA.squad.find(p=>p.id===SEL) || xi.find(p=>p.is_captain) || xi[0]);
+}
+function renderDetail(p){
+  if(!p) return;
+  const st = p.status==='a'?'a':(p.status==='d'?'d':'i');
+  const stTxt = p.status==='a'?'Dostępny':(p.status==='d'?'Wątpliwość':'Niedostępny/kontuzja');
+  let run=0;
+  const chain = p.factors.map(f=>{
+    if('value' in f){run=f.value;return `<div class="cr"><span class="cl">${f.label}</span><span class="cd">${f.value.toFixed(1)}</span><span class="run">baza</span></div>`;}
+    run*=f.mult;return `<div class="cr"><span class="cl">${f.label}</span><span class="cd">${fmtMult(f.mult)}</span><span class="run">= ${run.toFixed(1)}</span></div>`;
+  }).join("");
+  const w=p.weather?`${p.weather.temp}°C · wiatr ${p.weather.wind} km/h${p.weather.rain>0?' · deszcz':''}`:"—";
+  const news = p.news? `<p class="newsline"><span class="flag">News</span>${p.news}</p>`:"";
+  document.getElementById("detail").innerHTML = `
+    <div class="detail">
+      <div class="dhead"><h2>${p.name}</h2>
+        <span class="tag ${st}">${stTxt}</span>
+        <div class="dproj"><div class="l">xPts</div><div class="n">${p.xpts.toFixed(1)}</div></div></div>
+      <div class="dgrid">
+        <div class="chain">${chain}</div>
+        <div class="meta">
+          <div class="row"><span class="k">Klub</span><span class="v">${p.team_full}</span></div>
+          <div class="row"><span class="k">Mecz</span><span class="v">${p.next?p.next.opp+" ("+p.next.ven+") · FDR "+p.next.fdr:"—"}</span></div>
+          <div class="row"><span class="k">Cena / własność</span><span class="v">£${p.price.toFixed(1)} · ${p.selected_by}%</span></div>
+          <div class="row"><span class="k">Forma / PPG</span><span class="v">${p.form} / ${p.ppg}</span></div>
+          <div class="row"><span class="k">FPL ep_next</span><span class="v" style="color:var(--cyan)">${p.ep_next??"—"}</span></div>
+          <div class="row"><span class="k">Pogoda</span><span class="v">${w}</span></div>
+        </div>
+      </div>${news}
+    </div>`;
+}
+
+/* ---------- FDR ---------- */
+function renderFDR(){
+  const n = Math.max(...DATA.ticker.map(t=>t.fixtures.length),1);
+  const cols = `1fr repeat(${n},54px) 50px`;
+  const head = `<div class="lblhead"></div>`+Array.from({length:n},(_,i)=>`<div class="gwhead">+${i+1}</div>`).join("")+`<div class="gwhead">Śr.</div>`;
+  const avgCol=a=>a==null?'var(--ink)':a<=2.4?'var(--green)':a<=3.1?'var(--amber)':'var(--pink)';
+  const rows = DATA.ticker.map(t=>{
+    const cells = Array.from({length:n},(_,i)=>{const f=t.fixtures[i];
+      return f?`<div class="pcell fcell ${fdrClass(f.fdr)}"><span class="opp">${f.opp} (${f.ven})</span><span class="fdr">${f.fdr}</span></div>`
+             :`<div class="pcell avg"></div>`;}).join("");
+    return `<div class="prow"><div class="pcell name ${t.avg_fdr>3.2?'hot':''}">
+        <span class="cbadge ${t.avg_fdr>3.2?'hot':''}">${t.count}× ${t.team}</span>
+        <span class="cp">${t.players.join(" · ")}</span></div>${cells}
+      <div class="pcell avg"><span class="al">ŚR</span><span class="av" style="color:${avgCol(t.avg_fdr)}">${t.avg_fdr??"—"}</span></div></div>`;
+  }).join("");
+  el("app").innerHTML = `
+    <div class="h"><span class="no">02</span><span class="t">Terminarz FDR — kolejne ${n} kolejek</span><span class="d">pogrupowane po klubie</span></div>
+    <div class="card"><div class="tick" style="grid-template-columns:${cols}">${head}${rows}</div></div>
+    <div class="legend"><span>FDR:</span><span class="sw f2">1–2</span><span class="sw f3">3</span><span class="sw f4">4</span><span class="sw f5">5</span></div>`;
+}
+
+/* ---------- KONCENTRACJA ---------- */
+function renderRisk(){
+  const xi = DATA.squad.filter(p=>!p.on_bench);
+  const nMatch = DATA.concentration.length;
+  const maxCnt = Math.max(...DATA.concentration.map(c=>c.count),1);
+  const blocks = DATA.concentration.map(c=>{
+    const w = 34 + (c.count/maxCnt)*66;
+    return `<div class="blk"><div class="bhead"><span class="cnt">${c.count}×</span>
+        <span class="fxn">${c.fixture}</span><span class="who">${c.players.join(" · ")}</span></div>
+      <div class="bar ${fdrClass(c.fdr)}" style="width:${w}%">${c.count} ${c.count===1?'gracz':'graczy'}<span class="fdrtag">FDR ${c.fdr}</span></div></div>`;
+  }).join("");
+  el("app").innerHTML = `
+    <div class="h"><span class="no">03</span><span class="t">Na ilu meczach wisi jedenastka</span><span class="d">${DATA.gw.name}</span></div>
+    <div class="headline"><div class="bignum">${xi.length}<span class="arrow">→</span><span class="m">${nMatch}</span></div>
+      <div class="txt">Twoja startowa jedenastka rozgrywa się w <b>${nMatch} meczach</b>. Im szerszy i bardziej czerwony pasek, tym więcej Twoich graczy zależy od jednego, trudnego wyniku.</div></div>
+    <div class="card">${blocks}</div>
+    <div class="legend"><span>FDR:</span><span class="sw f2">1–2</span><span class="sw f3">3</span><span class="sw f4">4</span><span class="sw f5">5</span><span>· szerokość = liczba Twoich graczy</span></div>`;
+}
+
+/* ---------- SETUP (brak data.json) ---------- */
+function renderSetup(empty){
+  el("tagline").textContent="konfiguracja";
+  el("app").innerHTML = `<div class="setup">
+    <h2>${empty?"Brak składu w data.json":"Nie znaleziono data.json"}</h2>
+    <p style="color:var(--muted);font:400 13px/1.6 'Space Mono',monospace">
+    Wpisz swoje ID drużyny i uruchom fetcher — reszta zrobi się sama.</p>
+    <ol>
+      <li>Otwórz <code>config.json</code> i wpisz swoje <code>team_id</code> (liczba z adresu Twojej drużyny na stronie FPL).</li>
+      <li>W zakładce <b>Actions</b> na GitHubie odpal workflow <code>Update FPL data</code> (albo poczekaj na automatyczny cykl).</li>
+      <li>Włącz <b>GitHub Pages</b> (Settings → Pages → gałąź main). Odśwież tę stronę.</li>
+    </ol>
+    <p style="color:var(--muted);font:400 12px/1.6 'Space Mono',monospace;margin-top:14px">
+    Nie znasz ID? Wejdź na swoją drużynę na fantasy.premierleague.com — numer jest w adresie po <code>/entry/</code>.
+    Alternatywnie wpisz nazwiska do <code>manual_squad</code> w config.json.</p></div>`;
+  el("foot").textContent = FDR_LABEL;
+}
+boot();
+</script>
+</body>
+</html>
