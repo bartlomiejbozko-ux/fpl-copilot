@@ -13,7 +13,6 @@ Jedyne, co musisz ustawić, to swoje ID drużyny w config.json.
 
 import json
 import sys
-import os
 import time
 import datetime as dt
 from pathlib import Path
@@ -46,24 +45,6 @@ def get_json(url, tries=3, pause=1.5):
                 return json.loads(r.read().decode("utf-8"))
         except (URLError, HTTPError, TimeoutError) as e:
             sys.stderr.write(f"  ! {url} -> {e} (proba {i+1})\n")
-            time.sleep(pause)
-    return None
-
-
-def get_json_auth(url, session, tries=2, pause=1.5):
-    """Zapytanie z ciasteczkiem sesji — do endpointu my-team (oczekujące transfery)."""
-    for i in range(tries):
-        try:
-            req = Request(url, headers={
-                **UA,
-                "Cookie": f"sessionid={session}",
-                "X-Requested-With": "XMLHttpRequest",
-                "Referer": "https://fantasy.premierleague.com/",
-            })
-            with urlopen(req, timeout=25) as r:
-                return json.loads(r.read().decode("utf-8"))
-        except (URLError, HTTPError, TimeoutError) as e:
-            sys.stderr.write(f"  ! auth {url} -> {e} (proba {i+1})\n")
             time.sleep(pause)
     return None
 
@@ -198,63 +179,30 @@ def build():
         fx = team_fixtures.get(tid) or []
         return fx[0] if fx else None
 
-    def xpts_horizon(p, tid, n=3):
-        """Suma xPts z najbliższych n meczów — do rankingu transferów (nagradza dobry terminarz)."""
-        tot = 0.0
-        for f in (team_fixtures.get(tid) or [])[:n]:
-            x, _ = compute_xpts(p, f["fdr"], f["ven"] == "H")
-            tot += x
-        return round(tot, 1)
-
-    def last5(pid):
-        """Punkty z ostatnich 5 rozegranych meczów (do mini-wykresu formy)."""
-        es = get_json(f"{FPL}/element-summary/{pid}/", tries=2)
-        if not es:
-            return []
-        hist = es.get("history") or []
-        return [h.get("total_points", 0) for h in hist[-5:]]
-
     # ── skład użytkownika ─────────────────────────────────────────────────────
-    session = os.environ.get("FPL_SESSION", "").strip()
-    picks, entry, bank_override = [], {}, None
+    picks, entry = [], {}
     if team_id:
         print(f"· pobieram druzyne {team_id} ...")
         entry = get_json(f"{FPL}/entry/{team_id}/") or {}
-        # 1) zalogowana drużyna (my-team) — zawiera OCZEKUJĄCE transfery na najbliższy GW
-        if session and not manual:
-            mt = get_json_auth(f"{FPL}/my-team/{team_id}/", session)
-            if mt and mt.get("picks"):
-                picks = mt["picks"]
-                bank_override = (mt.get("transfers") or {}).get("bank")
-                print("· ✓ uzyto ZALOGOWANEJ druzyny (my-team) — z oczekujacymi transferami")
-            else:
-                print("! sesja podana, ale my-team nie zwrocilo skladu "
-                      "(wygasla sesja lub blokada IP). Wracam do publicznego API.")
-        # 2) publiczny skład zablokowany po ostatnim deadline
-        if not picks and not manual:
-            pk = get_json(f"{FPL}/entry/{team_id}/event/{cur_gw}/picks/")
-            if pk and pk.get("picks"):
-                picks = pk["picks"]
-                print(f"· uzyto zablokowanego skladu z GW{cur_gw} (publiczne API — "
-                      "bez oczekujacych transferow)")
+        pk = get_json(f"{FPL}/entry/{team_id}/event/{cur_gw}/picks/")
+        if pk and pk.get("picks"):
+            picks = pk["picks"]
 
     squad_ids = []
-    if manual:  # ręczne nadpisanie z config.json (najwyższy priorytet)
-        print("· uzyto manual_squad z config.json (nadpisanie)")
-        for i, nm in enumerate(manual):
-            pl = by_name.get(str(nm).lower())
-            if pl:
-                squad_ids.append({"id": pl["id"], "captain": i == 0, "vice": i == 1,
-                                  "mult": 2 if i == 0 else (1 if i < 11 else 0), "order": i + 1})
-            else:
-                sys.stderr.write(f"  ! manual_squad: nie znaleziono '{nm}' — sprawdz pisownie web_name\n")
-    elif picks:
+    if picks:
         for pk in picks:
             squad_ids.append({"id": pk["element"], "captain": pk["is_captain"],
                               "vice": pk["is_vice_captain"], "mult": pk["multiplier"],
                               "order": pk["position"]})
+    elif manual:  # awaryjnie: lista web_name z configu (np. ze screenshota)
+        print("· brak picks z API — uzywam manual_squad z config.json")
+        for i, nm in enumerate(manual):
+            pl = by_name.get(str(nm).lower())
+            if pl:
+                squad_ids.append({"id": pl["id"], "captain": i == 0, "vice": i == 1,
+                                  "mult": 2 if i == 0 else 1, "order": i + 1})
     else:
-        print("! Brak skladu (team_id/manual_squad). data.json bez skladu.")
+        print("! Brak team_id i manual_squad — data.json bez skladu (tylko ticker ligowy).")
 
     squad, xi_xpts, cap_name = [], 0.0, None
     for s in squad_ids:
@@ -266,24 +214,16 @@ def build():
         fdr = nf["fdr"] if nf else 3
         is_home = (nf["ven"] == "H") if nf else True
         xpts, factors = compute_xpts(p, fdr, is_home)
-        xph = xpts_horizon(p, tid)
         on_bench = s["order"] > 11
         weather = get_weather(tshort[tid], nf["kickoff"]) if nf else None
         entrypl = {
             "id": p["id"], "name": p["web_name"], "team": tshort[tid],
             "team_full": teams[tid]["name"], "pos": pos_name[p["element_type"]],
-            "etype": p["element_type"], "xpts_h": xph, "price_t": p["now_cost"],
             "price": p["now_cost"] / 10.0, "form": p.get("form"),
             "ppg": p.get("points_per_game"), "selected_by": p.get("selected_by_percent"),
             "status": p.get("status"), "news": p.get("news") or "",
             "chance": p.get("chance_of_playing_next_round"),
             "ep_next": p.get("ep_next"), "xpts": xpts, "factors": factors,
-            "set_pieces": {"pens": p.get("penalties_order"),
-                           "corners": p.get("corners_and_indirect_freekicks_order"),
-                           "fk": p.get("direct_freekicks_order")},
-            "price_mom": (p.get("transfers_in_event") or 0) - (p.get("transfers_out_event") or 0),
-            "cost_change_event": p.get("cost_change_event") or 0,
-            "form5": last5(p["id"]),
             "next": ({"opp": nf["opp"], "ven": nf["ven"], "fdr": nf["fdr"]} if nf else None),
             "weather": weather,
             "is_captain": s["captain"], "is_vice": s["vice"],
@@ -326,321 +266,6 @@ def build():
         conc[key]["players"].append(p["name"])
     concentration = sorted(conc.values(), key=lambda x: -x["count"])
 
-    # ── DORADCA: pula zawodników, transfery, kapitan, alerty ─────────────────
-    bank_t = bank_override if bank_override is not None else (entry.get("last_deadline_bank") or 0)
-    owned = {s["id"] for s in squad_ids}
-
-    # pula: xPts + xPts_horizon dla każdego dostępnego zawodnika
-    pool_by_pos = {1: [], 2: [], 3: [], 4: []}
-    for p in boot["elements"]:
-        if p.get("status") in ("u", "n"):   # niedostępny / poza kadrą
-            continue
-        tid = p["team"]
-        nf = next_fix(tid)
-        if not nf:
-            continue
-        x, _ = compute_xpts(p, nf["fdr"], nf["ven"] == "H")
-        cand = {
-            "id": p["id"], "name": p["web_name"], "team": tshort[tid],
-            "et": p["element_type"],
-            "price": p["now_cost"] / 10.0, "price_t": p["now_cost"],
-            "xpts": x, "xpts_h": xpts_horizon(p, tid), "status": p.get("status"),
-            "chance": p.get("chance_of_playing_next_round"),
-            "selected_by": p.get("selected_by_percent"),
-            "next": {"opp": nf["opp"], "ven": nf["ven"], "fdr": nf["fdr"]},
-        }
-        pool_by_pos[p["element_type"]].append(cand)
-
-    def best_upgrade(op):
-        """Najlepszy transfer za tego zawodnika w ramach budżetu (cena + bank)."""
-        budget = op["price_t"] + bank_t
-        cands = [c for c in pool_by_pos.get(op["etype"], [])
-                 if c["id"] not in owned and c["price_t"] <= budget
-                 and c["status"] == "a" and (c["chance"] is None or c["chance"] >= 75)]
-        cands.sort(key=lambda c: -c["xpts_h"])
-        return cands[0] if cands else None
-
-    # rekomendacje transferów: najlepsze pary OUT→IN po całym składzie startowym
-    trans = []
-    for op in [p for p in squad if not p["on_bench"]]:
-        up = best_upgrade(op)
-        if not up:
-            continue
-        gain = round(up["xpts_h"] - op["xpts_h"], 1)
-        if gain >= 1.5:  # próg sensowności
-            trans.append({
-                "gain": gain,
-                "out": {"name": op["name"], "team": op["team"], "pos": op["pos"],
-                        "price": op["price"], "xpts_h": op["xpts_h"], "next": op["next"]},
-                "in": {"name": up["name"], "team": up["team"],
-                       "price": up["price"], "xpts_h": up["xpts_h"], "next": up["next"],
-                       "selected_by": up["selected_by"]},
-            })
-    trans.sort(key=lambda t: -t["gain"])
-    trans = trans[:3]
-
-    # kapitan-optymalizator
-    xi_sorted = sorted(xi, key=lambda p: -p["xpts"])
-    best_cap = xi_sorted[0] if xi_sorted else None
-    cur_cap = next((p for p in xi if p["is_captain"]), None)
-    captain = None
-    if best_cap and cur_cap:
-        captain = {
-            "current": cur_cap["name"], "current_xpts": cur_cap["xpts"],
-            "best": best_cap["name"], "best_xpts": best_cap["xpts"],
-            "optimal": best_cap["id"] == cur_cap["id"],
-            "gain": round(best_cap["xpts"] - cur_cap["xpts"], 1),
-        }
-
-    # alerty: kontuzje / zawieszenia / wątpliwości / newsy
-    SEV = {"i": ("Kontuzja", 3), "s": ("Zawieszenie", 3), "u": ("Niedostępny", 3),
-           "d": ("Wątpliwy", 2), "n": ("Poza kadrą", 2)}
-    alerts = []
-    for p in squad:
-        st = p["status"]
-        chance = p["chance"]
-        flagged = (st and st != "a") or (chance is not None and chance < 100) or p["news"]
-        if not flagged:
-            continue
-        label, sev = SEV.get(st, ("Uwaga", 1))
-        if st == "a" and chance is not None and chance < 100:
-            label, sev = f"Szansa gry {chance}%", 2
-        alerts.append({"name": p["name"], "pos": p["pos"], "team": p["team"],
-                       "label": label, "sev": sev, "news": p["news"],
-                       "on_bench": p["on_bench"]})
-    alerts.sort(key=lambda a: -a["sev"])
-
-    # ── ŁAWKA + optymalna jedenastka (maksymalizacja xPts w regułach formacji) ──
-    def optimize_lineup(squad):
-        gks = sorted([p for p in squad if p["etype"] == 1], key=lambda p: -p["xpts"])
-        by = {2: [], 3: [], 4: []}
-        for p in squad:
-            if p["etype"] in by:
-                by[p["etype"]].append(p)
-        for k in by:
-            by[k].sort(key=lambda p: -p["xpts"])
-        if not gks or len(by[2]) < 3 or len(by[3]) < 2 or len(by[4]) < 1:
-            return None
-        best = None
-        for d in range(3, 6):
-            for m in range(2, 6):
-                for f in range(1, 4):
-                    if d + m + f != 10 or len(by[2]) < d or len(by[3]) < m or len(by[4]) < f:
-                        continue
-                    sel = by[2][:d] + by[3][:m] + by[4][:f]
-                    tot = sum(p["xpts"] for p in sel) + gks[0]["xpts"]
-                    if best is None or tot > best["total"]:
-                        best = {"total": round(tot, 1), "form": f"{d}-{m}-{f}",
-                                "ids": {p["id"] for p in sel} | {gks[0]["id"]}}
-        if not best:
-            return None
-
-        cur_starters = [p for p in squad if not p["on_bench"]]
-        cur_ids = {p["id"] for p in cur_starters}
-        cur_raw = round(sum(p["xpts"] for p in cur_starters), 1)
-        cur_out = sorted([p for p in cur_starters if p["etype"] != 1], key=lambda p: -p["etype"])
-        # formacja obecna
-        cd = sum(1 for p in cur_starters if p["etype"] == 2)
-        cm = sum(1 for p in cur_starters if p["etype"] == 3)
-        cf = sum(1 for p in cur_starters if p["etype"] == 4)
-
-        bring_in = sorted([p for p in squad if p["id"] in best["ids"] and p["on_bench"]],
-                          key=lambda p: -p["xpts"])
-        sit_out = sorted([p for p in squad if p["id"] not in best["ids"] and not p["on_bench"]],
-                         key=lambda p: -p["xpts"])
-        swaps = []
-        for i in range(min(len(bring_in), len(sit_out))):
-            inp, outp = bring_in[i], sit_out[i]
-            swaps.append({"in": {"name": inp["name"], "pos": inp["pos"], "xpts": inp["xpts"]},
-                          "out": {"name": outp["name"], "pos": outp["pos"], "xpts": outp["xpts"]},
-                          "delta": round(inp["xpts"] - outp["xpts"], 1)})
-
-        # kolejność ławki (auto-zmiany): rezerwowi outfield wg xPts malejąco + rezerwowy BR
-        bench_out = sorted([p for p in squad if p["id"] not in best["ids"] and p["etype"] != 1],
-                           key=lambda p: -p["xpts"])
-        bench_gk = [p for p in gks if p["id"] != gks[0]["id"]]
-        bench_order = ([{"name": p["name"], "pos": p["pos"], "xpts": p["xpts"]} for p in bench_out]
-                       + [{"name": p["name"], "pos": p["pos"], "xpts": p["xpts"]} for p in bench_gk])
-
-        return {"optimal": best["ids"] == cur_ids, "gain": round(best["total"] - cur_raw, 1),
-                "optimal_formation": best["form"], "current_formation": f"{cd}-{cm}-{cf}",
-                "optimal_xpts": best["total"], "current_xpts": cur_raw,
-                "swaps": swaps, "bench_order": bench_order}
-
-    lineup = optimize_lineup(squad) if len([p for p in squad]) >= 11 else None
-
-    brief = {"captain": captain, "transfers": trans, "alerts": alerts, "lineup": lineup}
-
-    # ── PLANER: DGW/BGW, chipy, różnicowi, ceny, rywale, pula symulatora ──────
-    # double / blank gameweeks — skan kolejnych 8 kolejek z pełnego terminarza
-    horizon_gws = list(range(next_gw, next_gw + 8))
-    counts = {gw: {} for gw in horizon_gws}
-    for f in fixtures:
-        ev = f.get("event")
-        if ev in counts and not f.get("finished"):
-            for t in (f["team_h"], f["team_a"]):
-                counts[ev][t] = counts[ev].get(t, 0) + 1
-    dgw_bgw = []
-    for gw in horizon_gws:
-        c = counts[gw]
-        if not c:
-            continue
-        doubles = [tshort[t] for t, n in c.items() if n >= 2]
-        playing = set(c.keys())
-        blanks = [tshort[t] for t in teams if t not in playing] if len(playing) < 20 else []
-        if doubles or blanks:
-            dgw_bgw.append({"gw": gw, "doubles": sorted(doubles),
-                            "blanks": sorted(blanks),
-                            "my_doubles": sorted({p["team"] for p in xi if p["team"] in doubles}),
-                            "my_blanks": sorted({p["team"] for p in xi if p["team"] in blanks})})
-
-    # doradca chipów (heurystyki, jasno oznaczone)
-    bench_xpts = round(sum(p["xpts"] for p in squad if p["on_bench"]), 1)
-    next_dgw = next((d for d in dgw_bgw if d["doubles"]), None)
-    next_bgw = next((d for d in dgw_bgw if d["blanks"]), None)
-    n_flags = len(alerts)
-    chips = []
-    if bench_xpts >= 16:
-        chips.append({"chip": "Bench Boost", "ready": True,
-                      "reason": f"Ławka prognozuje {bench_xpts} pkt — wysoko. Dobry moment, zwłaszcza w double gameweeku."})
-    if captain and captain["best_xpts"] >= 7:
-        extra = " (jeszcze lepiej w DGW)" if next_dgw else ""
-        chips.append({"chip": "Triple Captain", "ready": bool(next_dgw),
-                      "reason": f"{captain['best']} ma wysoką prognozę ({captain['best_xpts']}){extra}."})
-    if next_dgw and len(next_dgw["my_doubles"]) < 4:
-        chips.append({"chip": "Wildcard / Free Hit", "ready": True,
-                      "reason": f"DGW w GW{next_dgw['gw']} ({', '.join(next_dgw['doubles'][:6])}…) — masz tylko {len(next_dgw['my_doubles'])} drużyn z dubletem. Rozważ przebudowę."})
-    if next_bgw and len(next_bgw["my_blanks"]) >= 4:
-        chips.append({"chip": "Free Hit", "ready": True,
-                      "reason": f"BGW w GW{next_bgw['gw']} — {len(next_bgw['my_blanks'])} Twoich drużyn nie gra. Free Hit ratuje kolejkę."})
-    if n_flags >= 4:
-        chips.append({"chip": "Wildcard", "ready": True,
-                      "reason": f"{n_flags} zawodników z flagami (kontuzje/wątpliwości). Wildcard porządkuje skład."})
-    if not chips:
-        chips.append({"chip": "Trzymaj chipy", "ready": False,
-                      "reason": "Brak wyraźnego sygnału w tej i najbliższych kolejkach. Zachowaj chipy na DGW/BGW."})
-
-    # różnicowi: wysokie xPts_h, niska własność, nie w składzie
-    diffs = []
-    for lst in pool_by_pos.values():
-        for c in lst:
-            try:
-                own = float(c["selected_by"])
-            except (TypeError, ValueError):
-                own = 100.0
-            if c["id"] not in owned and own < 10.0 and c["status"] == "a":
-                diffs.append({**c, "own": own})
-    diffs.sort(key=lambda c: -c["xpts_h"])
-    POS = {1: "GK", 2: "DEF", 3: "MID", 4: "FWD"}
-    differentials = [{"name": c["name"], "team": c["team"], "pos": POS.get(c["et"], ""),
-                      "price": c["price"], "xpts_h": c["xpts_h"], "selected_by": c["selected_by"],
-                      "next": c["next"]} for c in diffs[:6]]
-
-    # ryzyko ceny: momentum transferów (przybliżone, nie gwarancja)
-    THR = 60000
-    price_risk = []
-    for p in squad:
-        if p["price_mom"] <= -THR:
-            price_risk.append({"name": p["name"], "team": p["team"], "dir": "fall",
-                               "mom": p["price_mom"], "owned": True})
-    movers = sorted(boot["elements"],
-                    key=lambda e: -((e.get("transfers_in_event") or 0) - (e.get("transfers_out_event") or 0)))
-    for e in movers[:5]:
-        net = (e.get("transfers_in_event") or 0) - (e.get("transfers_out_event") or 0)
-        if net >= THR:
-            price_risk.append({"name": e["web_name"], "team": tshort[e["team"]], "dir": "rise",
-                               "mom": net, "owned": e["id"] in owned})
-
-    # skauting rywali (z config.json: "rivals": [id, ...])
-    rivals_cfg = cfg.get("rivals") or []
-    rivals = []
-    my_ids = {p["id"] for p in squad}
-    for rid in rivals_cfg[:5]:
-        rid = str(rid).strip()
-        rentry = get_json(f"{FPL}/entry/{rid}/") or {}
-        rpk = get_json(f"{FPL}/entry/{rid}/event/{cur_gw}/picks/")
-        if not (rpk and rpk.get("picks")):
-            continue
-        rids = {pk["element"] for pk in rpk["picks"] if pk["position"] <= 11}
-        rcap = next((players[pk["element"]]["web_name"] for pk in rpk["picks"] if pk["is_captain"]), None)
-        rxpts = 0.0
-        for pk in rpk["picks"]:
-            if pk["position"] > 11:
-                continue
-            rp = players.get(pk["element"])
-            if not rp:
-                continue
-            nf = next_fix(rp["team"])
-            x, _ = compute_xpts(rp, nf["fdr"] if nf else 3, (nf["ven"] == "H") if nf else True)
-            rxpts += x * (2 if pk["is_captain"] else 1)
-        they_have = [players[i]["web_name"] for i in (rids - my_ids) if i in players][:6]
-        you_have = [players[i]["web_name"] for i in ({p["id"] for p in xi} - rids) if i in players][:6]
-        rivals.append({"id": rid, "name": rentry.get("name", "?"),
-                       "player": (rentry.get("player_first_name", "") + " " + rentry.get("player_last_name", "")).strip(),
-                       "xi_xpts": round(rxpts, 1), "captain": rcap,
-                       "they_have": they_have, "you_have": you_have})
-
-    # pula do symulatora „co jeśli" (slim, wszyscy dostępni)
-    sim_pool = []
-    for et, lst in pool_by_pos.items():
-        for c in lst:
-            sim_pool.append({"id": c["id"], "name": c["name"], "team": c["team"], "et": et,
-                             "pos": POS[et], "price": c["price"], "xpts_h": c["xpts_h"],
-                             "own": c["selected_by"], "owned": c["id"] in owned})
-
-    planner = {"dgw_bgw": dgw_bgw, "chips": chips, "differentials": differentials,
-               "price_risk": price_risk, "rivals": rivals, "bank": bank_t / 10.0}
-
-    # ── ranking wartości: xPts na 3 kolejki za milion £ ──────────────────────
-    value_picks = []
-    for lst in pool_by_pos.values():
-        for c in lst:
-            if c["status"] == "a" and c["price"] >= 4.0 and c["xpts_h"] > 0:
-                value_picks.append({"name": c["name"], "team": c["team"], "pos": POS.get(c["et"], ""),
-                                    "price": c["price"], "xpts_h": c["xpts_h"],
-                                    "ratio": round(c["xpts_h"] / c["price"], 2),
-                                    "owned": c["id"] in owned, "next": c["next"]})
-    value_picks.sort(key=lambda v: -v["ratio"])
-    value_picks = value_picks[:10]
-    planner["value_picks"] = value_picks
-
-    # ── miniligi (z entry, bez dodatkowych zapytań) + tabele prywatnych lig ───
-    leagues = []
-    for lg in ((entry.get("leagues") or {}).get("classic") or []):
-        leagues.append({"id": lg.get("id"), "name": lg.get("name"),
-                        "rank": lg.get("entry_rank"), "last_rank": lg.get("entry_last_rank"),
-                        "type": lg.get("league_type")})
-
-    leagues_detail = []
-    if team_id:
-        private = [lg for lg in leagues if lg["type"] == "x"][:3]
-        for lg in private:
-            st = get_json(f"{FPL}/leagues-classic/{lg['id']}/standings/?page_standings=1")
-            if not st:
-                continue
-            results = (st.get("standings") or {}).get("results") or []
-            rows = [{"rank": r.get("rank"), "player": r.get("player_name"),
-                     "team": r.get("entry_name"), "total": r.get("total"),
-                     "last_rank": r.get("last_rank"),
-                     "is_you": str(r.get("entry")) == str(team_id)} for r in results]
-            top = rows[:5]
-            me_i = next((i for i, r in enumerate(rows) if r["is_you"]), None)
-            neigh = rows[max(0, me_i - 1):me_i + 2] if me_i is not None and me_i > 4 else []
-            leagues_detail.append({"id": lg["id"], "name": lg["name"], "size": len(rows),
-                                   "top": top, "around_you": neigh})
-
-    # ── trajektoria sezonu ────────────────────────────────────────────────────
-    trajectory = []
-    if team_id:
-        hist = get_json(f"{FPL}/entry/{team_id}/history/")
-        if hist:
-            for h in (hist.get("current") or []):
-                trajectory.append({"gw": h.get("event"), "points": h.get("points"),
-                                   "total": h.get("total_points"),
-                                   "overall_rank": h.get("overall_rank"),
-                                   "value": (h.get("value") or 0) / 10.0,
-                                   "bank": (h.get("bank") or 0) / 10.0})
-
     data = {
         "generated_at": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "gw": {"current": cur_gw, "next": next_gw, "name": gw_name},
@@ -650,18 +275,12 @@ def build():
             "player_name": (entry.get("player_first_name", "") + " " + entry.get("player_last_name", "")).strip(),
             "overall_points": entry.get("summary_overall_points"),
             "overall_rank": entry.get("summary_overall_rank"),
-            "bank": (bank_override if bank_override is not None else entry.get("last_deadline_bank") or 0) / 10.0 if (bank_override is not None or entry.get("last_deadline_bank") is not None) else None,
+            "bank": (entry.get("last_deadline_bank") or 0) / 10.0 if entry.get("last_deadline_bank") is not None else None,
             "value": (entry.get("last_deadline_value") or 0) / 10.0 if entry.get("last_deadline_value") is not None else None,
         },
         "squad": squad,
         "ticker": ticker,
         "concentration": concentration,
-        "brief": brief,
-        "planner": planner,
-        "leagues": leagues,
-        "leagues_detail": leagues_detail,
-        "trajectory": trajectory,
-        "pool": sim_pool,
         "totals": {"xi_xpts": round(xi_xpts, 1), "captain": cap_name},
         "note": "Terminarz i FDR z oficjalnego API FPL. xPts to model heurystyczny (nie oficjalny).",
     }

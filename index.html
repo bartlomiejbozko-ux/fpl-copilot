@@ -151,106 +151,6 @@
   .setup h2{margin:0 0 10px;font-size:18px;color:var(--purple)}
   .setup code{background:rgba(55,0,60,.08);padding:2px 6px;border-radius:5px;font:700 12px 'Space Mono',monospace;color:var(--pink)}
   .setup ol{margin:12px 0 0;padding-left:20px;line-height:1.7;font-size:14px}
-  /* doradca */
-  .advcard{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px solid var(--line);
-    border-radius:14px;padding:14px 16px;box-shadow:0 2px 8px rgba(55,0,60,.05)}
-  .advcard.ok{border-left:4px solid var(--green)}
-  .advcard.warn{border-left:4px solid var(--amber)}
-  .advcard .ai{width:28px;height:28px;flex:none;border-radius:8px;display:grid;place-items:center;font:900 13px/1 'Archivo'}
-  .advcard.ok .ai{background:rgba(0,166,90,.14);color:var(--green-ink)}
-  .advcard.warn .ai{background:rgba(201,138,0,.16);color:var(--amber)}
-  .advcard .at{font-weight:800;font-size:14px;color:var(--purple);margin-bottom:3px}
-  .advcard .ap{font:400 13px/1.5 'Archivo';color:var(--ink)}
-  .advcard .ap b{color:var(--purple)}
-  .trow{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
-  .trow:last-child{border:0}
-  .tside{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
-  .tside .tlab{font:700 9px/1 'Space Mono',monospace;letter-spacing:.1em}
-  .tside.out .tlab{color:var(--pink)} .tside.in .tlab{color:var(--green-ink)}
-  .tside .tn{font-weight:800;font-size:14px;color:var(--purple);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .tside .tsub{font:400 11px/1.4 'Space Mono',monospace;color:var(--muted);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-  .tarrow{display:flex;flex-direction:column;align-items:center;color:var(--muted);font-size:18px;font-weight:900}
-  .tarrow .tgain{font:900 12px/1 'Space Mono',monospace;color:var(--green-ink);margin-top:2px}
-  .mini-fx{font:700 9px/1 'Space Mono',monospace;padding:2px 5px;border-radius:5px}
-  .mini-fx.f1,.mini-fx.f2{background:var(--f2);color:#0a3d24}.mini-fx.f3{background:var(--f3);color:var(--ink)}
-  .mini-fx.f4{background:var(--f4);color:#fff}.mini-fx.f5{background:var(--f5);color:#fff}
-  .alertrow{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
-  .alertrow:last-child{border:0}
-  .adot{width:9px;height:9px;border-radius:50%;flex:none}
-  .adot.i{background:var(--pink)} .adot.d{background:var(--amber)} .adot.a{background:var(--green-ink)}
-  .anm{font-weight:800;font-size:14px;color:var(--purple)}
-  .anm .apos{font:400 10px/1 'Space Mono',monospace;color:var(--muted);margin-left:7px}
-  .albl{font:700 10px/1 'Space Mono',monospace;padding:4px 8px;border-radius:6px;text-transform:uppercase}
-  .albl.i{color:var(--pink);background:rgba(233,0,82,.1)}.albl.d{color:var(--amber);background:rgba(201,138,0,.14)}.albl.a{color:var(--green-ink);background:rgba(0,166,90,.12)}
-  .anews{font:400 11px/1.4 'Space Mono',monospace;color:var(--muted);flex-basis:100%;padding-left:19px}
-  .benchhdr{font:700 10px/1 'Space Mono',monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
-  .benchrow{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
-  .benchrow:last-child{border:0}
-  .benchrow .bo{font:700 11px/1 'Space Mono',monospace;color:var(--muted);width:18px}
-  .benchrow .bnm{font-weight:800;font-size:13px;color:var(--purple);flex:1}
-  .benchrow .bnm .bpos{font:400 10px/1 'Space Mono',monospace;color:var(--muted);margin-left:7px}
-  .benchrow .bxp{font:900 13px/1 'Space Mono',monospace;color:var(--green-ink)}
-  /* planer */
-  .advstack{display:flex;flex-direction:column;gap:10px}
-  .dgrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
-  .dgrow:last-child{border:0}
-  .dggw{font:900 12px/1 'Space Mono',monospace;color:var(--purple);width:48px}
-  .dgtag{font:700 10px/1.3 'Space Mono',monospace;padding:5px 9px;border-radius:7px}
-  .dgtag.dbl{color:var(--green-ink);background:rgba(0,166,90,.12)}
-  .dgtag.blk{color:var(--pink);background:rgba(233,0,82,.1)}
-  .difrow{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
-  .difrow:last-child{border:0}
-  .difnm{font-weight:800;font-size:13px;color:var(--purple);flex:1}
-  .difnm .difpos{font:400 10px/1 'Space Mono',monospace;color:var(--muted);margin-left:6px}
-  .difown{font:700 11px/1 'Space Mono',monospace;color:var(--cyan);width:44px;text-align:right}
-  .difxp{font:900 13px/1 'Space Mono',monospace;color:var(--green-ink);width:44px;text-align:right}
-  .prrow{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
-  .prrow:last-child{border:0}
-  .pradot{width:9px;height:9px;border-radius:50%;flex:none}
-  .pradot.rise{background:var(--green-ink)} .pradot.fall{background:var(--pink)}
-  .prnm{font-weight:800;font-size:13px;color:var(--purple);flex:1}
-  .prnm .prown{font:700 8px/1 'Space Mono',monospace;background:rgba(55,0,60,.08);color:var(--muted);padding:3px 5px;border-radius:5px;margin-left:7px;text-transform:uppercase}
-  .prdir{font:700 11px/1 'Space Mono',monospace}
-  .prdir.rise{color:var(--green-ink)} .prdir.fall{color:var(--pink)}
-  .rivrow{padding:11px 0;border-bottom:1px solid var(--line)}.rivrow:last-child{border:0}
-  .rivhead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
-  .rivnm{font-weight:800;font-size:14px;color:var(--purple)}
-  .rivxp{font:700 11px/1 'Space Mono',monospace;color:var(--muted)}
-  .rivdiff{font:400 12px/1.5 'Space Mono',monospace;color:var(--ink)}.rivdiff b{color:var(--purple)}
-  /* symulator */
-  .simctl{margin-bottom:12px}
-  .simctl label{display:block;font:700 10px/1 'Space Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-  .simctl select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--purple);font:700 13px 'Archivo';-webkit-appearance:none}
-  .simchk{display:flex;align-items:center;gap:8px;font:400 12px 'Space Mono',monospace;color:var(--muted);margin:4px 0 14px;cursor:pointer}
-  .simres{border-top:1px solid var(--line);padding-top:14px}
-  .simline{font-weight:800;font-size:15px;color:var(--purple);margin-bottom:10px}
-  .simgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .simgrid > div{background:rgba(55,0,60,.04);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
-  .simgrid .sk{display:block;font:700 9px/1 'Space Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
-  .simgrid .sv{font:900 14px/1 'Space Mono',monospace;color:var(--purple)}
-  .simverdict{margin-top:12px;padding:11px 14px;border-radius:10px;font-weight:800;font-size:14px}
-  .simverdict.ok{background:rgba(0,166,90,.12);color:var(--green-ink)}
-  .simverdict.no{background:rgba(233,0,82,.1);color:var(--pink)}
-  /* moja liga */
-  .lgstats{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
-  .lgstat .k{font:700 9px/1 'Space Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-  .lgstat .v{font-weight:900;font-size:18px;color:var(--purple);margin-top:5px}
-  .lgrow{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
-  .lgrow:last-child{border:0}
-  .lgnm{font-weight:800;font-size:13px;color:var(--purple);flex:1}
-  .lgrank{font:700 12px/1 'Space Mono',monospace;color:var(--ink)}
-  .mv{font:700 10px/1 'Space Mono',monospace;width:44px;text-align:right}
-  .mv.up{color:var(--green-ink)} .mv.dn{color:var(--pink)} .mv.fl{color:var(--muted)}
-  .tbrow{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
-  .tbrow:last-child{border:0}
-  .tbrow.you{background:rgba(0,255,135,.08);margin:0 -8px;padding:8px;border-radius:8px;border:0}
-  .tbr{font:700 11px/1 'Space Mono',monospace;color:var(--muted);width:26px}
-  .tbn{font-weight:800;font-size:13px;color:var(--purple);flex:1}
-  .tbn .tbp{font:400 10px/1 'Space Mono',monospace;color:var(--muted);margin-left:7px}
-  .tbt{font:900 13px/1 'Space Mono',monospace;color:var(--purple)}
-  .tbsep{text-align:center;color:var(--muted);padding:4px 0;font:700 12px 'Space Mono',monospace}
-  .vrank{font:900 12px/1 'Space Mono',monospace;color:var(--muted);width:22px}
-
   .foot{margin-top:24px;color:var(--muted);font:400 11px/1.7 'Space Mono',monospace;text-align:center;border-top:1px solid var(--line);padding-top:16px}
   .hidden{display:none}
   @media(max-width:560px){.dgrid{grid-template-columns:1fr}.p{width:76px;padding:7px 4px}
@@ -268,13 +168,9 @@
   </div>
 
   <div class="tabs" id="tabs" style="display:none">
-    <button data-tab="brief" class="on">Doradca</button>
-    <button data-tab="squad">Skład</button>
+    <button data-tab="squad" class="on">Skład</button>
     <button data-tab="fdr">Terminarz FDR</button>
     <button data-tab="risk">Koncentracja</button>
-    <button data-tab="planner">Planer</button>
-    <button data-tab="league">Moja liga</button>
-    <button data-tab="sim">Symulator</button>
   </div>
 
   <div id="app"></div>
@@ -284,21 +180,18 @@
 <script>
 
 const FDR_LABEL = "Trudność rywala (FDR) z oficjalnego API FPL · xPts to model heurystyczny, nie oficjalny.";
-let DATA=null, CUR="brief", SEL=null;
+let DATA=null, CUR="squad", SEL=null;
 
 function fdrClass(f){return "f"+Math.max(1,Math.min(5,f||3))}
 function el(id){return document.getElementById(id)}
 function fmtMult(m){return "×"+m.toFixed(2)}
 
 async function boot(){
-  if(window.__PRELOAD__){ DATA = window.__PRELOAD__; }
-  else {
-    try{
-      const r = await fetch("data.json?"+Date.now());
-      if(!r.ok) throw 0;
-      DATA = await r.json();
-    }catch(e){ return renderSetup(); }
-  }
+  try{
+    const r = await fetch("data.json?"+Date.now());
+    if(!r.ok) throw 0;
+    DATA = await r.json();
+  }catch(e){ return renderSetup(); }
   if(!DATA.squad || !DATA.squad.length) return renderSetup(true);
 
   el("tagline").textContent = `${DATA.entry.name||"Twój skład"} · ${DATA.gw.name}`;
@@ -310,167 +203,7 @@ async function boot(){
   render();
 }
 
-function render(){ if(CUR==="brief")renderBrief(); else if(CUR==="squad")renderSquad(); else if(CUR==="fdr")renderFDR(); else if(CUR==="risk")renderRisk(); else if(CUR==="planner")renderPlanner(); else if(CUR==="league")renderLeague(); else renderSim(); }
-
-/* ---------- sparkline formy (ostatnie 5 GW) ---------- */
-function sparkline(vals){
-  if(!vals||!vals.length) return "";
-  const w=84,h=24,max=Math.max(...vals,1),min=Math.min(...vals,0);
-  const rng=(max-min)||1, step=w/Math.max(vals.length-1,1);
-  const pts=vals.map((v,i)=>`${(i*step).toFixed(1)},${(h-2-((v-min)/rng)*(h-4)).toFixed(1)}`).join(" ");
-  const dots=vals.map((v,i)=>`<circle cx="${(i*step).toFixed(1)}" cy="${(h-2-((v-min)/rng)*(h-4)).toFixed(1)}" r="2" fill="var(--green-ink)"/>`).join("");
-  return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="overflow:visible"><polyline points="${pts}" fill="none" stroke="var(--green-ink)" stroke-width="1.5"/>${dots}</svg>`;
-}
-
-/* ---------- MOJA LIGA ---------- */
-function renderLeague(){
-  const tr=DATA.trajectory||[], lgs=DATA.leagues||[], det=DATA.leagues_detail||[];
-  // wykres łącznych punktów
-  let chart="";
-  if(tr.length>=2){
-    const W=680,H=180,pad=32;
-    const totals=tr.map(t=>t.total||0), gws=tr.map(t=>t.gw);
-    const maxT=Math.max(...totals,1), n=totals.length;
-    const xw=(W-pad*2)/Math.max(n-1,1);
-    const X=i=>pad+i*xw, Y=v=>H-pad-(v/maxT)*(H-pad*2);
-    const line=totals.map((v,i)=>`${X(i).toFixed(0)},${Y(v).toFixed(0)}`).join(" ");
-    const area=`${pad},${H-pad} `+line+` ${X(n-1).toFixed(0)},${H-pad}`;
-    const dots=totals.map((v,i)=>`<circle cx="${X(i).toFixed(0)}" cy="${Y(v).toFixed(0)}" r="3.5" fill="#fff" stroke="var(--purple)" stroke-width="2"/><text x="${X(i).toFixed(0)}" y="${(Y(v)-9).toFixed(0)}" text-anchor="middle" font-family="Space Mono" font-size="10" fill="var(--purple)">${v}</text>`).join("");
-    const labels=gws.map((g,i)=>`<text x="${X(i).toFixed(0)}" y="${H-pad+16}" text-anchor="middle" font-family="Space Mono" font-size="10" fill="var(--muted)">GW${g}</text>`).join("");
-    chart=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto">
-      <polygon points="${area}" fill="rgba(55,0,60,.06)"/>
-      <polyline points="${line}" fill="none" stroke="var(--purple)" stroke-width="2.5"/>
-      ${dots}${labels}</svg>`;
-  } else {
-    chart=`<div class="ap" style="color:var(--muted)">Trajektoria pojawi się po rozegraniu kilku kolejek.</div>`;
-  }
-  const last=tr.length?tr[tr.length-1]:null;
-  const stat=last?`<div class="lgstats">
-     <div class="lgstat"><div class="k">Punkty ogółem</div><div class="v">${last.total??"—"}</div></div>
-     <div class="lgstat"><div class="k">Ranking</div><div class="v">${last.overall_rank?last.overall_rank.toLocaleString("pl-PL"):"—"}</div></div>
-     <div class="lgstat"><div class="k">Wartość drużyny</div><div class="v">£${(last.value||0).toFixed(1)}</div></div>
-   </div>`:"";
-
-  const lgList = lgs.length? lgs.map(l=>{
-    const mv=(l.last_rank&&l.rank)?(l.last_rank-l.rank):0;
-    const arrow=mv>0?`<span class="mv up">▲ ${mv}</span>`:(mv<0?`<span class="mv dn">▼ ${-mv}</span>`:`<span class="mv fl">—</span>`);
-    return `<div class="lgrow"><span class="lgnm">${l.name}</span>
-      <span class="lgrank">${l.rank?l.rank.toLocaleString("pl-PL"):"—"}</span>${arrow}</div>`;
-  }).join("") : `<div class="ap" style="color:var(--muted)">Brak lig (dodaj team_id).</div>`;
-
-  const tables = det.map(ld=>{
-    const rows=r=>`<div class="tbrow ${r.is_you?'you':''}"><span class="tbr">${r.rank}</span>
-      <span class="tbn">${r.team||r.player}<span class="tbp">${r.player||''}</span></span><span class="tbt">${r.total}</span></div>`;
-    const top=ld.top.map(rows).join("");
-    const near=ld.around_you&&ld.around_you.length?`<div class="tbsep">…</div>`+ld.around_you.map(rows).join(""):"";
-    return `<div class="h" style="margin-top:16px"><span class="no">·</span><span class="t">${ld.name}</span><span class="d">${ld.size} graczy</span></div>
-      <div class="card">${top}${near}</div>`;
-  }).join("");
-
-  el("app").innerHTML = `
-    <div class="h"><span class="no">01</span><span class="t">Trajektoria sezonu</span><span class="d">punkty ogółem kolejka po kolejce</span></div>
-    <div class="card">${chart}${stat}</div>
-    <div class="h"><span class="no">02</span><span class="t">Twoje ligi</span><span class="d">pozycja i ruch</span></div>
-    <div class="card">${lgList}</div>
-    ${tables}`;
-}
-
-/* ---------- DORADCA ---------- */
-function renderBrief(){
-  const b = DATA.brief;
-  if(!b){ el("app").innerHTML=`<div class="card">Brak danych doradcy — odśwież data.json (uruchom workflow ponownie).</div>`; return; }
-  const fdrC=f=>"f"+Math.max(1,Math.min(5,f||3));
-  const fxChip=nx=>nx?`<span class="mini-fx ${fdrC(nx.fdr)}">${nx.opp} (${nx.ven})</span>`:"";
-
-  // kapitan
-  const c=b.captain;
-  let capHtml="";
-  if(c){
-    capHtml = c.optimal
-      ? `<div class="advcard ok"><div class="ai">✓</div><div class="ab"><div class="at">Kapitan optymalny</div>
-           <div class="ap"><b>${c.current}</b> ma najwyższą prognozę w składzie (${c.current_xpts} xPts). Zostaw opaskę.</div></div></div>`
-      : `<div class="advcard warn"><div class="ai">C</div><div class="ab"><div class="at">Rozważ zmianę kapitana</div>
-           <div class="ap">Opaska jest na <b>${c.current}</b> (${c.current_xpts}), ale <b>${c.best}</b> ma wyższą prognozę (${c.best_xpts}) — zysk <b>+${c.gain} xPts</b>.</div></div></div>`;
-  }
-
-  // transfery
-  let trHtml;
-  if(b.transfers && b.transfers.length){
-    trHtml = b.transfers.map(t=>`
-      <div class="trow">
-        <div class="tside out"><span class="tlab">OUT</span><span class="tn">${t.out.name}</span>
-          <span class="tsub">£${t.out.price.toFixed(1)} · ${t.out.pos} · h${t.out.xpts_h} ${fxChip(t.out.next)}</span></div>
-        <div class="tarrow">→<span class="tgain">+${t.gain}</span></div>
-        <div class="tside in"><span class="tlab">IN</span><span class="tn">${t.in.name}</span>
-          <span class="tsub">£${t.in.price.toFixed(1)} · h${t.in.xpts_h} · ${t.in.selected_by}% ${fxChip(t.in.next)}</span></div>
-      </div>`).join("");
-  } else {
-    trHtml = `<div class="advcard ok"><div class="ai">✓</div><div class="ab"><div class="at">Brak oczywistych transferów</div>
-      <div class="ap">Żaden dostępny zawodnik w Twoim budżecie nie bije obecnego składu o sensowny margines. Możesz zachować transfer.</div></div></div>`;
-  }
-
-  // alerty
-  let alHtml;
-  if(b.alerts && b.alerts.length){
-    const sevCls=s=>s>=3?"i":(s>=2?"d":"a");
-    alHtml = b.alerts.map(a=>`
-      <div class="alertrow">
-        <span class="adot ${sevCls(a.sev)}"></span>
-        <span class="anm">${a.name}<span class="apos">${a.pos}${a.on_bench?" · ławka":""}</span></span>
-        <span class="albl ${sevCls(a.sev)}">${a.label}</span>
-        ${a.news?`<span class="anews">${a.news}</span>`:""}
-      </div>`).join("");
-  } else {
-    alHtml = `<div class="advcard ok"><div class="ai">✓</div><div class="ab"><div class="at">Skład w pełni dostępny</div>
-      <div class="ap">Żaden z Twoich zawodników nie ma flagi kontuzji, zawieszenia ani wątpliwości. Czysto.</div></div></div>`;
-  }
-
-  // ustawienie / ławka
-  const L=b.lineup;
-  let luHtml="";
-  if(L){
-    const benchList = L.bench_order.map((x,i)=>`<div class="benchrow"><span class="bo">${i+1}</span>
-        <span class="bnm">${x.name}<span class="bpos">${x.pos}</span></span><span class="bxp">${x.xpts.toFixed(1)}</span></div>`).join("");
-    if(L.optimal){
-      luHtml = `<div class="advcard ok"><div class="ai">✓</div><div class="ab"><div class="at">Ustawienie optymalne</div>
-        <div class="ap">Twoja jedenastka to najlepsza możliwa z tego składu (formacja <b>${L.optimal_formation}</b>). Nikogo z ławki nie warto wystawiać.</div></div></div>
-        <div class="card" style="margin-top:10px"><div class="benchhdr">Kolejność zmian (auto-sub)</div>${benchList}</div>`;
-    } else {
-      const sw = L.swaps.map(s=>`
-        <div class="trow">
-          <div class="tside in"><span class="tlab">WYSTAW</span><span class="tn">${s.in.name}</span><span class="tsub">${s.in.pos} · ${s.in.xpts.toFixed(1)} xPts · z ławki</span></div>
-          <div class="tarrow">→<span class="tgain">+${s.delta.toFixed(1)}</span></div>
-          <div class="tside out"><span class="tlab">POSADŹ</span><span class="tn">${s.out.name}</span><span class="tsub">${s.out.pos} · ${s.out.xpts.toFixed(1)} xPts</span></div>
-        </div>`).join("");
-      luHtml = `<div class="advcard warn"><div class="ai">↑</div><div class="ab"><div class="at">Lepsze ustawienie: formacja ${L.optimal_formation}</div>
-        <div class="ap">Zmiana z <b>${L.current_formation}</b> na <b>${L.optimal_formation}</b> podnosi prognozę o <b>+${L.gain.toFixed(1)} xPts</b> (${L.current_xpts.toFixed(1)} → ${L.optimal_xpts.toFixed(1)}).</div></div></div>
-        <div class="card" style="margin-top:10px">${sw}<div class="benchhdr" style="margin-top:12px">Kolejność zmian (auto-sub)</div>${benchList}</div>`;
-    }
-  }
-
-  el("app").innerHTML = `
-    <div class="hero">
-      <div class="tot"><div class="lab">Prognoza jedenastki (z C ×2)</div>
-        <div class="big">${DATA.totals.xi_xpts.toFixed(1)}</div>
-        <div class="sub">${DATA.gw.name} · kliknij zakładki po szczegóły</div></div>
-      <div class="stats">
-        <div class="stat"><div class="k">Transfery</div><div class="v">${(b.transfers||[]).length}</div></div>
-        <div class="stat"><div class="k">Alerty</div><div class="v" style="color:${(b.alerts||[]).length?'#ff8fa3':'#00FF87'}">${(b.alerts||[]).length}</div></div>
-      </div>
-    </div>
-
-    <div class="h"><span class="no">01</span><span class="t">Kapitan</span></div>
-    ${capHtml}
-
-    <div class="h"><span class="no">02</span><span class="t">Ustawienie i ławka</span><span class="d">optymalna jedenastka z Twojego składu</span></div>
-    ${luHtml || '<div class="card">Brak danych ustawienia.</div>'}
-
-    <div class="h"><span class="no">03</span><span class="t">Rekomendacje transferów</span><span class="d">najlepszy w Twoim budżecie · h = xPts na 3 kolejki</span></div>
-    <div class="card">${trHtml}</div>
-
-    <div class="h"><span class="no">04</span><span class="t">Alerty — kontuzje i dostępność</span></div>
-    <div class="card">${alHtml}</div>`;
-}
+function render(){ if(CUR==="squad")renderSquad(); else if(CUR==="fdr")renderFDR(); else renderRisk(); }
 
 /* ---------- SKŁAD ---------- */
 function renderSquad(){
@@ -516,11 +249,6 @@ function renderDetail(p){
     run*=f.mult;return `<div class="cr"><span class="cl">${f.label}</span><span class="cd">${fmtMult(f.mult)}</span><span class="run">= ${run.toFixed(1)}</span></div>`;
   }).join("");
   const w=p.weather?`${p.weather.temp}°C · wiatr ${p.weather.wind} km/h${p.weather.rain>0?' · deszcz':''}`:"—";
-  const sp=p.set_pieces||{};
-  const spBits=[]; if(sp.pens===1)spBits.push("karne"); if(sp.corners===1)spBits.push("rożne"); if(sp.fk===1)spBits.push("wolne");
-  const spTxt = spBits.length?spBits.join(", "):"—";
-  const mom = p.price_mom||0;
-  const momTxt = Math.abs(mom)>=20000 ? (mom>0?`↑ napływ ${(mom/1000).toFixed(0)}k`:`↓ odpływ ${(-mom/1000).toFixed(0)}k`) : "stabilna";
   const news = p.news? `<p class="newsline"><span class="flag">News</span>${p.news}</p>`:"";
   document.getElementById("detail").innerHTML = `
     <div class="detail">
@@ -533,134 +261,12 @@ function renderDetail(p){
           <div class="row"><span class="k">Klub</span><span class="v">${p.team_full}</span></div>
           <div class="row"><span class="k">Mecz</span><span class="v">${p.next?p.next.opp+" ("+p.next.ven+") · FDR "+p.next.fdr:"—"}</span></div>
           <div class="row"><span class="k">Cena / własność</span><span class="v">£${p.price.toFixed(1)} · ${p.selected_by}%</span></div>
-          <div class="row"><span class="k">Stałe fragmenty</span><span class="v" style="color:${spBits.length?'var(--green-ink)':'var(--muted)'}">${spTxt}</span></div>
-          <div class="row"><span class="k">Ruch ceny</span><span class="v" style="color:${mom>0?'var(--green-ink)':(mom<0?'var(--pink)':'var(--muted)')}">${momTxt}</span></div>
-          <div class="row"><span class="k">Forma (5 GW)</span><span class="v">${p.form5&&p.form5.length?sparkline(p.form5)+' <span style="color:var(--muted);font-size:11px">'+p.form5.join("·")+'</span>':"—"}</span></div>
+          <div class="row"><span class="k">Forma / PPG</span><span class="v">${p.form} / ${p.ppg}</span></div>
           <div class="row"><span class="k">FPL ep_next</span><span class="v" style="color:var(--cyan)">${p.ep_next??"—"}</span></div>
           <div class="row"><span class="k">Pogoda</span><span class="v">${w}</span></div>
         </div>
       </div>${news}
     </div>`;
-}
-
-/* ---------- PLANER ---------- */
-function renderPlanner(){
-  const P=DATA.planner;
-  if(!P){ el("app").innerHTML=`<div class="card">Brak danych planera — odśwież data.json.</div>`; return; }
-  const fdrC=f=>"f"+Math.max(1,Math.min(5,f||3));
-
-  // chipy
-  const chips=(P.chips||[]).map(c=>`<div class="advcard ${c.ready?'ok':'warn'}"><div class="ai">${c.ready?'★':'·'}</div>
-    <div class="ab"><div class="at">${c.chip}</div><div class="ap">${c.reason}</div></div></div>`).join("");
-
-  // DGW/BGW
-  let dg;
-  if(P.dgw_bgw && P.dgw_bgw.length){
-    dg = P.dgw_bgw.map(x=>`<div class="dgrow">
-      <span class="dggw">GW${x.gw}</span>
-      ${x.doubles.length?`<span class="dgtag dbl">DGW: ${x.doubles.length} drużyn${x.my_doubles.length?` · Twoje: ${x.my_doubles.join(", ")}`:""}</span>`:""}
-      ${x.blanks.length?`<span class="dgtag blk">BGW: ${x.blanks.length} nie gra${x.my_blanks.length?` · Twoje: ${x.my_blanks.join(", ")}`:""}</span>`:""}
-    </div>`).join("");
-  } else {
-    dg = `<div class="advcard ok"><div class="ai">✓</div><div class="ab"><div class="at">Brak DGW/BGW na horyzoncie</div>
-      <div class="ap">W najbliższych kolejkach każda drużyna gra normalnie. Chipy trzymaj na później.</div></div></div>`;
-  }
-
-  // różnicowi
-  const diffs=(P.differentials||[]).map(x=>`<div class="difrow">
-    <span class="difnm">${x.name}<span class="difpos">${x.pos} · ${x.team}</span></span>
-    <span class="difown">${x.selected_by}%</span>
-    <span class="mini-fx ${fdrC(x.next?x.next.fdr:3)}">${x.next?x.next.opp+" ("+x.next.ven+")":"—"}</span>
-    <span class="difxp">h${x.xpts_h}</span></div>`).join("") || `<div class="ap" style="color:var(--muted)">Brak wyraźnych różnicowych.</div>`;
-
-  // ceny
-  const pr=(P.price_risk||[]).map(x=>`<div class="prrow">
-    <span class="pradot ${x.dir}"></span>
-    <span class="prnm">${x.name}${x.owned?'<span class="prown">masz</span>':''}</span>
-    <span class="prdir ${x.dir}">${x.dir==='rise'?'wzrost':'spadek'} ${(Math.abs(x.mom)/1000).toFixed(0)}k</span></div>`).join("")
-    || `<div class="ap" style="color:var(--muted)">Brak silnych ruchów cenowych.</div>`;
-
-  // rywale
-  let rivals="";
-  if(P.rivals && P.rivals.length){
-    rivals = `<div class="h"><span class="no">05</span><span class="t">Skauting rywali</span></div><div class="card">`+
-      P.rivals.map(r=>`<div class="rivrow">
-        <div class="rivhead"><span class="rivnm">${r.name}</span><span class="rivxp">${r.xi_xpts} xPts · C: ${r.captain||'—'}</span></div>
-        <div class="rivdiff"><b>Mają, czego nie masz:</b> ${r.they_have.join(", ")||'—'}</div>
-        <div class="rivdiff"><b>Masz, czego nie mają:</b> ${r.you_have.join(", ")||'—'}</div></div>`).join("")+`</div>`;
-  }
-
-  // ranking wartości
-  const vp=(P.value_picks||[]).map((v,i)=>`<div class="difrow">
-    <span class="vrank">${i+1}</span>
-    <span class="difnm">${v.name}<span class="difpos">${v.pos} · ${v.team} · £${v.price.toFixed(1)}${v.owned?' · masz':''}</span></span>
-    <span class="difxp">${v.ratio}</span></div>`).join("") || `<div class="ap" style="color:var(--muted)">Brak danych.</div>`;
-
-  el("app").innerHTML = `
-    <div class="h"><span class="no">01</span><span class="t">Doradca chipów</span><span class="d">heurystyki — nie wyrocznia</span></div>
-    <div class="advstack">${chips}</div>
-    <div class="h"><span class="no">02</span><span class="t">Radar DGW / BGW</span><span class="d">podwójne i puste kolejki</span></div>
-    <div class="card">${dg}</div>
-    <div class="h"><span class="no">03</span><span class="t">Różnicowi</span><span class="d">wysokie xPts, niska własność (&lt;10%)</span></div>
-    <div class="card">${diffs}</div>
-    <div class="h"><span class="no">04</span><span class="t">Ranking wartości</span><span class="d">xPts na 3 kolejki za £1m</span></div>
-    <div class="card">${vp}</div>
-    <div class="h"><span class="no">05</span><span class="t">Ruchy cenowe</span><span class="d">momentum transferów — przybliżone</span></div>
-    <div class="card">${pr}</div>
-    ${rivals}`;
-}
-
-/* ---------- SYMULATOR „co jeśli" ---------- */
-function renderSim(){
-  const pool=DATA.pool||[];
-  const squad=(DATA.squad||[]);
-  const bank=(DATA.planner&&DATA.planner.bank)||0;
-  const outOpts=squad.map(p=>`<option value="${p.id}">${p.name} (${p.pos}, £${p.price.toFixed(1)}, xPts h${p.xpts_h??'?'})</option>`).join("");
-  el("app").innerHTML = `
-    <div class="h"><span class="no">01</span><span class="t">Symulator „co jeśli"</span><span class="d">bank: £${bank.toFixed(1)}</span></div>
-    <div class="card">
-      <div class="simctl"><label>Sprzedajesz (OUT)</label>
-        <select id="simOut">${outOpts}</select></div>
-      <div class="simctl"><label>Kupujesz (IN) — w budżecie, ta sama pozycja</label>
-        <select id="simIn"></select></div>
-      <label class="simchk"><input type="checkbox" id="simFree" checked> To darmowy transfer (bez −4)</label>
-      <div id="simResult" class="simres"></div>
-    </div>
-    <p class="foot" style="margin-top:14px;border:0">Porównanie oparte na xPts na 3 kolejki (h). Model heurystyczny.</p>`;
-
-  const squadById=Object.fromEntries(squad.map(p=>[String(p.id),p]));
-  const outSel=el("simOut"), inSel=el("simIn"), freeChk=el("simFree"), res=el("simResult");
-
-  function fillIn(){
-    const out=squadById[outSel.value]; if(!out){inSel.innerHTML="";return;}
-    const budget=out.price + bank;
-    const ownedIds=new Set(squad.map(p=>p.id));
-    const cands=pool.filter(c=>c.et===out.etype && !ownedIds.has(c.id) && c.price<=budget+1e-9)
-      .sort((a,b)=>b.xpts_h-a.xpts_h).slice(0,40);
-    inSel.innerHTML=cands.map(c=>`<option value="${c.id}">${c.name} (${c.team}, £${c.price.toFixed(1)}, h${c.xpts_h}, ${c.own}%)</option>`).join("")
-      || `<option value="">brak kandydatów w budżecie</option>`;
-    calc();
-  }
-  function calc(){
-    const out=squadById[outSel.value];
-    const inId=inSel.value; const inp=pool.find(c=>String(c.id)===String(inId));
-    if(!out||!inp){res.innerHTML="";return;}
-    const gain=+(inp.xpts_h-(out.xpts_h||0)).toFixed(1);
-    const hit=freeChk.checked?0:4;
-    const net=+(gain-hit).toFixed(1);
-    const good=net>0;
-    res.innerHTML=`
-      <div class="simline"><span>${out.name} → ${inp.name}</span></div>
-      <div class="simgrid">
-        <div><span class="sk">xPts (3 kol.)</span><span class="sv">${(out.xpts_h||0).toFixed(1)} → ${inp.xpts_h.toFixed(1)}</span></div>
-        <div><span class="sk">Zysk brutto</span><span class="sv" style="color:${gain>0?'var(--green-ink)':'var(--pink)'}">${gain>0?'+':''}${gain}</span></div>
-        <div><span class="sk">Koszt (hit)</span><span class="sv">${hit?'−4':'0'}</span></div>
-        <div><span class="sk">Zysk netto</span><span class="sv" style="color:${good?'var(--green-ink)':'var(--pink)'};font-size:18px">${net>0?'+':''}${net}</span></div>
-      </div>
-      <div class="simverdict ${good?'ok':'no'}">${good?'✓ Opłacalny na horyzoncie 3 kolejek':'✗ Nie zwraca się w 3 kolejkach'}</div>`;
-  }
-  outSel.onchange=fillIn; inSel.onchange=calc; freeChk.onchange=calc;
-  fillIn();
 }
 
 /* ---------- FDR ---------- */
