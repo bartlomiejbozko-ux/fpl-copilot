@@ -1,63 +1,90 @@
 {
-  "generated_at": "2026-08-28T14:25:02Z",
+  "generated_at": "2026-08-28T07:54:01Z",
   "gw": {
-    "current": 1,
-    "next": 2,
-    "name": "Gameweek 2"
+    "current": 2,
+    "next": 3,
+    "name": "Gameweek 3"
   },
   "entry": {
     "team_id": "3607573",
     "name": "Wedding Crashers",
-    "player_name": "Bartlomiej Bozko",
+    "player_name": "Bart B",
     "overall_points": 48,
-    "overall_rank": 4969899,
+    "overall_rank": 480000,
     "bank": 0.5,
     "value": 100.0
   },
   "squad": [
     {
-      "id": 384,
-      "name": "Donnarumma",
+      "id": 1,
+      "name": "P1",
       "team": "MCI",
-      "team_full": "Man City",
+      "team_full": "A",
       "pos": "GK",
-      "price": 5.5,
-      "form": "3.0",
-      "ppg": "3.0",
-      "selected_by": "8.3",
+      "etype": 1,
+      "xpts_h": 5.2,
+      "price_t": 45,
+      "price": 4.5,
+      "form": "4",
+      "ppg": "4",
+      "selected_by": "10.0",
       "status": "a",
       "news": "",
-      "chance": null,
-      "ep_next": "3.3",
-      "xpts": 2.9,
+      "chance": 100,
+      "ep_next": "4",
+      "xpts": 2.8,
       "factors": [
         {
-          "label": "Baza (forma + PPG)",
-          "value": 3.0
+          "label": "Występ (minuty)",
+          "pts": 2.0
         },
         {
-          "label": "Szansa na minuty",
-          "mult": 1.0
+          "label": "Gole (xG)",
+          "pts": 0.0
         },
         {
-          "label": "Trudnosc (FDR 3)",
-          "mult": 1.0
+          "label": "Asysty (xA)",
+          "pts": 0.0
         },
         {
-          "label": "Wyjazd",
-          "mult": 0.97
+          "label": "Obrony",
+          "pts": 0.0
+        },
+        {
+          "label": "Czyste konto",
+          "pts": 1.3
+        },
+        {
+          "label": "Bonus",
+          "pts": 0.1
+        },
+        {
+          "label": "Stracone + kartki",
+          "pts": -0.56
         }
       ],
+      "set_pieces": {
+        "pens": null,
+        "corners": null,
+        "fk": null
+      },
+      "price_mom": 0,
+      "cost_change_event": 0,
+      "form5": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
       "next": {
-        "opp": "CRY",
-        "ven": "A",
-        "fdr": 3
+        "opp": "ARS",
+        "ven": "H",
+        "fdr": 3,
+        "opp_id": 2
       },
-      "weather": {
-        "temp": 18,
-        "rain": 0.0,
-        "wind": 14
-      },
+      "team_id": 1,
+      "weather": null,
       "is_captain": false,
       "is_vice": false,
       "multiplier": 1,
@@ -65,48 +92,75 @@
       "order": 1
     },
     {
-      "id": 357,
-      "name": "Frimpong",
-      "team": "LIV",
-      "team_full": "Liverpool",
+      "id": 2,
+      "name": "P2",
+      "team": "ARS",
+      "team_full": "B",
       "pos": "DEF",
-      "price": 5.5,
-      "form": "0.0",
-      "ppg": "0.0",
-      "selected_by": "3.4",
+      "etype": 2,
+      "xpts_h": 5.2,
+      "price_t": 48,
+      "price": 4.8,
+      "form": "4",
+      "ppg": "4",
+      "selected_by": "10.0",
       "status": "a",
       "news": "",
-      "chance": null,
-      "ep_next": "2.5",
-      "xpts": 0.7,
+      "chance": 100,
+      "ep_next": "4",
+      "xpts": 2.4,
       "factors": [
         {
-          "label": "Baza (forma + PPG)",
-          "value": 0.66
+          "label": "Występ (minuty)",
+          "pts": 2.0
         },
         {
-          "label": "Szansa na minuty",
-          "mult": 1.0
+          "label": "Gole (xG)",
+          "pts": 0.0
         },
         {
-          "label": "Trudnosc (FDR 3)",
-          "mult": 1.0
+          "label": "Asysty (xA)",
+          "pts": 0.0
         },
         {
-          "label": "Dom",
-          "mult": 1.03
+          "label": "Czyste konto",
+          "pts": 0.99
+        },
+        {
+          "label": "Akcje obronne",
+          "pts": 0.0
+        },
+        {
+          "label": "Bonus",
+          "pts": 0.07
+        },
+        {
+          "label": "Stracone + kartki",
+          "pts": -0.7
         }
       ],
+      "set_pieces": {
+        "pens": null,
+        "corners": null,
+        "fk": null
+      },
+      "price_mom": 0,
+      "cost_change_event": 0,
+      "form5": [
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
       "next": {
-        "opp": "NFO",
-        "ven": "H",
-        "fdr": 3
+        "opp": "MCI",
+        "ven": "A",
+        "fdr": 3,
+        "opp_id": 1
       },
-      "weather": {
-        "temp": 17,
-        "rain": 0.9,
-        "wind": 10
-      },
+      "team_id": 2,
+      "weather": null,
       "is_captain": false,
       "is_vice": false,
       "multiplier": 1,
@@ -114,48 +168,75 @@
       "order": 2
     },
     {
-      "id": 8,
-      "name": "Calafiori",
-      "team": "ARS",
-      "team_full": "Arsenal",
-      "pos": "DEF",
-      "price": 5.6,
-      "form": "9.0",
-      "ppg": "9.0",
-      "selected_by": "41.7",
+      "id": 3,
+      "name": "P3",
+      "team": "CHE",
+      "team_full": "C",
+      "pos": "MID",
+      "etype": 3,
+      "xpts_h": 4.5,
+      "price_t": 51,
+      "price": 5.1,
+      "form": "4",
+      "ppg": "4",
+      "selected_by": "10.0",
       "status": "a",
       "news": "",
-      "chance": null,
-      "ep_next": "2.6",
-      "xpts": 7.0,
+      "chance": 100,
+      "ep_next": "4",
+      "xpts": 2.2,
       "factors": [
         {
-          "label": "Baza (forma + PPG)",
-          "value": 7.86
+          "label": "Występ (minuty)",
+          "pts": 2.0
         },
         {
-          "label": "Szansa na minuty",
-          "mult": 1.0
+          "label": "Gole (xG)",
+          "pts": 0.0
         },
         {
-          "label": "Trudnosc (FDR 4)",
-          "mult": 0.92
+          "label": "Asysty (xA)",
+          "pts": 0.0
         },
         {
-          "label": "Wyjazd",
-          "mult": 0.97
+          "label": "Czyste konto",
+          "pts": 0.25
+        },
+        {
+          "label": "Akcje obronne",
+          "pts": 0.0
+        },
+        {
+          "label": "Bonus",
+          "pts": 0.0
+        },
+        {
+          "label": "Stracone + kartki",
+          "pts": 0.0
         }
       ],
+      "set_pieces": {
+        "pens": null,
+        "corners": null,
+        "fk": null
+      },
+      "price_mom": 0,
+      "cost_change_event": 0,
+      "form5": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
       "next": {
-        "opp": "AVL",
+        "opp": "ARS",
         "ven": "A",
-        "fdr": 4
+        "fdr": 3,
+        "opp_id": 2
       },
-      "weather": {
-        "temp": 19,
-        "rain": 0.0,
-        "wind": 19
-      },
+      "team_id": 3,
+      "weather": null,
       "is_captain": false,
       "is_vice": false,
       "multiplier": 1,
@@ -164,96 +245,150 @@
     },
     {
       "id": 4,
-      "name": "Gabriel",
-      "team": "ARS",
-      "team_full": "Arsenal",
-      "pos": "DEF",
-      "price": 8.0,
-      "form": "5.0",
-      "ppg": "5.0",
-      "selected_by": "29.1",
+      "name": "P4",
+      "team": "LIV",
+      "team_full": "D",
+      "pos": "FWD",
+      "etype": 4,
+      "xpts_h": 4.0,
+      "price_t": 54,
+      "price": 5.4,
+      "form": "4",
+      "ppg": "4",
+      "selected_by": "10.0",
       "status": "a",
       "news": "",
-      "chance": null,
-      "ep_next": "4.0",
-      "xpts": 4.2,
+      "chance": 100,
+      "ep_next": "4",
+      "xpts": 2.0,
       "factors": [
         {
-          "label": "Baza (forma + PPG)",
-          "value": 4.66
+          "label": "Występ (minuty)",
+          "pts": 2.0
         },
         {
-          "label": "Szansa na minuty",
-          "mult": 1.0
+          "label": "Gole (xG)",
+          "pts": 0.0
         },
         {
-          "label": "Trudnosc (FDR 4)",
-          "mult": 0.92
+          "label": "Asysty (xA)",
+          "pts": 0.0
         },
         {
-          "label": "Wyjazd",
-          "mult": 0.97
+          "label": "Czyste konto",
+          "pts": 0.0
+        },
+        {
+          "label": "Akcje obronne",
+          "pts": 0.0
+        },
+        {
+          "label": "Bonus",
+          "pts": 0.0
+        },
+        {
+          "label": "Stracone + kartki",
+          "pts": 0.0
         }
       ],
+      "set_pieces": {
+        "pens": null,
+        "corners": null,
+        "fk": null
+      },
+      "price_mom": 0,
+      "cost_change_event": 0,
+      "form5": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
       "next": {
-        "opp": "AVL",
+        "opp": "CHE",
         "ven": "A",
-        "fdr": 4
+        "fdr": 3,
+        "opp_id": 3
       },
-      "weather": {
-        "temp": 19,
-        "rain": 0.0,
-        "wind": 19
-      },
+      "team_id": 4,
+      "weather": null,
       "is_captain": false,
-      "is_vice": true,
+      "is_vice": false,
       "multiplier": 1,
       "on_bench": false,
       "order": 4
     },
     {
-      "id": 356,
-      "name": "Virgil",
-      "team": "LIV",
-      "team_full": "Liverpool",
-      "pos": "DEF",
-      "price": 6.5,
-      "form": "2.0",
-      "ppg": "2.0",
-      "selected_by": "19.6",
+      "id": 5,
+      "name": "P5",
+      "team": "MUN",
+      "team_full": "E",
+      "pos": "GK",
+      "etype": 1,
+      "xpts_h": 5.2,
+      "price_t": 57,
+      "price": 5.7,
+      "form": "4",
+      "ppg": "4",
+      "selected_by": "10.0",
       "status": "a",
       "news": "",
-      "chance": null,
-      "ep_next": "3.1",
-      "xpts": 2.3,
+      "chance": 100,
+      "ep_next": "4",
+      "xpts": 2.4,
       "factors": [
         {
-          "label": "Baza (forma + PPG)",
-          "value": 2.26
+          "label": "Występ (minuty)",
+          "pts": 2.0
         },
         {
-          "label": "Szansa na minuty",
-          "mult": 1.0
+          "label": "Gole (xG)",
+          "pts": 0.0
         },
         {
-          "label": "Trudnosc (FDR 3)",
-          "mult": 1.0
+          "label": "Asysty (xA)",
+          "pts": 0.0
         },
         {
-          "label": "Dom",
-          "mult": 1.03
+          "label": "Obrony",
+          "pts": 0.0
+        },
+        {
+          "label": "Czyste konto",
+          "pts": 0.99
+        },
+        {
+          "label": "Bonus",
+          "pts": 0.07
+        },
+        {
+          "label": "Stracone + kartki",
+          "pts": -0.7
         }
       ],
+      "set_pieces": {
+        "pens": null,
+        "corners": null,
+        "fk": null
+      },
+      "price_mom": 0,
+      "cost_change_event": 0,
+      "form5": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
       "next": {
-        "opp": "NFO",
-        "ven": "H",
-        "fdr": 3
+        "opp": "LIV",
+        "ven": "A",
+        "fdr": 3,
+        "opp_id": 4
       },
-      "weather": {
-        "temp": 17,
-        "rain": 0.9,
-        "wind": 10
-      },
+      "team_id": 5,
+      "weather": null,
       "is_captain": false,
       "is_vice": false,
       "multiplier": 1,
@@ -261,48 +396,75 @@
       "order": 5
     },
     {
-      "id": 428,
-      "name": "Cunha",
-      "team": "MUN",
-      "team_full": "Man Utd",
-      "pos": "MID",
-      "price": 8.0,
-      "form": "2.0",
-      "ppg": "2.0",
-      "selected_by": "9.4",
+      "id": 6,
+      "name": "P6",
+      "team": "AVL",
+      "team_full": "F",
+      "pos": "DEF",
+      "etype": 2,
+      "xpts_h": 5.2,
+      "price_t": 60,
+      "price": 6.0,
+      "form": "4",
+      "ppg": "4",
+      "selected_by": "10.0",
       "status": "a",
       "news": "",
-      "chance": null,
-      "ep_next": "2.8",
-      "xpts": 2.6,
+      "chance": 100,
+      "ep_next": "4",
+      "xpts": 2.4,
       "factors": [
         {
-          "label": "Baza (forma + PPG)",
-          "value": 2.3
+          "label": "Występ (minuty)",
+          "pts": 2.0
         },
         {
-          "label": "Szansa na minuty",
-          "mult": 1.0
+          "label": "Gole (xG)",
+          "pts": 0.0
         },
         {
-          "label": "Trudnosc (FDR 2)",
-          "mult": 1.08
+          "label": "Asysty (xA)",
+          "pts": 0.0
         },
         {
-          "label": "Dom",
-          "mult": 1.03
+          "label": "Czyste konto",
+          "pts": 0.99
+        },
+        {
+          "label": "Akcje obronne",
+          "pts": 0.0
+        },
+        {
+          "label": "Bonus",
+          "pts": 0.07
+        },
+        {
+          "label": "Stracone + kartki",
+          "pts": -0.7
         }
       ],
+      "set_pieces": {
+        "pens": null,
+        "corners": null,
+        "fk": null
+      },
+      "price_mom": 0,
+      "cost_change_event": 0,
+      "form5": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
       "next": {
-        "opp": "IPS",
-        "ven": "H",
-        "fdr": 2
+        "opp": "MUN",
+        "ven": "A",
+        "fdr": 3,
+        "opp_id": 5
       },
-      "weather": {
-        "temp": 18,
-        "rain": 2.23,
-        "wind": 12
-      },
+      "team_id": 6,
+      "weather": null,
       "is_captain": false,
       "is_vice": false,
       "multiplier": 1,
@@ -310,97 +472,151 @@
       "order": 6
     },
     {
-      "id": 427,
-      "name": "Mbeumo",
-      "team": "MUN",
-      "team_full": "Man Utd",
+      "id": 7,
+      "name": "P7",
+      "team": "BHA",
+      "team_full": "G",
       "pos": "MID",
-      "price": 8.0,
-      "form": "2.0",
-      "ppg": "2.0",
-      "selected_by": "35.8",
+      "etype": 3,
+      "xpts_h": 4.5,
+      "price_t": 63,
+      "price": 6.3,
+      "form": "4",
+      "ppg": "4",
+      "selected_by": "10.0",
       "status": "a",
       "news": "",
-      "chance": null,
-      "ep_next": "2.8",
-      "xpts": 2.6,
+      "chance": 100,
+      "ep_next": "4",
+      "xpts": 2.2,
       "factors": [
         {
-          "label": "Baza (forma + PPG)",
-          "value": 2.3
+          "label": "Występ (minuty)",
+          "pts": 2.0
         },
         {
-          "label": "Szansa na minuty",
-          "mult": 1.0
+          "label": "Gole (xG)",
+          "pts": 0.0
         },
         {
-          "label": "Trudnosc (FDR 2)",
-          "mult": 1.08
+          "label": "Asysty (xA)",
+          "pts": 0.0
         },
         {
-          "label": "Dom",
-          "mult": 1.03
+          "label": "Czyste konto",
+          "pts": 0.25
+        },
+        {
+          "label": "Akcje obronne",
+          "pts": 0.0
+        },
+        {
+          "label": "Bonus",
+          "pts": 0.0
+        },
+        {
+          "label": "Stracone + kartki",
+          "pts": 0.0
         }
       ],
+      "set_pieces": {
+        "pens": null,
+        "corners": null,
+        "fk": null
+      },
+      "price_mom": 0,
+      "cost_change_event": 0,
+      "form5": [
+        8,
+        9,
+        10,
+        11,
+        0
+      ],
       "next": {
-        "opp": "IPS",
-        "ven": "H",
-        "fdr": 2
+        "opp": "AVL",
+        "ven": "A",
+        "fdr": 3,
+        "opp_id": 6
       },
-      "weather": {
-        "temp": 18,
-        "rain": 2.23,
-        "wind": 12
-      },
-      "is_captain": false,
+      "team_id": 7,
+      "weather": null,
+      "is_captain": true,
       "is_vice": false,
-      "multiplier": 1,
+      "multiplier": 2,
       "on_bench": false,
       "order": 7
     },
     {
-      "id": 366,
-      "name": "Wirtz",
-      "team": "LIV",
-      "team_full": "Liverpool",
-      "pos": "MID",
-      "price": 7.5,
-      "form": "2.0",
-      "ppg": "2.0",
-      "selected_by": "11.4",
+      "id": 8,
+      "name": "P8",
+      "team": "BRE",
+      "team_full": "H",
+      "pos": "FWD",
+      "etype": 4,
+      "xpts_h": 4.0,
+      "price_t": 66,
+      "price": 6.6,
+      "form": "4",
+      "ppg": "4",
+      "selected_by": "10.0",
       "status": "a",
       "news": "",
-      "chance": null,
-      "ep_next": "2.6",
-      "xpts": 2.4,
+      "chance": 100,
+      "ep_next": "4",
+      "xpts": 2.0,
       "factors": [
         {
-          "label": "Baza (forma + PPG)",
-          "value": 2.3
+          "label": "Występ (minuty)",
+          "pts": 2.0
         },
         {
-          "label": "Szansa na minuty",
-          "mult": 1.0
+          "label": "Gole (xG)",
+          "pts": 0.0
         },
         {
-          "label": "Trudnosc (FDR 3)",
-          "mult": 1.0
+          "label": "Asysty (xA)",
+          "pts": 0.0
         },
         {
-          "label": "Dom",
-          "mult": 1.03
+          "label": "Czyste konto",
+          "pts": 0.0
+        },
+        {
+          "label": "Akcje obronne",
+          "pts": 0.0
+        },
+        {
+          "label": "Bonus",
+          "pts": 0.0
+        },
+        {
+          "label": "Stracone + kartki",
+          "pts": 0.0
         }
       ],
+      "set_pieces": {
+        "pens": null,
+        "corners": null,
+        "fk": null
+      },
+      "price_mom": 0,
+      "cost_change_event": 0,
+      "form5": [
+        9,
+        10,
+        11,
+        0,
+        1
+      ],
       "next": {
-        "opp": "NFO",
-        "ven": "H",
-        "fdr": 3
+        "opp": "BHA",
+        "ven": "A",
+        "fdr": 3,
+        "opp_id": 7
       },
-      "weather": {
-        "temp": 17,
-        "rain": 0.9,
-        "wind": 10
-      },
+      "team_id": 8,
+      "weather": null,
       "is_captain": false,
       "is_vice": false,
       "multiplier": 1,
@@ -408,97 +624,151 @@
       "order": 8
     },
     {
-      "id": 426,
-      "name": "B.Fernandes",
-      "team": "MUN",
-      "team_full": "Man Utd",
-      "pos": "MID",
-      "price": 12.0,
-      "form": "2.0",
-      "ppg": "2.0",
-      "selected_by": "48.3",
+      "id": 9,
+      "name": "P9",
+      "team": "EVE",
+      "team_full": "I",
+      "pos": "GK",
+      "etype": 1,
+      "xpts_h": 5.2,
+      "price_t": 69,
+      "price": 6.9,
+      "form": "4",
+      "ppg": "4",
+      "selected_by": "10.0",
       "status": "a",
       "news": "",
-      "chance": null,
-      "ep_next": "4.0",
-      "xpts": 2.6,
+      "chance": 100,
+      "ep_next": "4",
+      "xpts": 2.4,
       "factors": [
         {
-          "label": "Baza (forma + PPG)",
-          "value": 2.3
+          "label": "Występ (minuty)",
+          "pts": 2.0
         },
         {
-          "label": "Szansa na minuty",
-          "mult": 1.0
+          "label": "Gole (xG)",
+          "pts": 0.0
         },
         {
-          "label": "Trudnosc (FDR 2)",
-          "mult": 1.08
+          "label": "Asysty (xA)",
+          "pts": 0.0
         },
         {
-          "label": "Dom",
-          "mult": 1.03
+          "label": "Obrony",
+          "pts": 0.0
+        },
+        {
+          "label": "Czyste konto",
+          "pts": 0.99
+        },
+        {
+          "label": "Bonus",
+          "pts": 0.07
+        },
+        {
+          "label": "Stracone + kartki",
+          "pts": -0.7
         }
       ],
+      "set_pieces": {
+        "pens": null,
+        "corners": null,
+        "fk": null
+      },
+      "price_mom": 0,
+      "cost_change_event": 0,
+      "form5": [
+        10,
+        11,
+        0,
+        1,
+        2
+      ],
       "next": {
-        "opp": "IPS",
-        "ven": "H",
-        "fdr": 2
+        "opp": "BRE",
+        "ven": "A",
+        "fdr": 3,
+        "opp_id": 8
       },
-      "weather": {
-        "temp": 18,
-        "rain": 2.23,
-        "wind": 12
-      },
-      "is_captain": true,
+      "team_id": 9,
+      "weather": null,
+      "is_captain": false,
       "is_vice": false,
-      "multiplier": 2,
+      "multiplier": 1,
       "on_bench": false,
       "order": 9
     },
     {
-      "id": 40,
-      "name": "Rogers",
-      "team": "CHE",
-      "team_full": "Chelsea",
-      "pos": "MID",
-      "price": 7.5,
-      "form": "8.0",
-      "ppg": "8.0",
-      "selected_by": "26.2",
+      "id": 10,
+      "name": "P10",
+      "team": "CRY",
+      "team_full": "J",
+      "pos": "DEF",
+      "etype": 2,
+      "xpts_h": 5.2,
+      "price_t": 72,
+      "price": 7.2,
+      "form": "4",
+      "ppg": "4",
+      "selected_by": "10.0",
       "status": "a",
       "news": "",
-      "chance": null,
-      "ep_next": "2.6",
-      "xpts": 7.9,
+      "chance": 100,
+      "ep_next": "4",
+      "xpts": 2.4,
       "factors": [
         {
-          "label": "Baza (forma + PPG)",
-          "value": 7.1
+          "label": "Występ (minuty)",
+          "pts": 2.0
         },
         {
-          "label": "Szansa na minuty",
-          "mult": 1.0
+          "label": "Gole (xG)",
+          "pts": 0.0
         },
         {
-          "label": "Trudnosc (FDR 2)",
-          "mult": 1.08
+          "label": "Asysty (xA)",
+          "pts": 0.0
         },
         {
-          "label": "Dom",
-          "mult": 1.03
+          "label": "Czyste konto",
+          "pts": 0.99
+        },
+        {
+          "label": "Akcje obronne",
+          "pts": 0.0
+        },
+        {
+          "label": "Bonus",
+          "pts": 0.07
+        },
+        {
+          "label": "Stracone + kartki",
+          "pts": -0.7
         }
       ],
+      "set_pieces": {
+        "pens": null,
+        "corners": null,
+        "fk": null
+      },
+      "price_mom": 0,
+      "cost_change_event": 0,
+      "form5": [
+        11,
+        0,
+        1,
+        2,
+        3
+      ],
       "next": {
-        "opp": "BHA",
-        "ven": "H",
-        "fdr": 2
+        "opp": "EVE",
+        "ven": "A",
+        "fdr": 3,
+        "opp_id": 9
       },
-      "weather": {
-        "temp": 22,
-        "rain": 0.05,
-        "wind": 16
-      },
+      "team_id": 10,
+      "weather": null,
       "is_captain": false,
       "is_vice": false,
       "multiplier": 1,
@@ -506,97 +776,151 @@
       "order": 10
     },
     {
-      "id": 165,
-      "name": "João Pedro",
-      "team": "CHE",
-      "team_full": "Chelsea",
-      "pos": "FWD",
-      "price": 7.6,
-      "form": "11.0",
-      "ppg": "11.0",
-      "selected_by": "68.1",
+      "id": 11,
+      "name": "P11",
+      "team": "NFO",
+      "team_full": "K",
+      "pos": "MID",
+      "etype": 3,
+      "xpts_h": 4.5,
+      "price_t": 75,
+      "price": 7.5,
+      "form": "4",
+      "ppg": "4",
+      "selected_by": "10.0",
       "status": "a",
       "news": "",
-      "chance": null,
-      "ep_next": "2.4",
-      "xpts": 10.6,
+      "chance": 100,
+      "ep_next": "4",
+      "xpts": 2.2,
       "factors": [
         {
-          "label": "Baza (forma + PPG)",
-          "value": 9.54
+          "label": "Występ (minuty)",
+          "pts": 2.0
         },
         {
-          "label": "Szansa na minuty",
-          "mult": 1.0
+          "label": "Gole (xG)",
+          "pts": 0.0
         },
         {
-          "label": "Trudnosc (FDR 2)",
-          "mult": 1.08
+          "label": "Asysty (xA)",
+          "pts": 0.0
         },
         {
-          "label": "Dom",
-          "mult": 1.03
+          "label": "Czyste konto",
+          "pts": 0.25
+        },
+        {
+          "label": "Akcje obronne",
+          "pts": 0.0
+        },
+        {
+          "label": "Bonus",
+          "pts": 0.0
+        },
+        {
+          "label": "Stracone + kartki",
+          "pts": 0.0
         }
       ],
+      "set_pieces": {
+        "pens": null,
+        "corners": null,
+        "fk": null
+      },
+      "price_mom": 0,
+      "cost_change_event": 0,
+      "form5": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
       "next": {
-        "opp": "BHA",
-        "ven": "H",
-        "fdr": 2
+        "opp": "CRY",
+        "ven": "A",
+        "fdr": 3,
+        "opp_id": 10
       },
-      "weather": {
-        "temp": 22,
-        "rain": 0.05,
-        "wind": 16
-      },
+      "team_id": 11,
+      "weather": null,
       "is_captain": false,
-      "is_vice": false,
+      "is_vice": true,
       "multiplier": 1,
       "on_bench": false,
       "order": 11
     },
     {
-      "id": 301,
-      "name": "Palmer",
+      "id": 12,
+      "name": "P12",
       "team": "IPS",
-      "team_full": "Ipswich Town",
-      "pos": "GK",
-      "price": 4.0,
-      "form": "0.0",
-      "ppg": "0.0",
-      "selected_by": "4.5",
+      "team_full": "L",
+      "pos": "FWD",
+      "etype": 4,
+      "xpts_h": 4.0,
+      "price_t": 78,
+      "price": 7.8,
+      "form": "4",
+      "ppg": "4",
+      "selected_by": "10.0",
       "status": "a",
       "news": "",
-      "chance": null,
-      "ep_next": "1.0",
-      "xpts": 0.5,
+      "chance": 100,
+      "ep_next": "4",
+      "xpts": 2.0,
       "factors": [
         {
-          "label": "Baza (forma + PPG)",
-          "value": 0.6
+          "label": "Występ (minuty)",
+          "pts": 2.0
         },
         {
-          "label": "Szansa na minuty",
-          "mult": 1.0
+          "label": "Gole (xG)",
+          "pts": 0.0
         },
         {
-          "label": "Trudnosc (FDR 4)",
-          "mult": 0.92
+          "label": "Asysty (xA)",
+          "pts": 0.0
         },
         {
-          "label": "Wyjazd",
-          "mult": 0.97
+          "label": "Czyste konto",
+          "pts": 0.0
+        },
+        {
+          "label": "Akcje obronne",
+          "pts": 0.0
+        },
+        {
+          "label": "Bonus",
+          "pts": 0.0
+        },
+        {
+          "label": "Stracone + kartki",
+          "pts": 0.0
         }
       ],
+      "set_pieces": {
+        "pens": null,
+        "corners": null,
+        "fk": null
+      },
+      "price_mom": 0,
+      "cost_change_event": 0,
+      "form5": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
       "next": {
-        "opp": "MUN",
+        "opp": "NFO",
         "ven": "A",
-        "fdr": 4
+        "fdr": 3,
+        "opp_id": 11
       },
-      "weather": {
-        "temp": 22,
-        "rain": 0.08,
-        "wind": 18
-      },
+      "team_id": 12,
+      "weather": null,
       "is_captain": false,
       "is_vice": false,
       "multiplier": 0,
@@ -604,48 +928,75 @@
       "order": 12
     },
     {
-      "id": 320,
-      "name": "Akpom",
-      "team": "IPS",
-      "team_full": "Ipswich Town",
-      "pos": "FWD",
-      "price": 5.0,
-      "form": "1.0",
-      "ppg": "1.0",
-      "selected_by": "0.5",
+      "id": 13,
+      "name": "P13",
+      "team": "COV",
+      "team_full": "M",
+      "pos": "GK",
+      "etype": 1,
+      "xpts_h": 5.2,
+      "price_t": 81,
+      "price": 8.1,
+      "form": "4",
+      "ppg": "4",
+      "selected_by": "10.0",
       "status": "a",
       "news": "",
-      "chance": null,
-      "ep_next": "1.4",
-      "xpts": 1.4,
+      "chance": 100,
+      "ep_next": "4",
+      "xpts": 2.4,
       "factors": [
         {
-          "label": "Baza (forma + PPG)",
-          "value": 1.54
+          "label": "Występ (minuty)",
+          "pts": 2.0
         },
         {
-          "label": "Szansa na minuty",
-          "mult": 1.0
+          "label": "Gole (xG)",
+          "pts": 0.0
         },
         {
-          "label": "Trudnosc (FDR 4)",
-          "mult": 0.92
+          "label": "Asysty (xA)",
+          "pts": 0.0
         },
         {
-          "label": "Wyjazd",
-          "mult": 0.97
+          "label": "Obrony",
+          "pts": 0.0
+        },
+        {
+          "label": "Czyste konto",
+          "pts": 0.99
+        },
+        {
+          "label": "Bonus",
+          "pts": 0.07
+        },
+        {
+          "label": "Stracone + kartki",
+          "pts": -0.7
         }
       ],
+      "set_pieces": {
+        "pens": null,
+        "corners": null,
+        "fk": null
+      },
+      "price_mom": 0,
+      "cost_change_event": 0,
+      "form5": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
       "next": {
-        "opp": "MUN",
+        "opp": "IPS",
         "ven": "A",
-        "fdr": 4
+        "fdr": 3,
+        "opp_id": 12
       },
-      "weather": {
-        "temp": 22,
-        "rain": 0.08,
-        "wind": 18
-      },
+      "team_id": 13,
+      "weather": null,
       "is_captain": false,
       "is_vice": false,
       "multiplier": 0,
@@ -653,48 +1004,75 @@
       "order": 13
     },
     {
-      "id": 254,
-      "name": "Robinson",
-      "team": "FUL",
-      "team_full": "Fulham",
+      "id": 14,
+      "name": "P14",
+      "team": "LEE",
+      "team_full": "N",
       "pos": "DEF",
-      "price": 4.5,
-      "form": "1.0",
-      "ppg": "1.0",
-      "selected_by": "1.7",
+      "etype": 2,
+      "xpts_h": 5.2,
+      "price_t": 84,
+      "price": 8.4,
+      "form": "4",
+      "ppg": "4",
+      "selected_by": "10.0",
       "status": "a",
       "news": "",
-      "chance": null,
-      "ep_next": "1.7",
-      "xpts": 1.4,
+      "chance": 100,
+      "ep_next": "4",
+      "xpts": 2.4,
       "factors": [
         {
-          "label": "Baza (forma + PPG)",
-          "value": 1.46
+          "label": "Występ (minuty)",
+          "pts": 2.0
         },
         {
-          "label": "Szansa na minuty",
-          "mult": 1.0
+          "label": "Gole (xG)",
+          "pts": 0.0
         },
         {
-          "label": "Trudnosc (FDR 3)",
-          "mult": 1.0
+          "label": "Asysty (xA)",
+          "pts": 0.0
         },
         {
-          "label": "Wyjazd",
-          "mult": 0.97
+          "label": "Czyste konto",
+          "pts": 0.99
+        },
+        {
+          "label": "Akcje obronne",
+          "pts": 0.0
+        },
+        {
+          "label": "Bonus",
+          "pts": 0.07
+        },
+        {
+          "label": "Stracone + kartki",
+          "pts": -0.7
         }
       ],
+      "set_pieces": {
+        "pens": null,
+        "corners": null,
+        "fk": null
+      },
+      "price_mom": 0,
+      "cost_change_event": 0,
+      "form5": [
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
       "next": {
-        "opp": "SUN",
+        "opp": "COV",
         "ven": "A",
-        "fdr": 3
+        "fdr": 3,
+        "opp_id": 13
       },
-      "weather": {
-        "temp": 22,
-        "rain": 0.08,
-        "wind": 16
-      },
+      "team_id": 14,
+      "weather": null,
       "is_captain": false,
       "is_vice": false,
       "multiplier": 0,
@@ -702,48 +1080,75 @@
       "order": 14
     },
     {
-      "id": 528,
-      "name": "Scarlett",
-      "team": "TOT",
-      "team_full": "Spurs",
-      "pos": "FWD",
-      "price": 4.5,
-      "form": "0.0",
-      "ppg": "0.0",
-      "selected_by": "1.7",
+      "id": 15,
+      "name": "P15",
+      "team": "SUN",
+      "team_full": "O",
+      "pos": "MID",
+      "etype": 3,
+      "xpts_h": 4.5,
+      "price_t": 87,
+      "price": 8.7,
+      "form": "4",
+      "ppg": "4",
+      "selected_by": "10.0",
       "status": "a",
       "news": "",
-      "chance": null,
-      "ep_next": "1.0",
-      "xpts": 0.8,
+      "chance": 100,
+      "ep_next": "4",
+      "xpts": 2.2,
       "factors": [
         {
-          "label": "Baza (forma + PPG)",
-          "value": 0.74
+          "label": "Występ (minuty)",
+          "pts": 2.0
         },
         {
-          "label": "Szansa na minuty",
-          "mult": 1.0
+          "label": "Gole (xG)",
+          "pts": 0.0
         },
         {
-          "label": "Trudnosc (FDR 2)",
-          "mult": 1.08
+          "label": "Asysty (xA)",
+          "pts": 0.0
         },
         {
-          "label": "Dom",
-          "mult": 1.03
+          "label": "Czyste konto",
+          "pts": 0.25
+        },
+        {
+          "label": "Akcje obronne",
+          "pts": 0.0
+        },
+        {
+          "label": "Bonus",
+          "pts": 0.0
+        },
+        {
+          "label": "Stracone + kartki",
+          "pts": 0.0
         }
       ],
+      "set_pieces": {
+        "pens": null,
+        "corners": null,
+        "fk": null
+      },
+      "price_mom": 0,
+      "cost_change_event": 0,
+      "form5": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
       "next": {
-        "opp": "NEW",
-        "ven": "H",
-        "fdr": 2
+        "opp": "LEE",
+        "ven": "A",
+        "fdr": 3,
+        "opp_id": 14
       },
-      "weather": {
-        "temp": 19,
-        "rain": 0.3,
-        "wind": 16
-      },
+      "team_id": 15,
+      "weather": null,
       "is_captain": false,
       "is_vice": false,
       "multiplier": 0,
@@ -753,85 +1158,45 @@
   ],
   "ticker": [
     {
-      "team": "LIV",
-      "team_full": "Liverpool",
-      "count": 3,
+      "team": "MCI",
+      "team_full": "A",
+      "count": 1,
       "players": [
-        "Frimpong",
-        "Virgil",
-        "Wirtz"
+        "P1"
       ],
       "fixtures": [
         {
-          "gw": 2,
-          "opp": "NFO",
+          "gw": 3,
+          "opp": "ARS",
           "ven": "H",
           "fdr": 3
         },
         {
           "gw": 3,
-          "opp": "IPS",
-          "ven": "A",
-          "fdr": 2
-        },
-        {
-          "gw": 4,
-          "opp": "FUL",
-          "ven": "H",
-          "fdr": 2
-        },
-        {
-          "gw": 5,
-          "opp": "BOU",
+          "opp": "TOT",
           "ven": "A",
           "fdr": 3
-        },
-        {
-          "gw": 6,
-          "opp": "MCI",
-          "ven": "H",
-          "fdr": 4
         }
       ],
-      "avg_fdr": 2.8
+      "avg_fdr": 3.0
     },
     {
-      "team": "MUN",
-      "team_full": "Man Utd",
-      "count": 3,
+      "team": "ARS",
+      "team_full": "B",
+      "count": 1,
       "players": [
-        "Cunha",
-        "Mbeumo",
-        "B.Fernandes"
+        "P2"
       ],
       "fixtures": [
         {
-          "gw": 2,
-          "opp": "IPS",
-          "ven": "H",
-          "fdr": 2
+          "gw": 3,
+          "opp": "MCI",
+          "ven": "A",
+          "fdr": 3
         },
         {
           "gw": 3,
-          "opp": "EVE",
-          "ven": "A",
-          "fdr": 3
-        },
-        {
-          "gw": 4,
-          "opp": "MCI",
-          "ven": "H",
-          "fdr": 4
-        },
-        {
-          "gw": 5,
-          "opp": "FUL",
-          "ven": "A",
-          "fdr": 3
-        },
-        {
-          "gw": 6,
-          "opp": "TOT",
+          "opp": "CHE",
           "ven": "H",
           "fdr": 3
         }
@@ -840,40 +1205,21 @@
     },
     {
       "team": "CHE",
-      "team_full": "Chelsea",
-      "count": 2,
+      "team_full": "C",
+      "count": 1,
       "players": [
-        "Rogers",
-        "João Pedro"
+        "P3"
       ],
       "fixtures": [
-        {
-          "gw": 2,
-          "opp": "BHA",
-          "ven": "H",
-          "fdr": 2
-        },
         {
           "gw": 3,
           "opp": "ARS",
           "ven": "A",
-          "fdr": 5
-        },
-        {
-          "gw": 4,
-          "opp": "HUL",
-          "ven": "H",
-          "fdr": 2
-        },
-        {
-          "gw": 5,
-          "opp": "BRE",
-          "ven": "A",
           "fdr": 3
         },
         {
-          "gw": 6,
-          "opp": "BOU",
+          "gw": 3,
+          "opp": "LIV",
           "ven": "H",
           "fdr": 3
         }
@@ -881,84 +1227,185 @@
       "avg_fdr": 3.0
     },
     {
-      "team": "ARS",
-      "team_full": "Arsenal",
-      "count": 2,
+      "team": "LIV",
+      "team_full": "D",
+      "count": 1,
       "players": [
-        "Calafiori",
-        "Gabriel"
+        "P4"
       ],
       "fixtures": [
         {
-          "gw": 2,
-          "opp": "AVL",
-          "ven": "A",
-          "fdr": 4
-        },
-        {
           "gw": 3,
           "opp": "CHE",
-          "ven": "H",
-          "fdr": 4
-        },
-        {
-          "gw": 4,
-          "opp": "SUN",
           "ven": "A",
           "fdr": 3
         },
         {
-          "gw": 5,
+          "gw": 3,
+          "opp": "MUN",
+          "ven": "H",
+          "fdr": 3
+        }
+      ],
+      "avg_fdr": 3.0
+    },
+    {
+      "team": "MUN",
+      "team_full": "E",
+      "count": 1,
+      "players": [
+        "P5"
+      ],
+      "fixtures": [
+        {
+          "gw": 3,
+          "opp": "LIV",
+          "ven": "A",
+          "fdr": 3
+        },
+        {
+          "gw": 3,
+          "opp": "AVL",
+          "ven": "H",
+          "fdr": 3
+        }
+      ],
+      "avg_fdr": 3.0
+    },
+    {
+      "team": "AVL",
+      "team_full": "F",
+      "count": 1,
+      "players": [
+        "P6"
+      ],
+      "fixtures": [
+        {
+          "gw": 3,
+          "opp": "MUN",
+          "ven": "A",
+          "fdr": 3
+        },
+        {
+          "gw": 3,
+          "opp": "BHA",
+          "ven": "H",
+          "fdr": 3
+        }
+      ],
+      "avg_fdr": 3.0
+    },
+    {
+      "team": "BHA",
+      "team_full": "G",
+      "count": 1,
+      "players": [
+        "P7"
+      ],
+      "fixtures": [
+        {
+          "gw": 3,
+          "opp": "AVL",
+          "ven": "A",
+          "fdr": 3
+        },
+        {
+          "gw": 3,
+          "opp": "BRE",
+          "ven": "H",
+          "fdr": 3
+        }
+      ],
+      "avg_fdr": 3.0
+    },
+    {
+      "team": "BRE",
+      "team_full": "H",
+      "count": 1,
+      "players": [
+        "P8"
+      ],
+      "fixtures": [
+        {
+          "gw": 3,
           "opp": "BHA",
           "ven": "A",
           "fdr": 3
         },
         {
-          "gw": 6,
-          "opp": "LEE",
+          "gw": 3,
+          "opp": "EVE",
           "ven": "H",
-          "fdr": 2
+          "fdr": 3
         }
       ],
-      "avg_fdr": 3.2
+      "avg_fdr": 3.0
     },
     {
-      "team": "MCI",
-      "team_full": "Man City",
+      "team": "EVE",
+      "team_full": "I",
       "count": 1,
       "players": [
-        "Donnarumma"
+        "P9"
       ],
       "fixtures": [
         {
-          "gw": 2,
+          "gw": 3,
+          "opp": "BRE",
+          "ven": "A",
+          "fdr": 3
+        },
+        {
+          "gw": 3,
+          "opp": "CRY",
+          "ven": "H",
+          "fdr": 3
+        }
+      ],
+      "avg_fdr": 3.0
+    },
+    {
+      "team": "CRY",
+      "team_full": "J",
+      "count": 1,
+      "players": [
+        "P10"
+      ],
+      "fixtures": [
+        {
+          "gw": 3,
+          "opp": "EVE",
+          "ven": "A",
+          "fdr": 3
+        },
+        {
+          "gw": 3,
+          "opp": "NFO",
+          "ven": "H",
+          "fdr": 3
+        }
+      ],
+      "avg_fdr": 3.0
+    },
+    {
+      "team": "NFO",
+      "team_full": "K",
+      "count": 1,
+      "players": [
+        "P11"
+      ],
+      "fixtures": [
+        {
+          "gw": 3,
           "opp": "CRY",
           "ven": "A",
           "fdr": 3
         },
         {
           "gw": 3,
-          "opp": "COV",
+          "opp": "IPS",
           "ven": "H",
-          "fdr": 2
-        },
-        {
-          "gw": 4,
-          "opp": "MUN",
-          "ven": "A",
-          "fdr": 4
-        },
-        {
-          "gw": 5,
-          "opp": "SUN",
-          "ven": "H",
-          "fdr": 2
-        },
-        {
-          "gw": 6,
-          "opp": "LIV",
-          "ven": "A",
-          "fdr": 4
+          "fdr": 3
         }
       ],
       "avg_fdr": 3.0
@@ -966,41 +1413,83 @@
   ],
   "concentration": [
     {
-      "fixture": "NFO (H)",
-      "count": 3,
+      "fixture": "ARS (H)",
+      "count": 1,
       "fdr": 3,
       "players": [
-        "Frimpong",
-        "Virgil",
-        "Wirtz"
+        "P1"
       ]
     },
     {
-      "fixture": "IPS (H)",
-      "count": 3,
-      "fdr": 2,
+      "fixture": "MCI (A)",
+      "count": 1,
+      "fdr": 3,
       "players": [
-        "Cunha",
-        "Mbeumo",
-        "B.Fernandes"
+        "P2"
+      ]
+    },
+    {
+      "fixture": "ARS (A)",
+      "count": 1,
+      "fdr": 3,
+      "players": [
+        "P3"
+      ]
+    },
+    {
+      "fixture": "CHE (A)",
+      "count": 1,
+      "fdr": 3,
+      "players": [
+        "P4"
+      ]
+    },
+    {
+      "fixture": "LIV (A)",
+      "count": 1,
+      "fdr": 3,
+      "players": [
+        "P5"
+      ]
+    },
+    {
+      "fixture": "MUN (A)",
+      "count": 1,
+      "fdr": 3,
+      "players": [
+        "P6"
       ]
     },
     {
       "fixture": "AVL (A)",
-      "count": 2,
-      "fdr": 4,
+      "count": 1,
+      "fdr": 3,
       "players": [
-        "Calafiori",
-        "Gabriel"
+        "P7"
       ]
     },
     {
-      "fixture": "BHA (H)",
-      "count": 2,
-      "fdr": 2,
+      "fixture": "BHA (A)",
+      "count": 1,
+      "fdr": 3,
       "players": [
-        "Rogers",
-        "João Pedro"
+        "P8"
+      ]
+    },
+    {
+      "fixture": "BRE (A)",
+      "count": 1,
+      "fdr": 3,
+      "players": [
+        "P9"
+      ]
+    },
+    {
+      "fixture": "EVE (A)",
+      "count": 1,
+      "fdr": 3,
+      "players": [
+        "P10"
       ]
     },
     {
@@ -1008,13 +1497,660 @@
       "count": 1,
       "fdr": 3,
       "players": [
-        "Donnarumma"
+        "P11"
       ]
     }
   ],
+  "brief": {
+    "captain": {
+      "current": "P7",
+      "current_xpts": 2.2,
+      "best": "P1",
+      "best_xpts": 2.8,
+      "optimal": false,
+      "gain": 0.6
+    },
+    "transfers": [],
+    "alerts": [],
+    "lineup": {
+      "optimal": false,
+      "gain": 1.6,
+      "optimal_formation": "3-4-3",
+      "current_formation": "3-5-2",
+      "optimal_xpts": 51.0,
+      "current_xpts": 49.4,
+      "swaps": [
+        {
+          "in": {
+            "name": "Barry",
+            "pos": "FWD",
+            "xpts": 4.9,
+            "opp": "MUN",
+            "ven": "H",
+            "reason": "gra u siebie; rywal słabo broni — sprzyja zdobyciu punktów"
+          },
+          "out": {
+            "name": "Rogers",
+            "pos": "MID",
+            "xpts": 3.6
+          },
+          "delta": 1.3
+        }
+      ],
+      "bench_order": [
+        {
+          "name": "P12",
+          "pos": "FWD",
+          "xpts": 2.0
+        },
+        {
+          "name": "P5",
+          "pos": "GK",
+          "xpts": 2.4
+        },
+        {
+          "name": "P9",
+          "pos": "GK",
+          "xpts": 2.4
+        },
+        {
+          "name": "P13",
+          "pos": "GK",
+          "xpts": 2.4
+        }
+      ],
+      "highlights": [
+        {
+          "name": "Isak",
+          "pos": "FWD",
+          "xpts": 5.4,
+          "opp": "IPS",
+          "ven": "A",
+          "reason": "rywal słabo broni — sprzyja zdobyciu punktów"
+        },
+        {
+          "name": "Gvardiol",
+          "pos": "DEF",
+          "xpts": 4.7,
+          "opp": "COV",
+          "ven": "H",
+          "reason": "gra u siebie, gdzie ta drużyna jest wyraźnie mocniejsza; wysoka szansa na czyste konto (rywal słabo atakuje)"
+        },
+        {
+          "name": "B.Fernandes",
+          "pos": "MID",
+          "xpts": 5.2,
+          "opp": "EVE",
+          "ven": "A",
+          "reason": "rywal gra defensywnie (zaparkowany autobus) — trudno o gola"
+        }
+      ]
+    }
+  },
+  "planner": {
+    "dgw_bgw": [
+      {
+        "gw": 3,
+        "doubles": [
+          "ARS",
+          "AVL",
+          "BHA",
+          "BOU",
+          "BRE",
+          "CHE",
+          "COV",
+          "CRY",
+          "EVE",
+          "FUL",
+          "HUL",
+          "IPS",
+          "LEE",
+          "LIV",
+          "MCI",
+          "MUN",
+          "NEW",
+          "NFO",
+          "SUN",
+          "TOT"
+        ],
+        "blanks": [],
+        "my_doubles": [
+          "ARS",
+          "AVL",
+          "BHA",
+          "BRE",
+          "CHE",
+          "CRY",
+          "EVE",
+          "LIV",
+          "MCI",
+          "MUN",
+          "NFO"
+        ],
+        "my_blanks": []
+      }
+    ],
+    "chips": [
+      {
+        "chip": "Trzymaj chipy",
+        "ready": false,
+        "reason": "Brak wyraźnego sygnału w tej i najbliższych kolejkach. Zachowaj chipy na DGW/BGW."
+      }
+    ],
+    "differentials": [],
+    "price_risk": [],
+    "rivals": [],
+    "bank": 0.5,
+    "value_picks": [
+      {
+        "name": "P1",
+        "team": "MCI",
+        "pos": "GK",
+        "price": 4.5,
+        "xpts_h": 5.2,
+        "ratio": 1.16,
+        "owned": true,
+        "next": {
+          "opp": "ARS",
+          "ven": "H",
+          "fdr": 3
+        }
+      },
+      {
+        "name": "P2",
+        "team": "ARS",
+        "pos": "DEF",
+        "price": 4.8,
+        "xpts_h": 5.2,
+        "ratio": 1.08,
+        "owned": true,
+        "next": {
+          "opp": "MCI",
+          "ven": "A",
+          "fdr": 3
+        }
+      },
+      {
+        "name": "P5",
+        "team": "MUN",
+        "pos": "GK",
+        "price": 5.7,
+        "xpts_h": 5.2,
+        "ratio": 0.91,
+        "owned": true,
+        "next": {
+          "opp": "LIV",
+          "ven": "A",
+          "fdr": 3
+        }
+      },
+      {
+        "name": "P3",
+        "team": "CHE",
+        "pos": "MID",
+        "price": 5.1,
+        "xpts_h": 4.5,
+        "ratio": 0.88,
+        "owned": true,
+        "next": {
+          "opp": "ARS",
+          "ven": "A",
+          "fdr": 3
+        }
+      },
+      {
+        "name": "P6",
+        "team": "AVL",
+        "pos": "DEF",
+        "price": 6.0,
+        "xpts_h": 5.2,
+        "ratio": 0.87,
+        "owned": true,
+        "next": {
+          "opp": "MUN",
+          "ven": "A",
+          "fdr": 3
+        }
+      },
+      {
+        "name": "P9",
+        "team": "EVE",
+        "pos": "GK",
+        "price": 6.9,
+        "xpts_h": 5.2,
+        "ratio": 0.75,
+        "owned": true,
+        "next": {
+          "opp": "BRE",
+          "ven": "A",
+          "fdr": 3
+        }
+      },
+      {
+        "name": "P4",
+        "team": "LIV",
+        "pos": "FWD",
+        "price": 5.4,
+        "xpts_h": 4.0,
+        "ratio": 0.74,
+        "owned": true,
+        "next": {
+          "opp": "CHE",
+          "ven": "A",
+          "fdr": 3
+        }
+      },
+      {
+        "name": "P10",
+        "team": "CRY",
+        "pos": "DEF",
+        "price": 7.2,
+        "xpts_h": 5.2,
+        "ratio": 0.72,
+        "owned": true,
+        "next": {
+          "opp": "EVE",
+          "ven": "A",
+          "fdr": 3
+        }
+      },
+      {
+        "name": "P7",
+        "team": "BHA",
+        "pos": "MID",
+        "price": 6.3,
+        "xpts_h": 4.5,
+        "ratio": 0.71,
+        "owned": true,
+        "next": {
+          "opp": "AVL",
+          "ven": "A",
+          "fdr": 3
+        }
+      },
+      {
+        "name": "P13",
+        "team": "COV",
+        "pos": "GK",
+        "price": 8.1,
+        "xpts_h": 5.2,
+        "ratio": 0.64,
+        "owned": true,
+        "next": {
+          "opp": "IPS",
+          "ven": "A",
+          "fdr": 3
+        }
+      }
+    ]
+  },
+  "leagues": [
+    {
+      "id": 314,
+      "name": "Overall",
+      "rank": 480000,
+      "last_rank": 500000,
+      "type": "s"
+    },
+    {
+      "id": 999,
+      "name": "Sunday Clashes",
+      "rank": 2,
+      "last_rank": 3,
+      "type": "x"
+    },
+    {
+      "id": 40450,
+      "name": "Liga CANAL+",
+      "rank": 1200,
+      "last_rank": 1500,
+      "type": "x"
+    }
+  ],
+  "leagues_detail": [
+    {
+      "id": 999,
+      "name": "Sunday Clashes",
+      "size": 3,
+      "top": [
+        {
+          "rank": 1,
+          "player": "Anna",
+          "team": "Anna FC",
+          "total": 110,
+          "last_rank": 1,
+          "is_you": false
+        },
+        {
+          "rank": 2,
+          "player": "Bart",
+          "team": "Wedding Crashers",
+          "total": 100,
+          "last_rank": 3,
+          "is_you": true
+        },
+        {
+          "rank": 3,
+          "player": "Tomek",
+          "team": "Tomek XI",
+          "total": 95,
+          "last_rank": 2,
+          "is_you": false
+        }
+      ],
+      "around_you": []
+    },
+    {
+      "id": 40450,
+      "name": "Liga CANAL+",
+      "size": 3,
+      "top": [
+        {
+          "rank": 1,
+          "player": "Anna",
+          "team": "Anna FC",
+          "total": 110,
+          "last_rank": 1,
+          "is_you": false
+        },
+        {
+          "rank": 2,
+          "player": "Bart",
+          "team": "Wedding Crashers",
+          "total": 100,
+          "last_rank": 3,
+          "is_you": true
+        },
+        {
+          "rank": 3,
+          "player": "Tomek",
+          "team": "Tomek XI",
+          "total": 95,
+          "last_rank": 2,
+          "is_you": false
+        }
+      ],
+      "around_you": []
+    }
+  ],
+  "trajectory": [
+    {
+      "gw": 1,
+      "points": 52,
+      "total": 52,
+      "overall_rank": 800000,
+      "value": 100.0,
+      "bank": 0.0
+    },
+    {
+      "gw": 2,
+      "points": 48,
+      "total": 100,
+      "overall_rank": 480000,
+      "value": 100.2,
+      "bank": 0.5
+    }
+  ],
+  "pool": [
+    {
+      "id": 1,
+      "name": "P1",
+      "team": "MCI",
+      "et": 1,
+      "pos": "GK",
+      "price": 4.5,
+      "xpts": 2.8,
+      "xpts_h": 5.2,
+      "own": "10.0",
+      "owned": true,
+      "next": {
+        "opp": "ARS",
+        "ven": "H",
+        "fdr": 3
+      }
+    },
+    {
+      "id": 5,
+      "name": "P5",
+      "team": "MUN",
+      "et": 1,
+      "pos": "GK",
+      "price": 5.7,
+      "xpts": 2.4,
+      "xpts_h": 5.2,
+      "own": "10.0",
+      "owned": true,
+      "next": {
+        "opp": "LIV",
+        "ven": "A",
+        "fdr": 3
+      }
+    },
+    {
+      "id": 9,
+      "name": "P9",
+      "team": "EVE",
+      "et": 1,
+      "pos": "GK",
+      "price": 6.9,
+      "xpts": 2.4,
+      "xpts_h": 5.2,
+      "own": "10.0",
+      "owned": true,
+      "next": {
+        "opp": "BRE",
+        "ven": "A",
+        "fdr": 3
+      }
+    },
+    {
+      "id": 13,
+      "name": "P13",
+      "team": "COV",
+      "et": 1,
+      "pos": "GK",
+      "price": 8.1,
+      "xpts": 2.4,
+      "xpts_h": 5.2,
+      "own": "10.0",
+      "owned": true,
+      "next": {
+        "opp": "IPS",
+        "ven": "A",
+        "fdr": 3
+      }
+    },
+    {
+      "id": 2,
+      "name": "P2",
+      "team": "ARS",
+      "et": 2,
+      "pos": "DEF",
+      "price": 4.8,
+      "xpts": 2.4,
+      "xpts_h": 5.2,
+      "own": "10.0",
+      "owned": true,
+      "next": {
+        "opp": "MCI",
+        "ven": "A",
+        "fdr": 3
+      }
+    },
+    {
+      "id": 6,
+      "name": "P6",
+      "team": "AVL",
+      "et": 2,
+      "pos": "DEF",
+      "price": 6.0,
+      "xpts": 2.4,
+      "xpts_h": 5.2,
+      "own": "10.0",
+      "owned": true,
+      "next": {
+        "opp": "MUN",
+        "ven": "A",
+        "fdr": 3
+      }
+    },
+    {
+      "id": 10,
+      "name": "P10",
+      "team": "CRY",
+      "et": 2,
+      "pos": "DEF",
+      "price": 7.2,
+      "xpts": 2.4,
+      "xpts_h": 5.2,
+      "own": "10.0",
+      "owned": true,
+      "next": {
+        "opp": "EVE",
+        "ven": "A",
+        "fdr": 3
+      }
+    },
+    {
+      "id": 14,
+      "name": "P14",
+      "team": "LEE",
+      "et": 2,
+      "pos": "DEF",
+      "price": 8.4,
+      "xpts": 2.4,
+      "xpts_h": 5.2,
+      "own": "10.0",
+      "owned": true,
+      "next": {
+        "opp": "COV",
+        "ven": "A",
+        "fdr": 3
+      }
+    },
+    {
+      "id": 3,
+      "name": "P3",
+      "team": "CHE",
+      "et": 3,
+      "pos": "MID",
+      "price": 5.1,
+      "xpts": 2.2,
+      "xpts_h": 4.5,
+      "own": "10.0",
+      "owned": true,
+      "next": {
+        "opp": "ARS",
+        "ven": "A",
+        "fdr": 3
+      }
+    },
+    {
+      "id": 7,
+      "name": "P7",
+      "team": "BHA",
+      "et": 3,
+      "pos": "MID",
+      "price": 6.3,
+      "xpts": 2.2,
+      "xpts_h": 4.5,
+      "own": "10.0",
+      "owned": true,
+      "next": {
+        "opp": "AVL",
+        "ven": "A",
+        "fdr": 3
+      }
+    },
+    {
+      "id": 11,
+      "name": "P11",
+      "team": "NFO",
+      "et": 3,
+      "pos": "MID",
+      "price": 7.5,
+      "xpts": 2.2,
+      "xpts_h": 4.5,
+      "own": "10.0",
+      "owned": true,
+      "next": {
+        "opp": "CRY",
+        "ven": "A",
+        "fdr": 3
+      }
+    },
+    {
+      "id": 15,
+      "name": "P15",
+      "team": "SUN",
+      "et": 3,
+      "pos": "MID",
+      "price": 8.7,
+      "xpts": 2.2,
+      "xpts_h": 4.5,
+      "own": "10.0",
+      "owned": true,
+      "next": {
+        "opp": "LEE",
+        "ven": "A",
+        "fdr": 3
+      }
+    },
+    {
+      "id": 4,
+      "name": "P4",
+      "team": "LIV",
+      "et": 4,
+      "pos": "FWD",
+      "price": 5.4,
+      "xpts": 2.0,
+      "xpts_h": 4.0,
+      "own": "10.0",
+      "owned": true,
+      "next": {
+        "opp": "CHE",
+        "ven": "A",
+        "fdr": 3
+      }
+    },
+    {
+      "id": 8,
+      "name": "P8",
+      "team": "BRE",
+      "et": 4,
+      "pos": "FWD",
+      "price": 6.6,
+      "xpts": 2.0,
+      "xpts_h": 4.0,
+      "own": "10.0",
+      "owned": true,
+      "next": {
+        "opp": "BHA",
+        "ven": "A",
+        "fdr": 3
+      }
+    },
+    {
+      "id": 12,
+      "name": "P12",
+      "team": "IPS",
+      "et": 4,
+      "pos": "FWD",
+      "price": 7.8,
+      "xpts": 2.0,
+      "xpts_h": 4.0,
+      "own": "10.0",
+      "owned": true,
+      "next": {
+        "opp": "NFO",
+        "ven": "A",
+        "fdr": 3
+      }
+    }
+  ],
   "totals": {
-    "xi_xpts": 48.4,
-    "captain": "B.Fernandes"
+    "xi_xpts": 27.6,
+    "captain": "P7"
   },
   "note": "Terminarz i FDR z oficjalnego API FPL. xPts to model heurystyczny (nie oficjalny)."
 }

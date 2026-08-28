@@ -37,6 +37,37 @@ Gotowe. Od teraz Action odświeża dane co 3 godziny automatycznie.
 
 ---
 
+## Ważne: aktualizacja po transferach
+
+Publiczne API FPL udostępnia tylko skład **zablokowany po ostatnim deadline** —
+Twoje oczekujące transfery na najbliższą kolejkę są widoczne dopiero po zalogowaniu.
+Dlatego tuż po zrobieniu transferu apka nadal pokazuje poprzedni skład.
+
+**Trzy sposoby, w zależności od tego, ile zachodu chcesz:**
+
+**A) Nic nie rób (domyślne).** Po przejściu deadline'u apka **sama** pobierze nowy,
+zablokowany skład (z Twoimi transferami). Zawsze pokazuje drużynę z ostatniego deadline'u.
+
+**B) Ręcznie (`manual_squad`) — natychmiast, prosto.** Wpisz aktualną 15-tkę do
+`config.json` (patrz niżej). Nadpisuje API, więc widzisz dokładnie to, co chcesz —
+także oczekujące transfery. Minus: po każdym transferze trzeba poprawić listę.
+
+**C) Zalogowana synchronizacja (`FPL_SESSION`) — automatycznie, z oczekującymi transferami.**
+Robot pobiera Twój żywy skład przez endpoint `my-team`. Ustawienie:
+1. Zaloguj się na `fantasy.premierleague.com` w przeglądarce.
+2. Otwórz narzędzia deweloperskie (F12) → **Application/Storage → Cookies** →
+   skopiuj wartość ciasteczka **`sessionid`**.
+3. Na GitHubie: **Settings → Secrets and variables → Actions → New repository secret**,
+   nazwa **`FPL_SESSION`**, wartość = skopiowany `sessionid` → Add secret.
+4. Odpal workflow. Robot użyje zalogowanej drużyny.
+
+   Uwagi: ciasteczko `sessionid` **wygasa** po pewnym czasie — wtedy trzeba je odświeżyć.
+   FPL bywa też wrażliwy na zapytania z serwerów (GitHub Actions), więc ta metoda może
+   nie zawsze zadziałać — wtedy robot automatycznie wraca do publicznego składu (opcja A).
+   To ciasteczko to Twój token sesji — trzymaj je tylko w Secrets, nigdy w kodzie repo.
+
+---
+
 ## Nie znasz ID? Masz tylko screenshot?
 
 Wpisz nazwiska (dokładnie jak `web_name` na stronie FPL) do `manual_squad`
@@ -53,6 +84,66 @@ Fetcher dopasuje nazwiska do zawodników FPL. (Podanie `team_id` jest lepsze —
 wtedy dostajesz też prawdziwego kapitana, ławkę, bank i wartość drużyny.)
 
 ---
+
+## Co potrafi (wszystko za darmo, z API FPL)
+
+**Doradca** (zakładka główna):
+- Kapitan-optymalizator — potwierdza opaskę albo wskazuje lepszego.
+- Ustawienie i ławka — liczy optymalną jedenastkę (wszystkie formacje), sugeruje kogo z ławki wystawić i kolejność auto-zmian.
+- Rekomendacje transferów — przeszukuje całą bazę, znajduje najlepsze OUT→IN w budżecie.
+- Alerty — kontuzje, zawieszenia, wątpliwości (z API).
+
+**Skład** — boisko z xPts, po kliknięciu rozbicie na warstwy + stałe fragmenty (karne/rożne/wolne) + ruch ceny + pogoda.
+
+**Terminarz FDR** — 5 kolejek do przodu, oficjalny FDR, po klubie.
+
+**Koncentracja** — na ilu meczach wisi jedenastka.
+
+**Planer**:
+- Doradca chipów — kiedy Bench Boost / Triple Captain / Wildcard / Free Hit (heurystyki).
+- Radar DGW/BGW — podwójne i puste kolejki na horyzoncie.
+- Różnicowi — wysokie xPts przy niskiej własności (<10%).
+- Ruchy cenowe — momentum transferów (przybliżone).
+- Skauting rywali — analiza cudzych drużyn (dodaj ich ID do `rivals` w config.json).
+
+
+**Moja liga**:
+- Trajektoria sezonu — punkty, ranking i wartość drużyny kolejka po kolejce (wykres).
+- Twoje miniligi — pozycja i ruch w górę/dół (auto z API, bez ręcznych ID).
+- Tabele prywatnych lig — czołówka + Twoje otoczenie, z podświetleniem Ciebie.
+
+W szczegółach zawodnika doszła też **mini-forma (ostatnie 5 GW)**, a w Planerze **ranking wartości (xPts za £1m)**.
+
+**Symulator** — „co jeśli": wybierasz OUT/IN, widzisz zysk xPts na 3 kolejki i czy zwraca się −4.
+
+Uczciwie: **xPts, rekomendacje i doradca chipów to heurystyki**, nie model ML ani przewidywane składy.
+Kontuzje masz z API; rotacje taktyczne i media wymagałyby płatnych źródeł.
+
+## Model xPts — komponentowy, wg reguł FPL + dane Opta
+
+xPts liczone jest jako **suma komponentów punktowych zgodnych z regulaminem FPL**, a nie mnożnik:
+
+```
+xPts = występ + gole(xG×pkt_za_gola_wg_pozycji) + asysty(xA×3)
+     + czyste konto(P(CS)×pkt) + akcje obronne(P(próg 10/12)×2)
+     + obrony BR(saves/3) + bonus − stracone bramki − kartki
+```
+
+- **xG / xA per 90** pochodzą z metryk **Opta wbudowanych w API FPL** (`expected_goals_per_90`,
+  `expected_assists_per_90`) — to te same dane, które pokazuje FBref, tylko za darmo i bez scrapowania.
+- **Prawdopodobieństwo czystego konta** liczone rozkładem Poissona z **ocen siły drużyn** FPL
+  (`strength_attack/defence`, dom/wyjazd) — im silniejszy atak rywala, tym niższa szansa na CS.
+- **Akcje obronne** (nowa reguła: OBR ≥10 CBIT, POM/NAP ≥12 CBIRT) nagradzane osobno — dlatego
+  defensywny obrońca czy „niszczyciel" w pomocy dostają punkty mimo braku goli.
+- Każdy komponent widać w zakładce **Skład** po kliknięciu zawodnika.
+
+### A co z FBref / WhoScored / Sofascore?
+
+Świadomie **nie** scrapuję tych serwisów, bo: (1) xG/xA Opty masz już w API FPL, (2) scraping FBref/
+WhoScored jest kruchy i w szarej strefie regulaminowej (blokady IP, limity), (3) z serwera GitHub Actions
+często bywa blokowany. Jeśli chcesz dołożyć głębsze metryki (SCA/GCA, npxG, progresywne podania),
+najczystsza droga to **ręczny eksport CSV z FBref** (FBref pozwala pobrać tabelę jako CSV) i wrzucenie go
+do repo — wtedy fetcher może go zblendować bez łamania zasad. Daj znać, dodam taki opcjonalny hook.
 
 ## Jak to działa
 
