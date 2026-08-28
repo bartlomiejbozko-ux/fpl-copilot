@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T14:43:14Z",
+  "generated_at": "2026-08-28T15:06:42Z",
   "gw": {
     "current": 1,
     "next": 2,
@@ -68,7 +68,7 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": -10785,
+      "price_mom": -10830,
       "cost_change_event": 0,
       "form5": [
         3
@@ -144,7 +144,7 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": -9159,
+      "price_mom": -9140,
       "cost_change_event": 0,
       "form5": [
         0
@@ -220,7 +220,7 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": 258166,
+      "price_mom": 259318,
       "cost_change_event": 1,
       "form5": [
         9
@@ -296,7 +296,7 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": -59473,
+      "price_mom": -60177,
       "cost_change_event": 0,
       "form5": [
         5
@@ -372,7 +372,7 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": -4076,
+      "price_mom": -4079,
       "cost_change_event": 0,
       "form5": [
         2
@@ -448,7 +448,7 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": -61840,
+      "price_mom": -62352,
       "cost_change_event": 0,
       "form5": [
         2
@@ -524,7 +524,7 @@
         "corners": 2,
         "fk": 2
       },
-      "price_mom": -126224,
+      "price_mom": -127603,
       "cost_change_event": 0,
       "form5": [
         2
@@ -600,7 +600,7 @@
         "corners": 3,
         "fk": 2
       },
-      "price_mom": -89245,
+      "price_mom": -90278,
       "cost_change_event": 0,
       "form5": [
         2
@@ -635,7 +635,7 @@
       "price": 12.0,
       "form": "2.0",
       "ppg": "2.0",
-      "selected_by": "48.3",
+      "selected_by": "48.2",
       "status": "a",
       "news": "",
       "chance": null,
@@ -676,7 +676,7 @@
         "corners": 1,
         "fk": 1
       },
-      "price_mom": -167655,
+      "price_mom": -169088,
       "cost_change_event": 0,
       "form5": [
         2
@@ -752,7 +752,7 @@
         "corners": 4,
         "fk": null
       },
-      "price_mom": 168155,
+      "price_mom": 169491,
       "cost_change_event": 0,
       "form5": [
         8
@@ -787,7 +787,7 @@
       "price": 7.6,
       "form": "11.0",
       "ppg": "11.0",
-      "selected_by": "68.1",
+      "selected_by": "68.2",
       "status": "a",
       "news": "",
       "chance": null,
@@ -828,7 +828,7 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": 347057,
+      "price_mom": 350553,
       "cost_change_event": 1,
       "form5": [
         11
@@ -904,7 +904,7 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": -9012,
+      "price_mom": -9085,
       "cost_change_event": 0,
       "form5": [
         0
@@ -980,7 +980,7 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": -1447,
+      "price_mom": -1465,
       "cost_change_event": 0,
       "form5": [
         1
@@ -1056,7 +1056,7 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": 1553,
+      "price_mom": 1597,
       "cost_change_event": 0,
       "form5": [
         1
@@ -1132,7 +1132,7 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": -3960,
+      "price_mom": -3964,
       "cost_change_event": 0,
       "form5": [
         0
@@ -1452,7 +1452,7 @@
             "ven": "A",
             "fdr": 4
           },
-          "selected_by": "8.1"
+          "selected_by": "8.2"
         }
       },
       {
@@ -1480,7 +1480,7 @@
             "ven": "A",
             "fdr": 4
           },
-          "selected_by": "8.1"
+          "selected_by": "8.2"
         }
       },
       {
@@ -1508,7 +1508,7 @@
             "ven": "A",
             "fdr": 4
           },
-          "selected_by": "8.1"
+          "selected_by": "8.2"
         }
       }
     ],
@@ -1620,7 +1620,7 @@
         "pos": "DEF",
         "price": 4.6,
         "xpts_h": 45.8,
-        "selected_by": "8.1",
+        "selected_by": "8.2",
         "next": {
           "opp": "CHE",
           "ven": "A",
@@ -1695,66 +1695,73 @@
     ],
     "price_risk": [
       {
+        "name": "Gabriel",
+        "team": "ARS",
+        "dir": "fall",
+        "mom": -60177,
+        "owned": true
+      },
+      {
         "name": "Cunha",
         "team": "MUN",
         "dir": "fall",
-        "mom": -61840,
+        "mom": -62352,
         "owned": true
       },
       {
         "name": "Mbeumo",
         "team": "MUN",
         "dir": "fall",
-        "mom": -126224,
+        "mom": -127603,
         "owned": true
       },
       {
         "name": "Wirtz",
         "team": "LIV",
         "dir": "fall",
-        "mom": -89245,
+        "mom": -90278,
         "owned": true
       },
       {
         "name": "B.Fernandes",
         "team": "MUN",
         "dir": "fall",
-        "mom": -167655,
+        "mom": -169088,
         "owned": true
       },
       {
         "name": "De Cuyper",
         "team": "BHA",
         "dir": "rise",
-        "mom": 448482,
+        "mom": 451479,
         "owned": false
       },
       {
         "name": "M.Sangaré",
         "team": "BRE",
         "dir": "rise",
-        "mom": 389097,
+        "mom": 392716,
         "owned": false
       },
       {
         "name": "João Pedro",
         "team": "CHE",
         "dir": "rise",
-        "mom": 347057,
+        "mom": 350553,
         "owned": true
       },
       {
         "name": "Palmer",
         "team": "CHE",
         "dir": "rise",
-        "mom": 313984,
+        "mom": 317567,
         "owned": false
       },
       {
         "name": "Kayode",
         "team": "BRE",
         "dir": "rise",
-        "mom": 275677,
+        "mom": 277306,
         "owned": false
       }
     ],
@@ -2971,7 +2978,7 @@
       "price": 5.0,
       "xpts": 3.2,
       "xpts_h": 9.1,
-      "own": "4.0",
+      "own": "3.9",
       "owned": false,
       "next": {
         "opp": "FUL",
@@ -3575,6 +3582,23 @@
       }
     },
     {
+      "id": 620,
+      "name": "Diouf",
+      "team": "BRE",
+      "et": 2,
+      "pos": "DEF",
+      "price": 4.5,
+      "xpts": 2.4,
+      "xpts_h": 7.6,
+      "own": "0.0",
+      "owned": false,
+      "next": {
+        "opp": "LEE",
+        "ven": "A",
+        "fdr": 3
+      }
+    },
+    {
       "id": 113,
       "name": "F.Kadıoğlu",
       "team": "BHA",
@@ -3617,7 +3641,7 @@
       "price": 4.6,
       "xpts": 14.8,
       "xpts_h": 45.8,
-      "own": "8.1",
+      "own": "8.2",
       "owned": false,
       "next": {
         "opp": "CHE",
@@ -4008,7 +4032,7 @@
       "price": 4.0,
       "xpts": 4.0,
       "xpts_h": 11.5,
-      "own": "7.9",
+      "own": "8.0",
       "owned": false,
       "next": {
         "opp": "HUL",
@@ -4552,7 +4576,7 @@
       "price": 4.5,
       "xpts": 3.5,
       "xpts_h": 11.1,
-      "own": "0.4",
+      "own": "0.5",
       "owned": false,
       "next": {
         "opp": "SUN",
@@ -5266,7 +5290,7 @@
       "price": 6.0,
       "xpts": 9.6,
       "xpts_h": 29.9,
-      "own": "19.5",
+      "own": "19.6",
       "owned": false,
       "next": {
         "opp": "CRY",
@@ -5606,7 +5630,7 @@
       "price": 5.0,
       "xpts": 0.0,
       "xpts_h": 0.0,
-      "own": "1.7",
+      "own": "1.6",
       "owned": false,
       "next": {
         "opp": "TOT",
@@ -6762,7 +6786,7 @@
       "price": 6.0,
       "xpts": 5.4,
       "xpts_h": 16.0,
-      "own": "2.4",
+      "own": "2.5",
       "owned": false,
       "next": {
         "opp": "EVE",
@@ -9635,7 +9659,7 @@
       "price": 12.0,
       "xpts": 4.0,
       "xpts_h": 11.8,
-      "own": "48.3",
+      "own": "48.2",
       "owned": true,
       "next": {
         "opp": "IPS",
@@ -10672,7 +10696,7 @@
       "price": 7.4,
       "xpts": 2.0,
       "xpts_h": 6.0,
-      "own": "6.8",
+      "own": "6.7",
       "owned": false,
       "next": {
         "opp": "AVL",
@@ -10978,7 +11002,7 @@
       "price": 7.6,
       "xpts": 5.5,
       "xpts_h": 16.3,
-      "own": "68.1",
+      "own": "68.2",
       "owned": true,
       "next": {
         "opp": "BHA",
@@ -11284,7 +11308,7 @@
       "price": 5.5,
       "xpts": 2.9,
       "xpts_h": 8.8,
-      "own": "2.1",
+      "own": "2.2",
       "owned": false,
       "next": {
         "opp": "COV",
@@ -11454,7 +11478,7 @@
       "price": 15.5,
       "xpts": 5.6,
       "xpts_h": 17.1,
-      "own": "67.9",
+      "own": "67.8",
       "owned": false,
       "next": {
         "opp": "CRY",
@@ -11556,7 +11580,7 @@
       "price": 6.0,
       "xpts": 0.0,
       "xpts_h": 0.0,
-      "own": "1.0",
+      "own": "0.9",
       "owned": false,
       "next": {
         "opp": "TOT",
