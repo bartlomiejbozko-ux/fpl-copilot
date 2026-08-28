@@ -83,8 +83,8 @@ def make_model(teams):
     for t in teams:
         atts += [t.get("strength_attack_home", 1100), t.get("strength_attack_away", 1100)]
         defs += [t.get("strength_defence_home", 1100), t.get("strength_defence_away", 1100)]
-    mean_att = (sum(atts) / len(atts)) if atts else 1100
-    mean_def = (sum(defs) / len(defs)) if defs else 1100
+mean_att = (sum(atts) / len(atts)) if (atts and sum(atts) > 0) else 1100
+mean_def = (sum(defs) / len(defs)) if (defs and sum(defs) > 0) else 1100
     tmap = {t["id"]: t for t in teams}
 
     def fnum(p, key, d=0.0):
