@@ -68,124 +68,45 @@ def get_json_auth(url, session, tries=2, pause=1.5):
     return None
 
 
-# ── model xPts (komponentowy, wg reguł FPL + dane Opta z API) ─────────────────
-import math
-
-GOAL_PTS = {1: 10, 2: 6, 3: 5, 4: 4}    # punkty za gola: BR, OBR, POM, NAP
-CS_PTS = {1: 4, 2: 4, 3: 1, 4: 0}        # czyste konto
-DC_THRESH = {2: 10, 3: 12, 4: 12}        # próg akcji obronnych: OBR 10 (CBIT), POM/NAP 12 (CBIRT)
+# ── model xPts (heurystyczny, przejrzysty) ────────────────────────────────────
+BASE_POS = {1: 3.0, 2: 3.3, 3: 3.5, 4: 3.7}  # GK, DEF, MID, FWD
 
 
-def make_model(teams):
-    """Buduje funkcję liczącą xPts jako sumę komponentów wg reguł FPL.
-    Korzysta z metryk Opta per 90 (xG, xA, xGC, obrony, akcje obronne) i ocen siły drużyn."""
-    atts, defs = [], []
-    for t in teams:
-        atts += [t.get("strength_attack_home", 1100), t.get("strength_attack_away", 1100)]
-        defs += [t.get("strength_defence_home", 1100), t.get("strength_defence_away", 1100)]
-    mean_att = (sum(atts) / len(atts)) if atts else 1100
-    mean_def = (sum(defs) / len(defs)) if defs else 1100
-    tmap = {t["id"]: t for t in teams}
+def compute_xpts(p, fdr, is_home):
+    """
+    Prosty, uczciwy model. Łańcuch:
+      baza(forma+PPG) × szansa_minut × trudność(FDR) × dom/wyjazd
+    Zwraca (xpts, lista_czynnikow_do_wizualizacji).
+    """
+    form = float(p.get("form") or 0)
+    ppg = float(p.get("points_per_game") or 0)
+    pos_base = BASE_POS.get(p.get("element_type", 3), 3.4)
 
-    def fnum(p, key, d=0.0):
-        try:
-            return float(p.get(key) or 0)
-        except (TypeError, ValueError):
-            return d
+    # baza: mieszanka bieżącej formy, średniej sezonu i sufitu pozycji
+    base = 0.5 * form + 0.3 * ppg + 0.2 * pos_base
 
-    def compute(p, opp_id, is_home, team_id=None):
-        et = p.get("element_type", 3)
-        chance = p.get("chance_of_playing_next_round")
-        if chance is None:
-            chance = 100 if p.get("status") == "a" else 0
-        m = chance / 100.0
+    # szansa na minuty
+    chance = p.get("chance_of_playing_next_round")
+    if chance is None:
+        chance = 100 if p.get("status") == "a" else 0
+    mins_prob = chance / 100.0
 
-        starts = fnum(p, "starts")
-        mins = fnum(p, "minutes")
-        g90 = (mins / 90.0) if mins > 0 else 0
-        xg90 = fnum(p, "expected_goals_per_90")
-        xa90 = fnum(p, "expected_assists_per_90")
-        sv90 = fnum(p, "saves_per_90")
-        dc90 = fnum(p, "defensive_contribution_per_90")
-        if dc90 == 0:  # fallback z sum sezonowych
-            cbi = fnum(p, "clearances_blocks_interceptions")
-            tk = fnum(p, "tackles")
-            rec = fnum(p, "recoveries") if et in (3, 4) else 0
-            dc90 = ((cbi + tk + rec) / g90) if g90 > 0 else 0
+    # trudność rywala: FDR 1..5, 3 = neutralne; każdy krok ~8%
+    fdr = fdr or 3
+    fix_mult = 1 + (3 - fdr) * 0.08
 
-        opp = tmap.get(opp_id, {})
-        opp_def = opp.get("strength_defence_away" if is_home else "strength_defence_home", mean_def) or mean_def
-        opp_att = opp.get("strength_attack_away" if is_home else "strength_attack_home", mean_att) or mean_att
-        att_mult = max(0.6, min(1.5, mean_def / opp_def)) * (1.05 if is_home else 0.97)
-        lam = max(0.25, min(3.0, 1.25 * (opp_att / mean_att) * (0.9 if is_home else 1.12)))
-        p_cs = math.exp(-lam)
+    # dom/wyjazd
+    venue_mult = 1.03 if is_home else 0.97
 
-        e_goals = xg90 * m * att_mult
-        e_assist = xa90 * m * att_mult
-        pts_app = m * 2.0
-        pts_goals = e_goals * GOAL_PTS.get(et, 4)
-        pts_assist = e_assist * 3.0
-        pts_cs = (p_cs * m) * CS_PTS.get(et, 0)
-        pts_conc = -(lam / 2.0) * m if et in (1, 2) else 0.0
-        pts_sv = (sv90 * m / 3.0) if et == 1 else 0.0
-        thr = DC_THRESH.get(et)
-        pts_dc = 0.0
-        if thr and dc90 > 0:
-            pts_dc = (1 / (1 + math.exp(-(dc90 - thr) / 2.5))) * 2.0 * m
-        pts_bonus = min(1.6, e_goals * 0.9 + e_assist * 0.6 + (p_cs * m * 0.3 if et in (1, 2) else 0))
-        yc = fnum(p, "yellow_cards")
-        gp = starts if starts > 0 else max(g90, 1)
-        pts_cards = -min(0.4, yc / gp) * m
+    xpts = base * mins_prob * fix_mult * venue_mult
 
-        total = (pts_app + pts_goals + pts_assist + pts_cs + pts_conc
-                 + pts_sv + pts_dc + pts_bonus + pts_cards)
-
-        factors = [{"label": "Występ (minuty)", "pts": round(pts_app, 2)},
-                   {"label": "Gole (xG)", "pts": round(pts_goals, 2)},
-                   {"label": "Asysty (xA)", "pts": round(pts_assist, 2)}]
-        if et == 1:
-            factors.append({"label": "Obrony", "pts": round(pts_sv, 2)})
-            factors.append({"label": "Czyste konto", "pts": round(pts_cs, 2)})
-        elif et == 2:
-            factors.append({"label": "Czyste konto", "pts": round(pts_cs, 2)})
-            factors.append({"label": "Akcje obronne", "pts": round(pts_dc, 2)})
-        else:
-            factors.append({"label": "Czyste konto", "pts": round(pts_cs, 2)})
-            factors.append({"label": "Akcje obronne", "pts": round(pts_dc, 2)})
-        factors.append({"label": "Bonus", "pts": round(pts_bonus, 2)})
-        factors.append({"label": "Stracone + kartki", "pts": round(pts_conc + pts_cards, 2)})
-
-        return round(max(0.0, total), 1), factors
-
-    def explain(et, team_id, opp_id, is_home):
-        """Krótkie, ludzkie uzasadnienie wyboru na bazie sił drużyn i miejsca meczu."""
-        my = tmap.get(team_id, {})
-        opp = tmap.get(opp_id, {})
-        rs = []
-        hs = my.get("strength_overall_home", 1100) or 1100
-        aw = my.get("strength_overall_away", 1100) or 1100
-        if is_home and hs > aw + 25:
-            rs.append("gra u siebie, gdzie ta drużyna jest wyraźnie mocniejsza")
-        elif (not is_home) and aw >= hs - 10:
-            rs.append("dobrze radzi sobie na wyjeździe")
-        opp_def = opp.get("strength_defence_away" if is_home else "strength_defence_home", mean_def) or mean_def
-        opp_att = opp.get("strength_attack_away" if is_home else "strength_attack_home", mean_att) or mean_att
-        if et in (3, 4, 2):  # ofensywa
-            if opp_def <= mean_def - 60:
-                rs.append("rywal słabo broni — sprzyja zdobyciu punktów")
-            elif opp_def >= mean_def + 70:
-                if opp_att <= mean_att - 60:
-                    rs.append("rywal gra defensywnie (zaparkowany autobus) — trudno o gola")
-                else:
-                    rs.append("rywal broni się mocno")
-        if et in (1, 2):  # obrona / czyste konto
-            if opp_att <= mean_att - 60:
-                rs.append("wysoka szansa na czyste konto (rywal słabo atakuje)")
-            elif opp_att >= mean_att + 70:
-                rs.append("czyste konto mało prawdopodobne (groźny atak rywala)")
-        return "; ".join(rs[:2]) if rs else "korzystniejszy profil xPts na tę kolejkę"
-
-    return compute, explain
+    factors = [
+        {"label": "Baza (forma + PPG)", "value": round(base, 2)},
+        {"label": "Szansa na minuty", "mult": round(mins_prob, 2)},
+        {"label": f"Trudnosc (FDR {fdr})", "mult": round(fix_mult, 2)},
+        {"label": "Dom" if is_home else "Wyjazd", "mult": round(venue_mult, 2)},
+    ]
+    return round(xpts, 1), factors
 
 
 # ── pogoda (Open-Meteo, opcjonalna) ───────────────────────────────────────────
@@ -266,9 +187,9 @@ def build():
         if f.get("finished") or f.get("event") is None or f["event"] < next_gw:
             continue
         h, a = f["team_h"], f["team_a"]
-        team_fixtures[h].append({"gw": f["event"], "opp": tshort[a], "ven": "H", "opp_id": a,
+        team_fixtures[h].append({"gw": f["event"], "opp": tshort[a], "ven": "H",
                                  "fdr": f["team_h_difficulty"], "kickoff": f.get("kickoff_time")})
-        team_fixtures[a].append({"gw": f["event"], "opp": tshort[h], "ven": "A", "opp_id": h,
+        team_fixtures[a].append({"gw": f["event"], "opp": tshort[h], "ven": "A",
                                  "fdr": f["team_a_difficulty"], "kickoff": f.get("kickoff_time")})
     for tid in team_fixtures:
         team_fixtures[tid] = team_fixtures[tid][:HORIZON]
@@ -277,13 +198,11 @@ def build():
         fx = team_fixtures.get(tid) or []
         return fx[0] if fx else None
 
-    compute_xpts, explain_xpts = make_model(boot["teams"])   # model + uzasadnienia
-
     def xpts_horizon(p, tid, n=3):
         """Suma xPts z najbliższych n meczów — do rankingu transferów (nagradza dobry terminarz)."""
         tot = 0.0
         for f in (team_fixtures.get(tid) or [])[:n]:
-            x, _ = compute_xpts(p, f["opp_id"], f["ven"] == "H", tid)
+            x, _ = compute_xpts(p, f["fdr"], f["ven"] == "H")
             tot += x
         return round(tot, 1)
 
@@ -346,8 +265,7 @@ def build():
         nf = next_fix(tid)
         fdr = nf["fdr"] if nf else 3
         is_home = (nf["ven"] == "H") if nf else True
-        opp_id = nf["opp_id"] if nf else None
-        xpts, factors = compute_xpts(p, opp_id, is_home, tid)
+        xpts, factors = compute_xpts(p, fdr, is_home)
         xph = xpts_horizon(p, tid)
         on_bench = s["order"] > 11
         weather = get_weather(tshort[tid], nf["kickoff"]) if nf else None
@@ -366,8 +284,7 @@ def build():
             "price_mom": (p.get("transfers_in_event") or 0) - (p.get("transfers_out_event") or 0),
             "cost_change_event": p.get("cost_change_event") or 0,
             "form5": last5(p["id"]),
-            "next": ({"opp": nf["opp"], "ven": nf["ven"], "fdr": nf["fdr"], "opp_id": nf["opp_id"]} if nf else None),
-            "team_id": tid,
+            "next": ({"opp": nf["opp"], "ven": nf["ven"], "fdr": nf["fdr"]} if nf else None),
             "weather": weather,
             "is_captain": s["captain"], "is_vice": s["vice"],
             "multiplier": s["mult"], "on_bench": on_bench, "order": s["order"],
@@ -422,7 +339,7 @@ def build():
         nf = next_fix(tid)
         if not nf:
             continue
-        x, _ = compute_xpts(p, nf["opp_id"], nf["ven"] == "H", tid)
+        x, _ = compute_xpts(p, nf["fdr"], nf["ven"] == "H")
         cand = {
             "id": p["id"], "name": p["web_name"], "team": tshort[tid],
             "et": p["element_type"],
@@ -534,14 +451,7 @@ def build():
         swaps = []
         for i in range(min(len(bring_in), len(sit_out))):
             inp, outp = bring_in[i], sit_out[i]
-            reason = ""
-            if inp.get("next"):
-                reason = explain_xpts(inp["etype"], inp.get("team_id"),
-                                      inp["next"].get("opp_id"), inp["next"]["ven"] == "H")
-            swaps.append({"in": {"name": inp["name"], "pos": inp["pos"], "xpts": inp["xpts"],
-                                 "opp": inp["next"]["opp"] if inp.get("next") else "",
-                                 "ven": inp["next"]["ven"] if inp.get("next") else "",
-                                 "reason": reason},
+            swaps.append({"in": {"name": inp["name"], "pos": inp["pos"], "xpts": inp["xpts"]},
                           "out": {"name": outp["name"], "pos": outp["pos"], "xpts": outp["xpts"]},
                           "delta": round(inp["xpts"] - outp["xpts"], 1)})
 
@@ -552,22 +462,10 @@ def build():
         bench_order = ([{"name": p["name"], "pos": p["pos"], "xpts": p["xpts"]} for p in bench_out]
                        + [{"name": p["name"], "pos": p["pos"], "xpts": p["xpts"]} for p in bench_gk])
 
-        # najlepsze wybory w jedenastce — z uzasadnieniem (nawet gdy ustawienie optymalne)
-        opt_starters = sorted([p for p in squad if p["id"] in best["ids"]],
-                              key=lambda p: -p["xpts"])
-        highlights = []
-        for p in opt_starters[:3]:
-            r = explain_xpts(p["etype"], p.get("team_id"),
-                             p["next"].get("opp_id") if p.get("next") else None,
-                             p["next"]["ven"] == "H" if p.get("next") else True)
-            highlights.append({"name": p["name"], "pos": p["pos"], "xpts": p["xpts"],
-                               "opp": p["next"]["opp"] if p.get("next") else "",
-                               "ven": p["next"]["ven"] if p.get("next") else "", "reason": r})
-
         return {"optimal": best["ids"] == cur_ids, "gain": round(best["total"] - cur_raw, 1),
                 "optimal_formation": best["form"], "current_formation": f"{cd}-{cm}-{cf}",
                 "optimal_xpts": best["total"], "current_xpts": cur_raw,
-                "swaps": swaps, "bench_order": bench_order, "highlights": highlights}
+                "swaps": swaps, "bench_order": bench_order}
 
     lineup = optimize_lineup(squad) if len([p for p in squad]) >= 11 else None
 
@@ -673,7 +571,7 @@ def build():
             if not rp:
                 continue
             nf = next_fix(rp["team"])
-            x, _ = compute_xpts(rp, nf["opp_id"] if nf else None, (nf["ven"] == "H") if nf else True, rp["team"])
+            x, _ = compute_xpts(rp, nf["fdr"] if nf else 3, (nf["ven"] == "H") if nf else True)
             rxpts += x * (2 if pk["is_captain"] else 1)
         they_have = [players[i]["web_name"] for i in (rids - my_ids) if i in players][:6]
         you_have = [players[i]["web_name"] for i in ({p["id"] for p in xi} - rids) if i in players][:6]
@@ -687,9 +585,8 @@ def build():
     for et, lst in pool_by_pos.items():
         for c in lst:
             sim_pool.append({"id": c["id"], "name": c["name"], "team": c["team"], "et": et,
-                             "pos": POS[et], "price": c["price"], "xpts": c["xpts"],
-                             "xpts_h": c["xpts_h"], "own": c["selected_by"],
-                             "owned": c["id"] in owned, "next": c["next"]})
+                             "pos": POS[et], "price": c["price"], "xpts_h": c["xpts_h"],
+                             "own": c["selected_by"], "owned": c["id"] in owned})
 
     planner = {"dgw_bgw": dgw_bgw, "chips": chips, "differentials": differentials,
                "price_risk": price_risk, "rivals": rivals, "bank": bank_t / 10.0}
