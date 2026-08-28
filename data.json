@@ -1,38 +1,1020 @@
 {
-  "generated_at": "2026-08-27T19:00:00Z",
-  "gw": {"current": 2, "next": 3, "name": "Gameweek 3"},
-  "entry": {"team_id": "3607573", "name": "Twój skład", "player_name": "", "overall_points": 132, "overall_rank": 480000, "bank": 0.0, "value": 100.0},
+  "generated_at": "2026-08-28T13:58:32Z",
+  "gw": {
+    "current": 1,
+    "next": 2,
+    "name": "Gameweek 2"
+  },
+  "entry": {
+    "team_id": "3607573",
+    "name": "Wedding Crashers",
+    "player_name": "Bartlomiej Bozko",
+    "overall_points": 48,
+    "overall_rank": 4969899,
+    "bank": 0.5,
+    "value": 100.0
+  },
   "squad": [
-    {"id":1,"name":"Donnarumma","team":"MCI","team_full":"Man City","pos":"GK","price":5.5,"form":"4.0","ppg":"4.0","selected_by":"6.2","status":"a","news":"","chance":100,"ep_next":"4.1","xpts":4.2,"factors":[{"label":"Baza (forma + PPG)","value":4.2},{"label":"Szansa na minuty","mult":1.0},{"label":"Trudnosc (FDR 2)","mult":1.08},{"label":"Dom","mult":1.03}],"next":{"opp":"COV","ven":"H","fdr":2},"weather":{"temp":17,"rain":0,"wind":11},"is_captain":false,"is_vice":false,"multiplier":1,"on_bench":false,"order":1},
-    {"id":2,"name":"Calafiori","team":"ARS","team_full":"Arsenal","pos":"DEF","price":5.5,"form":"3.5","ppg":"3.6","selected_by":"12.1","status":"a","news":"","chance":100,"ep_next":"3.4","xpts":3.4,"factors":[{"label":"Baza (forma + PPG)","value":3.6},{"label":"Szansa na minuty","mult":1.0},{"label":"Trudnosc (FDR 4)","mult":0.92},{"label":"Wyjazd","mult":0.97}],"next":{"opp":"CHE","ven":"H","fdr":4},"weather":null,"is_captain":false,"is_vice":false,"multiplier":1,"on_bench":false,"order":2},
-    {"id":3,"name":"White","team":"ARS","team_full":"Arsenal","pos":"DEF","price":5.5,"form":"3.8","ppg":"3.7","selected_by":"9.4","status":"a","news":"","chance":100,"ep_next":"3.6","xpts":3.5,"factors":[{"label":"Baza (forma + PPG)","value":3.8},{"label":"Szansa na minuty","mult":1.0},{"label":"Trudnosc (FDR 4)","mult":0.92},{"label":"Dom","mult":1.03}],"next":{"opp":"CHE","ven":"H","fdr":4},"weather":null,"is_captain":false,"is_vice":false,"multiplier":1,"on_bench":false,"order":3},
-    {"id":4,"name":"Gvardiol","team":"MCI","team_full":"Man City","pos":"DEF","price":5.5,"form":"4.5","ppg":"4.4","selected_by":"18.7","status":"a","news":"","chance":100,"ep_next":"4.3","xpts":4.7,"factors":[{"label":"Baza (forma + PPG)","value":4.5},{"label":"Szansa na minuty","mult":1.0},{"label":"Trudnosc (FDR 2)","mult":1.08},{"label":"Dom","mult":1.03}],"next":{"opp":"COV","ven":"H","fdr":2},"weather":{"temp":17,"rain":0,"wind":11},"is_captain":false,"is_vice":false,"multiplier":1,"on_bench":false,"order":4},
-    {"id":5,"name":"Ødegaard","team":"ARS","team_full":"Arsenal","pos":"MID","price":6.5,"form":"5.0","ppg":"4.9","selected_by":"14.3","status":"a","news":"","chance":100,"ep_next":"4.7","xpts":4.4,"factors":[{"label":"Baza (forma + PPG)","value":4.9},{"label":"Szansa na minuty","mult":1.0},{"label":"Trudnosc (FDR 4)","mult":0.92},{"label":"Dom","mult":1.03}],"next":{"opp":"CHE","ven":"H","fdr":4},"weather":null,"is_captain":false,"is_vice":false,"multiplier":1,"on_bench":false,"order":5},
-    {"id":6,"name":"Rogers","team":"CHE","team_full":"Chelsea","pos":"MID","price":7.5,"form":"4.3","ppg":"4.2","selected_by":"7.8","status":"a","news":"","chance":100,"ep_next":"4.1","xpts":3.6,"factors":[{"label":"Baza (forma + PPG)","value":4.3},{"label":"Szansa na minuty","mult":0.95},{"label":"Trudnosc (FDR 5)","mult":0.84},{"label":"Wyjazd","mult":0.97}],"next":{"opp":"ARS","ven":"A","fdr":5},"weather":null,"is_captain":false,"is_vice":false,"multiplier":1,"on_bench":false,"order":6},
-    {"id":7,"name":"Palmer","team":"CHE","team_full":"Chelsea","pos":"MID","price":9.5,"form":"6.2","ppg":"6.0","selected_by":"41.2","status":"a","news":"","chance":100,"ep_next":"5.6","xpts":5.1,"factors":[{"label":"Baza (forma + PPG)","value":6.1},{"label":"Szansa na minuty","mult":1.0},{"label":"Trudnosc (FDR 5)","mult":0.84},{"label":"Wyjazd","mult":0.97}],"next":{"opp":"ARS","ven":"A","fdr":5},"weather":null,"is_captain":true,"is_vice":false,"multiplier":2,"on_bench":false,"order":7},
-    {"id":8,"name":"B.Fernandes","team":"MUN","team_full":"Man Utd","pos":"MID","price":12.0,"form":"5.4","ppg":"5.4","selected_by":"28.9","status":"a","news":"","chance":100,"ep_next":"5.2","xpts":5.2,"factors":[{"label":"Baza (forma + PPG)","value":5.4},{"label":"Szansa na minuty","mult":1.0},{"label":"Trudnosc (FDR 3)","mult":1.0},{"label":"Wyjazd","mult":0.97}],"next":{"opp":"EVE","ven":"A","fdr":3},"weather":{"temp":15,"rain":0.2,"wind":18},"is_captain":false,"is_vice":false,"multiplier":1,"on_bench":false,"order":8},
-    {"id":9,"name":"Szoboszlai","team":"LIV","team_full":"Liverpool","pos":"MID","price":7.0,"form":"4.6","ppg":"4.5","selected_by":"11.5","status":"a","news":"","chance":100,"ep_next":"4.6","xpts":4.9,"factors":[{"label":"Baza (forma + PPG)","value":4.6},{"label":"Szansa na minuty","mult":1.0},{"label":"Trudnosc (FDR 2)","mult":1.08},{"label":"Wyjazd","mult":0.97}],"next":{"opp":"IPS","ven":"A","fdr":2},"weather":null,"is_captain":false,"is_vice":false,"multiplier":1,"on_bench":false,"order":9},
-    {"id":10,"name":"Isak","team":"LIV","team_full":"Liverpool","pos":"FWD","price":9.0,"form":"5.1","ppg":"5.0","selected_by":"33.4","status":"a","news":"","chance":100,"ep_next":"5.1","xpts":5.4,"factors":[{"label":"Baza (forma + PPG)","value":5.1},{"label":"Szansa na minuty","mult":1.0},{"label":"Trudnosc (FDR 2)","mult":1.08},{"label":"Wyjazd","mult":0.97}],"next":{"opp":"IPS","ven":"A","fdr":2},"weather":null,"is_captain":false,"is_vice":false,"multiplier":1,"on_bench":false,"order":10},
-    {"id":11,"name":"João Pedro","team":"CHE","team_full":"Chelsea","pos":"FWD","price":7.5,"form":"5.6","ppg":"5.5","selected_by":"22.0","status":"a","news":"","chance":100,"ep_next":"5.0","xpts":4.7,"factors":[{"label":"Baza (forma + PPG)","value":5.6},{"label":"Szansa na minuty","mult":1.0},{"label":"Trudnosc (FDR 5)","mult":0.84},{"label":"Wyjazd","mult":0.97}],"next":{"opp":"ARS","ven":"A","fdr":5},"weather":null,"is_captain":false,"is_vice":true,"multiplier":1,"on_bench":false,"order":11},
-    {"id":12,"name":"Tzolakis","team":"HUL","team_full":"Hull","pos":"GK","price":4.5,"form":"2.0","ppg":"2.0","selected_by":"1.1","status":"a","news":"","chance":100,"ep_next":"2.1","xpts":1.9,"factors":[{"label":"Baza (forma + PPG)","value":2.2},{"label":"Szansa na minuty","mult":1.0},{"label":"Trudnosc (FDR 3)","mult":1.0},{"label":"Wyjazd","mult":0.97}],"next":{"opp":"WHU","ven":"A","fdr":3},"weather":null,"is_captain":false,"is_vice":false,"multiplier":1,"on_bench":true,"order":12},
-    {"id":13,"name":"Kayode","team":"BRE","team_full":"Brentford","pos":"DEF","price":4.5,"form":"2.5","ppg":"2.5","selected_by":"2.3","status":"a","news":"","chance":75,"ep_next":"2.6","xpts":2.1,"factors":[{"label":"Baza (forma + PPG)","value":2.9},{"label":"Szansa na minuty","mult":0.75},{"label":"Trudnosc (FDR 3)","mult":1.0},{"label":"Wyjazd","mult":0.97}],"next":{"opp":"FUL","ven":"A","fdr":3},"weather":null,"is_captain":false,"is_vice":false,"multiplier":1,"on_bench":true,"order":13},
-    {"id":14,"name":"De Cuyper","team":"BHA","team_full":"Brighton","pos":"DEF","price":4.5,"form":"2.6","ppg":"2.6","selected_by":"3.0","status":"a","news":"","chance":100,"ep_next":"2.9","xpts":3.0,"factors":[{"label":"Baza (forma + PPG)","value":3.0},{"label":"Szansa na minuty","mult":1.0},{"label":"Trudnosc (FDR 2)","mult":1.08},{"label":"Dom","mult":1.03}],"next":{"opp":"WOL","ven":"H","fdr":2},"weather":null,"is_captain":false,"is_vice":false,"multiplier":1,"on_bench":true,"order":14},
-    {"id":15,"name":"Barry","team":"EVE","team_full":"Everton","pos":"FWD","price":5.5,"form":"3.0","ppg":"3.0","selected_by":"4.5","status":"a","news":"","chance":80,"ep_next":"3.1","xpts":2.6,"factors":[{"label":"Baza (forma + PPG)","value":3.3},{"label":"Szansa na minuty","mult":0.8},{"label":"Trudnosc (FDR 3)","mult":1.0},{"label":"Dom","mult":1.03}],"next":{"opp":"MUN","ven":"H","fdr":3},"weather":{"temp":15,"rain":0.2,"wind":18},"is_captain":false,"is_vice":false,"multiplier":1,"on_bench":true,"order":15}
+    {
+      "id": 384,
+      "name": "Donnarumma",
+      "team": "MCI",
+      "team_full": "Man City",
+      "pos": "GK",
+      "price": 5.5,
+      "form": "3.0",
+      "ppg": "3.0",
+      "selected_by": "8.3",
+      "status": "a",
+      "news": "",
+      "chance": null,
+      "ep_next": "3.3",
+      "xpts": 2.9,
+      "factors": [
+        {
+          "label": "Baza (forma + PPG)",
+          "value": 3.0
+        },
+        {
+          "label": "Szansa na minuty",
+          "mult": 1.0
+        },
+        {
+          "label": "Trudnosc (FDR 3)",
+          "mult": 1.0
+        },
+        {
+          "label": "Wyjazd",
+          "mult": 0.97
+        }
+      ],
+      "next": {
+        "opp": "CRY",
+        "ven": "A",
+        "fdr": 3
+      },
+      "weather": {
+        "temp": 18,
+        "rain": 0.0,
+        "wind": 13
+      },
+      "is_captain": false,
+      "is_vice": false,
+      "multiplier": 1,
+      "on_bench": false,
+      "order": 1
+    },
+    {
+      "id": 357,
+      "name": "Frimpong",
+      "team": "LIV",
+      "team_full": "Liverpool",
+      "pos": "DEF",
+      "price": 5.5,
+      "form": "0.0",
+      "ppg": "0.0",
+      "selected_by": "3.4",
+      "status": "a",
+      "news": "",
+      "chance": null,
+      "ep_next": "2.5",
+      "xpts": 0.7,
+      "factors": [
+        {
+          "label": "Baza (forma + PPG)",
+          "value": 0.66
+        },
+        {
+          "label": "Szansa na minuty",
+          "mult": 1.0
+        },
+        {
+          "label": "Trudnosc (FDR 3)",
+          "mult": 1.0
+        },
+        {
+          "label": "Dom",
+          "mult": 1.03
+        }
+      ],
+      "next": {
+        "opp": "NFO",
+        "ven": "H",
+        "fdr": 3
+      },
+      "weather": {
+        "temp": 17,
+        "rain": 0.9,
+        "wind": 10
+      },
+      "is_captain": false,
+      "is_vice": false,
+      "multiplier": 1,
+      "on_bench": false,
+      "order": 2
+    },
+    {
+      "id": 8,
+      "name": "Calafiori",
+      "team": "ARS",
+      "team_full": "Arsenal",
+      "pos": "DEF",
+      "price": 5.6,
+      "form": "9.0",
+      "ppg": "9.0",
+      "selected_by": "41.7",
+      "status": "a",
+      "news": "",
+      "chance": null,
+      "ep_next": "2.6",
+      "xpts": 7.0,
+      "factors": [
+        {
+          "label": "Baza (forma + PPG)",
+          "value": 7.86
+        },
+        {
+          "label": "Szansa na minuty",
+          "mult": 1.0
+        },
+        {
+          "label": "Trudnosc (FDR 4)",
+          "mult": 0.92
+        },
+        {
+          "label": "Wyjazd",
+          "mult": 0.97
+        }
+      ],
+      "next": {
+        "opp": "AVL",
+        "ven": "A",
+        "fdr": 4
+      },
+      "weather": {
+        "temp": 19,
+        "rain": 0.0,
+        "wind": 19
+      },
+      "is_captain": false,
+      "is_vice": false,
+      "multiplier": 1,
+      "on_bench": false,
+      "order": 3
+    },
+    {
+      "id": 4,
+      "name": "Gabriel",
+      "team": "ARS",
+      "team_full": "Arsenal",
+      "pos": "DEF",
+      "price": 8.0,
+      "form": "5.0",
+      "ppg": "5.0",
+      "selected_by": "29.1",
+      "status": "a",
+      "news": "",
+      "chance": null,
+      "ep_next": "4.0",
+      "xpts": 4.2,
+      "factors": [
+        {
+          "label": "Baza (forma + PPG)",
+          "value": 4.66
+        },
+        {
+          "label": "Szansa na minuty",
+          "mult": 1.0
+        },
+        {
+          "label": "Trudnosc (FDR 4)",
+          "mult": 0.92
+        },
+        {
+          "label": "Wyjazd",
+          "mult": 0.97
+        }
+      ],
+      "next": {
+        "opp": "AVL",
+        "ven": "A",
+        "fdr": 4
+      },
+      "weather": {
+        "temp": 19,
+        "rain": 0.0,
+        "wind": 19
+      },
+      "is_captain": false,
+      "is_vice": true,
+      "multiplier": 1,
+      "on_bench": false,
+      "order": 4
+    },
+    {
+      "id": 356,
+      "name": "Virgil",
+      "team": "LIV",
+      "team_full": "Liverpool",
+      "pos": "DEF",
+      "price": 6.5,
+      "form": "2.0",
+      "ppg": "2.0",
+      "selected_by": "19.6",
+      "status": "a",
+      "news": "",
+      "chance": null,
+      "ep_next": "3.1",
+      "xpts": 2.3,
+      "factors": [
+        {
+          "label": "Baza (forma + PPG)",
+          "value": 2.26
+        },
+        {
+          "label": "Szansa na minuty",
+          "mult": 1.0
+        },
+        {
+          "label": "Trudnosc (FDR 3)",
+          "mult": 1.0
+        },
+        {
+          "label": "Dom",
+          "mult": 1.03
+        }
+      ],
+      "next": {
+        "opp": "NFO",
+        "ven": "H",
+        "fdr": 3
+      },
+      "weather": {
+        "temp": 17,
+        "rain": 0.9,
+        "wind": 10
+      },
+      "is_captain": false,
+      "is_vice": false,
+      "multiplier": 1,
+      "on_bench": false,
+      "order": 5
+    },
+    {
+      "id": 428,
+      "name": "Cunha",
+      "team": "MUN",
+      "team_full": "Man Utd",
+      "pos": "MID",
+      "price": 8.0,
+      "form": "2.0",
+      "ppg": "2.0",
+      "selected_by": "9.4",
+      "status": "a",
+      "news": "",
+      "chance": null,
+      "ep_next": "2.8",
+      "xpts": 2.6,
+      "factors": [
+        {
+          "label": "Baza (forma + PPG)",
+          "value": 2.3
+        },
+        {
+          "label": "Szansa na minuty",
+          "mult": 1.0
+        },
+        {
+          "label": "Trudnosc (FDR 2)",
+          "mult": 1.08
+        },
+        {
+          "label": "Dom",
+          "mult": 1.03
+        }
+      ],
+      "next": {
+        "opp": "IPS",
+        "ven": "H",
+        "fdr": 2
+      },
+      "weather": {
+        "temp": 18,
+        "rain": 2.23,
+        "wind": 12
+      },
+      "is_captain": false,
+      "is_vice": false,
+      "multiplier": 1,
+      "on_bench": false,
+      "order": 6
+    },
+    {
+      "id": 427,
+      "name": "Mbeumo",
+      "team": "MUN",
+      "team_full": "Man Utd",
+      "pos": "MID",
+      "price": 8.0,
+      "form": "2.0",
+      "ppg": "2.0",
+      "selected_by": "35.8",
+      "status": "a",
+      "news": "",
+      "chance": null,
+      "ep_next": "2.8",
+      "xpts": 2.6,
+      "factors": [
+        {
+          "label": "Baza (forma + PPG)",
+          "value": 2.3
+        },
+        {
+          "label": "Szansa na minuty",
+          "mult": 1.0
+        },
+        {
+          "label": "Trudnosc (FDR 2)",
+          "mult": 1.08
+        },
+        {
+          "label": "Dom",
+          "mult": 1.03
+        }
+      ],
+      "next": {
+        "opp": "IPS",
+        "ven": "H",
+        "fdr": 2
+      },
+      "weather": {
+        "temp": 18,
+        "rain": 2.23,
+        "wind": 12
+      },
+      "is_captain": false,
+      "is_vice": false,
+      "multiplier": 1,
+      "on_bench": false,
+      "order": 7
+    },
+    {
+      "id": 366,
+      "name": "Wirtz",
+      "team": "LIV",
+      "team_full": "Liverpool",
+      "pos": "MID",
+      "price": 7.5,
+      "form": "2.0",
+      "ppg": "2.0",
+      "selected_by": "11.4",
+      "status": "a",
+      "news": "",
+      "chance": null,
+      "ep_next": "2.6",
+      "xpts": 2.4,
+      "factors": [
+        {
+          "label": "Baza (forma + PPG)",
+          "value": 2.3
+        },
+        {
+          "label": "Szansa na minuty",
+          "mult": 1.0
+        },
+        {
+          "label": "Trudnosc (FDR 3)",
+          "mult": 1.0
+        },
+        {
+          "label": "Dom",
+          "mult": 1.03
+        }
+      ],
+      "next": {
+        "opp": "NFO",
+        "ven": "H",
+        "fdr": 3
+      },
+      "weather": {
+        "temp": 17,
+        "rain": 0.9,
+        "wind": 10
+      },
+      "is_captain": false,
+      "is_vice": false,
+      "multiplier": 1,
+      "on_bench": false,
+      "order": 8
+    },
+    {
+      "id": 426,
+      "name": "B.Fernandes",
+      "team": "MUN",
+      "team_full": "Man Utd",
+      "pos": "MID",
+      "price": 12.0,
+      "form": "2.0",
+      "ppg": "2.0",
+      "selected_by": "48.3",
+      "status": "a",
+      "news": "",
+      "chance": null,
+      "ep_next": "4.0",
+      "xpts": 2.6,
+      "factors": [
+        {
+          "label": "Baza (forma + PPG)",
+          "value": 2.3
+        },
+        {
+          "label": "Szansa na minuty",
+          "mult": 1.0
+        },
+        {
+          "label": "Trudnosc (FDR 2)",
+          "mult": 1.08
+        },
+        {
+          "label": "Dom",
+          "mult": 1.03
+        }
+      ],
+      "next": {
+        "opp": "IPS",
+        "ven": "H",
+        "fdr": 2
+      },
+      "weather": {
+        "temp": 18,
+        "rain": 2.23,
+        "wind": 12
+      },
+      "is_captain": true,
+      "is_vice": false,
+      "multiplier": 2,
+      "on_bench": false,
+      "order": 9
+    },
+    {
+      "id": 40,
+      "name": "Rogers",
+      "team": "CHE",
+      "team_full": "Chelsea",
+      "pos": "MID",
+      "price": 7.5,
+      "form": "8.0",
+      "ppg": "8.0",
+      "selected_by": "26.1",
+      "status": "a",
+      "news": "",
+      "chance": null,
+      "ep_next": "2.6",
+      "xpts": 7.9,
+      "factors": [
+        {
+          "label": "Baza (forma + PPG)",
+          "value": 7.1
+        },
+        {
+          "label": "Szansa na minuty",
+          "mult": 1.0
+        },
+        {
+          "label": "Trudnosc (FDR 2)",
+          "mult": 1.08
+        },
+        {
+          "label": "Dom",
+          "mult": 1.03
+        }
+      ],
+      "next": {
+        "opp": "BHA",
+        "ven": "H",
+        "fdr": 2
+      },
+      "weather": {
+        "temp": 22,
+        "rain": 0.05,
+        "wind": 16
+      },
+      "is_captain": false,
+      "is_vice": false,
+      "multiplier": 1,
+      "on_bench": false,
+      "order": 10
+    },
+    {
+      "id": 165,
+      "name": "João Pedro",
+      "team": "CHE",
+      "team_full": "Chelsea",
+      "pos": "FWD",
+      "price": 7.6,
+      "form": "11.0",
+      "ppg": "11.0",
+      "selected_by": "68.1",
+      "status": "a",
+      "news": "",
+      "chance": null,
+      "ep_next": "2.4",
+      "xpts": 10.6,
+      "factors": [
+        {
+          "label": "Baza (forma + PPG)",
+          "value": 9.54
+        },
+        {
+          "label": "Szansa na minuty",
+          "mult": 1.0
+        },
+        {
+          "label": "Trudnosc (FDR 2)",
+          "mult": 1.08
+        },
+        {
+          "label": "Dom",
+          "mult": 1.03
+        }
+      ],
+      "next": {
+        "opp": "BHA",
+        "ven": "H",
+        "fdr": 2
+      },
+      "weather": {
+        "temp": 22,
+        "rain": 0.05,
+        "wind": 16
+      },
+      "is_captain": false,
+      "is_vice": false,
+      "multiplier": 1,
+      "on_bench": false,
+      "order": 11
+    },
+    {
+      "id": 301,
+      "name": "Palmer",
+      "team": "IPS",
+      "team_full": "Ipswich Town",
+      "pos": "GK",
+      "price": 4.0,
+      "form": "0.0",
+      "ppg": "0.0",
+      "selected_by": "4.5",
+      "status": "a",
+      "news": "",
+      "chance": null,
+      "ep_next": "1.0",
+      "xpts": 0.5,
+      "factors": [
+        {
+          "label": "Baza (forma + PPG)",
+          "value": 0.6
+        },
+        {
+          "label": "Szansa na minuty",
+          "mult": 1.0
+        },
+        {
+          "label": "Trudnosc (FDR 4)",
+          "mult": 0.92
+        },
+        {
+          "label": "Wyjazd",
+          "mult": 0.97
+        }
+      ],
+      "next": {
+        "opp": "MUN",
+        "ven": "A",
+        "fdr": 4
+      },
+      "weather": {
+        "temp": 22,
+        "rain": 0.08,
+        "wind": 18
+      },
+      "is_captain": false,
+      "is_vice": false,
+      "multiplier": 0,
+      "on_bench": true,
+      "order": 12
+    },
+    {
+      "id": 320,
+      "name": "Akpom",
+      "team": "IPS",
+      "team_full": "Ipswich Town",
+      "pos": "FWD",
+      "price": 5.0,
+      "form": "1.0",
+      "ppg": "1.0",
+      "selected_by": "0.5",
+      "status": "a",
+      "news": "",
+      "chance": null,
+      "ep_next": "1.4",
+      "xpts": 1.4,
+      "factors": [
+        {
+          "label": "Baza (forma + PPG)",
+          "value": 1.54
+        },
+        {
+          "label": "Szansa na minuty",
+          "mult": 1.0
+        },
+        {
+          "label": "Trudnosc (FDR 4)",
+          "mult": 0.92
+        },
+        {
+          "label": "Wyjazd",
+          "mult": 0.97
+        }
+      ],
+      "next": {
+        "opp": "MUN",
+        "ven": "A",
+        "fdr": 4
+      },
+      "weather": {
+        "temp": 22,
+        "rain": 0.08,
+        "wind": 18
+      },
+      "is_captain": false,
+      "is_vice": false,
+      "multiplier": 0,
+      "on_bench": true,
+      "order": 13
+    },
+    {
+      "id": 254,
+      "name": "Robinson",
+      "team": "FUL",
+      "team_full": "Fulham",
+      "pos": "DEF",
+      "price": 4.5,
+      "form": "1.0",
+      "ppg": "1.0",
+      "selected_by": "1.7",
+      "status": "a",
+      "news": "",
+      "chance": null,
+      "ep_next": "1.7",
+      "xpts": 1.4,
+      "factors": [
+        {
+          "label": "Baza (forma + PPG)",
+          "value": 1.46
+        },
+        {
+          "label": "Szansa na minuty",
+          "mult": 1.0
+        },
+        {
+          "label": "Trudnosc (FDR 3)",
+          "mult": 1.0
+        },
+        {
+          "label": "Wyjazd",
+          "mult": 0.97
+        }
+      ],
+      "next": {
+        "opp": "SUN",
+        "ven": "A",
+        "fdr": 3
+      },
+      "weather": {
+        "temp": 22,
+        "rain": 0.08,
+        "wind": 16
+      },
+      "is_captain": false,
+      "is_vice": false,
+      "multiplier": 0,
+      "on_bench": true,
+      "order": 14
+    },
+    {
+      "id": 528,
+      "name": "Scarlett",
+      "team": "TOT",
+      "team_full": "Spurs",
+      "pos": "FWD",
+      "price": 4.5,
+      "form": "0.0",
+      "ppg": "0.0",
+      "selected_by": "1.7",
+      "status": "a",
+      "news": "",
+      "chance": null,
+      "ep_next": "1.0",
+      "xpts": 0.8,
+      "factors": [
+        {
+          "label": "Baza (forma + PPG)",
+          "value": 0.74
+        },
+        {
+          "label": "Szansa na minuty",
+          "mult": 1.0
+        },
+        {
+          "label": "Trudnosc (FDR 2)",
+          "mult": 1.08
+        },
+        {
+          "label": "Dom",
+          "mult": 1.03
+        }
+      ],
+      "next": {
+        "opp": "NEW",
+        "ven": "H",
+        "fdr": 2
+      },
+      "weather": {
+        "temp": 19,
+        "rain": 0.3,
+        "wind": 16
+      },
+      "is_captain": false,
+      "is_vice": false,
+      "multiplier": 0,
+      "on_bench": true,
+      "order": 15
+    }
   ],
   "ticker": [
-    {"team":"ARS","team_full":"Arsenal","count":3,"players":["Calafiori","White","Ødegaard"],"fixtures":[{"gw":3,"opp":"CHE","ven":"H","fdr":4},{"gw":4,"opp":"SUN","ven":"A","fdr":3},{"gw":5,"opp":"BHA","ven":"A","fdr":4},{"gw":6,"opp":"WHU","ven":"H","fdr":2},{"gw":7,"opp":"LEE","ven":"H","fdr":2}],"avg_fdr":3.0},
-    {"team":"CHE","team_full":"Chelsea","count":3,"players":["Rogers","Palmer","João Pedro"],"fixtures":[{"gw":3,"opp":"ARS","ven":"A","fdr":5},{"gw":4,"opp":"HUL","ven":"H","fdr":2},{"gw":5,"opp":"BRE","ven":"A","fdr":3},{"gw":6,"opp":"LIV","ven":"H","fdr":4},{"gw":7,"opp":"BOU","ven":"H","fdr":2}],"avg_fdr":3.2},
-    {"team":"LIV","team_full":"Liverpool","count":2,"players":["Szoboszlai","Isak"],"fixtures":[{"gw":3,"opp":"IPS","ven":"A","fdr":2},{"gw":4,"opp":"FUL","ven":"H","fdr":2},{"gw":5,"opp":"BOU","ven":"A","fdr":3},{"gw":6,"opp":"CHE","ven":"A","fdr":4},{"gw":7,"opp":"MCI","ven":"H","fdr":5}],"avg_fdr":3.2},
-    {"team":"MCI","team_full":"Man City","count":2,"players":["Donnarumma","Gvardiol"],"fixtures":[{"gw":3,"opp":"COV","ven":"H","fdr":2},{"gw":4,"opp":"MUN","ven":"A","fdr":4},{"gw":5,"opp":"SUN","ven":"H","fdr":2},{"gw":6,"opp":"BRE","ven":"A","fdr":3},{"gw":7,"opp":"LIV","ven":"A","fdr":5}],"avg_fdr":3.2},
-    {"team":"MUN","team_full":"Man Utd","count":1,"players":["B.Fernandes"],"fixtures":[{"gw":3,"opp":"EVE","ven":"A","fdr":3},{"gw":4,"opp":"MCI","ven":"H","fdr":4},{"gw":5,"opp":"FUL","ven":"A","fdr":3},{"gw":6,"opp":"BHA","ven":"H","fdr":3},{"gw":7,"opp":"TOT","ven":"H","fdr":4}],"avg_fdr":3.4}
+    {
+      "team": "LIV",
+      "team_full": "Liverpool",
+      "count": 3,
+      "players": [
+        "Frimpong",
+        "Virgil",
+        "Wirtz"
+      ],
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "NFO",
+          "ven": "H",
+          "fdr": 3
+        },
+        {
+          "gw": 3,
+          "opp": "IPS",
+          "ven": "A",
+          "fdr": 2
+        },
+        {
+          "gw": 4,
+          "opp": "FUL",
+          "ven": "H",
+          "fdr": 2
+        },
+        {
+          "gw": 5,
+          "opp": "BOU",
+          "ven": "A",
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "MCI",
+          "ven": "H",
+          "fdr": 4
+        }
+      ],
+      "avg_fdr": 2.8
+    },
+    {
+      "team": "MUN",
+      "team_full": "Man Utd",
+      "count": 3,
+      "players": [
+        "Cunha",
+        "Mbeumo",
+        "B.Fernandes"
+      ],
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "IPS",
+          "ven": "H",
+          "fdr": 2
+        },
+        {
+          "gw": 3,
+          "opp": "EVE",
+          "ven": "A",
+          "fdr": 3
+        },
+        {
+          "gw": 4,
+          "opp": "MCI",
+          "ven": "H",
+          "fdr": 4
+        },
+        {
+          "gw": 5,
+          "opp": "FUL",
+          "ven": "A",
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "TOT",
+          "ven": "H",
+          "fdr": 3
+        }
+      ],
+      "avg_fdr": 3.0
+    },
+    {
+      "team": "CHE",
+      "team_full": "Chelsea",
+      "count": 2,
+      "players": [
+        "Rogers",
+        "João Pedro"
+      ],
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "BHA",
+          "ven": "H",
+          "fdr": 2
+        },
+        {
+          "gw": 3,
+          "opp": "ARS",
+          "ven": "A",
+          "fdr": 5
+        },
+        {
+          "gw": 4,
+          "opp": "HUL",
+          "ven": "H",
+          "fdr": 2
+        },
+        {
+          "gw": 5,
+          "opp": "BRE",
+          "ven": "A",
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "BOU",
+          "ven": "H",
+          "fdr": 3
+        }
+      ],
+      "avg_fdr": 3.0
+    },
+    {
+      "team": "ARS",
+      "team_full": "Arsenal",
+      "count": 2,
+      "players": [
+        "Calafiori",
+        "Gabriel"
+      ],
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "AVL",
+          "ven": "A",
+          "fdr": 4
+        },
+        {
+          "gw": 3,
+          "opp": "CHE",
+          "ven": "H",
+          "fdr": 4
+        },
+        {
+          "gw": 4,
+          "opp": "SUN",
+          "ven": "A",
+          "fdr": 3
+        },
+        {
+          "gw": 5,
+          "opp": "BHA",
+          "ven": "A",
+          "fdr": 3
+        },
+        {
+          "gw": 6,
+          "opp": "LEE",
+          "ven": "H",
+          "fdr": 2
+        }
+      ],
+      "avg_fdr": 3.2
+    },
+    {
+      "team": "MCI",
+      "team_full": "Man City",
+      "count": 1,
+      "players": [
+        "Donnarumma"
+      ],
+      "fixtures": [
+        {
+          "gw": 2,
+          "opp": "CRY",
+          "ven": "A",
+          "fdr": 3
+        },
+        {
+          "gw": 3,
+          "opp": "COV",
+          "ven": "H",
+          "fdr": 2
+        },
+        {
+          "gw": 4,
+          "opp": "MUN",
+          "ven": "A",
+          "fdr": 4
+        },
+        {
+          "gw": 5,
+          "opp": "SUN",
+          "ven": "H",
+          "fdr": 2
+        },
+        {
+          "gw": 6,
+          "opp": "LIV",
+          "ven": "A",
+          "fdr": 4
+        }
+      ],
+      "avg_fdr": 3.0
+    }
   ],
   "concentration": [
-    {"fixture":"CHE (H)","count":3,"fdr":4,"players":["Calafiori","White","Ødegaard"]},
-    {"fixture":"ARS (A)","count":3,"fdr":5,"players":["Rogers","Palmer","João Pedro"]},
-    {"fixture":"IPS (A)","count":2,"fdr":2,"players":["Szoboszlai","Isak"]},
-    {"fixture":"COV (H)","count":2,"fdr":2,"players":["Donnarumma","Gvardiol"]},
-    {"fixture":"EVE (A)","count":1,"fdr":3,"players":["B.Fernandes"]}
+    {
+      "fixture": "NFO (H)",
+      "count": 3,
+      "fdr": 3,
+      "players": [
+        "Frimpong",
+        "Virgil",
+        "Wirtz"
+      ]
+    },
+    {
+      "fixture": "IPS (H)",
+      "count": 3,
+      "fdr": 2,
+      "players": [
+        "Cunha",
+        "Mbeumo",
+        "B.Fernandes"
+      ]
+    },
+    {
+      "fixture": "AVL (A)",
+      "count": 2,
+      "fdr": 4,
+      "players": [
+        "Calafiori",
+        "Gabriel"
+      ]
+    },
+    {
+      "fixture": "BHA (H)",
+      "count": 2,
+      "fdr": 2,
+      "players": [
+        "Rogers",
+        "João Pedro"
+      ]
+    },
+    {
+      "fixture": "CRY (A)",
+      "count": 1,
+      "fdr": 3,
+      "players": [
+        "Donnarumma"
+      ]
+    }
   ],
-  "totals": {"xi_xpts": 55.2, "captain": "Palmer"},
-  "note": "PODGLĄD z przykładowymi danymi. Po deployu data.json nadpisze się prawdziwymi danymi z API FPL. FDR oficjalny; xPts to model heurystyczny."
+  "totals": {
+    "xi_xpts": 48.4,
+    "captain": "B.Fernandes"
+  },
+  "note": "Terminarz i FDR z oficjalnego API FPL. xPts to model heurystyczny (nie oficjalny)."
 }
