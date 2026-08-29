@@ -85,6 +85,8 @@ def make_model(teams):
         defs += [t.get("strength_defence_home", 1100), t.get("strength_defence_away", 1100)]
     mean_att = (sum(atts) / len(atts)) if atts else 1100
     mean_def = (sum(defs) / len(defs)) if defs else 1100
+    if mean_att <= 0: mean_att = 1100.0   # wczesny sezon: oceny siły mogą być 0
+    if mean_def <= 0: mean_def = 1100.0
     tmap = {t["id"]: t for t in teams}
 
     def fnum(p, key, d=0.0):
@@ -118,6 +120,8 @@ def make_model(teams):
         opp = tmap.get(opp_id, {})
         opp_def = opp.get("strength_defence_away" if is_home else "strength_defence_home", mean_def) or mean_def
         opp_att = opp.get("strength_attack_away" if is_home else "strength_attack_home", mean_att) or mean_att
+        opp_def = opp_def if opp_def and opp_def > 0 else mean_def   # zabezpieczenie przed dzieleniem przez 0
+        opp_att = opp_att if opp_att and opp_att > 0 else mean_att
         att_mult = max(0.6, min(1.5, mean_def / opp_def)) * (1.05 if is_home else 0.97)
         lam = max(0.25, min(3.0, 1.25 * (opp_att / mean_att) * (0.9 if is_home else 1.12)))
         p_cs = math.exp(-lam)
