@@ -184,6 +184,32 @@
   .xifx.f1{background:var(--f1)}.xifx.f2{background:var(--f2)}.xifx.f3{background:var(--f3)}.xifx.f4{background:var(--f4)}.xifx.f5{background:var(--f5)}
   .xipts{font-weight:900;font-size:16px;color:var(--green-ink)}
   .xiup{font:700 7px/1 'Space Mono',monospace;color:var(--pink);background:rgba(233,0,82,.1);padding:2px 4px;border-radius:4px}
+  .xirange{font:700 8px/1 'Space Mono',monospace;color:var(--muted)}
+  .xioutlook{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:9px 14px;background:rgba(0,166,90,.06);border-bottom:1px solid var(--line)}
+  .xolab{font:700 9px/1 'Space Mono',monospace;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+  .xorange{font-size:14px;color:var(--purple)} .xorange b{color:var(--green-ink);font-size:16px} .xosep{color:var(--muted)}
+  .xomed{font:400 11px/1 'Space Mono',monospace;color:var(--muted)}
+  /* rozkład w szczegółach zawodnika */
+  .distbar{display:flex;gap:6px;margin:12px 0 4px;flex-wrap:wrap}
+  .distseg{flex:1;min-width:70px;background:rgba(55,0,60,.04);border:1px solid var(--line);border-radius:9px;padding:8px 10px;display:flex;flex-direction:column;gap:2px}
+  .distseg.mid{background:rgba(0,166,90,.07);border-color:rgba(0,166,90,.2)}
+  .distseg.haul{background:rgba(233,0,82,.06);border-color:rgba(233,0,82,.2)}
+  .distk{font:400 9px/1 'Space Mono',monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  .distv{font-weight:900;font-size:18px;color:var(--purple)}
+  /* hold % w obronie pozycji */
+  .cvright{display:flex;align-items:center;gap:8px;white-space:nowrap}
+  .cvhold{font:900 11px/1 'Space Mono',monospace;padding:3px 7px;border-radius:6px}
+  .cvhold.good{background:rgba(0,166,90,.12);color:var(--green-ink)}
+  .cvhold.mid{background:rgba(255,176,32,.15);color:#9a6b00}
+  .cvhold.bad{background:rgba(233,0,82,.1);color:var(--pink)}
+  /* zakładka Skuteczność */
+  .accgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:6px}
+  .acckpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:0 2px 8px rgba(55,0,60,.05)}
+  .acck{font:700 10px/1 'Space Mono',monospace;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  .accv{font-weight:900;font-size:30px;color:var(--purple);margin:6px 0 2px}
+  .accu{font:400 11px/1.3 'Space Mono',monospace;color:var(--muted)}
+  .acctbl .accc{text-align:center;font-family:'Space Mono',monospace;font-weight:800;background:rgba(55,0,60,.03);border-radius:8px;padding:8px 6px}
+  .acctbl .accc.pos{color:var(--green-ink)} .acctbl .accc.neg{color:var(--pink)}
   .avg{align-items:center;justify-content:center;text-align:center;background:rgba(55,0,60,.04);border:1px solid var(--line)}
   .avg .al{font:700 8px/1 'Space Mono',monospace;color:var(--muted)}
   .avg .av{font-weight:900;font-size:17px;margin-top:3px}
@@ -354,6 +380,7 @@
     <button data-tab="planner">Planer</button>
     <button data-tab="roadmap">Roadmapa</button>
     <button data-tab="league">Moja liga</button>
+    <button data-tab="acc">Skuteczność</button>
     <button data-tab="sim">Symulator</button>
   </div>
 
@@ -411,7 +438,7 @@ async function boot(){
   render();
 }
 
-function render(){ if(CUR==="brief")renderBrief(); else if(CUR==="squad")renderSquad(); else if(CUR==="fdr")renderFDR(); else if(CUR==="risk")renderRisk(); else if(CUR==="planner")renderPlanner(); else if(CUR==="roadmap")renderRoadmap(); else if(CUR==="league")renderLeague(); else renderSim(); }
+function render(){ if(CUR==="brief")renderBrief(); else if(CUR==="squad")renderSquad(); else if(CUR==="fdr")renderFDR(); else if(CUR==="risk")renderRisk(); else if(CUR==="planner")renderPlanner(); else if(CUR==="roadmap")renderRoadmap(); else if(CUR==="league")renderLeague(); else if(CUR==="acc")renderAccuracy(); else renderSim(); }
 
 /* ---------- sparkline formy (ostatnie 5 GW) ---------- */
 function sparkline(vals){
@@ -474,11 +501,12 @@ function renderLeague(){
   if(cov){
     const chRows=cov.chasers.map(ch=>{
       const gapTxt=ch.gap>=0?`+${ch.gap} przewagi`:`${ch.gap} (przed Tobą)`;
+      const holdTxt=ch.hold!=null?`<span class="cvhold ${ch.hold>=0.7?'good':ch.hold>=0.5?'mid':'bad'}">${Math.round(ch.hold*100)}% utrzymania</span>`:'';
       const capCls=ch.cap_differs?'cap-diff':'cap-same';
       const dnames=ch.diffs.length?ch.diffs.map(d=>d.name).join(", "):"—";
       return `<div class="cvrow">
         <div class="cvhead"><span class="cvname">${ch.team||ch.player}<span class="cvsub">${ch.player||''}</span></span>
-          <span class="cvgap">${gapTxt}</span></div>
+          <span class="cvright">${holdTxt}<span class="cvgap">${gapTxt}</span></span></div>
         <div class="cvmeta"><span class="cvcap ${capCls}">C: ${ch.captain}${ch.cap_differs?' ⚠️':' ✓'}</span>
           <span class="cvdiff">ich różnicowi: ${dnames}</span></div></div>`;
     }).join("");
@@ -587,12 +615,18 @@ function renderBrief(){
         <span class="xinm">${p.name}</span>
         <span class="xifx ${fdrC(p.fdr)}">${p.opp?p.opp+' ('+p.ven+')':'—'}</span>
         <span class="xipts">${p.xpts.toFixed(1)}</span>
+        ${(p.floor!=null&&p.ceiling!=null)?`<span class="xirange">${p.floor}–${p.ceiling}${p.haul>=0.15?' · 🔥'+Math.round(p.haul*100)+'%':''}</span>`:''}
         ${p.was_benched?'<span class="xiup">↑ z ławki</span>':''}
       </div>`;
     const pitch=['GK','DEF','MID','FWD'].map(r=>rows[r].length?`<div class="xirow">${rows[r].map(pcard).join("")}</div>`:"").join("");
+    const ok=b.gw_outlook;
+    const outlookBar=ok?`<div class="xioutlook"><span class="xolab">Zakres kolejki (symulacja)</span>
+        <span class="xorange"><b>${ok.p10}</b> <span class="xosep">–</span> <b>${ok.p90}</b> pkt</span>
+        <span class="xomed">mediana ${ok.p50}</span></div>`:"";
     xiHtml=`<div class="xiwrap"><div class="xibar">
         <span class="xiform">Formacja ${L.optimal_formation}</span>
         <span class="xisum">${L.xi_total.toFixed(1)} xPts <small>(z C ×2)</small></span></div>
+      ${outlookBar}
       <div class="xipitch">${pitch}</div></div>`;
   }
   if(L){
@@ -762,6 +796,12 @@ function renderDetail(p){
       <div class="dhead"><h2>${p.name}</h2>
         <span class="tag ${st}">${stTxt}</span>
         <div class="dproj"><div class="l">xPts</div><div class="n">${p.xpts.toFixed(1)}</div></div></div>
+      ${(p.floor!=null&&p.ceiling!=null)?`<div class="distbar">
+        <div class="distseg"><span class="distk">Floor</span><span class="distv">${p.floor}</span></div>
+        <div class="distseg mid"><span class="distk">Mediana ≈ xPts</span><span class="distv">${p.xpts.toFixed(1)}</span></div>
+        <div class="distseg"><span class="distk">Ceiling</span><span class="distv">${p.ceiling}</span></div>
+        <div class="distseg haul"><span class="distk">Haul (≥10)</span><span class="distv">${Math.round((p.haul||0)*100)}%</span></div>
+      </div>`:''}
       <div class="dgrid">
         <div class="chain">${chain}</div>
         <div class="meta">
@@ -879,6 +919,43 @@ function renderRoadmap(){
       <table class="rmtbl"><thead><tr><th>Zawodnik</th>${head}<th>Σ</th></tr></thead><tbody>${rows}</tbody></table>
     </div>
     <div class="foot" style="margin-top:10px">Planowanie transferów: szukaj graczy z łatwym terminarzem (zielone) w horyzoncie, żeby nie palić −4 na zmianę już za kolejkę-dwie. Dodani lokalnie zawodnicy też mają roadmapę.</div>`;
+}
+function renderAccuracy(){
+  const a=DATA.accuracy;
+  if(!a || !a.n){
+    el("app").innerHTML=`<div class="h"><span class="no">01</span><span class="t">Skuteczność modelu</span></div>
+      <div class="card"><div class="ap">${(a&&a.note)||'Śledzenie skuteczności włączone. Metryki pojawią się po pierwszej rozegranej kolejce od wdrożenia.'}</div>
+      <div class="cvfoot" style="margin-top:10px">Co kolejkę zapisuję prognozę Twojej jedenastki, a po meczach porównuję ją z realnymi punktami. Historia trzymana jest w repo (model_log.json), więc buduje się z czasem.</div></div>`;
+    return;
+  }
+  const capRate=a.captain_n?Math.round(100*a.captain_hits/a.captain_n):0;
+  const biasTxt=a.bias>0.15?`przeszacowuje o ${a.bias}`:a.bias<-0.15?`niedoszacowuje o ${Math.abs(a.bias)}`:'praktycznie bez obciążenia';
+  // wykres pred vs realne
+  const rows=a.per_gw.map(g=>{
+    const diff=(g.actual-g.pred);
+    const sign=diff>=0?'+':'';
+    return `<tr><td class="rmname" style="min-width:64px">GW${g.gw}</td>
+      <td class="accc">${g.pred.toFixed(1)}</td>
+      <td class="accc">${g.actual.toFixed(1)}</td>
+      <td class="accc ${diff>=0?'pos':'neg'}">${sign}${diff.toFixed(1)}</td>
+      <td class="accc">${g.mae.toFixed(2)}</td></tr>`;
+  }).join("");
+  el("app").innerHTML=`
+    <div class="h"><span class="no">01</span><span class="t">Skuteczność modelu</span><span class="d">prognoza vs realne punkty Twojej XI</span></div>
+    <div class="accgrid">
+      <div class="acckpi"><div class="acck">Średni błąd (MAE)</div><div class="accv">${a.mae}</div><div class="accu">pkt / zawodnik</div></div>
+      <div class="acckpi"><div class="acck">Obciążenie (bias)</div><div class="accv">${a.bias>0?'+':''}${a.bias}</div><div class="accu">${biasTxt}</div></div>
+      <div class="acckpi"><div class="acck">Trafność kapitana</div><div class="accv">${capRate}%</div><div class="accu">${a.captain_hits}/${a.captain_n} kolejek</div></div>
+      <div class="acckpi"><div class="acck">Próbka</div><div class="accv">${a.n}</div><div class="accu">ocenionych prognoz</div></div>
+    </div>
+    <div class="h"><span class="no">02</span><span class="t">Kolejka po kolejce</span><span class="d">prognoza vs rzeczywistość (z C ×2)</span></div>
+    <div class="card" style="overflow-x:auto">
+      <table class="rmtbl acctbl"><thead><tr><th>GW</th><th>Prognoza</th><th>Realne</th><th>Różnica</th><th>MAE</th></tr></thead>
+      <tbody>${rows}</tbody></table>
+      <div class="cvfoot" style="margin-top:10px">${a.note}</div>
+    </div>
+    <div class="advcard ok" style="margin-top:12px"><div class="ai">i</div><div class="ab"><div class="at">Jak to czytać</div>
+      <div class="ap">Niższy MAE = celniejsze prognozy. Bias blisko 0 = model nie jest systematycznie zbyt optymistyczny ani pesymistyczny. To fundament pod ewentualne auto-strojenie — ale świadomie <b>nie</b> stroję modelu na kilku kolejkach, żeby nie przeuczył się na szumie.</div></div></div>`;
 }
 function renderSim(){
   const pool=DATA.pool||[];

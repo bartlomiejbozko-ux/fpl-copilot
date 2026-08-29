@@ -70,6 +70,7 @@ def get_json_auth(url, session, tries=2, pause=1.5):
 
 # ── model xPts (komponentowy, wg reguł FPL + dane Opta z API) ─────────────────
 import math
+import random
 
 GOAL_PTS = {1: 10, 2: 6, 3: 5, 4: 4}    # punkty za gola: BR, OBR, POM, NAP
 CS_PTS = {1: 4, 2: 4, 3: 1, 4: 0}        # czyste konto
@@ -95,15 +96,13 @@ def make_model(teams):
         except (TypeError, ValueError):
             return d
 
-    def compute(p, opp_id, is_home, team_id=None):
-        if not opp_id:  # pusta kolejka (BGW) — brak meczu
-            return 0.0, [{"label": "Brak meczu (BGW)", "pts": 0.0}]
+    def _rates(p, opp_id, is_home):
+        """Rdzeń modelu: stawki zdarzeń (współdzielone przez compute i symulator)."""
         et = p.get("element_type", 3)
         chance = p.get("chance_of_playing_next_round")
         if chance is None:
             chance = 100 if p.get("status") == "a" else 0
         m = chance / 100.0
-
         starts = fnum(p, "starts")
         mins = fnum(p, "minutes")
         g90 = (mins / 90.0) if mins > 0 else 0
@@ -111,37 +110,42 @@ def make_model(teams):
         xa90 = fnum(p, "expected_assists_per_90")
         sv90 = fnum(p, "saves_per_90")
         dc90 = fnum(p, "defensive_contribution_per_90")
-        if dc90 == 0:  # fallback z sum sezonowych
-            cbi = fnum(p, "clearances_blocks_interceptions")
-            tk = fnum(p, "tackles")
+        if dc90 == 0:
+            cbi = fnum(p, "clearances_blocks_interceptions"); tk = fnum(p, "tackles")
             rec = fnum(p, "recoveries") if et in (3, 4) else 0
             dc90 = ((cbi + tk + rec) / g90) if g90 > 0 else 0
-
         opp = tmap.get(opp_id, {})
         opp_def = opp.get("strength_defence_away" if is_home else "strength_defence_home", mean_def) or mean_def
         opp_att = opp.get("strength_attack_away" if is_home else "strength_attack_home", mean_att) or mean_att
-        opp_def = opp_def if opp_def and opp_def > 0 else mean_def   # zabezpieczenie przed dzieleniem przez 0
+        opp_def = opp_def if opp_def and opp_def > 0 else mean_def
         opp_att = opp_att if opp_att and opp_att > 0 else mean_att
         att_mult = max(0.6, min(1.5, mean_def / opp_def)) * (1.05 if is_home else 0.97)
         lam = max(0.25, min(3.0, 1.25 * (opp_att / mean_att) * (0.9 if is_home else 1.12)))
         p_cs = math.exp(-lam)
-
         e_goals = xg90 * m * att_mult
         e_assist = xa90 * m * att_mult
-        pts_app = m * 2.0
-        pts_goals = e_goals * GOAL_PTS.get(et, 4)
-        pts_assist = e_assist * 3.0
-        pts_cs = (p_cs * m) * CS_PTS.get(et, 0)
-        pts_conc = -(lam / 2.0) * m if et in (1, 2) else 0.0
-        pts_sv = (sv90 * m / 3.0) if et == 1 else 0.0
         thr = DC_THRESH.get(et)
-        pts_dc = 0.0
-        if thr and dc90 > 0:
-            pts_dc = (1 / (1 + math.exp(-(dc90 - thr) / 2.5))) * 2.0 * m
-        pts_bonus = min(1.6, e_goals * 0.9 + e_assist * 0.6 + (p_cs * m * 0.3 if et in (1, 2) else 0))
+        dc_prob = (1 / (1 + math.exp(-(dc90 - thr) / 2.5))) if (thr and dc90 > 0) else 0.0
         yc = fnum(p, "yellow_cards")
         gp = starts if starts > 0 else max(g90, 1)
-        pts_cards = -min(0.4, yc / gp) * m
+        yc_rate = min(0.4, yc / gp)
+        return {"et": et, "m": m, "e_goals": e_goals, "e_assist": e_assist, "p_cs": p_cs,
+                "lam": lam, "sv90": sv90, "dc_prob": dc_prob, "yc_rate": yc_rate}
+
+    def compute(p, opp_id, is_home, team_id=None):
+        if not opp_id:  # pusta kolejka (BGW) — brak meczu
+            return 0.0, [{"label": "Brak meczu (BGW)", "pts": 0.0}]
+        r = _rates(p, opp_id, is_home)
+        et, m = r["et"], r["m"]
+        pts_app = m * 2.0
+        pts_goals = r["e_goals"] * GOAL_PTS.get(et, 4)
+        pts_assist = r["e_assist"] * 3.0
+        pts_cs = (r["p_cs"] * m) * CS_PTS.get(et, 0)
+        pts_conc = -(r["lam"] / 2.0) * m if et in (1, 2) else 0.0
+        pts_sv = (r["sv90"] * m / 3.0) if et == 1 else 0.0
+        pts_dc = r["dc_prob"] * 2.0 * m
+        pts_bonus = min(1.6, r["e_goals"] * 0.9 + r["e_assist"] * 0.6 + (r["p_cs"] * m * 0.3 if et in (1, 2) else 0))
+        pts_cards = -r["yc_rate"] * m
 
         total = (pts_app + pts_goals + pts_assist + pts_cs + pts_conc
                  + pts_sv + pts_dc + pts_bonus + pts_cards)
@@ -162,6 +166,9 @@ def make_model(teams):
         factors.append({"label": "Stracone + kartki", "pts": round(pts_conc + pts_cards, 2)})
 
         return round(max(0.0, total), 1), factors
+
+    def sim_spec(p, opp_id, is_home):
+        return None if not opp_id else _rates(p, opp_id, is_home)
 
     def explain(et, team_id, opp_id, is_home):
         """Krótkie, ludzkie uzasadnienie wyboru na bazie sił drużyn i miejsca meczu."""
@@ -191,7 +198,48 @@ def make_model(teams):
                 rs.append("czyste konto mało prawdopodobne (groźny atak rywala)")
         return "; ".join(rs[:2]) if rs else "korzystniejszy profil xPts na tę kolejkę"
 
-    return compute, explain
+    def simulate(spec, n=4000):
+        """Zwraca listę n wylosowanych wyników punktowych zawodnika w kolejce.
+        Losuje realne zdarzenia (gole/asysty/CK/obrona) z tych samych stawek co model —
+        więc rozkład jest 'grudkowaty' jak prawdziwe punkty FPL, bez zmyślonych mnożników."""
+        if spec is None:
+            return [0.0] * n
+        et, m = spec["et"], spec["m"]
+        gpts = GOAL_PTS.get(et, 4)
+        xg, xa = spec["e_goals"], spec["e_assist"]
+        p_cs, lam = spec["p_cs"], spec["lam"]
+        sv90, dcp, ycr = spec["sv90"], spec["dc_prob"], spec["yc_rate"]
+        def pois(l):
+            if l <= 0: return 0
+            L, k, pr = math.exp(-l), 0, 1.0
+            while True:
+                pr *= random.random(); k += 1
+                if pr <= L: return k - 1
+        out = []
+        for _ in range(n):
+            if random.random() >= m:      # nie zagrał
+                out.append(0.0); continue
+            plays60 = random.random() < 0.9
+            pts = 2.0 if plays60 else 1.0
+            g = pois(xg); pts += g * gpts
+            a = pois(xa); pts += a * 3
+            if et in (1, 2) and plays60 and random.random() < p_cs:
+                pts += CS_PTS.get(et, 0)
+            if et in (1, 2):
+                pts -= (pois(lam) // 2)
+            if et == 1:
+                pts += (pois(sv90) // 3)
+            if et in (2, 3, 4) and dcp and random.random() < dcp:
+                pts += 2
+            if g > 0 or a > 0:            # bonus zależny od returnów
+                rr = random.random()
+                pts += 3 if rr < 0.25 else 2 if rr < 0.5 else 1 if rr < 0.75 else 0
+            if random.random() < ycr:
+                pts -= 1
+            out.append(float(pts))
+        return out
+
+    return compute, explain, sim_spec, simulate
 
 
 # ── pogoda (Open-Meteo, opcjonalna) ───────────────────────────────────────────
@@ -283,7 +331,18 @@ def build():
         fx = team_fixtures.get(tid) or []
         return fx[0] if fx else None
 
-    compute_xpts, explain_xpts = make_model(boot["teams"])   # model + uzasadnienia
+    compute_xpts, explain_xpts, sim_spec, simulate = make_model(boot["teams"])   # model + uzasadnienia + symulator
+
+    def sim_stats(p, opp_id, is_home, n=2000):
+        """Floor (P25), ceiling (P90), haul% (P≥10) z symulacji Monte Carlo — uczciwa zmienność."""
+        if not opp_id:
+            return {"floor": 0, "ceiling": 0, "haul": 0.0, "sims": None}
+        sims = simulate(sim_spec(p, opp_id, is_home), n)
+        srt = sorted(sims)
+        floor = srt[int(len(srt) * 0.25)]
+        ceiling = srt[int(len(srt) * 0.90)]
+        haul = sum(1 for x in sims if x >= 10) / len(sims)
+        return {"floor": round(floor), "ceiling": round(ceiling), "haul": round(haul, 3), "sims": sims}
 
     def xpts_horizon(p, tid, n=3):
         """Suma xPts z najbliższych n meczów — do rankingu transferów (nagradza dobry terminarz)."""
@@ -344,6 +403,7 @@ def build():
         print("! Brak skladu (team_id/manual_squad). data.json bez skladu.")
 
     squad, xi_xpts, cap_name = [], 0.0, None
+    squad_sims = {}   # id -> lista symulacji (do rozkładu całej XI; nie trafia do JSON)
     for s in squad_ids:
         p = players.get(s["id"])
         if not p:
@@ -354,6 +414,7 @@ def build():
         is_home = (nf["ven"] == "H") if nf else True
         opp_id = nf["opp_id"] if nf else None
         xpts, factors = compute_xpts(p, opp_id, is_home, tid)
+        sstat = sim_stats(p, opp_id, is_home, n=3000)
         roadmap = []
         for fx in (team_fixtures.get(tid) or []):
             rx, _ = compute_xpts(p, fx["opp_id"], fx["ven"] == "H", tid)
@@ -378,6 +439,7 @@ def build():
             "cost_change_event": p.get("cost_change_event") or 0,
             "form5": last5(p["id"]),
             "roadmap": roadmap,
+            "floor": sstat["floor"], "ceiling": sstat["ceiling"], "haul": sstat["haul"],
             "next": ({"opp": nf["opp"], "ven": nf["ven"], "fdr": nf["fdr"], "opp_id": nf["opp_id"]} if nf else None),
             "team_id": tid,
             "weather": weather,
@@ -385,6 +447,8 @@ def build():
             "multiplier": s["mult"], "on_bench": on_bench, "order": s["order"],
         }
         squad.append(entrypl)
+        squad_sims[s["id"]] = {"sims": sstat["sims"], "on_bench": entrypl["on_bench"],
+                               "is_captain": entrypl.get("is_captain", False)}
         if not on_bench:
             xi_xpts += xpts * (2 if s["captain"] else 1)
         if s["captain"]:
@@ -435,6 +499,7 @@ def build():
         if not nf:
             continue
         x, fct = compute_xpts(p, nf["opp_id"], nf["ven"] == "H", tid)
+        pstat = sim_stats(p, nf["opp_id"], nf["ven"] == "H", n=1200)
         p_roadmap = []
         for fx in (team_fixtures.get(tid) or []):
             rx, _ = compute_xpts(p, fx["opp_id"], fx["ven"] == "H", tid)
@@ -449,6 +514,7 @@ def build():
             "selected_by": p.get("selected_by_percent"),
             "next": {"opp": nf["opp"], "ven": nf["ven"], "fdr": nf["fdr"]},
             "factors": fct, "roadmap": p_roadmap,
+            "floor": pstat["floor"], "ceiling": pstat["ceiling"], "haul": pstat["haul"],
         }
         pool_by_pos[p["element_type"]].append(cand)
 
@@ -627,7 +693,38 @@ def build():
 
     lineup = optimize_lineup(squad) if len([p for p in squad]) >= 11 else None
 
-    brief = {"captain": captain, "captain_matrix": captain_matrix,
+    # rozkład sumy punktów jedenastki w najbliższej kolejce (Monte Carlo, kapitan ×2)
+    gw_outlook = None
+    xi_totals_sample = None
+    if lineup and lineup.get("xi"):
+        xi_names = {x["name"] for x in lineup["xi"]}
+        cap_nm = next((x["name"] for x in lineup["xi"] if x["is_captain"]), None)
+        name_to_id = {pl["name"]: pl["id"] for pl in squad}
+        arrs, cap_arr = [], None
+        for nm in xi_names:
+            pid = name_to_id.get(nm)
+            rec = squad_sims.get(pid) if pid else None
+            if rec and rec["sims"]:
+                arrs.append(rec["sims"])
+                if nm == cap_nm:
+                    cap_arr = rec["sims"]
+        if arrs:
+            N = min(len(a) for a in arrs)
+            totals = []
+            for i in range(N):
+                t = sum(a[i] for a in arrs)
+                if cap_arr:
+                    t += cap_arr[i]   # podwojenie kapitana
+                totals.append(t)
+            st = sorted(totals)
+            xi_totals_sample = totals
+            gw_outlook = {
+                "p10": round(st[int(N * 0.10)]), "p50": round(st[int(N * 0.50)]),
+                "p90": round(st[int(N * 0.90)]), "mean": round(sum(totals) / N, 1),
+                "captain": cap_nm,
+            }
+
+    brief = {"captain": captain, "captain_matrix": captain_matrix, "gw_outlook": gw_outlook,
              "transfers": trans, "alerts": alerts, "lineup": lineup}
 
     # ── PLANER: DGW/BGW, chipy, różnicowi, ceny, rywale, pula symulatora ──────
@@ -844,9 +941,24 @@ def build():
                         cap_count[r_cap] = cap_count.get(r_cap, 0) + 1
                     diffs_named = sorted(({"name": elinfo(e)["name"], "xpts": elinfo(e)["xpts"]} for e in diffs),
                                          key=lambda d: -d["xpts"])[:3]
+                    # win probability: P(utrzymasz przewagę po tej kolejce)
+                    gap = my_total - (r.get("total") or 0)
+                    hold = None
+                    if xi_totals_sample:
+                        mean_c = sum(elinfo(e)["xpts"] for e in r_xi)
+                        if r_cap is not None:
+                            mean_c += elinfo(r_cap)["xpts"]   # kapitan rywala ×2
+                        import statistics as _st
+                        sd = _st.pstdev(xi_totals_sample) or 6.0
+                        wins = 0
+                        for mine in xi_totals_sample:
+                            cg = random.gauss(mean_c, sd)     # przybliżenie GW goniącego
+                            if mine + gap > cg:
+                                wins += 1
+                        hold = round(wins / len(xi_totals_sample), 2)
                     chasers.append({
                         "player": r.get("player_name"), "team": r.get("entry_name"),
-                        "total": r.get("total"), "gap": my_total - (r.get("total") or 0),
+                        "total": r.get("total"), "gap": gap, "hold": hold,
                         "captain": elinfo(r_cap)["name"] if r_cap else "?",
                         "cap_differs": cap_diff, "diffs": diffs_named,
                     })
@@ -907,6 +1019,96 @@ def build():
                                    "value": (h.get("value") or 0) / 10.0,
                                    "bank": (h.get("bank") or 0) / 10.0})
 
+    # ── śledzenie skuteczności modelu (trwały log w repo) ─────────────────────
+    accuracy = None
+    try:
+        LOG = ROOT / "model_log.json"
+        log = {}
+        if LOG.exists():
+            try:
+                log = json.loads(LOG.read_text(encoding="utf-8"))
+            except Exception:
+                log = {}
+        preds = log.get("gw_preds", {})
+        ev_finished = {e["id"]: bool(e.get("finished")) for e in boot["events"]}
+
+        # 1) zapisz prognozę na następny GW (dopóki kolejka nie rozegrana — nadpisuj)
+        if lineup and lineup.get("xi") and not ev_finished.get(next_gw, False):
+            name_to = {pl["name"]: pl for pl in squad}
+            cap_nm2 = next((x["name"] for x in lineup["xi"] if x["is_captain"]), None)
+            gp = {}
+            for x in lineup["xi"]:
+                pl = name_to.get(x["name"])
+                if pl:
+                    gp[str(pl["id"])] = {"name": pl["name"], "pos": pl["pos"],
+                                         "pred": pl["xpts"], "cap": (x["name"] == cap_nm2),
+                                         "actual": None}
+            preds[str(next_gw)] = {"players": gp, "cap": cap_nm2}
+
+        # 2) uzupełnij realne punkty dla rozegranych już kolejek (backfill)
+        es_cache = {}
+        def actual_pts(pid, gw):
+            if pid not in es_cache:
+                es = get_json(f"{FPL}/element-summary/{pid}/") or {}
+                m = {}
+                for h in es.get("history", []):
+                    m.setdefault(h.get("round"), 0)
+                    m[h["round"]] += h.get("total_points", 0)  # DGW: sumuj
+                es_cache[pid] = m
+            return es_cache[pid].get(gw)
+
+        for gw_str, rec in preds.items():
+            gw_i = int(gw_str)
+            if not ev_finished.get(gw_i, False):
+                continue
+            for pid, pd in rec.get("players", {}).items():
+                if pd.get("actual") is None:
+                    ap = actual_pts(int(pid), gw_i)
+                    if ap is not None:
+                        pd["actual"] = ap
+
+        # 3) policz metryki z rozegranych predykcji
+        pairs, per_gw, cap_hits, cap_n = [], [], 0, 0
+        for gw_str in sorted(preds, key=lambda x: int(x)):
+            rec = preds[gw_str]
+            scored = [(pd["pred"], pd["actual"], pd.get("cap"), pd["name"])
+                      for pd in rec["players"].values() if pd.get("actual") is not None]
+            if not scored:
+                continue
+            errs = [abs(pr - ac) for pr, ac, _, _ in scored]
+            pairs.extend([(pr, ac) for pr, ac, _, _ in scored])
+            capd = next(((pr, ac, nm) for pr, ac, c, nm in scored if c), None)
+            best_actual = max(ac for _, ac, _, _ in scored)
+            if capd is not None:
+                cap_n += 1
+                if capd[1] >= best_actual:   # kapitan = najlepszy strzelec XI
+                    cap_hits += 1
+            pred_tot = sum(pr * (2 if c else 1) for pr, ac, c, nm in scored)
+            act_tot = sum(ac * (2 if c else 1) for pr, ac, c, nm in scored)
+            per_gw.append({"gw": int(gw_str), "pred": round(pred_tot, 1),
+                           "actual": round(act_tot, 1), "mae": round(sum(errs) / len(errs), 2),
+                           "n": len(scored)})
+        n = len(pairs)
+        if n:
+            mae = round(sum(abs(pr - ac) for pr, ac in pairs) / n, 2)
+            bias = round(sum(pr - ac for pr, ac in pairs) / n, 2)
+            accuracy = {"n": n, "mae": mae, "bias": bias,
+                        "captain_hits": cap_hits, "captain_n": cap_n,
+                        "per_gw": per_gw[-10:],
+                        "note": "Prognoza vs realne punkty Twojej XI. MAE = średni błąd na zawodnika. "
+                                "Bias>0 = model przeszacowuje. Trafność kapitana = jak często typ na opaskę "
+                                "był najlepszym strzelcem jedenastki."}
+        else:
+            accuracy = {"n": 0, "per_gw": [], "note": "Zbieram dane — metryki pojawią się po pierwszej "
+                        "rozegranej kolejce od wdrożenia śledzenia."}
+
+        log["gw_preds"] = preds
+        log["updated"] = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        LOG.write_text(json.dumps(log, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception as e:
+        sys.stderr.write(f"  ! śledzenie skuteczności pominięte: {e}\n")
+        accuracy = None
+
     data = {
         "generated_at": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "gw": {"current": cur_gw, "next": next_gw, "name": gw_name},
@@ -927,6 +1129,7 @@ def build():
         "leagues": leagues,
         "leagues_detail": leagues_detail,
         "cover": cover,
+        "accuracy": accuracy,
         "trajectory": trajectory,
         "pool": sim_pool,
         "totals": {"xi_xpts": round(xi_xpts, 1), "captain": cap_name},
