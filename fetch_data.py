@@ -602,10 +602,28 @@ def build():
                                "opp": p["next"]["opp"] if p.get("next") else "",
                                "ven": p["next"]["ven"] if p.get("next") else "", "reason": r})
 
+        # proponowana jedenastka na następny GW (uporządkowana, z kapitanem = najwyższe xPts)
+        xi_players = [p for p in squad if p["id"] in best["ids"]]
+        by_xpts = sorted(xi_players, key=lambda p: -p["xpts"])
+        cap_id = by_xpts[0]["id"] if by_xpts else None
+        vice_id = by_xpts[1]["id"] if len(by_xpts) > 1 else None
+        pos_ord = {"GK": 0, "DEF": 1, "MID": 2, "FWD": 3}
+        proposed_xi = [{
+            "name": p["name"], "pos": p["pos"], "team": p["team"], "xpts": p["xpts"],
+            "opp": p["next"]["opp"] if p.get("next") else "",
+            "ven": p["next"]["ven"] if p.get("next") else "",
+            "fdr": p["next"]["fdr"] if p.get("next") else 3,
+            "is_captain": p["id"] == cap_id, "is_vice": p["id"] == vice_id,
+            "was_benched": p["on_bench"],
+        } for p in sorted(xi_players, key=lambda p: (pos_ord.get(p["pos"], 9), -p["xpts"]))]
+        # suma XI z podwojeniem kapitana
+        xi_total = round(sum(p["xpts"] * (2 if p["id"] == cap_id else 1) for p in xi_players), 1)
+
         return {"optimal": best["ids"] == cur_ids, "gain": round(best["total"] - cur_raw, 1),
                 "optimal_formation": best["form"], "current_formation": f"{cd}-{cm}-{cf}",
                 "optimal_xpts": best["total"], "current_xpts": cur_raw,
-                "swaps": swaps, "bench_order": bench_order, "highlights": highlights}
+                "swaps": swaps, "bench_order": bench_order, "highlights": highlights,
+                "xi": proposed_xi, "xi_total": xi_total}
 
     lineup = optimize_lineup(squad) if len([p for p in squad]) >= 11 else None
 

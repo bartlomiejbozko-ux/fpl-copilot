@@ -168,6 +168,22 @@
   .cvchip.prot{background:rgba(0,166,90,.08);color:var(--green-ink)}
   .cvchip .cvchipm{font:400 9px/1.3 'Space Mono',monospace;color:var(--muted);margin-top:2px}
   .cvfoot{margin-top:12px;font:400 10px/1.5 'Space Mono',monospace;color:var(--muted)}
+  /* proponowana jedenastka (Doradca) */
+  .xiwrap{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 2px 10px rgba(55,0,60,.05)}
+  .xibar{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;background:linear-gradient(120deg,var(--purple),var(--purple2))}
+  .xiform{font:700 11px/1 'Space Mono',monospace;letter-spacing:.06em;color:rgba(255,255,255,.85);text-transform:uppercase}
+  .xisum{font-weight:900;font-size:16px;color:var(--green)} .xisum small{font:400 10px 'Space Mono',monospace;color:rgba(255,255,255,.6)}
+  .xipitch{background:repeating-linear-gradient(0deg,var(--pitch1) 0 40px,var(--pitch2) 40px 80px);padding:12px 8px}
+  .xirow{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin:5px 0}
+  .xip{position:relative;width:96px;background:#fff;border-radius:10px;padding:7px 5px;display:flex;flex-direction:column;align-items:center;gap:3px;box-shadow:0 1px 4px rgba(0,0,0,.15)}
+  .xibadge{position:absolute;top:-6px;right:-6px;width:19px;height:19px;border-radius:50%;font:900 10px/19px 'Archivo';text-align:center;color:var(--purple)}
+  .xibadge.c{background:var(--green)} .xibadge.v{background:var(--cyan)}
+  .xinm{font-weight:800;font-size:12px;color:var(--purple);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+  .xifx{font:700 8px/1 'Space Mono',monospace;padding:2px 5px;border-radius:5px}
+  .xifx.f1,.xifx.f2{color:#0a3d24}.xifx.f3{color:var(--ink)}.xifx.f4,.xifx.f5{color:#fff}
+  .xifx.f1{background:var(--f1)}.xifx.f2{background:var(--f2)}.xifx.f3{background:var(--f3)}.xifx.f4{background:var(--f4)}.xifx.f5{background:var(--f5)}
+  .xipts{font-weight:900;font-size:16px;color:var(--green-ink)}
+  .xiup{font:700 7px/1 'Space Mono',monospace;color:var(--pink);background:rgba(233,0,82,.1);padding:2px 4px;border-radius:4px}
   .avg{align-items:center;justify-content:center;text-align:center;background:rgba(55,0,60,.04);border:1px solid var(--line)}
   .avg .al{font:700 8px/1 'Space Mono',monospace;color:var(--muted)}
   .avg .av{font-weight:900;font-size:17px;margin-top:3px}
@@ -561,7 +577,24 @@ function renderBrief(){
 
   // ustawienie / ławka
   const L=b.lineup;
-  let luHtml="";
+  let luHtml="", xiHtml="";
+  if(L && L.xi && L.xi.length){
+    const fdrC=f=>"f"+Math.max(1,Math.min(5,f||3));
+    const rows={GK:[],DEF:[],MID:[],FWD:[]};
+    L.xi.forEach(p=>{ (rows[p.pos]||rows.MID).push(p); });
+    const pcard=p=>`<div class="xip">
+        ${p.is_captain?'<span class="xibadge c">C</span>':p.is_vice?'<span class="xibadge v">V</span>':''}
+        <span class="xinm">${p.name}</span>
+        <span class="xifx ${fdrC(p.fdr)}">${p.opp?p.opp+' ('+p.ven+')':'—'}</span>
+        <span class="xipts">${p.xpts.toFixed(1)}</span>
+        ${p.was_benched?'<span class="xiup">↑ z ławki</span>':''}
+      </div>`;
+    const pitch=['GK','DEF','MID','FWD'].map(r=>rows[r].length?`<div class="xirow">${rows[r].map(pcard).join("")}</div>`:"").join("");
+    xiHtml=`<div class="xiwrap"><div class="xibar">
+        <span class="xiform">Formacja ${L.optimal_formation}</span>
+        <span class="xisum">${L.xi_total.toFixed(1)} xPts <small>(z C ×2)</small></span></div>
+      <div class="xipitch">${pitch}</div></div>`;
+  }
   if(L){
     const benchList = L.bench_order.map((x,i)=>`<div class="benchrow"><span class="bo">${i+1}</span>
         <span class="bnm">${x.name}<span class="bpos">${x.pos}</span></span><span class="bxp">${x.xpts.toFixed(1)}</span></div>`).join("");
@@ -599,13 +632,16 @@ function renderBrief(){
     <div class="h"><span class="no">01</span><span class="t">Kapitan</span></div>
     ${capHtml}${cmHtml}
 
-    <div class="h"><span class="no">02</span><span class="t">Ustawienie i ławka</span><span class="d">optymalna jedenastka z Twojego składu</span></div>
+    <div class="h"><span class="no">02</span><span class="t">Proponowana jedenastka</span><span class="d">${DATA.gw.name} · najlepsza XI z Twojego składu</span></div>
+    ${xiHtml || '<div class="card">Brak danych jedenastki.</div>'}
+
+    <div class="h"><span class="no">03</span><span class="t">Ustawienie i ławka</span><span class="d">jak dojść do tej jedenastki + kolejność zmian</span></div>
     ${luHtml || '<div class="card">Brak danych ustawienia.</div>'}
 
-    <div class="h"><span class="no">03</span><span class="t">Rekomendacje transferów</span><span class="d">najlepszy w Twoim budżecie · h = xPts na 3 kolejki</span></div>
+    <div class="h"><span class="no">04</span><span class="t">Rekomendacje transferów</span><span class="d">najlepszy w Twoim budżecie · h = xPts na 3 kolejki</span></div>
     <div class="card">${trHtml}</div>
 
-    <div class="h"><span class="no">04</span><span class="t">Alerty — kontuzje i dostępność</span></div>
+    <div class="h"><span class="no">05</span><span class="t">Alerty — kontuzje i dostępność</span></div>
     <div class="card">${alHtml}</div>`;
 }
 
