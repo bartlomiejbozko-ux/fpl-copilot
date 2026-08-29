@@ -1,0 +1,44 @@
+name: Update FPL data
+
+on:
+  schedule:
+    - cron: "0 */3 * * *"   # co 3 godziny
+  workflow_dispatch: {}      # ręczne odpalenie z zakładki Actions
+  push:
+    branches: [ main ]
+    paths: [ "config.json", "fetch_data.py" ]
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Fetch FPL data
+        run: python fetch_data.py
+        env:
+          FPL_SESSION: ${{ secrets.FPL_SESSION }}
+      - name: Commit & push data
+        run: |
+          git config user.name  "fpl-copilot-bot"
+          git config user.email "actions@github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "Bez zmian — nic do commitu."
+            exit 0
+          fi
+          git commit -m "chore: refresh data ($(date -u +%Y-%m-%dT%H:%MZ))"
+          # remote mógł się rozjechać (poprzedni cron) — pobierz z autostash i pushnij z retry
+          for i in 1 2 3; do
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" || true
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then
+              echo "Push OK."; exit 0
+            fi
+            echo "Push nieudany (próba $i) — ponawiam…"; sleep 3
+          done
+          echo "Push nie powiódł się po 3 próbach."; exit 1
