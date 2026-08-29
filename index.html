@@ -125,6 +125,49 @@
   .fcell.f1{background:var(--f1)}.fcell.f2{background:var(--f2)}.fcell.f3{background:var(--f3)}.fcell.f4{background:var(--f4)}.fcell.f5{background:var(--f5)}
   .fcell .opp{font:700 10px/1.1 'Space Mono',monospace}
   .fcell .fdr{font-weight:900;font-size:15px;margin-top:2px}
+  /* matryca kapitana */
+  .cmrow{display:flex;gap:10px;flex-wrap:wrap}
+  .cmside{flex:1;min-width:150px;display:flex;flex-direction:column;gap:3px;padding:11px 12px;border-radius:12px;border:1px solid var(--line)}
+  .cmside.shield{background:rgba(0,166,90,.07);border-left:4px solid var(--green-ink)}
+  .cmside.dagger{background:rgba(233,0,82,.06);border-left:4px solid var(--pink)}
+  .cmtag{font:700 9px/1 'Space Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .cmname{font-weight:900;font-size:16px;color:var(--purple)}
+  .cmmeta{font:400 11px/1.3 'Space Mono',monospace;color:var(--muted)}
+  .cmnote{margin-top:9px;font:400 11px/1.5 'Space Mono',monospace;color:var(--ink)}
+  /* roadmapa */
+  .rmtbl{width:100%;border-collapse:separate;border-spacing:4px;font-family:'Space Mono',monospace}
+  .rmtbl th{font:700 9px/1.1 'Space Mono',monospace;color:var(--muted);text-transform:uppercase;padding:4px 6px;text-align:center}
+  .rmtbl th:first-child{text-align:left}
+  .rmname{background:rgba(55,0,60,.04);border:1px solid var(--line);border-radius:9px;padding:8px 10px;font-weight:800;font-size:13px;color:var(--purple);white-space:nowrap}
+  .rmname .cbadge{display:inline-block;font:900 10px/1 'Space Mono',monospace;color:#fff;background:var(--green-ink);border-radius:4px;padding:2px 4px;margin-right:5px}
+  .rmname .rmpos{display:block;font:400 9px/1.3 'Space Mono',monospace;color:var(--muted);margin-top:2px}
+  .rmc{border-radius:9px;padding:7px 6px;text-align:center;min-width:64px}
+  .rmc.f1,.rmc.f2{color:#0a3d24}.rmc.f3{color:var(--ink)}.rmc.f4,.rmc.f5{color:#fff}
+  .rmc.f1{background:var(--f1)}.rmc.f2{background:var(--f2)}.rmc.f3{background:var(--f3)}.rmc.f4{background:var(--f4)}.rmc.f5{background:var(--f5)}
+  .rmc.rmempty{background:rgba(55,0,60,.03);color:var(--muted)}
+  .rmopp{display:block;font:700 10px/1.1 'Space Mono',monospace}
+  .rmx{display:block;font-weight:900;font-size:14px;margin-top:3px}
+  .rmsum{background:var(--purple);color:var(--green);border-radius:9px;text-align:center;font-weight:900;font-size:14px;padding:7px 8px}
+  /* obrona pozycji */
+  .cvexp{background:rgba(233,0,82,.06);border:1px solid rgba(233,0,82,.2);border-radius:10px;padding:11px 13px;font:400 12px/1.5 'Space Mono',monospace;color:var(--ink);margin-bottom:12px}
+  .cvexp.ok{background:rgba(0,166,90,.07);border-color:rgba(0,166,90,.25)}
+  .cvexptag{display:block;font-weight:700;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--pink);margin-bottom:3px}
+  .cvsechdr{font:700 10px/1 'Space Mono',monospace;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:14px 0 8px}
+  .cvrow{padding:9px 0;border-bottom:1px solid var(--line)}
+  .cvrow:last-of-type{border-bottom:0}
+  .cvhead{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  .cvname{font-weight:800;font-size:13px;color:var(--purple)}
+  .cvname .cvsub{font:400 10px/1 'Space Mono',monospace;color:var(--muted);margin-left:6px}
+  .cvgap{font:700 11px/1 'Space Mono',monospace;color:var(--green-ink);white-space:nowrap}
+  .cvmeta{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:5px;font:400 11px/1.4 'Space Mono',monospace;color:var(--muted)}
+  .cvcap{font-weight:700}
+  .cvcap.cap-diff{color:var(--pink)} .cvcap.cap-same{color:var(--green-ink)}
+  .cvchips{display:flex;flex-wrap:wrap;gap:6px}
+  .cvchip{display:flex;flex-direction:column;padding:6px 9px;border-radius:9px;font-weight:800;font-size:12px}
+  .cvchip.threat{background:rgba(233,0,82,.08);color:var(--pink)}
+  .cvchip.prot{background:rgba(0,166,90,.08);color:var(--green-ink)}
+  .cvchip .cvchipm{font:400 9px/1.3 'Space Mono',monospace;color:var(--muted);margin-top:2px}
+  .cvfoot{margin-top:12px;font:400 10px/1.5 'Space Mono',monospace;color:var(--muted)}
   .avg{align-items:center;justify-content:center;text-align:center;background:rgba(55,0,60,.04);border:1px solid var(--line)}
   .avg .al{font:700 8px/1 'Space Mono',monospace;color:var(--muted)}
   .avg .av{font-weight:900;font-size:17px;margin-top:3px}
@@ -293,6 +336,7 @@
     <button data-tab="fdr">Terminarz FDR</button>
     <button data-tab="risk">Koncentracja</button>
     <button data-tab="planner">Planer</button>
+    <button data-tab="roadmap">Roadmapa</button>
     <button data-tab="league">Moja liga</button>
     <button data-tab="sim">Symulator</button>
   </div>
@@ -304,12 +348,16 @@
 <script>
 
 const FDR_LABEL = "Trudność rywala (FDR) z oficjalnego API FPL · xPts to model heurystyczny, nie oficjalny.";
-let DATA=null, CUR="brief", SEL=null, EDIT=false;
+let DATA=null, CUR="brief", SEL=null, EDIT=false, BANK=0;
 
 /* nadpisania składu (lokalne, GitHub Pages) — rozwiązują brak aktualizacji po transferach */
 function ovKey(){ return "fplco_ov_"+((DATA&&DATA.entry&&DATA.entry.team_id)||"x"); }
+function bankKey(){ return "fplco_bank_"+((DATA&&DATA.entry&&DATA.entry.team_id)||"x"); }
 function loadOv(){ try{return JSON.parse(localStorage.getItem(ovKey())||"[]");}catch(e){return [];} }
 function saveOv(o){ try{localStorage.setItem(ovKey(),JSON.stringify(o));}catch(e){} }
+function baseBank(){ return (DATA.planner&&DATA.planner.bank!=null)?DATA.planner.bank:(DATA.entry.bank||0); }
+function loadBank(){ try{const v=localStorage.getItem(bankKey()); return v!==null?parseFloat(v):baseBank();}catch(e){return baseBank();} }
+function saveBank(v){ BANK=Math.round(v*10)/10; try{localStorage.setItem(bankKey(),String(BANK));}catch(e){} }
 function effectiveSquad(){
   const ov=loadOv(); const sq=(DATA.squad||[]).map(p=>({...p}));
   ov.forEach(m=>{
@@ -317,7 +365,7 @@ function effectiveSquad(){
     const pl=(DATA.pool||[]).find(c=>c.id===m.in); if(!pl)return;
     sq[i]={...sq[i], id:pl.id, name:pl.name, team:pl.team, team_full:pl.team, pos:pl.pos,
       etype:pl.et, price:pl.price, xpts:(pl.xpts??sq[i].xpts), xpts_h:pl.xpts_h, next:pl.next,
-      selected_by:pl.own, factors:null, form5:null, swapped:true};
+      selected_by:pl.own, factors:(pl.factors||null), roadmap:(pl.roadmap||[]), form5:null, swapped:true};
   });
   return sq;
 }
@@ -336,6 +384,7 @@ async function boot(){
     }catch(e){ return renderSetup(); }
   }
   if(!DATA.squad || !DATA.squad.length) return renderSetup(true);
+  BANK = loadBank();
 
   el("tagline").textContent = `${DATA.entry.name||"Twój skład"} · ${DATA.gw.name}`;
   el("fresh").textContent = "dane: "+new Date(DATA.generated_at).toLocaleString("pl-PL");
@@ -346,7 +395,7 @@ async function boot(){
   render();
 }
 
-function render(){ if(CUR==="brief")renderBrief(); else if(CUR==="squad")renderSquad(); else if(CUR==="fdr")renderFDR(); else if(CUR==="risk")renderRisk(); else if(CUR==="planner")renderPlanner(); else if(CUR==="league")renderLeague(); else renderSim(); }
+function render(){ if(CUR==="brief")renderBrief(); else if(CUR==="squad")renderSquad(); else if(CUR==="fdr")renderFDR(); else if(CUR==="risk")renderRisk(); else if(CUR==="planner")renderPlanner(); else if(CUR==="roadmap")renderRoadmap(); else if(CUR==="league")renderLeague(); else renderSim(); }
 
 /* ---------- sparkline formy (ostatnie 5 GW) ---------- */
 function sparkline(vals){
@@ -403,11 +452,46 @@ function renderLeague(){
       <div class="card">${top}${near}</div>`;
   }).join("");
 
+  // obrona pozycji: analiza najbliższych goniących
+  const cov=DATA.cover;
+  let coverHtml="";
+  if(cov){
+    const chRows=cov.chasers.map(ch=>{
+      const gapTxt=ch.gap>=0?`+${ch.gap} przewagi`:`${ch.gap} (przed Tobą)`;
+      const capCls=ch.cap_differs?'cap-diff':'cap-same';
+      const dnames=ch.diffs.length?ch.diffs.map(d=>d.name).join(", "):"—";
+      return `<div class="cvrow">
+        <div class="cvhead"><span class="cvname">${ch.team||ch.player}<span class="cvsub">${ch.player||''}</span></span>
+          <span class="cvgap">${gapTxt}</span></div>
+        <div class="cvmeta"><span class="cvcap ${capCls}">C: ${ch.captain}${ch.cap_differs?' ⚠️':' ✓'}</span>
+          <span class="cvdiff">ich różnicowi: ${dnames}</span></div></div>`;
+    }).join("");
+    const expHtml=cov.captain_exposure
+      ? `<div class="cvexp"><span class="cvexptag">Ekspozycja kapitańska</span>
+           <b>${cov.captain_exposure.count}/${cov.captain_exposure.of}</b> goniących kapitanuje
+           <b>${cov.captain_exposure.name}</b> (${cov.captain_exposure.xpts} xPts). Twój kapitan: <b>${cov.my_captain}</b>.</div>`
+      : `<div class="cvexp ok">Żaden z najbliższych goniących nie ma innego kapitana niż Ty — brak ekspozycji kapitańskiej.</div>`;
+    const thr=cov.threats.length?cov.threats.map(t=>`<div class="cvchip threat">${t.name}<span class="cvchipm">${t.pos} · ${t.owned_by}/${t.of} · ${t.xpts}</span></div>`).join(""):`<span class="ap" style="color:var(--muted)">Brak — pokrywasz ich różnicowych.</span>`;
+    const prot=cov.protected.length?cov.protected.map(t=>`<div class="cvchip prot">${t.name}<span class="cvchipm">${t.pos} · ${t.xpts}</span></div>`).join(""):`<span class="ap" style="color:var(--muted)">Brak unikalnych graczy względem goniących.</span>`;
+    coverHtml=`
+      <div class="h" style="margin-top:16px"><span class="no">·</span><span class="t">Obrona pozycji ${cov.leader?'lidera':'#'+ (cov.my_rank||'')}</span>
+        <span class="d">${cov.league.name} · goniący (dane z GW${cov.as_of_gw})</span></div>
+      <div class="advcard ${cov.captain_exposure?'warn':'ok'}"><div class="ai">${cov.captain_exposure?'⚔':'🛡'}</div>
+        <div class="ab"><div class="at">Rekomendacja obronna</div><div class="ap">${cov.recommendation}</div></div></div>
+      <div class="card" style="margin-top:10px">${expHtml}
+        <div class="cvsechdr">Najbliżsi goniący</div>${chRows}
+        <div class="cvsechdr">Zagrożenia — ich różnicowi, których nie masz</div><div class="cvchips">${thr}</div>
+        <div class="cvsechdr">Twoje atuty — chronieni różnicowi</div><div class="cvchips">${prot}</div>
+        <div class="cvfoot">Składy goniących z ostatniej zablokowanej kolejki (przed deadline to przybliżenie). Dopasowanie do rywali obniża wariancję — chroni pozycję kosztem potencjału skoku w rankingu ogólnym.</div>
+      </div>`;
+  }
+
   el("app").innerHTML = `
     <div class="h"><span class="no">01</span><span class="t">Trajektoria sezonu</span><span class="d">punkty ogółem kolejka po kolejce</span></div>
     <div class="card">${chart}${stat}</div>
     <div class="h"><span class="no">02</span><span class="t">Twoje ligi</span><span class="d">pozycja i ruch</span></div>
     <div class="card">${lgList}</div>
+    ${coverHtml}
     ${tables}`;
 }
 
@@ -429,8 +513,22 @@ function renderBrief(){
            <div class="ap">Opaska jest na <b>${c.current}</b> (${c.current_xpts}), ale <b>${c.best}</b> ma wyższą prognozę (${c.best_xpts}) — zysk <b>+${c.gain} xPts</b>.</div></div></div>`;
   }
 
-  // transfery
-  let trHtml;
+  // matryca kapitańska: Tarcza vs Sztylet (teoria gier)
+  const cm=b.captain_matrix;
+  let cmHtml="";
+  if(cm){
+    cmHtml = cm.same
+      ? `<div class="card" style="margin-top:10px"><div class="cmrow"><div class="cmside shield">
+           <span class="cmtag">🛡️ Tarcza = 🗡️ Sztylet</span><span class="cmname">${cm.shield.name}</span>
+           <span class="cmmeta">${cm.shield.xpts} xPts · ${cm.shield.own}% · ${cm.shield.opp} (${cm.shield.ven})</span></div></div>
+           <div class="cmnote">Bezpieczny i różnicowy wybór to ten sam zawodnik — czysta sytuacja.</div></div>`
+      : `<div class="card" style="margin-top:10px"><div class="cmrow">
+           <div class="cmside shield"><span class="cmtag">🛡️ Tarcza (lider ligi)</span><span class="cmname">${cm.shield.name}</span>
+             <span class="cmmeta">${cm.shield.xpts} xPts · ${cm.shield.own}% · ${cm.shield.opp} (${cm.shield.ven})</span></div>
+           <div class="cmside dagger"><span class="cmtag">🗡️ Sztylet (goniący)</span><span class="cmname">${cm.dagger.name}</span>
+             <span class="cmmeta">${cm.dagger.xpts} xPts · ${cm.dagger.own}% · ${cm.dagger.opp} (${cm.dagger.ven})</span></div></div>
+           <div class="cmnote">Bronisz przewagi w minilidze → Tarcza (wysoka własność, minimalizuje straty). Gonisz → Sztylet (niższa własność = dźwignia na odrobienie punktów). Uwaga: „własność" to przybliżenie EO, nie dokładny wskaźnik.</div></div>`;
+  }
   if(b.transfers && b.transfers.length){
     trHtml = b.transfers.map(t=>`
       <div class="trow">
@@ -499,7 +597,7 @@ function renderBrief(){
     </div>
 
     <div class="h"><span class="no">01</span><span class="t">Kapitan</span></div>
-    ${capHtml}
+    ${capHtml}${cmHtml}
 
     <div class="h"><span class="no">02</span><span class="t">Ustawienie i ławka</span><span class="d">optymalna jedenastka z Twojego składu</span></div>
     ${luHtml || '<div class="card">Brak danych ustawienia.</div>'}
@@ -528,7 +626,7 @@ function renderSquad(){
   const benchHtml = bench.map(card).join("");
   const tot = xi.reduce((s,p)=>s+(p.xpts||0)*(p.is_captain?2:1),0);
   const ovN = loadOv().length;
-  const bank=(DATA.planner&&DATA.planner.bank)!=null?DATA.planner.bank:(DATA.entry.bank||0);
+  const bank=BANK;
 
   el("app").innerHTML = `
     <div class="hero">
@@ -550,7 +648,7 @@ function renderSquad(){
     <div id="detail"></div>`;
 
   el("editToggle").onclick=()=>{EDIT=!EDIT;SEL=null;renderSquad();};
-  if(el("editReset")) el("editReset").onclick=()=>{saveOv([]);SEL=null;renderSquad();};
+  if(el("editReset")) el("editReset").onclick=()=>{saveOv([]);saveBank(baseBank());SEL=null;renderSquad();};
   el("app").querySelectorAll(".p").forEach(b=>b.onclick=()=>{
     const id=+b.dataset.id;
     if(EDIT){ openSwap(id); }
@@ -564,7 +662,7 @@ function openSwap(outId){
   SEL=outId;
   const squad=effectiveSquad();
   const out=squad.find(p=>p.id===outId); if(!out) return;
-  const bank=(DATA.planner&&DATA.planner.bank)||0;
+  const bank=BANK;
   const budget=out.price+bank;
   const ownedIds=new Set(squad.map(p=>p.id));
   const cands=(DATA.pool||[]).filter(c=>c.et===out.etype && !ownedIds.has(c.id))
@@ -582,7 +680,12 @@ function openSwap(outId){
       <input id="swSearch" placeholder="Szukaj zawodnika…" style="width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font:600 13px 'Archivo';color:var(--purple);margin-bottom:10px">
       <div id="swList" class="swlist">${list}</div>
     </div>`;
-  const doSwap=inId=>{const ov=loadOv().filter(m=>m.out!==outId); ov.push({out:outId,in:inId}); saveOv(ov); EDIT=true; renderSquad();};
+  const doSwap=inId=>{
+    const out=effectiveSquad().find(p=>p.id===outId);
+    const inp=(DATA.pool||[]).find(c=>c.id===inId);
+    if(out&&inp){ const sell=sellPrice(out.price,out.price); saveBank(Math.max(0, BANK + sell - inp.price)); }
+    const ov=loadOv().filter(m=>m.out!==outId); ov.push({out:outId,in:inId}); saveOv(ov); EDIT=true; renderSquad();
+  };
   document.getElementById("swList").querySelectorAll(".swrow").forEach(r=>r.onclick=()=>doSwap(+r.dataset.in));
   document.getElementById("swSearch").oninput=e=>{
     const q=e.target.value.toLowerCase();
@@ -711,6 +814,35 @@ function sellPrice(purchase, current){
   const p=Math.round(purchase*10), c=Math.round(current*10);
   if(c<=p) return c/10;                 // spadek/bez zmian -> cena bieżąca
   return (p + Math.floor((c-p)/2))/10;  // wzrost -> zakup + połowa wzrostu (w dół)
+}
+function renderRoadmap(){
+  const squad=effectiveSquad();
+  const maxN=Math.max(1,...squad.map(p=>(p.roadmap||[]).length));
+  const gwLabels=[];
+  for(const p of squad){ (p.roadmap||[]).forEach((r,i)=>{ if(gwLabels[i]==null) gwLabels[i]="GW"+r.gw; }); }
+  const head=Array.from({length:maxN},(_,i)=>`<th>${gwLabels[i]||("+"+(i+1))}</th>`).join("");
+  const order={GK:0,DEF:1,MID:2,FWD:3};
+  const rows=[...squad].sort((a,b)=>(order[a.pos]-order[b.pos])||((b.on_bench?0:1)-(a.on_bench?0:1)))
+    .map(p=>{
+      const cells=[];
+      for(let i=0;i<maxN;i++){
+        const r=(p.roadmap||[])[i];
+        cells.push(r
+          ? `<td class="rmc ${fdrClass(r.fdr)}"><span class="rmopp">${r.opp} (${r.ven})</span><span class="rmx">${r.xpts.toFixed(1)}</span></td>`
+          : `<td class="rmc rmempty">—</td>`);
+      }
+      const sum=(p.roadmap||[]).reduce((a,r)=>a+r.xpts,0);
+      return `<tr><td class="rmname">${p.is_captain?'<span class="cbadge">C</span>':''}${p.name}
+        <span class="rmpos">${p.pos}${p.on_bench?' · ławka':''}</span></td>${cells.join("")}
+        <td class="rmsum">${sum.toFixed(1)}</td></tr>`;
+    }).join("");
+  el("app").innerHTML=`
+    <div class="h"><span class="no">01</span><span class="t">Roadmapa — projekcja xPts na ${maxN} ${maxN===1?'kolejkę':'kolejek'}</span>
+      <span class="d">kolor = FDR · suma = łączne xPts w horyzoncie</span></div>
+    <div class="card" style="overflow-x:auto;padding:10px">
+      <table class="rmtbl"><thead><tr><th>Zawodnik</th>${head}<th>Σ</th></tr></thead><tbody>${rows}</tbody></table>
+    </div>
+    <div class="foot" style="margin-top:10px">Planowanie transferów: szukaj graczy z łatwym terminarzem (zielone) w horyzoncie, żeby nie palić −4 na zmianę już za kolejkę-dwie. Dodani lokalnie zawodnicy też mają roadmapę.</div>`;
 }
 function renderSim(){
   const pool=DATA.pool||[];

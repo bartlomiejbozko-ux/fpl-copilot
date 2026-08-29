@@ -83,9 +83,8 @@ def make_model(teams):
     for t in teams:
         atts += [t.get("strength_attack_home", 1100), t.get("strength_attack_away", 1100)]
         defs += [t.get("strength_defence_home", 1100), t.get("strength_defence_away", 1100)]
-    
-    mean_att = (sum(atts) / len(atts)) if (atts and sum(atts) > 0) else 1100
-    mean_def = (sum(defs) / len(defs)) if (defs and sum(defs) > 0) else 1100
+    mean_att = (sum(atts) / len(atts)) if atts else 1100
+    mean_def = (sum(defs) / len(defs)) if defs else 1100
     tmap = {t["id"]: t for t in teams}
 
     def fnum(p, key, d=0.0):
@@ -95,6 +94,8 @@ def make_model(teams):
             return d
 
     def compute(p, opp_id, is_home, team_id=None):
+        if not opp_id:  # pusta kolejka (BGW) — brak meczu
+            return 0.0, [{"label": "Brak meczu (BGW)", "pts": 0.0}]
         et = p.get("element_type", 3)
         chance = p.get("chance_of_playing_next_round")
         if chance is None:
@@ -349,6 +350,11 @@ def build():
         is_home = (nf["ven"] == "H") if nf else True
         opp_id = nf["opp_id"] if nf else None
         xpts, factors = compute_xpts(p, opp_id, is_home, tid)
+        roadmap = []
+        for fx in (team_fixtures.get(tid) or []):
+            rx, _ = compute_xpts(p, fx["opp_id"], fx["ven"] == "H", tid)
+            roadmap.append({"gw": fx["gw"], "opp": fx["opp"], "ven": fx["ven"],
+                            "fdr": fx["fdr"], "xpts": rx})
         xph = xpts_horizon(p, tid)
         on_bench = s["order"] > 11
         weather = get_weather(tshort[tid], nf["kickoff"]) if nf else None
@@ -367,6 +373,7 @@ def build():
             "price_mom": (p.get("transfers_in_event") or 0) - (p.get("transfers_out_event") or 0),
             "cost_change_event": p.get("cost_change_event") or 0,
             "form5": last5(p["id"]),
+            "roadmap": roadmap,
             "next": ({"opp": nf["opp"], "ven": nf["ven"], "fdr": nf["fdr"], "opp_id": nf["opp_id"]} if nf else None),
             "team_id": tid,
             "weather": weather,
@@ -423,7 +430,12 @@ def build():
         nf = next_fix(tid)
         if not nf:
             continue
-        x, _ = compute_xpts(p, nf["opp_id"], nf["ven"] == "H", tid)
+        x, fct = compute_xpts(p, nf["opp_id"], nf["ven"] == "H", tid)
+        p_roadmap = []
+        for fx in (team_fixtures.get(tid) or []):
+            rx, _ = compute_xpts(p, fx["opp_id"], fx["ven"] == "H", tid)
+            p_roadmap.append({"gw": fx["gw"], "opp": fx["opp"], "ven": fx["ven"],
+                              "fdr": fx["fdr"], "xpts": rx})
         cand = {
             "id": p["id"], "name": p["web_name"], "team": tshort[tid],
             "et": p["element_type"],
@@ -432,6 +444,7 @@ def build():
             "chance": p.get("chance_of_playing_next_round"),
             "selected_by": p.get("selected_by_percent"),
             "next": {"opp": nf["opp"], "ven": nf["ven"], "fdr": nf["fdr"]},
+            "factors": fct, "roadmap": p_roadmap,
         }
         pool_by_pos[p["element_type"]].append(cand)
 
@@ -476,6 +489,26 @@ def build():
             "gain": round(best_cap["xpts"] - cur_cap["xpts"], 1),
         }
 
+    # matryca kapitańska: Tarcza (bezpieczny, wysoka własność) vs Sztylet (różnicowy)
+    def _own(p):
+        try:
+            return float(p.get("selected_by") or 0)
+        except (TypeError, ValueError):
+            return 0.0
+    captain_matrix = None
+    if xi_sorted:
+        shield = max(xi, key=lambda p: _own(p) * 0.04 + p["xpts"])  # własność wspiera, ale xPts decyduje
+        dagger_cands = [p for p in xi if _own(p) < 15.0]
+        dagger = max(dagger_cands, key=lambda p: p["xpts"]) if dagger_cands else xi_sorted[0]
+        captain_matrix = {
+            "shield": {"name": shield["name"], "xpts": shield["xpts"], "own": shield.get("selected_by"),
+                       "opp": shield["next"]["opp"] if shield.get("next") else "",
+                       "ven": shield["next"]["ven"] if shield.get("next") else ""},
+            "dagger": {"name": dagger["name"], "xpts": dagger["xpts"], "own": dagger.get("selected_by"),
+                       "opp": dagger["next"]["opp"] if dagger.get("next") else "",
+                       "ven": dagger["next"]["ven"] if dagger.get("next") else ""},
+            "same": shield["name"] == dagger["name"],
+        }
     # alerty: kontuzje / zawieszenia / wątpliwości / newsy
     SEV = {"i": ("Kontuzja", 3), "s": ("Zawieszenie", 3), "u": ("Niedostępny", 3),
            "d": ("Wątpliwy", 2), "n": ("Poza kadrą", 2)}
@@ -572,7 +605,8 @@ def build():
 
     lineup = optimize_lineup(squad) if len([p for p in squad]) >= 11 else None
 
-    brief = {"captain": captain, "transfers": trans, "alerts": alerts, "lineup": lineup}
+    brief = {"captain": captain, "captain_matrix": captain_matrix,
+             "transfers": trans, "alerts": alerts, "lineup": lineup}
 
     # ── PLANER: DGW/BGW, chipy, różnicowi, ceny, rywale, pula symulatora ──────
     # double / blank gameweeks — skan kolejnych 8 kolejek z pełnego terminarza
@@ -690,7 +724,8 @@ def build():
             sim_pool.append({"id": c["id"], "name": c["name"], "team": c["team"], "et": et,
                              "pos": POS[et], "price": c["price"], "xpts": c["xpts"],
                              "xpts_h": c["xpts_h"], "own": c["selected_by"],
-                             "owned": c["id"] in owned, "next": c["next"]})
+                             "owned": c["id"] in owned, "next": c["next"],
+                             "factors": c.get("factors"), "roadmap": c.get("roadmap")})
 
     planner = {"dgw_bgw": dgw_bgw, "chips": chips, "differentials": differentials,
                "price_risk": price_risk, "rivals": rivals, "bank": bank_t / 10.0}
@@ -733,7 +768,112 @@ def build():
             leagues_detail.append({"id": lg["id"], "name": lg["name"], "size": len(rows),
                                    "top": top, "around_you": neigh})
 
-    # ── trajektoria sezonu ────────────────────────────────────────────────────
+    # ── obrona pozycji: analiza najbliższych goniących ("cover") ──────────────
+    cover = None
+    if team_id and pos_name:
+        # mapa id -> {name,pos,xpts,team} ze składu i puli (dostępni gracze)
+        xmap = {}
+        for pl in squad:
+            xmap[pl["id"]] = {"name": pl["name"], "pos": pl["pos"], "xpts": pl["xpts"], "team": pl["team"]}
+        for lst in pool_by_pos.values():
+            for c in lst:
+                xmap.setdefault(c["id"], {"name": c["name"], "pos": pos_name[c["et"]],
+                                          "xpts": c["xpts"], "team": c["team"]})
+
+        def elinfo(eid):
+            if eid in xmap:
+                return xmap[eid]
+            pp = players.get(eid)
+            if pp:
+                return {"name": pp["web_name"], "pos": pos_name.get(pp["element_type"], "?"),
+                        "xpts": 0.0, "team": tshort.get(pp["team"], "?")}
+            return {"name": "?", "pos": "?", "xpts": 0.0, "team": "?"}
+
+        # wybór miniligi: prywatna, w której masz najlepszą (najniższą) pozycję
+        priv = [lg for lg in leagues if lg["type"] == "x" and lg.get("rank")]
+        priv.sort(key=lambda lg: lg["rank"])
+        if priv:
+            lg = priv[0]
+            st = get_json(f"{FPL}/leagues-classic/{lg['id']}/standings/?page_standings=1")
+            results = ((st or {}).get("standings") or {}).get("results") or []
+            me_i = next((i for i, r in enumerate(results) if str(r.get("entry")) == str(team_id)), None)
+            if me_i is not None:
+                me_row = results[me_i]
+                my_total = me_row.get("total") or 0
+                # moja jedenastka + kapitan
+                my_xi = {p["id"] for p in squad if not p["on_bench"]}
+                my_all = {p["id"] for p in squad}
+                my_cap = next((p for p in squad if p.get("is_captain")), None)
+                my_cap_id = my_cap["id"] if my_cap else None
+                # goniący: poniżej mnie w tabeli, najbliżsi najpierw (max 5)
+                chasers_rows = results[me_i + 1: me_i + 6]
+                chasers, threat_count, cap_count = [], {}, {}
+                for r in chasers_rows:
+                    rid = r.get("entry")
+                    pk = get_json(f"{FPL}/entry/{rid}/event/{cur_gw}/picks/")
+                    picks = (pk or {}).get("picks") or []
+                    r_xi = [p["element"] for p in picks if p.get("position", 99) <= 11]
+                    r_cap = next((p["element"] for p in picks if p.get("is_captain")), None)
+                    diffs = [e for e in r_xi if e not in my_all]  # ich gracze, których nie masz
+                    for e in diffs:
+                        threat_count[e] = threat_count.get(e, 0) + 1
+                    cap_diff = (r_cap is not None and r_cap != my_cap_id)
+                    if cap_diff and r_cap is not None:
+                        cap_count[r_cap] = cap_count.get(r_cap, 0) + 1
+                    diffs_named = sorted(({"name": elinfo(e)["name"], "xpts": elinfo(e)["xpts"]} for e in diffs),
+                                         key=lambda d: -d["xpts"])[:3]
+                    chasers.append({
+                        "player": r.get("player_name"), "team": r.get("entry_name"),
+                        "total": r.get("total"), "gap": my_total - (r.get("total") or 0),
+                        "captain": elinfo(r_cap)["name"] if r_cap else "?",
+                        "cap_differs": cap_diff, "diffs": diffs_named,
+                    })
+                # ekspozycja kapitańska: najczęstszy różnicowy kapitan wśród goniących
+                cap_exposure = None
+                if cap_count:
+                    top_cap = max(cap_count.items(), key=lambda kv: (kv[1], elinfo(kv[0])["xpts"]))
+                    ci = elinfo(top_cap[0])
+                    cap_exposure = {"name": ci["name"], "xpts": ci["xpts"],
+                                    "count": top_cap[1], "of": len(chasers)}
+                # zagrożenia: ich różnicowi (nie masz), wg xPts
+                threats = sorted(({"name": elinfo(e)["name"], "pos": elinfo(e)["pos"],
+                                   "team": elinfo(e)["team"], "xpts": elinfo(e)["xpts"],
+                                   "owned_by": n, "of": len(chasers)} for e, n in threat_count.items()),
+                                 key=lambda t: (-t["owned_by"], -t["xpts"]))[:6]
+                # moi chronieni różnicowi: moja XI, której nikt z goniących nie ma
+                all_chaser_elems = set(threat_count.keys())
+                chaser_all = set()
+                # (zbierz pełne składy goniących do wykrycia moich unikatów)
+                for r in chasers_rows:
+                    pk = get_json(f"{FPL}/entry/{r.get('entry')}/event/{cur_gw}/picks/")
+                    for p in ((pk or {}).get("picks") or []):
+                        chaser_all.add(p["element"])
+                protected = sorted(({"name": elinfo(e)["name"], "pos": elinfo(e)["pos"],
+                                     "xpts": elinfo(e)["xpts"]} for e in my_xi if e not in chaser_all),
+                                   key=lambda d: -d["xpts"])[:6]
+                # rekomendacja pokrycia
+                rec = None
+                if cap_exposure and cap_exposure["count"] >= max(1, len(chasers) // 2):
+                    rec = (f"Największe ryzyko to opaska: {cap_exposure['count']}/{cap_exposure['of']} "
+                           f"goniących kapitanuje {cap_exposure['name']} (proj. {cap_exposure['xpts']} xPts). "
+                           f"Jeśli go nie masz, rozważ dobranie/skapitanowanie, by zneutralizować skok.")
+                elif threats:
+                    t0 = threats[0]
+                    rec = (f"Najgroźniejszy różnicowy rywali to {t0['name']} "
+                           f"({t0['owned_by']}/{t0['of']} goniących, proj. {t0['xpts']} xPts) — "
+                           f"pokrycie go zmniejsza wariancję względem pościgu.")
+                else:
+                    rec = "Brak wyraźnej ekspozycji — Twój skład dobrze pokrywa najbliższych goniących."
+                cover = {
+                    "league": {"id": lg["id"], "name": lg["name"]},
+                    "my_rank": me_row.get("rank"), "my_total": my_total,
+                    "my_captain": my_cap["name"] if my_cap else "?",
+                    "as_of_gw": cur_gw, "chasers": chasers,
+                    "captain_exposure": cap_exposure, "threats": threats,
+                    "protected": protected, "recommendation": rec,
+                    "leader": me_row.get("rank") == 1,
+                }
+
     trajectory = []
     if team_id:
         hist = get_json(f"{FPL}/entry/{team_id}/history/")
@@ -764,6 +904,7 @@ def build():
         "planner": planner,
         "leagues": leagues,
         "leagues_detail": leagues_detail,
+        "cover": cover,
         "trajectory": trajectory,
         "pool": sim_pool,
         "totals": {"xi_xpts": round(xi_xpts, 1), "captain": cap_name},
