@@ -77,7 +77,86 @@ CS_PTS = {1: 4, 2: 4, 3: 1, 4: 0}        # czyste konto
 DC_THRESH = {2: 10, 3: 12, 4: 12}        # próg akcji obronnych: OBR 10 (CBIT), POM/NAP 12 (CBIRT)
 
 
-def make_model(teams):
+def fit_match_model(fixtures, teams):
+    """Model goli Dixon-Coles (dwuwymiarowy Poisson): szacuje siłę ataku/obrony
+    każdej drużyny z realnych wyników i miesza z priorem z ocen FPL (blending),
+    żeby na starcie sezonu nie 'widzieć' przypadków. Zwraca λ na mecz + predykcje 1×2/CS."""
+    tids = [t["id"] for t in teams]
+    tmap = {t["id"]: t for t in teams}
+    matches = []
+    for f in fixtures:
+        if f.get("finished") and f.get("team_h_score") is not None and f.get("team_a_score") is not None:
+            matches.append((f["team_h"], f["team_a"], f["team_h_score"], f["team_a_score"]))
+    n = len(matches)
+    games = {t: 0 for t in tids}
+    for h, a, hs, as_ in matches:
+        games[h] = games.get(h, 0) + 1
+        games[a] = games.get(a, 0) + 1
+    league_avg = (sum(hs + a_ for _, _, hs, a_ in matches) / (2 * n)) if n else 1.4
+
+    # prior z ocen siły FPL (skala ~1000–1400 → log-ratingi)
+    sa = {t["id"]: (t.get("strength_attack_home", 1100) + t.get("strength_attack_away", 1100)) / 2 for t in teams}
+    sd = {t["id"]: (t.get("strength_defence_home", 1100) + t.get("strength_defence_away", 1100)) / 2 for t in teams}
+    msa = (sum(sa.values()) / len(sa)) if sa else 1100
+    msd = (sum(sd.values()) / len(sd)) if sd else 1100
+    if msa <= 0: msa = 1100
+    if msd <= 0: msd = 1100
+    att_p = {t: 0.35 * math.log((sa[t] or msa) / msa) for t in tids}   # prior atak (log)
+    def_p = {t: -0.35 * math.log((sd[t] or msd) / msd) for t in tids}  # prior obrona (log; mocniejsza=niższe λ)
+
+    att = dict(att_p); dfn = dict(def_p); home_adv = 0.26
+    if n >= 20:  # dość danych, by dopasować model
+        lr = 0.06
+        for _ in range(400):
+            ga = {t: 0.0 for t in tids}; gd = {t: 0.0 for t in tids}; gh = 0.0
+            for h, a, hs, as_ in matches:
+                lh = math.exp(att[h] - dfn[a] + home_adv)
+                la = math.exp(att[a] - dfn[h])
+                ga[h] += (hs - lh); gd[a] -= (hs - lh); gh += (hs - lh)
+                ga[a] += (as_ - la); gd[h] -= (as_ - la)
+            for t in tids:  # gradient + regularyzacja do prioru (blending w MLE)
+                att[t] += lr * (ga[t] / n - 0.08 * (att[t] - att_p[t]))
+                dfn[t] += lr * (gd[t] / n - 0.08 * (dfn[t] - def_p[t]))
+            home_adv += lr * (gh / n - 0.05 * (home_adv - 0.26))
+            ma = sum(att.values()) / len(tids); md = sum(dfn.values()) / len(tids)
+            for t in tids:
+                att[t] -= ma; dfn[t] -= md
+
+    def clamp(x): return max(0.15, min(4.0, x))
+
+    def match_lambdas(team_id, opp_id, is_home):
+        if team_id not in att or opp_id not in att:
+            return league_avg, league_avg
+        if is_home:
+            lf = math.exp(att[team_id] - dfn[opp_id] + home_adv)
+            la = math.exp(att[opp_id] - dfn[team_id])
+        else:
+            lf = math.exp(att[team_id] - dfn[opp_id])
+            la = math.exp(att[opp_id] - dfn[team_id] + home_adv)
+        return clamp(lf), clamp(la)
+
+    def predict(home_id, away_id):
+        lh = match_lambdas(home_id, away_id, True)[0]
+        la = match_lambdas(away_id, home_id, False)[0]
+        # macierz wyników (Poisson) do 8 goli
+        def pois(k, l): return math.exp(-l) * (l ** k) / math.factorial(k)
+        ph = pa = pd = 0.0
+        for i in range(9):
+            for j in range(9):
+                p = pois(i, lh) * pois(j, la)
+                if i > j: ph += p
+                elif i == j: pd += p
+                else: pa += p
+        return {"lam_h": round(lh, 2), "lam_a": round(la, 2),
+                "p_home": round(ph, 3), "p_draw": round(pd, 3), "p_away": round(pa, 3),
+                "cs_home": round(math.exp(-la), 3), "cs_away": round(math.exp(-lh), 3)}
+
+    fitted = n >= 20
+    return {"match_lambdas": match_lambdas, "predict": predict, "league_avg": league_avg,
+            "n_matches": n, "fitted": fitted, "games": games}
+
+
+def make_model(teams, match_lambdas=None, league_avg=1.4):
     """Buduje funkcję liczącą xPts jako sumę komponentów wg reguł FPL.
     Korzysta z metryk Opta per 90 (xG, xA, xGC, obrony, akcje obronne) i ocen siły drużyn."""
     atts, defs = [], []
@@ -96,7 +175,7 @@ def make_model(teams):
         except (TypeError, ValueError):
             return d
 
-    def _rates(p, opp_id, is_home):
+    def _rates(p, opp_id, is_home, team_id=None):
         """Rdzeń modelu: stawki zdarzeń (współdzielone przez compute i symulator)."""
         et = p.get("element_type", 3)
         chance = p.get("chance_of_playing_next_round")
@@ -114,13 +193,19 @@ def make_model(teams):
             cbi = fnum(p, "clearances_blocks_interceptions"); tk = fnum(p, "tackles")
             rec = fnum(p, "recoveries") if et in (3, 4) else 0
             dc90 = ((cbi + tk + rec) / g90) if g90 > 0 else 0
-        opp = tmap.get(opp_id, {})
-        opp_def = opp.get("strength_defence_away" if is_home else "strength_defence_home", mean_def) or mean_def
-        opp_att = opp.get("strength_attack_away" if is_home else "strength_attack_home", mean_att) or mean_att
-        opp_def = opp_def if opp_def and opp_def > 0 else mean_def
-        opp_att = opp_att if opp_att and opp_att > 0 else mean_att
-        att_mult = max(0.6, min(1.5, mean_def / opp_def)) * (1.05 if is_home else 0.97)
-        lam = max(0.25, min(3.0, 1.25 * (opp_att / mean_att) * (0.9 if is_home else 1.12)))
+        # λ z modelu meczu (Dixon-Coles) jeśli dostępny; inaczej proxy z ocen siły FPL
+        if match_lambdas and team_id:
+            lam_for, lam = match_lambdas(team_id, opp_id, is_home)   # gole zespołu / stracone
+            att_mult = max(0.6, min(1.6, lam_for / max(0.4, league_avg)))
+            lam = max(0.25, min(3.5, lam))
+        else:
+            opp = tmap.get(opp_id, {})
+            opp_def = opp.get("strength_defence_away" if is_home else "strength_defence_home", mean_def) or mean_def
+            opp_att = opp.get("strength_attack_away" if is_home else "strength_attack_home", mean_att) or mean_att
+            opp_def = opp_def if opp_def and opp_def > 0 else mean_def
+            opp_att = opp_att if opp_att and opp_att > 0 else mean_att
+            att_mult = max(0.6, min(1.5, mean_def / opp_def)) * (1.05 if is_home else 0.97)
+            lam = max(0.25, min(3.0, 1.25 * (opp_att / mean_att) * (0.9 if is_home else 1.12)))
         p_cs = math.exp(-lam)
         e_goals = xg90 * m * att_mult
         e_assist = xa90 * m * att_mult
@@ -135,7 +220,7 @@ def make_model(teams):
     def compute(p, opp_id, is_home, team_id=None):
         if not opp_id:  # pusta kolejka (BGW) — brak meczu
             return 0.0, [{"label": "Brak meczu (BGW)", "pts": 0.0}]
-        r = _rates(p, opp_id, is_home)
+        r = _rates(p, opp_id, is_home, team_id)
         et, m = r["et"], r["m"]
         pts_app = m * 2.0
         pts_goals = r["e_goals"] * GOAL_PTS.get(et, 4)
@@ -167,8 +252,8 @@ def make_model(teams):
 
         return round(max(0.0, total), 1), factors
 
-    def sim_spec(p, opp_id, is_home):
-        return None if not opp_id else _rates(p, opp_id, is_home)
+    def sim_spec(p, opp_id, is_home, team_id=None):
+        return None if not opp_id else _rates(p, opp_id, is_home, team_id)
 
     def explain(et, team_id, opp_id, is_home):
         """Krótkie, ludzkie uzasadnienie wyboru na bazie sił drużyn i miejsca meczu."""
@@ -275,6 +360,159 @@ def get_weather(short_name, kickoff_iso):
         return None
 
 
+def best_xi_value(players, gw):
+    """Wartość najlepszej XI z zestawu graczy w danej kolejce (xPts wg formacji FPL)."""
+    by = {1: [], 2: [], 3: [], 4: []}
+    for p in players:
+        by[p["et"]].append(p["gwx"].get(gw, 0.0))
+    for k in by:
+        by[k].sort(reverse=True)
+    if len(by[1]) < 1 or len(by[2]) < 3 or len(by[4]) < 1:
+        return 0.0
+    best = 0.0
+    for d in range(3, 6):
+        for f in range(1, 4):
+            m = 10 - d - f
+            if m < 2 or m > 5:
+                continue
+            if len(by[2]) < d or len(by[3]) < m or len(by[4]) < f:
+                continue
+            tot = by[1][0] + sum(by[2][:d]) + sum(by[3][:m]) + sum(by[4][:f])
+            if tot > best:
+                best = tot
+    return best
+
+
+def plan_transfers(squad, pool, bank_tenths, start_ft, horizon_gws):
+    """Planer wieloetapowy (beam search): sekwencja transferów przez horyzont,
+    z bankiem wolnych transferów (max 5), hitami −4 i terminarzem. Heurystyka
+    bliska optymalnej — nie pełne przeszukanie (to jest NP-trudne)."""
+    if not squad or not horizon_gws:
+        return None
+    def mkp(p):
+        return {"id": p["id"], "et": p.get("etype") or p.get("et"), "team": p["team"],
+                "price": int(round(p["price"] * 10)),
+                "gwx": {r["gw"]: r["xpts"] for r in (p.get("roadmap") or [])}, "name": p["name"]}
+    sq = [mkp(p) for p in squad]
+    sqids = {p["id"] for p in sq}
+    poolp = [mkp(p) for p in pool if p["id"] not in sqids and p.get("roadmap")]
+    by_pos = {1: [], 2: [], 3: [], 4: []}
+    for c in poolp:
+        by_pos.setdefault(c["et"], []).append(c)
+    for k in by_pos:
+        by_pos[k].sort(key=lambda c: -sum(c["gwx"].get(g, 0) for g in horizon_gws))
+
+    def hzn(p, from_i):
+        return sum(p["gwx"].get(g, 0) for g in horizon_gws[from_i:])
+
+    def club_counts(ids_map):
+        cc = {}
+        for p in ids_map.values():
+            cc[p["team"]] = cc.get(p["team"], 0) + 1
+        return cc
+
+    # stan: (dict id->player, bank, ft, cum_value, log)
+    start = {"squad": {p["id"]: p for p in sq}, "bank": bank_tenths, "ft": min(5, max(1, start_ft)),
+             "cum": 0.0, "hits": 0, "log": []}
+    beam = [start]
+    B = 6
+    for gi, gw in enumerate(horizon_gws):
+        nxt = []
+        for stt in beam:
+            smap = stt["squad"]
+            cc = club_counts(smap)
+            # kandydaci transferu: najsłabszy w składzie per pozycja → najlepszy dostępny
+            options = [("hold", None)]
+            weak_by_pos = {}
+            for p in smap.values():
+                pos = p["et"]
+                if pos not in weak_by_pos or hzn(p, gi) < hzn(weak_by_pos[pos], gi):
+                    weak_by_pos[pos] = p
+            cand_moves = []
+            for pos, outp in weak_by_pos.items():
+                sell = outp["price"]
+                for inp in by_pos.get(pos, [])[:12]:
+                    if inp["id"] in smap:
+                        continue
+                    if inp["price"] > stt["bank"] + sell:
+                        continue
+                    if inp["team"] != outp["team"] and cc.get(inp["team"], 0) >= 3:
+                        continue
+                    gain = hzn(inp, gi) - hzn(outp, gi)
+                    if gain > 0.3:
+                        cand_moves.append((gain, outp, inp))
+            cand_moves.sort(key=lambda x: -x[0])
+            for gain, outp, inp in cand_moves[:4]:
+                options.append(("move", (outp, inp)))
+
+            for kind, mv in options:
+                ns = {"squad": dict(smap), "bank": stt["bank"], "ft": stt["ft"],
+                      "cum": stt["cum"], "hits": stt["hits"], "log": list(stt["log"])}
+                moved = []
+                if kind == "move":
+                    outp, inp = mv
+                    del ns["squad"][outp["id"]]
+                    ns["squad"][inp["id"]] = inp
+                    ns["bank"] = ns["bank"] + outp["price"] - inp["price"]
+                    used = 1
+                    hit = max(0, used - ns["ft"]) * 4
+                    ns["ft"] = min(5, max(0, ns["ft"] - used) + 1)
+                    ns["cum"] -= hit
+                    ns["hits"] += hit
+                    moved = [{"out": outp["name"], "in": inp["name"],
+                              "gain": round(hzn(inp, gi) - hzn(outp, gi), 1)}]
+                else:
+                    ns["ft"] = min(5, ns["ft"] + 1)
+                gwval = best_xi_value(list(ns["squad"].values()), gw)
+                ns["cum"] += gwval
+                ns["log"].append({"gw": gw, "action": ("transfer" if kind == "move" else "hold"),
+                                  "moves": moved, "ft_after": ns["ft"],
+                                  "bank_after": round(ns["bank"] / 10, 1),
+                                  "gw_xpts": round(gwval, 1),
+                                  "hit": (moved and max(0, 1 - stt["ft"]) * 4) or 0})
+                nxt.append(ns)
+        nxt.sort(key=lambda s: -s["cum"])
+        beam = nxt[:B]
+    best = beam[0]
+    # baseline: trzymaj skład przez cały horyzont
+    base = sum(best_xi_value(list(start["squad"].values()), g) for g in horizon_gws)
+    return {"horizon": len(horizon_gws), "gws": horizon_gws,
+            "start_bank": round(bank_tenths / 10, 1), "start_ft": start["ft"],
+            "steps": best["log"], "total_value": round(best["cum"], 1),
+            "baseline_value": round(base, 1),
+            "gain_vs_hold": round(best["cum"] - base, 1),
+            "total_hits": best["hits"]}
+
+
+def fnum2(p, key, d=0.0):
+    try:
+        return float(p.get(key) or 0)
+    except (TypeError, ValueError):
+        return d
+
+
+def price_pred(e, total_players):
+    """Predyktor zmiany ceny (przybliżony — algorytm FPL jest tajny).
+    Skaluje przepływ transferów liczbą właścicieli: rośnie/spada, gdy net-transfery
+    przekroczą próg proporcjonalny do posiadania. Zwraca kierunek + 'ciśnienie' 0..1."""
+    net = (e.get("transfers_in_event") or 0) - (e.get("transfers_out_event") or 0)
+    try:
+        owners = max(1, int((float(e.get("selected_by_percent") or 0) / 100.0) * total_players))
+    except (TypeError, ValueError):
+        owners = 1
+    thr = max(12000, 0.06 * owners)   # próg ~ proporcjonalny do właścicieli (heurystyka)
+    pressure = net / thr if thr else 0
+    already = e.get("cost_change_event") or 0
+    if pressure >= 1.0 or already > 0:
+        direction = "rise"
+    elif pressure <= -1.0 or already < 0:
+        direction = "fall"
+    else:
+        direction = "stable"
+    return {"dir": direction, "score": round(max(0.0, min(1.0, abs(pressure))), 2),
+            "net": net, "moved": already}
+
+
 def current_gw(events):
     """Zwraca (current, next) numery kolejek."""
     cur = nxt = None
@@ -331,18 +569,25 @@ def build():
         fx = team_fixtures.get(tid) or []
         return fx[0] if fx else None
 
-    compute_xpts, explain_xpts, sim_spec, simulate = make_model(boot["teams"])   # model + uzasadnienia + symulator
+    mm = fit_match_model(fixtures, boot["teams"])   # model goli Dixon-Coles + predykcje
+    compute_xpts, explain_xpts, sim_spec, simulate = make_model(
+        boot["teams"], match_lambdas=mm["match_lambdas"], league_avg=mm["league_avg"])
+    print(f"· model meczu: {'dopasowany' if mm['fitted'] else 'prior (za mało meczów)'}"
+          f" ({mm['n_matches']} rozegranych)")
 
-    def sim_stats(p, opp_id, is_home, n=2000):
+    def sim_stats(p, opp_id, is_home, n=2000, team_id=None):
         """Floor (P25), ceiling (P90), haul% (P≥10) z symulacji Monte Carlo — uczciwa zmienność."""
         if not opp_id:
             return {"floor": 0, "ceiling": 0, "haul": 0.0, "sims": None}
-        sims = simulate(sim_spec(p, opp_id, is_home), n)
+        sims = simulate(sim_spec(p, opp_id, is_home, team_id), n)
         srt = sorted(sims)
         floor = srt[int(len(srt) * 0.25)]
         ceiling = srt[int(len(srt) * 0.90)]
         haul = sum(1 for x in sims if x >= 10) / len(sims)
-        return {"floor": round(floor), "ceiling": round(ceiling), "haul": round(haul, 3), "sims": sims}
+        mean = sum(sims) / len(sims)
+        var = sum((x - mean) ** 2 for x in sims) / len(sims)
+        return {"floor": round(floor), "ceiling": round(ceiling), "haul": round(haul, 3),
+                "sd": round(var ** 0.5, 2), "sims": sims}
 
     def xpts_horizon(p, tid, n=3):
         """Suma xPts z najbliższych n meczów — do rankingu transferów (nagradza dobry terminarz)."""
@@ -352,13 +597,51 @@ def build():
             tot += x
         return round(tot, 1)
 
+    _es_cache = {}
+    def get_es(pid):
+        if pid not in _es_cache:
+            _es_cache[pid] = get_json(f"{FPL}/element-summary/{pid}/", tries=2) or {}
+        return _es_cache[pid]
+
     def last5(pid):
         """Punkty z ostatnich 5 rozegranych meczów (do mini-wykresu formy)."""
-        es = get_json(f"{FPL}/element-summary/{pid}/", tries=2)
-        if not es:
-            return []
-        hist = es.get("history") or []
+        hist = (get_es(pid).get("history") or [])
         return [h.get("total_points", 0) for h in hist[-5:]]
+
+    def rotation_recent(pid, chance):
+        """Ryzyko rotacji z minut z ostatnich meczów (dla składu — używa cache)."""
+        hist = (get_es(pid).get("history") or [])[-5:]
+        mins = [h.get("minutes", 0) for h in hist]
+        if not mins:
+            return None
+        avg = sum(mins) / len(mins)
+        start_rate = sum(1 for m in mins if m >= 60) / len(mins)
+        if chance is not None and chance < 75:
+            lvl = "doubt"
+        elif avg >= 80 and start_rate >= 0.8:
+            lvl = "nailed"
+        elif avg >= 55:
+            lvl = "solid"
+        else:
+            lvl = "risk"
+        return {"level": lvl, "avg_min": round(avg), "start_rate": round(start_rate, 2), "n": len(mins)}
+
+    def rotation_season(p):
+        """Ryzyko rotacji z sezonowych sum (dla puli — bez dodatkowych zapytań)."""
+        starts = fnum2(p, "starts"); mins = fnum2(p, "minutes")
+        chance = p.get("chance_of_playing_next_round")
+        if starts <= 0 and mins <= 0:
+            return {"level": "unknown", "avg_min": 0, "start_rate": 0.0}
+        avg = (mins / starts) if starts > 0 else 0
+        if chance is not None and chance < 75:
+            lvl = "doubt"
+        elif starts >= 3 and avg >= 80:
+            lvl = "nailed"
+        elif avg >= 55:
+            lvl = "solid"
+        else:
+            lvl = "risk"
+        return {"level": lvl, "avg_min": round(avg), "start_rate": None}
 
     # ── skład użytkownika ─────────────────────────────────────────────────────
     session = os.environ.get("FPL_SESSION", "").strip()
@@ -414,7 +697,7 @@ def build():
         is_home = (nf["ven"] == "H") if nf else True
         opp_id = nf["opp_id"] if nf else None
         xpts, factors = compute_xpts(p, opp_id, is_home, tid)
-        sstat = sim_stats(p, opp_id, is_home, n=3000)
+        sstat = sim_stats(p, opp_id, is_home, n=3000, team_id=tid)
         roadmap = []
         for fx in (team_fixtures.get(tid) or []):
             rx, _ = compute_xpts(p, fx["opp_id"], fx["ven"] == "H", tid)
@@ -437,9 +720,11 @@ def build():
                            "fk": p.get("direct_freekicks_order")},
             "price_mom": (p.get("transfers_in_event") or 0) - (p.get("transfers_out_event") or 0),
             "cost_change_event": p.get("cost_change_event") or 0,
+            "price_pred": price_pred(p, boot.get("total_players") or 10_000_000),
+            "rotation": rotation_recent(p["id"], p.get("chance_of_playing_next_round")) or rotation_season(p),
             "form5": last5(p["id"]),
             "roadmap": roadmap,
-            "floor": sstat["floor"], "ceiling": sstat["ceiling"], "haul": sstat["haul"],
+            "floor": sstat["floor"], "ceiling": sstat["ceiling"], "haul": sstat["haul"], "sd": sstat["sd"],
             "next": ({"opp": nf["opp"], "ven": nf["ven"], "fdr": nf["fdr"], "opp_id": nf["opp_id"]} if nf else None),
             "team_id": tid,
             "weather": weather,
@@ -499,7 +784,7 @@ def build():
         if not nf:
             continue
         x, fct = compute_xpts(p, nf["opp_id"], nf["ven"] == "H", tid)
-        pstat = sim_stats(p, nf["opp_id"], nf["ven"] == "H", n=1200)
+        pstat = sim_stats(p, nf["opp_id"], nf["ven"] == "H", n=1200, team_id=tid)
         p_roadmap = []
         for fx in (team_fixtures.get(tid) or []):
             rx, _ = compute_xpts(p, fx["opp_id"], fx["ven"] == "H", tid)
@@ -514,7 +799,9 @@ def build():
             "selected_by": p.get("selected_by_percent"),
             "next": {"opp": nf["opp"], "ven": nf["ven"], "fdr": nf["fdr"]},
             "factors": fct, "roadmap": p_roadmap,
-            "floor": pstat["floor"], "ceiling": pstat["ceiling"], "haul": pstat["haul"],
+            "floor": pstat["floor"], "ceiling": pstat["ceiling"], "haul": pstat["haul"], "sd": pstat["sd"],
+            "rotation": rotation_season(p),
+            "price_pred": price_pred(p, boot.get("total_players") or 10_000_000),
         }
         pool_by_pos[p["element_type"]].append(cand)
 
@@ -721,11 +1008,59 @@ def build():
             gw_outlook = {
                 "p10": round(st[int(N * 0.10)]), "p50": round(st[int(N * 0.50)]),
                 "p90": round(st[int(N * 0.90)]), "mean": round(sum(totals) / N, 1),
+                "sd": round((sum((t - sum(totals) / N) ** 2 for t in totals) / N) ** 0.5, 1),
                 "captain": cap_nm,
             }
 
     brief = {"captain": captain, "captain_matrix": captain_matrix, "gw_outlook": gw_outlook,
              "transfers": trans, "alerts": alerts, "lineup": lineup}
+
+    # ── optymalizator chipów (model: skan roadmap z wagą rotacji) ─────────────
+    rot_w = {"nailed": 1.0, "solid": 0.9, "risk": 0.6, "doubt": 0.35, "unknown": 0.8}
+    gw_scan = {}
+    for p in squad:
+        w = rot_w.get((p.get("rotation") or {}).get("level"), 0.8)
+        for r in (p.get("roadmap") or []):
+            g = r["gw"]
+            e = gw_scan.setdefault(g, {"bb": 0.0, "pl": {}, "fix": 0})
+            e["bb"] += r["xpts"] * w
+            e["pl"][p["name"]] = e["pl"].get(p["name"], 0) + r["xpts"]  # DGW → sumuje 2 mecze
+            e["fix"] += 1
+    scan = []
+    for g in sorted(gw_scan):
+        e = gw_scan[g]
+        playing = len(e["pl"])
+        dgw = e["fix"] > playing
+        scan.append({"gw": g, "bb": round(e["bb"], 1), "playing": playing, "dgw": dgw})
+    # Bench Boost: max suma 15 tam, gdzie prawie wszyscy grają
+    bb_c = [s for s in scan if s["playing"] >= 13]
+    bench_boost = None
+    if bb_c:
+        b = max(bb_c, key=lambda s: s["bb"])
+        bench_boost = {"gw": b["gw"], "score": b["bb"], "playing": b["playing"], "dgw": b["dgw"],
+                       "note": ("podwójna kolejka — cała ławka gra 2×" if b["dgw"]
+                                else "wszyscy grają, wysoka suma z ławką")}
+    # Triple Captain: najlepszy pojedynczy zawodnik-kolejka (premia w DGW)
+    triple_captain = None
+    tc_best = None
+    for g in sorted(gw_scan):
+        e = gw_scan[g]
+        dgw = e["fix"] > len(e["pl"])
+        for nm, val in e["pl"].items():
+            if tc_best is None or val > tc_best[2]:
+                tc_best = (g, nm, val, dgw)
+    if tc_best and tc_best[2] >= 6:
+        triple_captain = {"gw": tc_best[0], "player": tc_best[1], "xpts": round(tc_best[2], 1),
+                          "tripled": round(tc_best[2] * 3, 1), "dgw": tc_best[3]}
+    # Free Hit: kolejka z najmniejszą liczbą Twoich grających (BGW)
+    free_hit = None
+    fh_c = [s for s in scan if s["playing"] < 11]
+    if fh_c:
+        f_ = min(fh_c, key=lambda s: s["playing"])
+        free_hit = {"gw": f_["gw"], "playing": f_["playing"], "blanks": 15 - f_["playing"],
+                    "note": f"tylko {f_['playing']} Twoich zawodników gra — Free Hit ratuje pustą kolejkę"}
+    chips_opt = {"bench_boost": bench_boost, "triple_captain": triple_captain,
+                 "free_hit": free_hit, "scan": scan}
 
     # ── PLANER: DGW/BGW, chipy, różnicowi, ceny, rywale, pula symulatora ──────
     # double / blank gameweeks — skan kolejnych 8 kolejek z pełnego terminarza
@@ -792,20 +1127,29 @@ def build():
                       "price": c["price"], "xpts_h": c["xpts_h"], "selected_by": c["selected_by"],
                       "next": c["next"]} for c in diffs[:6]]
 
-    # ryzyko ceny: momentum transferów (przybliżone, nie gwarancja)
-    THR = 60000
-    price_risk = []
-    for p in squad:
-        if p["price_mom"] <= -THR:
-            price_risk.append({"name": p["name"], "team": p["team"], "dir": "fall",
-                               "mom": p["price_mom"], "owned": True})
-    movers = sorted(boot["elements"],
-                    key=lambda e: -((e.get("transfers_in_event") or 0) - (e.get("transfers_out_event") or 0)))
-    for e in movers[:5]:
-        net = (e.get("transfers_in_event") or 0) - (e.get("transfers_out_event") or 0)
-        if net >= THR:
-            price_risk.append({"name": e["web_name"], "team": tshort[e["team"]], "dir": "rise",
-                               "mom": net, "owned": e["id"] in owned})
+    # predyktor zmian cen: skalowany własnością (przybliżony — algorytm FPL jest tajny)
+    TP = boot.get("total_players") or 10_000_000
+    scored = []
+    for e in boot["elements"]:
+        if (e.get("minutes") or 0) < 1:
+            continue
+        pp = price_pred(e, TP)
+        if pp["dir"] != "stable" or abs(pp["score"]) >= 0.5:
+            scored.append({"name": e["web_name"], "team": tshort[e["team"]],
+                           "price": (e["now_cost"] or 0) / 10.0, "dir": pp["dir"],
+                           "score": pp["score"], "net": pp["net"], "moved": pp["moved"],
+                           "owned": e["id"] in owned, "own": e.get("selected_by_percent")})
+    rises = sorted([x for x in scored if x["dir"] == "rise"], key=lambda x: -x["score"])[:8]
+    falls = sorted([x for x in scored if x["dir"] == "fall"], key=lambda x: -x["score"])[:8]
+    my_moves = [{"name": p["name"], "team": p["team"], "dir": p["price_pred"]["dir"],
+                 "score": p["price_pred"]["score"], "net": p["price_pred"]["net"]}
+                for p in squad if p["price_pred"]["dir"] != "stable"]
+    price_watch = {"rises": rises, "falls": falls, "mine": my_moves}
+    # zgodność wsteczna: prosty price_risk (używany w Planerze)
+    price_risk = ([{"name": m["name"], "team": m["team"], "dir": "fall", "mom": m["net"], "owned": True}
+                   for m in my_moves if m["dir"] == "fall"]
+                  + [{"name": r["name"], "team": r["team"], "dir": "rise", "mom": r["net"], "owned": r["owned"]}
+                     for r in rises[:5]])
 
     # skauting rywali (z config.json: "rivals": [id, ...])
     rivals_cfg = cfg.get("rivals") or []
@@ -846,8 +1190,20 @@ def build():
                              "owned": c["id"] in owned, "next": c["next"],
                              "factors": c.get("factors"), "roadmap": c.get("roadmap")})
 
-    planner = {"dgw_bgw": dgw_bgw, "chips": chips, "differentials": differentials,
-               "price_risk": price_risk, "rivals": rivals, "bank": bank_t / 10.0}
+    # planer wieloetapowy (beam search) — kogo brać teraz vs czekać
+    plan_gws = sorted({r["gw"] for p in squad for r in (p.get("roadmap") or [])})[:HORIZON]
+    transfer_plan = None
+    if squad and plan_gws:
+        try:
+            transfer_plan = plan_transfers(squad, sim_pool, bank_t, 1, plan_gws)
+        except Exception as e:
+            sys.stderr.write(f"  ! planer wieloetapowy pominięty: {e}\n")
+            transfer_plan = None
+
+    planner = {"dgw_bgw": dgw_bgw, "chips": chips, "chips_opt": chips_opt,
+               "transfer_plan": transfer_plan, "differentials": differentials,
+               "price_risk": price_risk, "price_watch": price_watch,
+               "rivals": rivals, "bank": bank_t / 10.0}
 
     # ── ranking wartości: xPts na 3 kolejki za milion £ ──────────────────────
     value_picks = []
@@ -927,12 +1283,19 @@ def build():
                 # goniący: poniżej mnie w tabeli, najbliżsi najpierw (max 5)
                 chasers_rows = results[me_i + 1: me_i + 6]
                 chasers, threat_count, cap_count = [], {}, {}
+                own_all, cap_all, chaser_full = {}, {}, set()   # do realnego EO w minilidze
                 for r in chasers_rows:
                     rid = r.get("entry")
                     pk = get_json(f"{FPL}/entry/{rid}/event/{cur_gw}/picks/")
                     picks = (pk or {}).get("picks") or []
+                    for p in picks:
+                        chaser_full.add(p["element"])
                     r_xi = [p["element"] for p in picks if p.get("position", 99) <= 11]
                     r_cap = next((p["element"] for p in picks if p.get("is_captain")), None)
+                    for e in r_xi:
+                        own_all[e] = own_all.get(e, 0) + 1
+                    if r_cap is not None:
+                        cap_all[r_cap] = cap_all.get(r_cap, 0) + 1
                     diffs = [e for e in r_xi if e not in my_all]  # ich gracze, których nie masz
                     for e in diffs:
                         threat_count[e] = threat_count.get(e, 0) + 1
@@ -944,10 +1307,10 @@ def build():
                     # win probability: P(utrzymasz przewagę po tej kolejce)
                     gap = my_total - (r.get("total") or 0)
                     hold = None
+                    mean_c = sum(elinfo(e)["xpts"] for e in r_xi)
+                    if r_cap is not None:
+                        mean_c += elinfo(r_cap)["xpts"]   # kapitan rywala ×2
                     if xi_totals_sample:
-                        mean_c = sum(elinfo(e)["xpts"] for e in r_xi)
-                        if r_cap is not None:
-                            mean_c += elinfo(r_cap)["xpts"]   # kapitan rywala ×2
                         import statistics as _st
                         sd = _st.pstdev(xi_totals_sample) or 6.0
                         wins = 0
@@ -959,6 +1322,7 @@ def build():
                     chasers.append({
                         "player": r.get("player_name"), "team": r.get("entry_name"),
                         "total": r.get("total"), "gap": gap, "hold": hold,
+                        "xi_mean": round(mean_c, 1),
                         "captain": elinfo(r_cap)["name"] if r_cap else "?",
                         "cap_differs": cap_diff, "diffs": diffs_named,
                     })
@@ -975,16 +1339,22 @@ def build():
                                    "owned_by": n, "of": len(chasers)} for e, n in threat_count.items()),
                                  key=lambda t: (-t["owned_by"], -t["xpts"]))[:6]
                 # moi chronieni różnicowi: moja XI, której nikt z goniących nie ma
-                all_chaser_elems = set(threat_count.keys())
-                chaser_all = set()
-                # (zbierz pełne składy goniących do wykrycia moich unikatów)
-                for r in chasers_rows:
-                    pk = get_json(f"{FPL}/entry/{r.get('entry')}/event/{cur_gw}/picks/")
-                    for p in ((pk or {}).get("picks") or []):
-                        chaser_all.add(p["element"])
+                chaser_all = chaser_full
                 protected = sorted(({"name": elinfo(e)["name"], "pos": elinfo(e)["pos"],
                                      "xpts": elinfo(e)["xpts"]} for e in my_xi if e not in chaser_all),
                                    key=lambda d: -d["xpts"])[:6]
+                # realne EO w Twojej minilidze (własność + kapitanowanie wśród goniących)
+                nch = max(1, len(chasers_rows))
+                league_eo = []
+                for pl in squad:
+                    if pl["on_bench"]:
+                        continue
+                    eo = 100.0 * (own_all.get(pl["id"], 0) + cap_all.get(pl["id"], 0)) / nch
+                    league_eo.append({"name": pl["name"], "pos": pl["pos"], "xpts": pl["xpts"],
+                                      "eo": round(eo)})
+                league_eo.sort(key=lambda x: -x["eo"])
+                eo_template = [x for x in league_eo if x["eo"] >= 60][:6]      # „musisz mieć"
+                eo_diff = [x for x in reversed(league_eo) if x["eo"] <= 40][:6]  # Twoja dźwignia
                 # rekomendacja pokrycia
                 rec = None
                 if cap_exposure and cap_exposure["count"] >= max(1, len(chasers) // 2):
@@ -1005,6 +1375,7 @@ def build():
                     "as_of_gw": cur_gw, "chasers": chasers,
                     "captain_exposure": cap_exposure, "threats": threats,
                     "protected": protected, "recommendation": rec,
+                    "eo_template": eo_template, "eo_diff": eo_diff, "eo_n": nch,
                     "leader": me_row.get("rank") == 1,
                 }
 
@@ -1109,6 +1480,23 @@ def build():
         sys.stderr.write(f"  ! śledzenie skuteczności pominięte: {e}\n")
         accuracy = None
 
+    # ── predykcje meczów na najbliższą kolejkę (Dixon-Coles) ─────────────────
+    match_predictions = []
+    for f in sorted(fixtures, key=lambda x: (x.get("event") or 999, x.get("id") or 0)):
+        if f.get("event") != next_gw or f.get("finished"):
+            continue
+        h, a = f.get("team_h"), f.get("team_a")
+        if not h or not a:
+            continue
+        pr = mm["predict"](h, a)
+        match_predictions.append({
+            "home": tshort.get(h, "?"), "away": tshort.get(a, "?"),
+            "lam_h": pr["lam_h"], "lam_a": pr["lam_a"],
+            "p_home": pr["p_home"], "p_draw": pr["p_draw"], "p_away": pr["p_away"],
+            "cs_home": pr["cs_home"], "cs_away": pr["cs_away"],
+            "goals": round(pr["lam_h"] + pr["lam_a"], 1),
+        })
+
     data = {
         "generated_at": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "gw": {"current": cur_gw, "next": next_gw, "name": gw_name},
@@ -1130,6 +1518,8 @@ def build():
         "leagues_detail": leagues_detail,
         "cover": cover,
         "accuracy": accuracy,
+        "match_predictions": match_predictions,
+        "match_model": {"fitted": mm["fitted"], "n_matches": mm["n_matches"]},
         "trajectory": trajectory,
         "pool": sim_pool,
         "totals": {"xi_xpts": round(xi_xpts, 1), "captain": cap_name},

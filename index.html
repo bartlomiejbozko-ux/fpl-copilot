@@ -166,6 +166,7 @@
   .cvchip{display:flex;flex-direction:column;padding:6px 9px;border-radius:9px;font-weight:800;font-size:12px}
   .cvchip.threat{background:rgba(233,0,82,.08);color:var(--pink)}
   .cvchip.prot{background:rgba(0,166,90,.08);color:var(--green-ink)}
+  .cvchip.tmpl{background:rgba(55,0,60,.06);color:var(--purple)}
   .cvchip .cvchipm{font:400 9px/1.3 'Space Mono',monospace;color:var(--muted);margin-top:2px}
   .cvfoot{margin-top:12px;font:400 10px/1.5 'Space Mono',monospace;color:var(--muted)}
   /* proponowana jedenastka (Doradca) */
@@ -210,6 +211,64 @@
   .accu{font:400 11px/1.3 'Space Mono',monospace;color:var(--muted)}
   .acctbl .accc{text-align:center;font-family:'Space Mono',monospace;font-weight:800;background:rgba(55,0,60,.03);border-radius:8px;padding:8px 6px}
   .acctbl .accc.pos{color:var(--green-ink)} .acctbl .accc.neg{color:var(--pink)}
+  .recbanner{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:linear-gradient(120deg,rgba(0,166,90,.12),rgba(0,255,135,.08));border:1px solid rgba(0,166,90,.3);border-radius:12px;padding:11px 14px;margin-bottom:12px;font:600 12px/1.4 'Space Mono',monospace;color:var(--ink)}
+  .recundo{margin-left:auto;border:1px solid var(--green-ink);background:#fff;color:var(--green-ink);font:800 11px 'Archivo';padding:6px 12px;border-radius:8px;cursor:pointer}
+  /* predykcje meczów */
+  .mpgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:14px}
+  .mpred{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 12px;box-shadow:0 2px 8px rgba(55,0,60,.05)}
+  .mpteams{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+  .mpt{font-weight:900;font-size:14px;color:var(--purple)} .mpt.a{text-align:right}
+  .mpsc{font:900 13px/1 'Space Mono',monospace;color:var(--green-ink);background:rgba(0,166,90,.08);padding:3px 7px;border-radius:6px}
+  .wdlbar{display:flex;height:20px;border-radius:6px;overflow:hidden;font:800 9px/20px 'Space Mono',monospace;color:#fff;text-align:center}
+  .wdl.h{background:var(--green-ink)} .wdl.d{background:#9aa0a6} .wdl.a{background:var(--pink)}
+  .mpmeta{display:flex;justify-content:space-between;gap:6px;margin-top:7px;font:400 10px/1.3 'Space Mono',monospace;color:var(--muted)}
+  .mpg{font-weight:700;color:var(--ink);white-space:nowrap}
+  /* predyktor cen */
+  .pwcols{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:560px){.pwcols{grid-template-columns:1fr}}
+  .pwhdr{font:800 11px/1 'Space Mono',monospace;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+  .pwhdr.up{color:var(--green-ink)} .pwhdr.dn{color:var(--pink)}
+  .pwrow{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--line)}
+  .pwnm{font-weight:800;font-size:12px;color:var(--purple);flex:1;min-width:0}
+  .pwnm .pwt{display:block;font:400 9px/1.2 'Space Mono',monospace;color:var(--muted)}
+  .pwgauge{width:60px;height:6px;border-radius:3px;background:rgba(55,0,60,.08);overflow:hidden}
+  .pwfill{display:block;height:100%} .pwfill.rise{background:var(--green-ink)} .pwfill.fall{background:var(--pink)}
+  .pwnet{font:800 11px/1 'Space Mono',monospace;width:52px;text-align:right}
+  .pwnet.rise{color:var(--green-ink)} .pwnet.fall{color:var(--pink)}
+  .pwmine{margin-bottom:10px;font:400 12px/1.6 'Space Mono',monospace;color:var(--ink)}
+  .pwtag{display:inline-block;margin:0 4px;padding:2px 7px;border-radius:6px;font-weight:800;font-size:11px}
+  .pwtag.rise{background:rgba(0,166,90,.1);color:var(--green-ink)} .pwtag.fall{background:rgba(233,0,82,.1);color:var(--pink)}
+  /* rotacja */
+  .rotbadge{display:inline-block;padding:2px 8px;border-radius:6px;font:800 10px/1.5 'Space Mono',monospace}
+  .rotbadge.nailed{background:rgba(0,166,90,.12);color:var(--green-ink)}
+  .rotbadge.solid{background:rgba(0,166,90,.07);color:var(--green-ink)}
+  .rotbadge.risk{background:rgba(255,176,32,.15);color:#9a6b00}
+  .rotbadge.doubt{background:rgba(233,0,82,.1);color:var(--pink)}
+  .rotbadge.unknown{background:rgba(55,0,60,.06);color:var(--muted)}
+  /* optymalizator chipów */
+  .chipgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:8px}
+  .chipopt{display:flex;gap:11px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;box-shadow:0 2px 8px rgba(55,0,60,.05)}
+  .chipicon{font-size:24px;line-height:1}
+  .chiptitle{font-weight:900;font-size:14px;color:var(--purple);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .chipgw{font:800 10px/1 'Space Mono',monospace;color:#fff;background:var(--green-ink);padding:3px 6px;border-radius:5px}
+  .chipdesc{font:400 12px/1.5 'Space Mono',monospace;color:var(--ink);margin-top:4px}
+  /* planer wieloetapowy */
+  .plsummary{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:12px}
+  .plkpi{background:rgba(55,0,60,.04);border:1px solid var(--line);border-radius:10px;padding:9px 11px;display:flex;flex-direction:column;gap:2px}
+  .plk{font:400 9px/1.2 'Space Mono',monospace;text-transform:uppercase;color:var(--muted)}
+  .plv{font-weight:900;font-size:18px;color:var(--purple)} .plv.pos{color:var(--green-ink)} .plv.neg{color:var(--pink)} .plv.zero{color:var(--muted)}
+  .plstep{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+  .plstep:last-child{border:0}
+  .plgw{font:900 12px/1 'Space Mono',monospace;color:#fff;background:var(--purple);padding:6px 8px;border-radius:7px;min-width:44px;text-align:center}
+  .plstep.t .plgw{background:var(--green-ink)}
+  .plact{flex:1;font-size:13px}
+  .plmove{display:inline-flex;align-items:center;gap:5px;flex-wrap:wrap}
+  .plout{color:var(--pink);font-weight:700} .plin{color:var(--green-ink);font-weight:800}
+  .plgain{font:800 11px 'Space Mono',monospace;color:var(--green-ink);background:rgba(0,166,90,.1);padding:1px 5px;border-radius:5px}
+  .plhold{color:var(--muted);font-family:'Space Mono',monospace;font-size:12px}
+  .plhit{margin-left:8px;font:800 10px 'Space Mono',monospace;color:var(--pink);background:rgba(233,0,82,.1);padding:2px 6px;border-radius:5px}
+  .plside{display:flex;flex-direction:column;align-items:flex-end;gap:2px;font:700 10px/1.3 'Space Mono',monospace}
+  .plft{color:var(--cyan-ink,var(--purple))} .plbank{color:var(--muted)}
   .avg{align-items:center;justify-content:center;text-align:center;background:rgba(55,0,60,.04);border:1px solid var(--line)}
   .avg .al{font:700 8px/1 'Space Mono',monospace;color:var(--muted)}
   .avg .av{font-weight:900;font-size:17px;margin-top:3px}
@@ -408,12 +467,95 @@ function effectiveSquad(){
     const pl=(DATA.pool||[]).find(c=>c.id===m.in); if(!pl)return;
     sq[i]={...sq[i], id:pl.id, name:pl.name, team:pl.team, team_full:pl.team, pos:pl.pos,
       etype:pl.et, price:pl.price, xpts:(pl.xpts??sq[i].xpts), xpts_h:pl.xpts_h, next:pl.next,
-      selected_by:pl.own, factors:(pl.factors||null), roadmap:(pl.roadmap||[]), form5:null, swapped:true};
+      selected_by:pl.own, factors:(pl.factors||null), roadmap:(pl.roadmap||[]),
+      floor:pl.floor, ceiling:pl.ceiling, haul:pl.haul, sd:pl.sd, form5:null, swapped:true};
   });
   return sq;
 }
 
 function fdrClass(f){return "f"+Math.max(1,Math.min(5,f||3))}
+function rotLabel(l){return {nailed:"pewniak",solid:"raczej gra",risk:"ryzyko rotacji",doubt:"wątpliwość",unknown:"—"}[l]||l;}
+
+function hasOverrides(){ return loadOv().length>0; }
+function editReset(){ saveOv([]); saveBank(baseBank()); SEL=null; render(); }
+function normCdf(z){ // przybliżenie dystrybuanty N(0,1)
+  const t=1/(1+0.2316419*Math.abs(z));
+  const d=0.3989423*Math.exp(-z*z/2);
+  let p=d*t*(0.3193815+t*(-0.3565638+t*(1.781478+t*(-1.821256+t*1.330274))));
+  return z>0?1-p:p;
+}
+// przeliczenie analityki Doradcy na podstawie efektywnego składu (po transferach w apce)
+function recomputeBrief(sq){
+  const FORMS=[[3,4,3],[3,5,2],[4,3,3],[4,4,2],[4,5,1],[5,3,2],[5,4,1],[5,2,3]];
+  const byPos=p=>sq.filter(x=>x.pos===p).sort((a,b)=>b.xpts-a.xpts);
+  const G=byPos("GK"),D=byPos("DEF"),M=byPos("MID"),F=byPos("FWD");
+  if(!G.length||D.length<3||F.length<1) return null;
+  let best=null;
+  for(const [d,m,f] of FORMS){
+    if(D.length<d||M.length<m||F.length<f) continue;
+    const xi=[G[0],...D.slice(0,d),...M.slice(0,m),...F.slice(0,f)];
+    const tot=xi.reduce((a,p)=>a+p.xpts,0);
+    if(!best||tot>best.tot) best={tot,xi,form:`${d}-${m}-${f}`};
+  }
+  if(!best) return null;
+  const xiIds=new Set(best.xi.map(p=>p.id));
+  const bySt=[...best.xi].sort((a,b)=>b.xpts-a.xpts);
+  const capId=bySt[0]?.id, viceId=bySt[1]?.id;
+  const posOrd={GK:0,DEF:1,MID:2,FWD:3};
+  const xi=[...best.xi].sort((a,b)=>(posOrd[a.pos]-posOrd[b.pos])||b.xpts-a.xpts).map(p=>({
+    name:p.name,pos:p.pos,team:p.team,xpts:p.xpts,
+    opp:p.next?.opp||"",ven:p.next?.ven||"",fdr:p.next?.fdr||3,
+    is_captain:p.id===capId,is_vice:p.id===viceId,
+    was_benched:p.on_bench,floor:p.floor,ceiling:p.ceiling,haul:p.haul,
+  }));
+  const xi_total=Math.round((best.tot+(bySt[0]?.xpts||0))*10)/10; // kapitan ×2
+  // kapitan-optymalizator
+  const curCap=sq.find(p=>p.is_captain);
+  const captain={current:curCap?.name||bySt[0]?.name,current_xpts:curCap?.xpts||bySt[0]?.xpts,
+    best:bySt[0]?.name,best_xpts:bySt[0]?.xpts,optimal:(curCap?curCap.id===capId:true),
+    gain:Math.round(((bySt[0]?.xpts||0)-(curCap?.xpts||bySt[0]?.xpts||0))*10)/10};
+  // matryca Tarcza/Sztylet
+  const own=p=>parseFloat(p.selected_by||0)||0;
+  const shield=best.xi.reduce((a,p)=>(own(p)*0.04+p.xpts)>(own(a)*0.04+a.xpts)?p:a,best.xi[0]);
+  const dCands=best.xi.filter(p=>own(p)<15); const dagger=(dCands.length?dCands:best.xi).reduce((a,p)=>p.xpts>a.xpts?p:a,(dCands[0]||best.xi[0]));
+  const cm={shield:{name:shield.name,xpts:shield.xpts,own:shield.selected_by,opp:shield.next?.opp||"",ven:shield.next?.ven||""},
+    dagger:{name:dagger.name,xpts:dagger.xpts,own:dagger.selected_by,opp:dagger.next?.opp||"",ven:dagger.next?.ven||""},
+    same:shield.name===dagger.name};
+  // rozkład XI (przybliżenie normalne: suma wariancji, kapitan ×2 → wariancja ×4)
+  let outlook=null;
+  if(best.xi.every(p=>p.sd!=null)){
+    const mean=best.tot+(bySt[0]?.xpts||0);
+    let varr=best.xi.reduce((a,p)=>a+(p.sd*p.sd),0);
+    if(bySt[0]?.sd) varr+=3*bySt[0].sd*bySt[0].sd; // podwojenie kapitana
+    const sd=Math.sqrt(varr);
+    outlook={p10:Math.round(mean-1.2816*sd),p50:Math.round(mean),p90:Math.round(mean+1.2816*sd),
+      mean:Math.round(mean*10)/10,sd:Math.round(sd*10)/10,captain:bySt[0]?.name};
+  }
+  // ustawienie: zamiany względem obecnego on_bench
+  const startNow=new Set(sq.filter(p=>!p.on_bench).map(p=>p.id));
+  const bringIn=best.xi.filter(p=>!startNow.has(p.id));
+  const sitOut=sq.filter(p=>startNow.has(p.id)&&!xiIds.has(p.id));
+  const swaps=bringIn.map((pin,i)=>{const pout=sitOut[i];return pout?{
+    in:{name:pin.name,pos:pin.pos,xpts:pin.xpts,reason:reasonFor(pin)},
+    out:{name:pout.name,pos:pout.pos,xpts:pout.xpts},
+    delta:Math.round((pin.xpts-pout.xpts)*10)/10}:null;}).filter(Boolean);
+  const bench=sq.filter(p=>!xiIds.has(p.id)).sort((a,b)=>b.xpts-a.xpts)
+    .map(p=>({name:p.name,pos:p.pos,xpts:p.xpts}));
+  const highlights=[...best.xi].sort((a,b)=>b.xpts-a.xpts).slice(0,3).map(p=>({
+    name:p.name,pos:p.pos,xpts:p.xpts,opp:p.next?.opp||"",ven:p.next?.ven||"",reason:reasonFor(p)}));
+  const lineup={optimal:swaps.length===0,optimal_formation:best.form,
+    current_formation:(DATA.brief?.lineup?.current_formation||best.form),
+    optimal_xpts:Math.round(best.tot*10)/10,current_xpts:Math.round(best.tot*10)/10,
+    gain:Math.round(swaps.reduce((a,s)=>a+s.delta,0)*10)/10,
+    swaps,bench_order:bench,highlights,xi,xi_total};
+  return {...DATA.brief,captain,captain_matrix:cm,gw_outlook:outlook,lineup,_recomputed:true};
+}
+function reasonFor(p){ // krótkie uzasadnienie z terminarza/formy
+  const f=p.next?.fdr||3;
+  if(f<=2) return "łatwy terminarz — sprzyja punktom";
+  if(f>=4) return "trudny mecz, ale najwyższe xPts na pozycji";
+  return "solidny wybór wg prognozy";
+}
 function el(id){return document.getElementById(id)}
 function fmtMult(m){return "×"+m.toFixed(2)}
 
@@ -497,11 +639,27 @@ function renderLeague(){
 
   // obrona pozycji: analiza najbliższych goniących
   const cov=DATA.cover;
+  // po transferach: przelicz % utrzymania na bazie efektywnej jedenastki
+  let myXi=null;
+  if(cov && hasOverrides()){
+    const rb=recomputeBrief(effectiveSquad());
+    if(rb && rb.gw_outlook) myXi={mean:rb.gw_outlook.mean, sd:rb.gw_outlook.sd};
+  }
+  const holdOf=ch=>{
+    if(myXi && ch.xi_mean!=null){
+      const csd=(DATA.brief.gw_outlook&&DATA.brief.gw_outlook.sd)||6;
+      const mu=myXi.mean - ch.xi_mean + (ch.gap||0);
+      const sd=Math.sqrt(myXi.sd*myXi.sd + csd*csd)||1;
+      return Math.max(0,Math.min(1, normCdf(mu/sd)));
+    }
+    return ch.hold;
+  };
   let coverHtml="";
   if(cov){
     const chRows=cov.chasers.map(ch=>{
       const gapTxt=ch.gap>=0?`+${ch.gap} przewagi`:`${ch.gap} (przed Tobą)`;
-      const holdTxt=ch.hold!=null?`<span class="cvhold ${ch.hold>=0.7?'good':ch.hold>=0.5?'mid':'bad'}">${Math.round(ch.hold*100)}% utrzymania</span>`:'';
+      const hv=holdOf(ch);
+      const holdTxt=hv!=null?`<span class="cvhold ${hv>=0.7?'good':hv>=0.5?'mid':'bad'}">${Math.round(hv*100)}% utrzymania</span>`:'';
       const capCls=ch.cap_differs?'cap-diff':'cap-same';
       const dnames=ch.diffs.length?ch.diffs.map(d=>d.name).join(", "):"—";
       return `<div class="cvrow">
@@ -526,7 +684,11 @@ function renderLeague(){
         <div class="cvsechdr">Najbliżsi goniący</div>${chRows}
         <div class="cvsechdr">Zagrożenia — ich różnicowi, których nie masz</div><div class="cvchips">${thr}</div>
         <div class="cvsechdr">Twoje atuty — chronieni różnicowi</div><div class="cvchips">${prot}</div>
-        <div class="cvfoot">Składy goniących z ostatniej zablokowanej kolejki (przed deadline to przybliżenie). Dopasowanie do rywali obniża wariancję — chroni pozycję kosztem potencjału skoku w rankingu ogólnym.</div>
+        ${(cov.eo_template&&cov.eo_template.length)?`<div class="cvsechdr">EO w Twojej lidze — szkielet (musisz mieć)</div>
+          <div class="cvchips">${cov.eo_template.map(x=>`<div class="cvchip tmpl">${x.name}<span class="cvchipm">${x.pos} · EO ${x.eo}%</span></div>`).join("")}</div>`:''}
+        ${(cov.eo_diff&&cov.eo_diff.length)?`<div class="cvsechdr">EO w Twojej lidze — Twoja dźwignia (niskie EO)</div>
+          <div class="cvchips">${cov.eo_diff.map(x=>`<div class="cvchip prot">${x.name}<span class="cvchipm">${x.pos} · EO ${x.eo}%</span></div>`).join("")}</div>`:''}
+        <div class="cvfoot">Składy goniących z ostatniej zablokowanej kolejki (przed deadline to przybliżenie). EO liczone z realnych składów ${cov.eo_n} najbliższych goniących — dokładniej niż globalna własność. Dopasowanie do rywali obniża wariancję — chroni pozycję kosztem potencjału skoku w rankingu ogólnym.</div>
       </div>`;
   }
 
@@ -541,8 +703,15 @@ function renderLeague(){
 
 /* ---------- DORADCA ---------- */
 function renderBrief(){
-  const b = DATA.brief;
+  let b = DATA.brief;
   if(!b){ el("app").innerHTML=`<div class="card">Brak danych doradcy — odśwież data.json (uruchom workflow ponownie).</div>`; return; }
+  let recBanner="";
+  if(hasOverrides()){
+    const rb=recomputeBrief(effectiveSquad());
+    if(rb){ b=rb;
+      recBanner=`<div class="recbanner">⟳ Analiza przeliczona po Twoich transferach (${loadOv().length}). Kapitan, jedenastka, matryca i rozkład kolejki uwzględniają zmiany. <button class="recundo" onclick="editReset()">Cofnij</button></div>`;
+    }
+  }
   const fdrC=f=>"f"+Math.max(1,Math.min(5,f||3));
   const fxChip=nx=>nx?`<span class="mini-fx ${fdrC(nx.fdr)}">${nx.opp} (${nx.ven})</span>`:"";
 
@@ -653,9 +822,10 @@ function renderBrief(){
   }
 
   el("app").innerHTML = `
+    ${recBanner}
     <div class="hero">
       <div class="tot"><div class="lab">Prognoza jedenastki (z C ×2)</div>
-        <div class="big">${DATA.totals.xi_xpts.toFixed(1)}</div>
+        <div class="big">${(b.lineup&&b.lineup.xi_total!=null?b.lineup.xi_total:DATA.totals.xi_xpts).toFixed(1)}</div>
         <div class="sub">${DATA.gw.name} · kliknij zakładki po szczegóły</div></div>
       <div class="stats">
         <div class="stat"><div class="k">Transfery</div><div class="v">${(b.transfers||[]).length}</div></div>
@@ -810,6 +980,8 @@ function renderDetail(p){
           <div class="row"><span class="k">Cena / własność</span><span class="v">£${p.price.toFixed(1)} · ${p.selected_by}%</span></div>
           <div class="row"><span class="k">Stałe fragmenty</span><span class="v" style="color:${spBits.length?'var(--green-ink)':'var(--muted)'}">${spTxt}</span></div>
           <div class="row"><span class="k">Ruch ceny</span><span class="v" style="color:${mom>0?'var(--green-ink)':(mom<0?'var(--pink)':'var(--muted)')}">${momTxt}</span></div>
+          ${p.rotation?`<div class="row"><span class="k">Ryzyko rotacji</span><span class="v"><span class="rotbadge ${p.rotation.level}">${rotLabel(p.rotation.level)}</span>${p.rotation.avg_min?' · ~'+p.rotation.avg_min+' min':''}</span></div>`:''}
+          ${p.price_pred&&p.price_pred.dir!=='stable'?`<div class="row"><span class="k">Prognoza ceny</span><span class="v ${p.price_pred.dir==='rise'?'':''}" style="color:${p.price_pred.dir==='rise'?'var(--green-ink)':'var(--pink)'}">${p.price_pred.dir==='rise'?'↑ możliwy wzrost':'↓ możliwy spadek'} (${Math.round(p.price_pred.score*100)}%)</span></div>`:''}
           <div class="row"><span class="k">Forma (5 GW)</span><span class="v">${p.form5&&p.form5.length?sparkline(p.form5)+' <span style="color:var(--muted);font-size:11px">'+p.form5.join("·")+'</span>':"—"}</span></div>
           <div class="row"><span class="k">FPL ep_next</span><span class="v" style="color:var(--cyan)">${p.ep_next??"—"}</span></div>
           <div class="row"><span class="k">Pogoda</span><span class="v">${w}</span></div>
@@ -827,6 +999,23 @@ function renderPlanner(){
   // chipy
   const chips=(P.chips||[]).map(c=>`<div class="advcard ${c.ready?'ok':'warn'}"><div class="ai">${c.ready?'★':'·'}</div>
     <div class="ab"><div class="at">${c.chip}</div><div class="ap">${c.reason}</div></div></div>`).join("");
+
+  // optymalizator chipów (model)
+  const CO=P.chips_opt||{};
+  const chipCard=(icon,title,body,gw,dgw)=>`<div class="chipopt">
+      <div class="chipicon">${icon}</div>
+      <div class="chipbody"><div class="chiptitle">${title}${gw?`<span class="chipgw">GW${gw}${dgw?' · DGW':''}</span>`:''}</div>
+        <div class="chipdesc">${body}</div></div></div>`;
+  let chipOpt="";
+  if(CO.bench_boost||CO.triple_captain||CO.free_hit){
+    const bb=CO.bench_boost, tc=CO.triple_captain, fh=CO.free_hit;
+    chipOpt=`<div class="chipgrid">
+      ${bb?chipCard('🪑','Bench Boost',`Suma 15 zawodników: <b>${bb.score} xPts</b> — ${bb.note}.`,bb.gw,bb.dgw):''}
+      ${tc?chipCard('👑','Triple Captain',`<b>${tc.player}</b> — prognoza ${tc.xpts}, po potrojeniu <b>${tc.tripled} pkt</b>${tc.dgw?' (podwójna kolejka!)':''}.`,tc.gw,tc.dgw):''}
+      ${fh?chipCard('🎯','Free Hit',fh.note+'.',fh.gw,false):''}
+    </div>
+    <div class="cvfoot" style="margin-bottom:14px">Skan roadmapy z wagą ryzyka rotacji (ławka niepewna waży mniej). Model meczu Dixon-Coles pod xPts. Rekomendacje kierunkowe — decyzja Twoja.</div>`;
+  }
 
   // DGW/BGW
   let dg;
@@ -848,17 +1037,25 @@ function renderPlanner(){
     <span class="mini-fx ${fdrC(x.next?x.next.fdr:3)}">${x.next?x.next.opp+" ("+x.next.ven+")":"—"}</span>
     <span class="difxp">h${x.xpts_h}</span></div>`).join("") || `<div class="ap" style="color:var(--muted)">Brak wyraźnych różnicowych.</div>`;
 
-  // ceny
-  const pr=(P.price_risk||[]).map(x=>`<div class="prrow">
-    <span class="pradot ${x.dir}"></span>
-    <span class="prnm">${x.name}${x.owned?'<span class="prown">masz</span>':''}</span>
-    <span class="prdir ${x.dir}">${x.dir==='rise'?'wzrost':'spadek'} ${(Math.abs(x.mom)/1000).toFixed(0)}k</span></div>`).join("")
-    || `<div class="ap" style="color:var(--muted)">Brak silnych ruchów cenowych.</div>`;
+  // predyktor cen (skalowany własnością)
+  const PW=P.price_watch||{};
+  const pcard=x=>`<div class="pwrow">
+      <span class="pwnm">${x.name}<span class="pwt">${x.team}${x.owned?' · masz':''}</span></span>
+      <span class="pwgauge"><span class="pwfill ${x.dir}" style="width:${Math.round((x.score||0)*100)}%"></span></span>
+      <span class="pwnet ${x.dir}">${x.net>=0?'+':''}${(x.net/1000).toFixed(0)}k</span></div>`;
+  const rises=(PW.rises||[]).map(pcard).join("")||`<div class="ap" style="color:var(--muted)">Brak.</div>`;
+  const falls=(PW.falls||[]).map(pcard).join("")||`<div class="ap" style="color:var(--muted)">Brak.</div>`;
+  const mine=(PW.mine||[]).length?`<div class="pwmine">Twoi zawodnicy pod presją: `+
+    PW.mine.map(m=>`<span class="pwtag ${m.dir}">${m.name} ${m.dir==='rise'?'↑':'↓'}</span>`).join("")+`</div>`:"";
+  const pr=`${mine}
+    <div class="pwcols"><div class="pwcol"><div class="pwhdr up">▲ Prawdopodobny wzrost</div>${rises}</div>
+      <div class="pwcol"><div class="pwhdr dn">▼ Prawdopodobny spadek</div>${falls}</div></div>
+    <div class="cvfoot" style="margin-top:8px">Przybliżenie: dokładny algorytm cen FPL jest tajny. „Ciśnienie" = net-transfery względem liczby właścicieli. Kupuj przed wzrostem, sprzedawaj przed spadkiem — ale to sygnał, nie pewnik.</div>`;
 
   // rywale
   let rivals="";
   if(P.rivals && P.rivals.length){
-    rivals = `<div class="h"><span class="no">05</span><span class="t">Skauting rywali</span></div><div class="card">`+
+    rivals = `<div class="h"><span class="no">07</span><span class="t">Skauting rywali</span></div><div class="card">`+
       P.rivals.map(r=>`<div class="rivrow">
         <div class="rivhead"><span class="rivnm">${r.name}</span><span class="rivxp">${r.xi_xpts} xPts · C: ${r.captain||'—'}</span></div>
         <div class="rivdiff"><b>Mają, czego nie masz:</b> ${r.they_have.join(", ")||'—'}</div>
@@ -871,16 +1068,48 @@ function renderPlanner(){
     <span class="difnm">${v.name}<span class="difpos">${v.pos} · ${v.team} · £${v.price.toFixed(1)}${v.owned?' · masz':''}</span></span>
     <span class="difxp">${v.ratio}</span></div>`).join("") || `<div class="ap" style="color:var(--muted)">Brak danych.</div>`;
 
+  // planer wieloetapowy (beam search)
+  const TP=P.transfer_plan;
+  let planHtml="";
+  if(TP && TP.steps && TP.steps.length){
+    const steps=TP.steps.map(s=>{
+      const isT=s.action==='transfer';
+      const mv=s.moves.map(m=>`<span class="plmove"><span class="plout">${m.out}</span> → <span class="plin">${m.in}</span> <span class="plgain">+${m.gain}</span></span>`).join("");
+      return `<div class="plstep ${isT?'t':'h'}">
+        <div class="plgw">GW${s.gw}</div>
+        <div class="plact">${isT?mv:'<span class="plhold">Trzymaj · bankuj wolny transfer</span>'}
+          ${s.hit>0?`<span class="plhit">−${s.hit} hit</span>`:''}</div>
+        <div class="plside"><span class="plft">FT ${s.ft_after}</span><span class="plbank">£${s.bank_after}</span></div>
+      </div>`;
+    }).join("");
+    const gainCls=TP.gain_vs_hold>0?'pos':'zero';
+    planHtml=`
+      <div class="h"><span class="no">02</span><span class="t">Plan transferów — ${TP.horizon} kolejek</span>
+        <span class="d">beam search · kogo brać teraz vs czekać</span></div>
+      <div class="card">
+        <div class="plsummary">
+          <div class="plkpi"><span class="plk">Zysk vs trzymanie</span><span class="plv ${gainCls}">+${TP.gain_vs_hold} xPts</span></div>
+          <div class="plkpi"><span class="plk">Punkty w horyzoncie</span><span class="plv">${TP.total_value}</span></div>
+          <div class="plkpi"><span class="plk">Hity</span><span class="plv ${TP.total_hits?'neg':''}">${TP.total_hits?('−'+TP.total_hits):'0'}</span></div>
+          <div class="plkpi"><span class="plk">Start: bank / FT</span><span class="plv">£${TP.start_bank} · ${TP.start_ft}</span></div>
+        </div>
+        ${steps}
+        <div class="cvfoot" style="margin-top:10px">Beam search (wiązka 6) — heurystyka bliska optymalnej, nie pełne przeszukanie (to NP-trudne). Ceny sprzedaży przybliżone ceną bieżącą. Liczbę wolnych transferów na start przyjmuję jako 1 (publiczne API nie podaje jej pewnie). xPts z modelu meczu Dixon-Coles.</div>
+      </div>`;
+  }
+
   el("app").innerHTML = `
-    <div class="h"><span class="no">01</span><span class="t">Doradca chipów</span><span class="d">heurystyki — nie wyrocznia</span></div>
+    <div class="h"><span class="no">01</span><span class="t">Doradca chipów</span><span class="d">model + heurystyki</span></div>
+    ${chipOpt}
     <div class="advstack">${chips}</div>
-    <div class="h"><span class="no">02</span><span class="t">Radar DGW / BGW</span><span class="d">podwójne i puste kolejki</span></div>
+    ${planHtml}
+    <div class="h"><span class="no">03</span><span class="t">Radar DGW / BGW</span><span class="d">podwójne i puste kolejki</span></div>
     <div class="card">${dg}</div>
-    <div class="h"><span class="no">03</span><span class="t">Różnicowi</span><span class="d">wysokie xPts, niska własność (&lt;10%)</span></div>
+    <div class="h"><span class="no">04</span><span class="t">Różnicowi</span><span class="d">wysokie xPts, niska własność (&lt;10%)</span></div>
     <div class="card">${diffs}</div>
-    <div class="h"><span class="no">04</span><span class="t">Ranking wartości</span><span class="d">xPts na 3 kolejki za £1m</span></div>
+    <div class="h"><span class="no">05</span><span class="t">Ranking wartości</span><span class="d">xPts na 3 kolejki za £1m</span></div>
     <div class="card">${vp}</div>
-    <div class="h"><span class="no">05</span><span class="t">Ruchy cenowe</span><span class="d">momentum transferów — przybliżone</span></div>
+    <div class="h"><span class="no">06</span><span class="t">Ruchy cenowe</span><span class="d">predyktor skalowany własnością</span></div>
     <div class="card">${pr}</div>
     ${rivals}`;
 }
@@ -1032,7 +1261,29 @@ function renderFDR(){
         <span class="cp">${t.players.join(" · ")}</span></div>${cells}
       <div class="pcell avg"><span class="al">ŚR</span><span class="av" style="color:${avgCol(t.avg_fdr)}">${t.avg_fdr??"—"}</span></div></div>`;
   }).join("");
+  // predykcje meczów (model Dixon-Coles)
+  const mp=DATA.match_predictions||[];
+  const mm=DATA.match_model||{};
+  let predHtml="";
+  if(mp.length){
+    const bar=(ph,pd,pa)=>`<div class="wdlbar">
+        <span class="wdl h" style="width:${Math.round(ph*100)}%" title="dom ${Math.round(ph*100)}%">${ph>=0.18?Math.round(ph*100):''}</span>
+        <span class="wdl d" style="width:${Math.round(pd*100)}%" title="remis ${Math.round(pd*100)}%">${pd>=0.18?Math.round(pd*100):''}</span>
+        <span class="wdl a" style="width:${Math.round(pa*100)}%" title="wyj ${Math.round(pa*100)}%">${pa>=0.18?Math.round(pa*100):''}</span></div>`;
+    const cards=mp.map(m=>`<div class="mpred">
+        <div class="mpteams"><span class="mpt">${m.home}</span><span class="mpsc">${m.lam_h} – ${m.lam_a}</span><span class="mpt a">${m.away}</span></div>
+        ${bar(m.p_home,m.p_draw,m.p_away)}
+        <div class="mpmeta"><span>CS: ${m.home} ${Math.round(m.cs_home*100)}% · ${m.away} ${Math.round(m.cs_away*100)}%</span><span class="mpg">Σ goli ${m.goals}</span></div>
+      </div>`).join("");
+    predHtml=`
+      <div class="h"><span class="no">01</span><span class="t">Przewidywane wyniki — ${DATA.gw.name}</span>
+        <span class="d">model goli Dixon-Coles · ${mm.fitted?mm.n_matches+' meczów':'prior (za mało meczów)'}</span></div>
+      <div class="mpgrid">${cards}</div>
+      ${!mm.fitted?`<div class="cvfoot" style="margin-bottom:14px">Za mało rozegranych meczów, by dopasować model z danych — używam priorów z ocen siły FPL. Po kilku kolejkach model przejdzie na realne wyniki.</div>`:''}`;
+  }
+
   el("app").innerHTML = `
+    ${predHtml}
     <div class="h"><span class="no">02</span><span class="t">Terminarz FDR — kolejne ${n} kolejek</span><span class="d">pogrupowane po klubie</span></div>
     <div class="card"><div class="tick" style="grid-template-columns:${cols}">${head}${rows}</div></div>
     <div class="legend"><span>FDR:</span><span class="sw f2">1–2</span><span class="sw f3">3</span><span class="sw f4">4</span><span class="sw f5">5</span></div>`;
