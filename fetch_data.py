@@ -1162,7 +1162,7 @@ def build():
                 diffs.append({**c, "own": own})
     diffs.sort(key=lambda c: -c["xpts_h"])
     POS = {1: "GK", 2: "DEF", 3: "MID", 4: "FWD"}
-    differentials = [{"name": c["name"], "team": c["team"], "pos": POS.get(c["et"], ""),
+    differentials = [{"id": c["id"], "name": c["name"], "team": c["team"], "pos": POS.get(c["et"], ""),
                       "price": c["price"], "xpts_h": c["xpts_h"], "selected_by": c["selected_by"],
                       "next": c["next"]} for c in diffs[:6]]
 
@@ -1174,7 +1174,7 @@ def build():
             continue
         pp = price_pred(e, TP)
         if pp["dir"] != "stable" or abs(pp["score"]) >= 0.5:
-            scored.append({"name": e["web_name"], "team": tshort[e["team"]],
+            scored.append({"id": e["id"], "name": e["web_name"], "team": tshort[e["team"]],
                            "price": (e["now_cost"] or 0) / 10.0, "dir": pp["dir"],
                            "score": pp["score"], "net": pp["net"], "moved": pp["moved"],
                            "owned": e["id"] in owned, "own": e.get("selected_by_percent")})
@@ -1249,7 +1249,7 @@ def build():
     for lst in pool_by_pos.values():
         for c in lst:
             if c["status"] == "a" and c["price"] >= 4.0 and c["xpts_h"] > 0:
-                value_picks.append({"name": c["name"], "team": c["team"], "pos": POS.get(c["et"], ""),
+                value_picks.append({"id": c["id"], "name": c["name"], "team": c["team"], "pos": POS.get(c["et"], ""),
                                     "price": c["price"], "xpts_h": c["xpts_h"],
                                     "ratio": round(c["xpts_h"] / c["price"], 2),
                                     "owned": c["id"] in owned, "next": c["next"]})

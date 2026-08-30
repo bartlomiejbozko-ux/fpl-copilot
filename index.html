@@ -993,9 +993,41 @@ function renderDetail(p){
 
 /* ---------- PLANER ---------- */
 function renderPlanner(){
-  const P=DATA.planner;
-  if(!P){ el("app").innerHTML=`<div class="card">Brak danych planera — odśwież data.json.</div>`; return; }
+  const P0=DATA.planner;
+  if(!P0){ el("app").innerHTML=`<div class="card">Brak danych planera — odśwież data.json.</div>`; return; }
   const fdrC=f=>"f"+Math.max(1,Math.min(5,f||3));
+  // przeliczanie po transferach w edytorze
+  const ovP=hasOverrides();
+  let P=P0, planBanner="";
+  if(ovP){
+    const eff=effectiveSquad();
+    const ids=new Set(eff.map(p=>p.id));
+    const myTeams=new Set(eff.map(p=>p.team));
+    P=JSON.parse(JSON.stringify(P0));
+    // owned flags
+    (P.differentials||[]).forEach(v=>{ if('id' in v) v.owned=ids.has(v.id); });
+    (P.value_picks||[]).forEach(v=>{ if('id' in v) v.owned=ids.has(v.id); });
+    if(P.price_watch){
+      (P.price_watch.rises||[]).forEach(x=>x.owned=ids.has(x.id));
+      (P.price_watch.falls||[]).forEach(x=>x.owned=ids.has(x.id));
+      // moi pod presją: z efektywnego składu
+      P.price_watch.mine=eff.filter(p=>p.price_pred&&p.price_pred.dir!=='stable')
+        .map(p=>({name:p.name,dir:p.price_pred.dir,score:p.price_pred.score,net:p.price_pred.net}));
+    }
+    // moje drużyny w DGW/BGW
+    (P.dgw_bgw||[]).forEach(d=>{
+      d.my_doubles=[...new Set((d.doubles||[]).filter(t=>myTeams.has(t)))];
+      d.my_blanks=[...new Set((d.blanks||[]).filter(t=>myTeams.has(t)))];
+    });
+    // chip Bench Boost przeliczony
+    const bb=computeChipBB(eff);
+    if(P.chips_opt) P.chips_opt.bench_boost=bb||P.chips_opt.bench_boost;
+    // plan wieloetapowy przeliczony
+    const gws=[...new Set(eff.flatMap(p=>(p.roadmap||[]).map(r=>r.gw)))].sort((a,b)=>a-b).slice(0,5);
+    const newPlan=planTransfersJS(eff, DATA.pool||[], Math.round((P.bank||0)*10), 1, gws);
+    if(newPlan) P.transfer_plan=newPlan;
+    planBanner=`<div class="recbanner">⟳ Planer przeliczony po Twoich transferach (${loadOv().length}). Plan, chipy, różnicowi i ceny uwzględniają nowy skład. <button class="recundo" onclick="editReset()">Cofnij</button></div>`;
+  }
 
   // chipy
   const chips=(P.chips||[]).map(c=>`<div class="advcard ${c.ready?'ok':'warn'}"><div class="ai">${c.ready?'★':'·'}</div>
@@ -1100,6 +1132,7 @@ function renderPlanner(){
   }
 
   el("app").innerHTML = `
+    ${planBanner}
     <div class="h"><span class="no">01</span><span class="t">Doradca chipów</span><span class="d">model + heurystyki</span></div>
     ${chipOpt}
     <div class="advstack">${chips}</div>
@@ -1291,17 +1324,108 @@ function renderFDR(){
 }
 
 /* ---------- KONCENTRACJA ---------- */
+// ── przeliczanie Planera po transferach (owned, chipy BB, plan wieloetapowy) ──
+function bestXiValueJS(players, gw){
+  const by={1:[],2:[],3:[],4:[]};
+  players.forEach(p=>{ (by[p.et]=by[p.et]||[]).push((p.gwx[gw]||0)); });
+  [1,2,3,4].forEach(k=>by[k].sort((a,b)=>b-a));
+  if(!by[1].length||by[2].length<3||by[4].length<1) return 0;
+  let best=0;
+  for(let d=3;d<=5;d++) for(let f=1;f<=3;f++){ const m=10-d-f;
+    if(m<2||m>5||by[2].length<d||by[3].length<m||by[4].length<f) continue;
+    const sum=(a,n)=>a.slice(0,n).reduce((x,y)=>x+y,0);
+    const tot=by[1][0]+sum(by[2],d)+sum(by[3],m)+sum(by[4],f);
+    if(tot>best)best=tot;
+  }
+  return best;
+}
+function planTransfersJS(squad, pool, bankTenths, startFt, gws){
+  if(!squad.length||!gws.length) return null;
+  const mkp=p=>({id:p.id,et:p.etype||p.et,team:p.team,price:Math.round(p.price*10),
+    gwx:Object.fromEntries((p.roadmap||[]).map(r=>[r.gw,r.xpts])),name:p.name});
+  const sq=squad.map(mkp); const sqids=new Set(sq.map(p=>p.id));
+  const poolp=pool.filter(c=>!sqids.has(c.id)&&c.roadmap&&c.roadmap.length).map(mkp);
+  const byPos={1:[],2:[],3:[],4:[]};
+  poolp.forEach(c=>{(byPos[c.et]=byPos[c.et]||[]).push(c);});
+  const hznAll=(p,fi)=>gws.slice(fi).reduce((a,g)=>a+(p.gwx[g]||0),0);
+  [1,2,3,4].forEach(k=>byPos[k].sort((a,b)=>hznAll(b,0)-hznAll(a,0)));
+  const cc0={}; sq.forEach(p=>cc0[p.team]=(cc0[p.team]||0)+1);
+  let beam=[{squad:Object.fromEntries(sq.map(p=>[p.id,p])),bank:bankTenths,ft:Math.min(5,Math.max(1,startFt)),cum:0,hits:0,log:[]}];
+  const B=6;
+  gws.forEach((gw,gi)=>{
+    const nxt=[];
+    beam.forEach(st=>{
+      const smap=st.squad; const cc={}; Object.values(smap).forEach(p=>cc[p.team]=(cc[p.team]||0)+1);
+      const weak={}; Object.values(smap).forEach(p=>{ if(!(p.et in weak)||hznAll(p,gi)<hznAll(weak[p.et],gi)) weak[p.et]=p; });
+      const cand=[];
+      Object.values(weak).forEach(outp=>{ const sell=outp.price;
+        (byPos[outp.et]||[]).slice(0,12).forEach(inp=>{
+          if(inp.id in smap) return;
+          if(inp.price>st.bank+sell) return;
+          if(inp.team!==outp.team && (cc[inp.team]||0)>=3) return;
+          const gain=hznAll(inp,gi)-hznAll(outp,gi);
+          if(gain>0.3) cand.push([gain,outp,inp]);
+        });
+      });
+      cand.sort((a,b)=>b[0]-a[0]);
+      const opts=[["hold",null]]; cand.slice(0,4).forEach(c=>opts.push(["move",[c[1],c[2]]]));
+      opts.forEach(([kind,mv])=>{
+        const ns={squad:{...smap},bank:st.bank,ft:st.ft,cum:st.cum,hits:st.hits,log:[...st.log]};
+        let moved=[];
+        if(kind==="move"){ const[outp,inp]=mv; delete ns.squad[outp.id]; ns.squad[inp.id]=inp;
+          ns.bank=ns.bank+outp.price-inp.price; const hit=Math.max(0,1-ns.ft)*4;
+          ns.ft=Math.min(5,Math.max(0,ns.ft-1)+1); ns.cum-=hit; ns.hits+=hit;
+          moved=[{out:outp.name,in:inp.name,gain:Math.round((hznAll(inp,gi)-hznAll(outp,gi))*10)/10}];
+        } else ns.ft=Math.min(5,ns.ft+1);
+        const gwval=bestXiValueJS(Object.values(ns.squad),gw); ns.cum+=gwval;
+        ns.log.push({gw,action:kind==="move"?"transfer":"hold",moves:moved,ft_after:ns.ft,
+          bank_after:Math.round(ns.bank/10*10)/10,gw_xpts:Math.round(gwval*10)/10,
+          hit:(moved.length?Math.max(0,1-st.ft)*4:0)});
+        nxt.push(ns);
+      });
+    });
+    nxt.sort((a,b)=>b.cum-a.cum); beam=nxt.slice(0,B);
+  });
+  const best=beam[0];
+  const start=Object.fromEntries(sq.map(p=>[p.id,p]));
+  const base=gws.reduce((a,g)=>a+bestXiValueJS(Object.values(start),g),0);
+  return {horizon:gws.length,gws,start_bank:Math.round(bankTenths/10*10)/10,start_ft:Math.min(5,Math.max(1,startFt)),
+    steps:best.log,total_value:Math.round(best.cum*10)/10,baseline_value:Math.round(base*10)/10,
+    gain_vs_hold:Math.round((best.cum-base)*10)/10,total_hits:best.hits};
+}
+function computeChipBB(squad){
+  const rw={nailed:1,solid:0.9,risk:0.6,doubt:0.35,unknown:0.8};
+  const scan={};
+  squad.forEach(p=>{ const w=rw[(p.rotation&&p.rotation.level)||'unknown']||0.8;
+    (p.roadmap||[]).forEach(r=>{ const e=scan[r.gw]=scan[r.gw]||{bb:0,pl:{},fix:0};
+      e.bb+=r.xpts*w; e.pl[p.name]=(e.pl[p.name]||0)+r.xpts; e.fix++; }); });
+  let best=null;
+  Object.keys(scan).forEach(g=>{ const e=scan[g]; const playing=Object.keys(e.pl).length;
+    if(playing>=13 && (!best||e.bb>best.score)) best={gw:+g,score:Math.round(e.bb*10)/10,playing,dgw:e.fix>playing}; });
+  return best;
+}
+function computeConcentration(xi){
+  const conc={};
+  xi.forEach(p=>{ if(!p.next)return; const k=`${p.next.opp} (${p.next.ven})`;
+    (conc[k]=conc[k]||{fixture:k,count:0,fdr:p.next.fdr,players:[]});
+    conc[k].count++; conc[k].players.push(p.name); });
+  return Object.values(conc).sort((a,b)=>b.count-a.count);
+}
 function renderRisk(){
-  const xi = DATA.squad.filter(p=>!p.on_bench);
-  const nMatch = DATA.concentration.length;
-  const maxCnt = Math.max(...DATA.concentration.map(c=>c.count),1);
-  const blocks = DATA.concentration.map(c=>{
+  const ov=hasOverrides();
+  const eff=effectiveSquad();
+  const xi = ov ? eff.filter(p=>!p.on_bench) : DATA.squad.filter(p=>!p.on_bench);
+  const concentration = ov ? computeConcentration(xi) : DATA.concentration;
+  const nMatch = concentration.length;
+  const maxCnt = Math.max(...concentration.map(c=>c.count),1);
+  const blocks = concentration.map(c=>{
     const w = 34 + (c.count/maxCnt)*66;
     return `<div class="blk"><div class="bhead"><span class="cnt">${c.count}×</span>
         <span class="fxn">${c.fixture}</span><span class="who">${c.players.join(" · ")}</span></div>
       <div class="bar ${fdrClass(c.fdr)}" style="width:${w}%">${c.count} ${c.count===1?'gracz':'graczy'}<span class="fdrtag">FDR ${c.fdr}</span></div></div>`;
   }).join("");
   el("app").innerHTML = `
+    ${ov?'<div class="recbanner">⟳ Koncentracja przeliczona po Twoich transferach. <button class="recundo" onclick="editReset()">Cofnij</button></div>':''}
     <div class="h"><span class="no">03</span><span class="t">Na ilu meczach wisi jedenastka</span><span class="d">${DATA.gw.name}</span></div>
     <div class="headline"><div class="bignum">${xi.length}<span class="arrow">→</span><span class="m">${nMatch}</span></div>
       <div class="txt">Twoja startowa jedenastka rozgrywa się w <b>${nMatch} meczach</b>. Im szerszy i bardziej czerwony pasek, tym więcej Twoich graczy zależy od jednego, trudnego wyniku.</div></div>
