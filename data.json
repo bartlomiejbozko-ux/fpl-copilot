@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-30T08:14:22Z",
+  "generated_at": "2026-08-30T08:16:17Z",
   "gw": {
     "current": 2,
     "next": 3,
@@ -127,7 +127,7 @@
       "floor": 2,
       "ceiling": 7,
       "haul": 0.0,
-      "sd": 2.14,
+      "sd": 2.13,
       "next": {
         "opp": "AVL",
         "ven": "H",
@@ -208,11 +208,11 @@
         "moved": 0
       },
       "rotation": {
-        "level": "risk",
+        "level": "doubt",
         "avg_min": 40,
         "start_rate": 0.5,
         "n": 2,
-        "europe": false
+        "europe": true
       },
       "form5": [
         9,
@@ -256,9 +256,9 @@
         }
       ],
       "floor": 2,
-      "ceiling": 7,
-      "haul": 0.042,
-      "sd": 2.81,
+      "ceiling": 8,
+      "haul": 0.048,
+      "sd": 2.88,
       "next": {
         "opp": "CHE",
         "ven": "H",
@@ -343,7 +343,7 @@
         "avg_min": 82,
         "start_rate": 1.0,
         "n": 2,
-        "europe": false
+        "europe": true
       },
       "form5": [
         9,
@@ -388,8 +388,8 @@
       ],
       "floor": 2,
       "ceiling": 8,
-      "haul": 0.075,
-      "sd": 3.24,
+      "haul": 0.064,
+      "sd": 3.14,
       "next": {
         "opp": "COV",
         "ven": "H",
@@ -470,11 +470,11 @@
         "moved": 0
       },
       "rotation": {
-        "level": "risk",
+        "level": "doubt",
         "avg_min": 0,
         "start_rate": 0.0,
         "n": 2,
-        "europe": false
+        "europe": true
       },
       "form5": [
         0,
@@ -605,7 +605,7 @@
         "avg_min": 90,
         "start_rate": 1.0,
         "n": 2,
-        "europe": false
+        "europe": true
       },
       "form5": [
         8,
@@ -649,9 +649,9 @@
         }
       ],
       "floor": 2,
-      "ceiling": 11,
-      "haul": 0.171,
-      "sd": 3.93,
+      "ceiling": 10,
+      "haul": 0.157,
+      "sd": 3.86,
       "next": {
         "opp": "IPS",
         "ven": "A",
@@ -732,11 +732,11 @@
         "moved": 0
       },
       "rotation": {
-        "level": "risk",
+        "level": "doubt",
         "avg_min": 38,
         "start_rate": 0.5,
         "n": 2,
-        "europe": false
+        "europe": true
       },
       "form5": [
         11,
@@ -781,8 +781,8 @@
       ],
       "floor": 2,
       "ceiling": 9,
-      "haul": 0.086,
-      "sd": 3.13,
+      "haul": 0.079,
+      "sd": 3.02,
       "next": {
         "opp": "CHE",
         "ven": "H",
@@ -911,9 +911,9 @@
         }
       ],
       "floor": 2,
-      "ceiling": 9,
-      "haul": 0.094,
-      "sd": 3.21,
+      "ceiling": 10,
+      "haul": 0.102,
+      "sd": 3.32,
       "next": {
         "opp": "ARS",
         "ven": "A",
@@ -998,7 +998,7 @@
         "avg_min": 86,
         "start_rate": 1.0,
         "n": 2,
-        "europe": false
+        "europe": true
       },
       "form5": [
         1,
@@ -1043,8 +1043,8 @@
       ],
       "floor": 2,
       "ceiling": 12,
-      "haul": 0.222,
-      "sd": 4.66,
+      "haul": 0.219,
+      "sd": 4.69,
       "next": {
         "opp": "COV",
         "ven": "H",
@@ -1173,9 +1173,9 @@
         }
       ],
       "floor": 2,
-      "ceiling": 13,
-      "haul": 0.253,
-      "sd": 4.82,
+      "ceiling": 14,
+      "haul": 0.262,
+      "sd": 4.86,
       "next": {
         "opp": "ARS",
         "ven": "A",
@@ -1260,7 +1260,7 @@
         "avg_min": 90,
         "start_rate": 1.0,
         "n": 2,
-        "europe": false
+        "europe": true
       },
       "form5": [
         2,
@@ -1305,8 +1305,8 @@
       ],
       "floor": 2,
       "ceiling": 11,
-      "haul": 0.129,
-      "sd": 3.86,
+      "haul": 0.133,
+      "sd": 3.89,
       "next": {
         "opp": "COV",
         "ven": "H",
@@ -1436,8 +1436,8 @@
       ],
       "floor": 2,
       "ceiling": 9,
-      "haul": 0.074,
-      "sd": 3.36,
+      "haul": 0.088,
+      "sd": 3.46,
       "next": {
         "opp": "ARS",
         "ven": "A",
@@ -1522,7 +1522,7 @@
         "avg_min": 90,
         "start_rate": 1.0,
         "n": 2,
-        "europe": false
+        "europe": true
       },
       "form5": [
         2,
@@ -1568,7 +1568,7 @@
       "floor": 1,
       "ceiling": 6,
       "haul": 0.0,
-      "sd": 2.0,
+      "sd": 2.02,
       "next": {
         "opp": "IPS",
         "ven": "A",
@@ -1699,7 +1699,7 @@
       "floor": 2,
       "ceiling": 2,
       "haul": 0.0,
-      "sd": 0.53,
+      "sd": 0.55,
       "next": {
         "opp": "MCI",
         "ven": "A",
@@ -1829,8 +1829,8 @@
       ],
       "floor": 2,
       "ceiling": 14,
-      "haul": 0.255,
-      "sd": 5.12,
+      "haul": 0.252,
+      "sd": 5.06,
       "next": {
         "opp": "SUN",
         "ven": "H",
@@ -1911,11 +1911,11 @@
         "moved": 0
       },
       "rotation": {
-        "level": "risk",
+        "level": "doubt",
         "avg_min": 38,
         "start_rate": 0.5,
         "n": 2,
-        "europe": false
+        "europe": true
       },
       "form5": [
         17,
@@ -1960,8 +1960,8 @@
       ],
       "floor": 7,
       "ceiling": 23,
-      "haul": 0.638,
-      "sd": 7.64,
+      "haul": 0.635,
+      "sd": 7.94,
       "next": {
         "opp": "LEE",
         "ven": "H",
@@ -2271,9 +2271,9 @@
     "gw_outlook": {
       "p10": 51,
       "p50": 75,
-      "p90": 101,
-      "mean": 75.6,
-      "sd": 19.5,
+      "p90": 102,
+      "mean": 76.0,
+      "sd": 20.0,
       "captain": "De Cuyper"
     },
     "transfers": [
@@ -2601,7 +2601,7 @@
     "chips_opt": {
       "bench_boost": {
         "gw": 3,
-        "score": 53.6,
+        "score": 48.5,
         "playing": 15,
         "dgw": false,
         "note": "wszyscy grają, wysoka suma z ławką"
@@ -2617,31 +2617,31 @@
       "scan": [
         {
           "gw": 3,
-          "bb": 53.6,
+          "bb": 48.5,
           "playing": 15,
           "dgw": false
         },
         {
           "gw": 4,
-          "bb": 50.7,
+          "bb": 46.5,
           "playing": 15,
           "dgw": false
         },
         {
           "gw": 5,
-          "bb": 52.5,
+          "bb": 47.6,
           "playing": 15,
           "dgw": false
         },
         {
           "gw": 6,
-          "bb": 51.8,
+          "bb": 47.4,
           "playing": 15,
           "dgw": false
         },
         {
           "gw": 7,
-          "bb": 52.5,
+          "bb": 47.6,
           "playing": 15,
           "dgw": false
         }
@@ -3353,7 +3353,7 @@
         "total": 43,
         "gap": 46,
         "hold": 1.0,
-        "xi_mean": 31.5,
+        "xi_mean": 31.3,
         "captain": "B.Fernandes",
         "cap_differs": true,
         "diffs": [
@@ -9040,8 +9040,8 @@
       "et": 2,
       "pos": "DEF",
       "price": 5.4,
-      "xpts": 0.4,
-      "xpts_h": 1.0,
+      "xpts": 0.3,
+      "xpts_h": 0.9,
       "own": "1.5",
       "owned": false,
       "next": {
@@ -9052,7 +9052,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.24
+          "pts": 0.22
         },
         {
           "label": "Gole (xG)",
@@ -9064,7 +9064,7 @@
         },
         {
           "label": "Czyste konto",
-          "pts": 0.17
+          "pts": 0.15
         },
         {
           "label": "Akcje obronne",
@@ -9076,7 +9076,7 @@
         },
         {
           "label": "Stracone + kartki",
-          "pts": -0.06
+          "pts": -0.05
         }
       ],
       "roadmap": [
@@ -9085,7 +9085,7 @@
           "opp": "CHE",
           "ven": "H",
           "fdr": 4,
-          "xpts": 0.4
+          "xpts": 0.3
         },
         {
           "gw": 4,
@@ -9106,7 +9106,7 @@
           "opp": "LEE",
           "ven": "H",
           "fdr": 2,
-          "xpts": 0.4
+          "xpts": 0.3
         },
         {
           "gw": 7,
@@ -9460,8 +9460,8 @@
       "et": 2,
       "pos": "DEF",
       "price": 4.5,
-      "xpts": 0.6,
-      "xpts_h": 1.9,
+      "xpts": 0.5,
+      "xpts_h": 1.6,
       "own": "0.4",
       "owned": false,
       "next": {
@@ -9472,7 +9472,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.42
+          "pts": 0.39
         },
         {
           "label": "Gole (xG)",
@@ -9484,7 +9484,7 @@
         },
         {
           "label": "Czyste konto",
-          "pts": 0.22
+          "pts": 0.2
         },
         {
           "label": "Akcje obronne",
@@ -9492,11 +9492,11 @@
         },
         {
           "label": "Bonus",
-          "pts": 0.02
+          "pts": 0.01
         },
         {
           "label": "Stracone + kartki",
-          "pts": -0.13
+          "pts": -0.12
         }
       ],
       "roadmap": [
@@ -9505,35 +9505,35 @@
           "opp": "HUL",
           "ven": "A",
           "fdr": 2,
-          "xpts": 0.6
+          "xpts": 0.5
         },
         {
           "gw": 4,
           "opp": "NFO",
           "ven": "H",
           "fdr": 3,
-          "xpts": 0.7
+          "xpts": 0.6
         },
         {
           "gw": 5,
           "opp": "TOT",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.6
+          "xpts": 0.5
         },
         {
           "gw": 6,
           "opp": "BRE",
           "ven": "H",
           "fdr": 3,
-          "xpts": 0.7
+          "xpts": 0.6
         },
         {
           "gw": 7,
           "opp": "NEW",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.6
+          "xpts": 0.5
         }
       ]
     },
@@ -9892,7 +9892,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.21
+          "pts": 0.2
         },
         {
           "label": "Gole (xG)",
@@ -9904,11 +9904,11 @@
         },
         {
           "label": "Czyste konto",
-          "pts": 0.11
+          "pts": 0.1
         },
         {
           "label": "Akcje obronne",
-          "pts": 0.18
+          "pts": 0.16
         },
         {
           "label": "Bonus",
@@ -9916,7 +9916,7 @@
         },
         {
           "label": "Stracone + kartki",
-          "pts": -0.07
+          "pts": -0.06
         }
       ],
       "roadmap": [
@@ -12148,8 +12148,8 @@
       "et": 2,
       "pos": "DEF",
       "price": 4.5,
-      "xpts": 2.2,
-      "xpts_h": 6.3,
+      "xpts": 2.0,
+      "xpts_h": 5.7,
       "own": "0.0",
       "owned": false,
       "next": {
@@ -12160,11 +12160,11 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.69
+          "pts": 0.64
         },
         {
           "label": "Gole (xG)",
-          "pts": 0.63
+          "pts": 0.57
         },
         {
           "label": "Asysty (xA)",
@@ -12172,19 +12172,19 @@
         },
         {
           "label": "Czyste konto",
-          "pts": 0.48
+          "pts": 0.43
         },
         {
           "label": "Akcje obronne",
-          "pts": 0.48
+          "pts": 0.43
         },
         {
           "label": "Bonus",
-          "pts": 0.13
+          "pts": 0.12
         },
         {
           "label": "Stracone + kartki",
-          "pts": -0.16
+          "pts": -0.14
         }
       ],
       "roadmap": [
@@ -12193,35 +12193,35 @@
           "opp": "LEE",
           "ven": "H",
           "fdr": 2,
-          "xpts": 2.2
+          "xpts": 2.0
         },
         {
           "gw": 4,
           "opp": "COV",
           "ven": "A",
           "fdr": 2,
-          "xpts": 1.9
+          "xpts": 1.7
         },
         {
           "gw": 5,
           "opp": "ARS",
           "ven": "H",
           "fdr": 4,
-          "xpts": 2.2
+          "xpts": 2.0
         },
         {
           "gw": 6,
           "opp": "SUN",
           "ven": "A",
           "fdr": 3,
-          "xpts": 1.9
+          "xpts": 1.7
         },
         {
           "gw": 7,
           "opp": "CRY",
           "ven": "H",
           "fdr": 3,
-          "xpts": 2.2
+          "xpts": 2.0
         }
       ]
     },
@@ -14416,8 +14416,8 @@
       "et": 2,
       "pos": "DEF",
       "price": 4.5,
-      "xpts": 0.6,
-      "xpts_h": 1.9,
+      "xpts": 0.5,
+      "xpts_h": 1.6,
       "own": "0.1",
       "owned": false,
       "next": {
@@ -14428,7 +14428,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.42
+          "pts": 0.39
         },
         {
           "label": "Gole (xG)",
@@ -14440,7 +14440,7 @@
         },
         {
           "label": "Czyste konto",
-          "pts": 0.22
+          "pts": 0.2
         },
         {
           "label": "Akcje obronne",
@@ -14448,11 +14448,11 @@
         },
         {
           "label": "Bonus",
-          "pts": 0.02
+          "pts": 0.01
         },
         {
           "label": "Stracone + kartki",
-          "pts": -0.13
+          "pts": -0.12
         }
       ],
       "roadmap": [
@@ -14461,35 +14461,35 @@
           "opp": "FUL",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.6
+          "xpts": 0.5
         },
         {
           "gw": 4,
           "opp": "IPS",
           "ven": "H",
           "fdr": 2,
-          "xpts": 0.7
+          "xpts": 0.6
         },
         {
           "gw": 5,
           "opp": "LEE",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.6
+          "xpts": 0.5
         },
         {
           "gw": 6,
           "opp": "NFO",
           "ven": "H",
           "fdr": 3,
-          "xpts": 0.7
+          "xpts": 0.6
         },
         {
           "gw": 7,
           "opp": "BHA",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.6
+          "xpts": 0.5
         }
       ]
     },
@@ -15004,8 +15004,8 @@
       "et": 2,
       "pos": "DEF",
       "price": 4.5,
-      "xpts": 0.6,
-      "xpts_h": 1.9,
+      "xpts": 0.5,
+      "xpts_h": 1.6,
       "own": "0.1",
       "owned": false,
       "next": {
@@ -15016,7 +15016,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.4
+          "pts": 0.37
         },
         {
           "label": "Gole (xG)",
@@ -15028,19 +15028,19 @@
         },
         {
           "label": "Czyste konto",
-          "pts": 0.21
+          "pts": 0.18
         },
         {
           "label": "Akcje obronne",
-          "pts": 0.06
+          "pts": 0.05
         },
         {
           "label": "Bonus",
-          "pts": 0.02
+          "pts": 0.01
         },
         {
           "label": "Stracone + kartki",
-          "pts": -0.12
+          "pts": -0.11
         }
       ],
       "roadmap": [
@@ -15049,35 +15049,35 @@
           "opp": "FUL",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.6
+          "xpts": 0.5
         },
         {
           "gw": 4,
           "opp": "IPS",
           "ven": "H",
           "fdr": 2,
-          "xpts": 0.7
+          "xpts": 0.6
         },
         {
           "gw": 5,
           "opp": "LEE",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.6
+          "xpts": 0.5
         },
         {
           "gw": 6,
           "opp": "NFO",
           "ven": "H",
           "fdr": 3,
-          "xpts": 0.7
+          "xpts": 0.6
         },
         {
           "gw": 7,
           "opp": "BHA",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.6
+          "xpts": 0.5
         }
       ]
     },
@@ -19541,7 +19541,7 @@
       "pos": "DEF",
       "price": 5.0,
       "xpts": 0.8,
-      "xpts_h": 2.6,
+      "xpts_h": 2.5,
       "own": "0.1",
       "owned": false,
       "next": {
@@ -19552,11 +19552,11 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.5
+          "pts": 0.47
         },
         {
           "label": "Gole (xG)",
-          "pts": 0.16
+          "pts": 0.14
         },
         {
           "label": "Asysty (xA)",
@@ -19564,7 +19564,7 @@
         },
         {
           "label": "Czyste konto",
-          "pts": 0.26
+          "pts": 0.23
         },
         {
           "label": "Akcje obronne",
@@ -19572,11 +19572,11 @@
         },
         {
           "label": "Bonus",
-          "pts": 0.05
+          "pts": 0.04
         },
         {
           "label": "Stracone + kartki",
-          "pts": -0.16
+          "pts": -0.14
         }
       ],
       "roadmap": [
@@ -19592,7 +19592,7 @@
           "opp": "FUL",
           "ven": "H",
           "fdr": 2,
-          "xpts": 1.0
+          "xpts": 0.9
         },
         {
           "gw": 5,
@@ -19606,7 +19606,7 @@
           "opp": "MCI",
           "ven": "H",
           "fdr": 4,
-          "xpts": 1.0
+          "xpts": 0.9
         },
         {
           "gw": 7,
@@ -19624,8 +19624,8 @@
       "et": 2,
       "pos": "DEF",
       "price": 5.5,
-      "xpts": 1.6,
-      "xpts_h": 5.1,
+      "xpts": 1.4,
+      "xpts_h": 4.5,
       "own": "2.6",
       "owned": false,
       "next": {
@@ -19636,7 +19636,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.88
+          "pts": 0.81
         },
         {
           "label": "Gole (xG)",
@@ -19644,23 +19644,23 @@
         },
         {
           "label": "Asysty (xA)",
-          "pts": 0.08
+          "pts": 0.07
         },
         {
           "label": "Czyste konto",
-          "pts": 0.46
+          "pts": 0.4
         },
         {
           "label": "Akcje obronne",
-          "pts": 0.59
+          "pts": 0.54
         },
         {
           "label": "Bonus",
-          "pts": 0.05
+          "pts": 0.04
         },
         {
           "label": "Stracone + kartki",
-          "pts": -0.45
+          "pts": -0.41
         }
       ],
       "roadmap": [
@@ -19669,35 +19669,35 @@
           "opp": "IPS",
           "ven": "A",
           "fdr": 2,
-          "xpts": 1.6
+          "xpts": 1.4
         },
         {
           "gw": 4,
           "opp": "FUL",
           "ven": "H",
           "fdr": 2,
-          "xpts": 1.9
+          "xpts": 1.7
         },
         {
           "gw": 5,
           "opp": "BOU",
           "ven": "A",
           "fdr": 3,
-          "xpts": 1.6
+          "xpts": 1.4
         },
         {
           "gw": 6,
           "opp": "MCI",
           "ven": "H",
           "fdr": 4,
-          "xpts": 1.9
+          "xpts": 1.7
         },
         {
           "gw": 7,
           "opp": "BRE",
           "ven": "A",
           "fdr": 3,
-          "xpts": 1.6
+          "xpts": 1.4
         }
       ]
     },
@@ -19876,8 +19876,8 @@
       "et": 2,
       "pos": "DEF",
       "price": 6.0,
-      "xpts": 1.1,
-      "xpts_h": 3.1,
+      "xpts": 1.0,
+      "xpts_h": 2.8,
       "own": "1.3",
       "owned": false,
       "next": {
@@ -19888,7 +19888,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.66
+          "pts": 0.61
         },
         {
           "label": "Gole (xG)",
@@ -19896,11 +19896,11 @@
         },
         {
           "label": "Asysty (xA)",
-          "pts": 0.08
+          "pts": 0.07
         },
         {
           "label": "Czyste konto",
-          "pts": 0.46
+          "pts": 0.41
         },
         {
           "label": "Akcje obronne",
@@ -19908,11 +19908,11 @@
         },
         {
           "label": "Bonus",
-          "pts": 0.05
+          "pts": 0.04
         },
         {
           "label": "Stracone + kartki",
-          "pts": -0.16
+          "pts": -0.14
         }
       ],
       "roadmap": [
@@ -19921,35 +19921,35 @@
           "opp": "COV",
           "ven": "H",
           "fdr": 2,
-          "xpts": 1.1
+          "xpts": 1.0
         },
         {
           "gw": 4,
           "opp": "MUN",
           "ven": "A",
           "fdr": 4,
-          "xpts": 0.9
+          "xpts": 0.8
         },
         {
           "gw": 5,
           "opp": "SUN",
           "ven": "H",
           "fdr": 2,
-          "xpts": 1.1
+          "xpts": 1.0
         },
         {
           "gw": 6,
           "opp": "LIV",
           "ven": "A",
           "fdr": 4,
-          "xpts": 0.9
+          "xpts": 0.8
         },
         {
           "gw": 7,
           "opp": "IPS",
           "ven": "H",
           "fdr": 2,
-          "xpts": 1.1
+          "xpts": 1.0
         }
       ]
     },
@@ -20392,7 +20392,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.03
+          "pts": 0.02
         },
         {
           "label": "Gole (xG)",
@@ -20476,7 +20476,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.03
+          "pts": 0.02
         },
         {
           "label": "Gole (xG)",
@@ -20632,8 +20632,8 @@
       "et": 2,
       "pos": "DEF",
       "price": 5.0,
-      "xpts": 0.6,
-      "xpts_h": 1.8,
+      "xpts": 0.5,
+      "xpts_h": 1.6,
       "own": "2.4",
       "owned": false,
       "next": {
@@ -20644,7 +20644,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.27
+          "pts": 0.24
         },
         {
           "label": "Gole (xG)",
@@ -20656,11 +20656,11 @@
         },
         {
           "label": "Czyste konto",
-          "pts": 0.14
+          "pts": 0.12
         },
         {
           "label": "Akcje obronne",
-          "pts": 0.22
+          "pts": 0.2
         },
         {
           "label": "Bonus",
@@ -20668,7 +20668,7 @@
         },
         {
           "label": "Stracone + kartki",
-          "pts": -0.08
+          "pts": -0.07
         }
       ],
       "roadmap": [
@@ -20677,7 +20677,7 @@
           "opp": "EVE",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.6
+          "xpts": 0.5
         },
         {
           "gw": 4,
@@ -20691,7 +20691,7 @@
           "opp": "FUL",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.6
+          "xpts": 0.5
         },
         {
           "gw": 6,
@@ -20705,7 +20705,7 @@
           "opp": "LEE",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.6
+          "xpts": 0.5
         }
       ]
     },
@@ -24160,8 +24160,8 @@
       "et": 2,
       "pos": "DEF",
       "price": 5.0,
-      "xpts": 0.8,
-      "xpts_h": 2.6,
+      "xpts": 0.7,
+      "xpts_h": 2.3,
       "own": "0.4",
       "owned": false,
       "next": {
@@ -24172,7 +24172,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.61
+          "pts": 0.56
         },
         {
           "label": "Gole (xG)",
@@ -24184,7 +24184,7 @@
         },
         {
           "label": "Czyste konto",
-          "pts": 0.32
+          "pts": 0.28
         },
         {
           "label": "Akcje obronne",
@@ -24192,11 +24192,11 @@
         },
         {
           "label": "Bonus",
-          "pts": 0.03
+          "pts": 0.02
         },
         {
           "label": "Stracone + kartki",
-          "pts": -0.19
+          "pts": -0.17
         }
       ],
       "roadmap": [
@@ -24205,35 +24205,35 @@
           "opp": "BRE",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.8
+          "xpts": 0.7
         },
         {
           "gw": 4,
           "opp": "ARS",
           "ven": "H",
           "fdr": 4,
-          "xpts": 1.0
+          "xpts": 0.9
         },
         {
           "gw": 5,
           "opp": "MCI",
           "ven": "A",
           "fdr": 5,
-          "xpts": 0.8
+          "xpts": 0.7
         },
         {
           "gw": 6,
           "opp": "BHA",
           "ven": "H",
           "fdr": 2,
-          "xpts": 1.0
+          "xpts": 0.9
         },
         {
           "gw": 7,
           "opp": "BOU",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.8
+          "xpts": 0.7
         }
       ]
     },
@@ -24832,8 +24832,8 @@
       "et": 3,
       "pos": "MID",
       "price": 6.4,
-      "xpts": 0.8,
-      "xpts_h": 2.4,
+      "xpts": 0.7,
+      "xpts_h": 2.1,
       "own": "1.7",
       "owned": false,
       "next": {
@@ -24844,11 +24844,11 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.37
+          "pts": 0.34
         },
         {
           "label": "Gole (xG)",
-          "pts": 0.17
+          "pts": 0.16
         },
         {
           "label": "Asysty (xA)",
@@ -24856,11 +24856,11 @@
         },
         {
           "label": "Czyste konto",
-          "pts": 0.07
+          "pts": 0.06
         },
         {
           "label": "Akcje obronne",
-          "pts": 0.18
+          "pts": 0.16
         },
         {
           "label": "Bonus",
@@ -24877,35 +24877,35 @@
           "opp": "CHE",
           "ven": "H",
           "fdr": 4,
-          "xpts": 0.8
+          "xpts": 0.7
         },
         {
           "gw": 4,
           "opp": "SUN",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.8
+          "xpts": 0.7
         },
         {
           "gw": 5,
           "opp": "BHA",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.8
+          "xpts": 0.7
         },
         {
           "gw": 6,
           "opp": "LEE",
           "ven": "H",
           "fdr": 2,
-          "xpts": 0.8
+          "xpts": 0.7
         },
         {
           "gw": 7,
           "opp": "NFO",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.8
+          "xpts": 0.7
         }
       ]
     },
@@ -25000,8 +25000,8 @@
       "et": 3,
       "pos": "MID",
       "price": 6.4,
-      "xpts": 0.9,
-      "xpts_h": 2.5,
+      "xpts": 0.8,
+      "xpts_h": 2.4,
       "own": "0.3",
       "owned": false,
       "next": {
@@ -25012,7 +25012,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.58
+          "pts": 0.54
         },
         {
           "label": "Gole (xG)",
@@ -25020,15 +25020,15 @@
         },
         {
           "label": "Asysty (xA)",
-          "pts": 0.1
+          "pts": 0.09
         },
         {
           "label": "Czyste konto",
-          "pts": 0.1
+          "pts": 0.09
         },
         {
           "label": "Akcje obronne",
-          "pts": 0.09
+          "pts": 0.08
         },
         {
           "label": "Bonus",
@@ -25045,7 +25045,7 @@
           "opp": "CHE",
           "ven": "H",
           "fdr": 4,
-          "xpts": 0.9
+          "xpts": 0.8
         },
         {
           "gw": 4,
@@ -25066,7 +25066,7 @@
           "opp": "LEE",
           "ven": "H",
           "fdr": 2,
-          "xpts": 0.9
+          "xpts": 0.8
         },
         {
           "gw": 7,
@@ -25084,8 +25084,8 @@
       "et": 3,
       "pos": "MID",
       "price": 5.9,
-      "xpts": 1.4,
-      "xpts_h": 3.8,
+      "xpts": 1.3,
+      "xpts_h": 3.5,
       "own": "0.6",
       "owned": false,
       "next": {
@@ -25096,11 +25096,11 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.37
+          "pts": 0.34
         },
         {
           "label": "Gole (xG)",
-          "pts": 0.61
+          "pts": 0.54
         },
         {
           "label": "Asysty (xA)",
@@ -25108,15 +25108,15 @@
         },
         {
           "label": "Czyste konto",
-          "pts": 0.07
+          "pts": 0.06
         },
         {
           "label": "Akcje obronne",
-          "pts": 0.18
+          "pts": 0.16
         },
         {
           "label": "Bonus",
-          "pts": 0.12
+          "pts": 0.11
         },
         {
           "label": "Stracone + kartki",
@@ -25129,35 +25129,35 @@
           "opp": "CHE",
           "ven": "H",
           "fdr": 4,
-          "xpts": 1.4
+          "xpts": 1.3
         },
         {
           "gw": 4,
           "opp": "SUN",
           "ven": "A",
           "fdr": 3,
-          "xpts": 1.2
+          "xpts": 1.1
         },
         {
           "gw": 5,
           "opp": "BHA",
           "ven": "A",
           "fdr": 3,
-          "xpts": 1.2
+          "xpts": 1.1
         },
         {
           "gw": 6,
           "opp": "LEE",
           "ven": "H",
           "fdr": 2,
-          "xpts": 1.4
+          "xpts": 1.3
         },
         {
           "gw": 7,
           "opp": "NFO",
           "ven": "A",
           "fdr": 3,
-          "xpts": 1.2
+          "xpts": 1.1
         }
       ]
     },
@@ -25252,8 +25252,8 @@
       "et": 3,
       "pos": "MID",
       "price": 5.4,
-      "xpts": 1.0,
-      "xpts_h": 3.0,
+      "xpts": 0.9,
+      "xpts_h": 2.7,
       "own": "0.9",
       "owned": false,
       "next": {
@@ -25264,7 +25264,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.58
+          "pts": 0.54
         },
         {
           "label": "Gole (xG)",
@@ -25276,11 +25276,11 @@
         },
         {
           "label": "Czyste konto",
-          "pts": 0.1
+          "pts": 0.09
         },
         {
           "label": "Akcje obronne",
-          "pts": 0.26
+          "pts": 0.23
         },
         {
           "label": "Bonus",
@@ -25297,35 +25297,35 @@
           "opp": "CHE",
           "ven": "H",
           "fdr": 4,
-          "xpts": 1.0
+          "xpts": 0.9
         },
         {
           "gw": 4,
           "opp": "SUN",
           "ven": "A",
           "fdr": 3,
-          "xpts": 1.0
+          "xpts": 0.9
         },
         {
           "gw": 5,
           "opp": "BHA",
           "ven": "A",
           "fdr": 3,
-          "xpts": 1.0
+          "xpts": 0.9
         },
         {
           "gw": 6,
           "opp": "LEE",
           "ven": "H",
           "fdr": 2,
-          "xpts": 1.0
+          "xpts": 0.9
         },
         {
           "gw": 7,
           "opp": "NFO",
           "ven": "A",
           "fdr": 3,
-          "xpts": 1.0
+          "xpts": 0.9
         }
       ]
     },
@@ -25768,7 +25768,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.42
+          "pts": 0.39
         },
         {
           "label": "Gole (xG)",
@@ -25780,11 +25780,11 @@
         },
         {
           "label": "Czyste konto",
-          "pts": 0.06
+          "pts": 0.05
         },
         {
           "label": "Akcje obronne",
-          "pts": 0.03
+          "pts": 0.02
         },
         {
           "label": "Bonus",
@@ -26524,7 +26524,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.21
+          "pts": 0.2
         },
         {
           "label": "Gole (xG)",
@@ -26536,11 +26536,11 @@
         },
         {
           "label": "Czyste konto",
-          "pts": 0.03
+          "pts": 0.02
         },
         {
           "label": "Akcje obronne",
-          "pts": 0.18
+          "pts": 0.16
         },
         {
           "label": "Bonus",
@@ -26776,7 +26776,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.11
+          "pts": 0.1
         },
         {
           "label": "Gole (xG)",
@@ -27436,8 +27436,8 @@
       "et": 3,
       "pos": "MID",
       "price": 5.0,
-      "xpts": 0.1,
-      "xpts_h": 0.3,
+      "xpts": 0.0,
+      "xpts_h": 0.0,
       "own": "0.1",
       "owned": false,
       "next": {
@@ -27448,7 +27448,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.03
+          "pts": 0.02
         },
         {
           "label": "Gole (xG)",
@@ -27481,35 +27481,35 @@
           "opp": "NEW",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.1
+          "xpts": 0.0
         },
         {
           "gw": 4,
           "opp": "BRE",
           "ven": "H",
           "fdr": 3,
-          "xpts": 0.1
+          "xpts": 0.0
         },
         {
           "gw": 5,
           "opp": "LIV",
           "ven": "H",
           "fdr": 4,
-          "xpts": 0.1
+          "xpts": 0.0
         },
         {
           "gw": 6,
           "opp": "CHE",
           "ven": "A",
           "fdr": 4,
-          "xpts": 0.1
+          "xpts": 0.0
         },
         {
           "gw": 7,
           "opp": "SUN",
           "ven": "H",
           "fdr": 2,
-          "xpts": 0.1
+          "xpts": 0.0
         }
       ]
     },
@@ -27520,8 +27520,8 @@
       "et": 3,
       "pos": "MID",
       "price": 5.0,
-      "xpts": 1.7,
-      "xpts_h": 5.1,
+      "xpts": 1.5,
+      "xpts_h": 4.7,
       "own": "0.2",
       "owned": false,
       "next": {
@@ -27532,7 +27532,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.96
+          "pts": 0.88
         },
         {
           "label": "Gole (xG)",
@@ -27544,11 +27544,11 @@
         },
         {
           "label": "Czyste konto",
-          "pts": 0.12
+          "pts": 0.11
         },
         {
           "label": "Akcje obronne",
-          "pts": 0.61
+          "pts": 0.55
         },
         {
           "label": "Bonus",
@@ -27565,35 +27565,35 @@
           "opp": "NEW",
           "ven": "A",
           "fdr": 3,
-          "xpts": 1.7
+          "xpts": 1.5
         },
         {
           "gw": 4,
           "opp": "BRE",
           "ven": "H",
           "fdr": 3,
-          "xpts": 1.7
+          "xpts": 1.6
         },
         {
           "gw": 5,
           "opp": "LIV",
           "ven": "H",
           "fdr": 4,
-          "xpts": 1.7
+          "xpts": 1.6
         },
         {
           "gw": 6,
           "opp": "CHE",
           "ven": "A",
           "fdr": 4,
-          "xpts": 1.7
+          "xpts": 1.5
         },
         {
           "gw": 7,
           "opp": "SUN",
           "ven": "H",
           "fdr": 2,
-          "xpts": 1.7
+          "xpts": 1.6
         }
       ]
     },
@@ -27616,7 +27616,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.24
+          "pts": 0.22
         },
         {
           "label": "Gole (xG)",
@@ -27688,8 +27688,8 @@
       "et": 3,
       "pos": "MID",
       "price": 5.0,
-      "xpts": 0.2,
-      "xpts_h": 0.6,
+      "xpts": 0.1,
+      "xpts_h": 0.3,
       "own": "0.0",
       "owned": false,
       "next": {
@@ -27700,7 +27700,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.08
+          "pts": 0.07
         },
         {
           "label": "Gole (xG)",
@@ -27716,7 +27716,7 @@
         },
         {
           "label": "Akcje obronne",
-          "pts": 0.07
+          "pts": 0.06
         },
         {
           "label": "Bonus",
@@ -27733,35 +27733,35 @@
           "opp": "NEW",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.2
+          "xpts": 0.1
         },
         {
           "gw": 4,
           "opp": "BRE",
           "ven": "H",
           "fdr": 3,
-          "xpts": 0.2
+          "xpts": 0.1
         },
         {
           "gw": 5,
           "opp": "LIV",
           "ven": "H",
           "fdr": 4,
-          "xpts": 0.2
+          "xpts": 0.1
         },
         {
           "gw": 6,
           "opp": "CHE",
           "ven": "A",
           "fdr": 4,
-          "xpts": 0.2
+          "xpts": 0.1
         },
         {
           "gw": 7,
           "opp": "SUN",
           "ven": "H",
           "fdr": 2,
-          "xpts": 0.2
+          "xpts": 0.1
         }
       ]
     },
@@ -27784,7 +27784,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.4
+          "pts": 0.37
         },
         {
           "label": "Gole (xG)",
@@ -27800,7 +27800,7 @@
         },
         {
           "label": "Akcje obronne",
-          "pts": 0.17
+          "pts": 0.15
         },
         {
           "label": "Bonus",
@@ -29704,8 +29704,8 @@
       "et": 3,
       "pos": "MID",
       "price": 5.0,
-      "xpts": 0.5,
-      "xpts_h": 1.4,
+      "xpts": 0.4,
+      "xpts_h": 1.2,
       "own": "0.1",
       "owned": false,
       "next": {
@@ -29716,7 +29716,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.32
+          "pts": 0.29
         },
         {
           "label": "Gole (xG)",
@@ -29724,179 +29724,11 @@
         },
         {
           "label": "Asysty (xA)",
-          "pts": 0.08
+          "pts": 0.07
         },
         {
           "label": "Czyste konto",
-          "pts": 0.06
-        },
-        {
-          "label": "Akcje obronne",
-          "pts": 0.0
-        },
-        {
-          "label": "Bonus",
-          "pts": 0.02
-        },
-        {
-          "label": "Stracone + kartki",
-          "pts": 0.0
-        }
-      ],
-      "roadmap": [
-        {
-          "gw": 3,
-          "opp": "LEE",
-          "ven": "H",
-          "fdr": 2,
-          "xpts": 0.5
-        },
-        {
-          "gw": 4,
-          "opp": "COV",
-          "ven": "A",
-          "fdr": 2,
-          "xpts": 0.4
-        },
-        {
-          "gw": 5,
-          "opp": "ARS",
-          "ven": "H",
-          "fdr": 4,
-          "xpts": 0.5
-        },
-        {
-          "gw": 6,
-          "opp": "SUN",
-          "ven": "A",
-          "fdr": 3,
-          "xpts": 0.4
-        },
-        {
-          "gw": 7,
-          "opp": "CRY",
-          "ven": "H",
-          "fdr": 3,
-          "xpts": 0.5
-        }
-      ]
-    },
-    {
-      "id": 600,
-      "name": "Osman",
-      "team": "BHA",
-      "et": 3,
-      "pos": "MID",
-      "price": 5.0,
-      "xpts": 0.7,
-      "xpts_h": 2.1,
-      "own": "0.0",
-      "owned": false,
-      "next": {
-        "opp": "LEE",
-        "ven": "H",
-        "fdr": 2
-      },
-      "factors": [
-        {
-          "label": "Występ (minuty)",
-          "pts": 0.32
-        },
-        {
-          "label": "Gole (xG)",
-          "pts": 0.0
-        },
-        {
-          "label": "Asysty (xA)",
-          "pts": 0.13
-        },
-        {
-          "label": "Czyste konto",
-          "pts": 0.06
-        },
-        {
-          "label": "Akcje obronne",
-          "pts": 0.2
-        },
-        {
-          "label": "Bonus",
-          "pts": 0.03
-        },
-        {
-          "label": "Stracone + kartki",
-          "pts": 0.0
-        }
-      ],
-      "roadmap": [
-        {
-          "gw": 3,
-          "opp": "LEE",
-          "ven": "H",
-          "fdr": 2,
-          "xpts": 0.7
-        },
-        {
-          "gw": 4,
-          "opp": "COV",
-          "ven": "A",
-          "fdr": 2,
-          "xpts": 0.7
-        },
-        {
-          "gw": 5,
-          "opp": "ARS",
-          "ven": "H",
-          "fdr": 4,
-          "xpts": 0.7
-        },
-        {
-          "gw": 6,
-          "opp": "SUN",
-          "ven": "A",
-          "fdr": 3,
-          "xpts": 0.7
-        },
-        {
-          "gw": 7,
-          "opp": "CRY",
-          "ven": "H",
-          "fdr": 3,
-          "xpts": 0.7
-        }
-      ]
-    },
-    {
-      "id": 605,
-      "name": "Yalcouyé",
-      "team": "BHA",
-      "et": 3,
-      "pos": "MID",
-      "price": 4.5,
-      "xpts": 0.2,
-      "xpts_h": 0.5,
-      "own": "0.1",
-      "owned": false,
-      "next": {
-        "opp": "LEE",
-        "ven": "H",
-        "fdr": 2
-      },
-      "factors": [
-        {
-          "label": "Występ (minuty)",
-          "pts": 0.11
-        },
-        {
-          "label": "Gole (xG)",
-          "pts": 0.0
-        },
-        {
-          "label": "Asysty (xA)",
-          "pts": 0.03
-        },
-        {
-          "label": "Czyste konto",
-          "pts": 0.02
+          "pts": 0.05
         },
         {
           "label": "Akcje obronne",
@@ -29917,7 +29749,175 @@
           "opp": "LEE",
           "ven": "H",
           "fdr": 2,
-          "xpts": 0.2
+          "xpts": 0.4
+        },
+        {
+          "gw": 4,
+          "opp": "COV",
+          "ven": "A",
+          "fdr": 2,
+          "xpts": 0.4
+        },
+        {
+          "gw": 5,
+          "opp": "ARS",
+          "ven": "H",
+          "fdr": 4,
+          "xpts": 0.4
+        },
+        {
+          "gw": 6,
+          "opp": "SUN",
+          "ven": "A",
+          "fdr": 3,
+          "xpts": 0.4
+        },
+        {
+          "gw": 7,
+          "opp": "CRY",
+          "ven": "H",
+          "fdr": 3,
+          "xpts": 0.4
+        }
+      ]
+    },
+    {
+      "id": 600,
+      "name": "Osman",
+      "team": "BHA",
+      "et": 3,
+      "pos": "MID",
+      "price": 5.0,
+      "xpts": 0.7,
+      "xpts_h": 2.0,
+      "own": "0.0",
+      "owned": false,
+      "next": {
+        "opp": "LEE",
+        "ven": "H",
+        "fdr": 2
+      },
+      "factors": [
+        {
+          "label": "Występ (minuty)",
+          "pts": 0.29
+        },
+        {
+          "label": "Gole (xG)",
+          "pts": 0.0
+        },
+        {
+          "label": "Asysty (xA)",
+          "pts": 0.12
+        },
+        {
+          "label": "Czyste konto",
+          "pts": 0.05
+        },
+        {
+          "label": "Akcje obronne",
+          "pts": 0.18
+        },
+        {
+          "label": "Bonus",
+          "pts": 0.02
+        },
+        {
+          "label": "Stracone + kartki",
+          "pts": 0.0
+        }
+      ],
+      "roadmap": [
+        {
+          "gw": 3,
+          "opp": "LEE",
+          "ven": "H",
+          "fdr": 2,
+          "xpts": 0.7
+        },
+        {
+          "gw": 4,
+          "opp": "COV",
+          "ven": "A",
+          "fdr": 2,
+          "xpts": 0.6
+        },
+        {
+          "gw": 5,
+          "opp": "ARS",
+          "ven": "H",
+          "fdr": 4,
+          "xpts": 0.7
+        },
+        {
+          "gw": 6,
+          "opp": "SUN",
+          "ven": "A",
+          "fdr": 3,
+          "xpts": 0.6
+        },
+        {
+          "gw": 7,
+          "opp": "CRY",
+          "ven": "H",
+          "fdr": 3,
+          "xpts": 0.7
+        }
+      ]
+    },
+    {
+      "id": 605,
+      "name": "Yalcouyé",
+      "team": "BHA",
+      "et": 3,
+      "pos": "MID",
+      "price": 4.5,
+      "xpts": 0.1,
+      "xpts_h": 0.3,
+      "own": "0.1",
+      "owned": false,
+      "next": {
+        "opp": "LEE",
+        "ven": "H",
+        "fdr": 2
+      },
+      "factors": [
+        {
+          "label": "Występ (minuty)",
+          "pts": 0.1
+        },
+        {
+          "label": "Gole (xG)",
+          "pts": 0.0
+        },
+        {
+          "label": "Asysty (xA)",
+          "pts": 0.02
+        },
+        {
+          "label": "Czyste konto",
+          "pts": 0.02
+        },
+        {
+          "label": "Akcje obronne",
+          "pts": 0.0
+        },
+        {
+          "label": "Bonus",
+          "pts": 0.0
+        },
+        {
+          "label": "Stracone + kartki",
+          "pts": 0.0
+        }
+      ],
+      "roadmap": [
+        {
+          "gw": 3,
+          "opp": "LEE",
+          "ven": "H",
+          "fdr": 2,
+          "xpts": 0.1
         },
         {
           "gw": 4,
@@ -29931,7 +29931,7 @@
           "opp": "ARS",
           "ven": "H",
           "fdr": 4,
-          "xpts": 0.2
+          "xpts": 0.1
         },
         {
           "gw": 6,
@@ -29945,7 +29945,7 @@
           "opp": "CRY",
           "ven": "H",
           "fdr": 3,
-          "xpts": 0.2
+          "xpts": 0.1
         }
       ]
     },
@@ -32056,8 +32056,8 @@
       "et": 3,
       "pos": "MID",
       "price": 5.5,
-      "xpts": 1.8,
-      "xpts_h": 5.6,
+      "xpts": 1.7,
+      "xpts_h": 5.2,
       "own": "0.0",
       "owned": false,
       "next": {
@@ -32068,23 +32068,23 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 1.43
+          "pts": 1.32
         },
         {
           "label": "Gole (xG)",
-          "pts": 0.1
+          "pts": 0.09
         },
         {
           "label": "Asysty (xA)",
-          "pts": 0.06
+          "pts": 0.05
         },
         {
           "label": "Czyste konto",
-          "pts": 0.19
+          "pts": 0.16
         },
         {
           "label": "Akcje obronne",
-          "pts": 0.04
+          "pts": 0.03
         },
         {
           "label": "Bonus",
@@ -32101,35 +32101,35 @@
           "opp": "FUL",
           "ven": "A",
           "fdr": 3,
-          "xpts": 1.8
+          "xpts": 1.7
         },
         {
           "gw": 4,
           "opp": "IPS",
           "ven": "H",
           "fdr": 2,
-          "xpts": 2.0
+          "xpts": 1.8
         },
         {
           "gw": 5,
           "opp": "LEE",
           "ven": "A",
           "fdr": 3,
-          "xpts": 1.8
+          "xpts": 1.7
         },
         {
           "gw": 6,
           "opp": "NFO",
           "ven": "H",
           "fdr": 3,
-          "xpts": 2.0
+          "xpts": 1.8
         },
         {
           "gw": 7,
           "opp": "BHA",
           "ven": "A",
           "fdr": 3,
-          "xpts": 1.8
+          "xpts": 1.7
         }
       ]
     },
@@ -33232,8 +33232,8 @@
       "et": 3,
       "pos": "MID",
       "price": 5.0,
-      "xpts": 0.7,
-      "xpts_h": 2.1,
+      "xpts": 0.6,
+      "xpts_h": 1.8,
       "own": "0.0",
       "owned": false,
       "next": {
@@ -33244,7 +33244,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.58
+          "pts": 0.54
         },
         {
           "label": "Gole (xG)",
@@ -33256,7 +33256,7 @@
         },
         {
           "label": "Czyste konto",
-          "pts": 0.08
+          "pts": 0.07
         },
         {
           "label": "Akcje obronne",
@@ -33277,35 +33277,35 @@
           "opp": "FUL",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.7
+          "xpts": 0.6
         },
         {
           "gw": 4,
           "opp": "IPS",
           "ven": "H",
           "fdr": 2,
-          "xpts": 0.7
+          "xpts": 0.6
         },
         {
           "gw": 5,
           "opp": "LEE",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.7
+          "xpts": 0.6
         },
         {
           "gw": 6,
           "opp": "NFO",
           "ven": "H",
           "fdr": 3,
-          "xpts": 0.7
+          "xpts": 0.6
         },
         {
           "gw": 7,
           "opp": "BHA",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.7
+          "xpts": 0.6
         }
       ]
     },
@@ -39364,8 +39364,8 @@
       "et": 3,
       "pos": "MID",
       "price": 5.0,
-      "xpts": 0.7,
-      "xpts_h": 2.1,
+      "xpts": 0.6,
+      "xpts_h": 1.8,
       "own": "0.0",
       "owned": false,
       "next": {
@@ -39376,7 +39376,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.35
+          "pts": 0.32
         },
         {
           "label": "Gole (xG)",
@@ -39388,11 +39388,11 @@
         },
         {
           "label": "Czyste konto",
-          "pts": 0.05
+          "pts": 0.04
         },
         {
           "label": "Akcje obronne",
-          "pts": 0.29
+          "pts": 0.26
         },
         {
           "label": "Bonus",
@@ -39409,35 +39409,35 @@
           "opp": "IPS",
           "ven": "A",
           "fdr": 2,
-          "xpts": 0.7
+          "xpts": 0.6
         },
         {
           "gw": 4,
           "opp": "FUL",
           "ven": "H",
           "fdr": 2,
-          "xpts": 0.7
+          "xpts": 0.6
         },
         {
           "gw": 5,
           "opp": "BOU",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.7
+          "xpts": 0.6
         },
         {
           "gw": 6,
           "opp": "MCI",
           "ven": "H",
           "fdr": 4,
-          "xpts": 0.7
+          "xpts": 0.6
         },
         {
           "gw": 7,
           "opp": "BRE",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.7
+          "xpts": 0.6
         }
       ]
     },
@@ -39701,7 +39701,7 @@
       "pos": "MID",
       "price": 5.0,
       "xpts": 0.5,
-      "xpts_h": 1.6,
+      "xpts_h": 1.5,
       "own": "0.0",
       "owned": false,
       "next": {
@@ -39712,11 +39712,11 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.32
+          "pts": 0.29
         },
         {
           "label": "Gole (xG)",
-          "pts": 0.1
+          "pts": 0.09
         },
         {
           "label": "Asysty (xA)",
@@ -39728,7 +39728,7 @@
         },
         {
           "label": "Akcje obronne",
-          "pts": 0.04
+          "pts": 0.03
         },
         {
           "label": "Bonus",
@@ -39752,7 +39752,7 @@
           "opp": "FUL",
           "ven": "H",
           "fdr": 2,
-          "xpts": 0.6
+          "xpts": 0.5
         },
         {
           "gw": 5,
@@ -39766,7 +39766,7 @@
           "opp": "MCI",
           "ven": "H",
           "fdr": 4,
-          "xpts": 0.6
+          "xpts": 0.5
         },
         {
           "gw": 7,
@@ -39880,7 +39880,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.21
+          "pts": 0.2
         },
         {
           "label": "Gole (xG)",
@@ -39892,11 +39892,11 @@
         },
         {
           "label": "Czyste konto",
-          "pts": 0.04
+          "pts": 0.03
         },
         {
           "label": "Akcje obronne",
-          "pts": 0.08
+          "pts": 0.07
         },
         {
           "label": "Bonus",
@@ -40288,8 +40288,8 @@
       "et": 3,
       "pos": "MID",
       "price": 5.5,
-      "xpts": 1.4,
-      "xpts_h": 4.1,
+      "xpts": 1.3,
+      "xpts_h": 3.8,
       "own": "0.1",
       "owned": false,
       "next": {
@@ -40300,7 +40300,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 1.12
+          "pts": 1.03
         },
         {
           "label": "Gole (xG)",
@@ -40308,11 +40308,11 @@
         },
         {
           "label": "Asysty (xA)",
-          "pts": 0.05
+          "pts": 0.04
         },
         {
           "label": "Czyste konto",
-          "pts": 0.2
+          "pts": 0.17
         },
         {
           "label": "Akcje obronne",
@@ -40333,35 +40333,35 @@
           "opp": "COV",
           "ven": "H",
           "fdr": 2,
-          "xpts": 1.4
+          "xpts": 1.3
         },
         {
           "gw": 4,
           "opp": "MUN",
           "ven": "A",
           "fdr": 4,
-          "xpts": 1.3
+          "xpts": 1.2
         },
         {
           "gw": 5,
           "opp": "SUN",
           "ven": "H",
           "fdr": 2,
-          "xpts": 1.4
+          "xpts": 1.3
         },
         {
           "gw": 6,
           "opp": "LIV",
           "ven": "A",
           "fdr": 4,
-          "xpts": 1.3
+          "xpts": 1.2
         },
         {
           "gw": 7,
           "opp": "IPS",
           "ven": "H",
           "fdr": 2,
-          "xpts": 1.4
+          "xpts": 1.3
         }
       ]
     },
@@ -40708,8 +40708,8 @@
       "et": 3,
       "pos": "MID",
       "price": 5.5,
-      "xpts": 0.7,
-      "xpts_h": 2.0,
+      "xpts": 0.6,
+      "xpts_h": 1.7,
       "own": "0.1",
       "owned": false,
       "next": {
@@ -40720,7 +40720,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.21
+          "pts": 0.2
         },
         {
           "label": "Gole (xG)",
@@ -40728,15 +40728,15 @@
         },
         {
           "label": "Asysty (xA)",
-          "pts": 0.31
+          "pts": 0.28
         },
         {
           "label": "Czyste konto",
-          "pts": 0.04
+          "pts": 0.03
         },
         {
           "label": "Akcje obronne",
-          "pts": 0.08
+          "pts": 0.07
         },
         {
           "label": "Bonus",
@@ -40753,35 +40753,35 @@
           "opp": "COV",
           "ven": "H",
           "fdr": 2,
-          "xpts": 0.7
+          "xpts": 0.6
         },
         {
           "gw": 4,
           "opp": "MUN",
           "ven": "A",
           "fdr": 4,
-          "xpts": 0.6
+          "xpts": 0.5
         },
         {
           "gw": 5,
           "opp": "SUN",
           "ven": "H",
           "fdr": 2,
-          "xpts": 0.7
+          "xpts": 0.6
         },
         {
           "gw": 6,
           "opp": "LIV",
           "ven": "A",
           "fdr": 4,
-          "xpts": 0.6
+          "xpts": 0.5
         },
         {
           "gw": 7,
           "opp": "IPS",
           "ven": "H",
           "fdr": 2,
-          "xpts": 0.7
+          "xpts": 0.6
         }
       ]
     },
@@ -40792,8 +40792,8 @@
       "et": 3,
       "pos": "MID",
       "price": 4.5,
-      "xpts": 0.8,
-      "xpts_h": 2.2,
+      "xpts": 0.7,
+      "xpts_h": 2.0,
       "own": "0.0",
       "owned": false,
       "next": {
@@ -40804,11 +40804,11 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.21
+          "pts": 0.2
         },
         {
           "label": "Gole (xG)",
-          "pts": 0.43
+          "pts": 0.39
         },
         {
           "label": "Asysty (xA)",
@@ -40816,7 +40816,7 @@
         },
         {
           "label": "Czyste konto",
-          "pts": 0.04
+          "pts": 0.03
         },
         {
           "label": "Akcje obronne",
@@ -40824,7 +40824,7 @@
         },
         {
           "label": "Bonus",
-          "pts": 0.08
+          "pts": 0.07
         },
         {
           "label": "Stracone + kartki",
@@ -40837,7 +40837,7 @@
           "opp": "COV",
           "ven": "H",
           "fdr": 2,
-          "xpts": 0.8
+          "xpts": 0.7
         },
         {
           "gw": 4,
@@ -40851,7 +40851,7 @@
           "opp": "SUN",
           "ven": "H",
           "fdr": 2,
-          "xpts": 0.8
+          "xpts": 0.7
         },
         {
           "gw": 6,
@@ -40865,7 +40865,7 @@
           "opp": "IPS",
           "ven": "H",
           "fdr": 2,
-          "xpts": 0.8
+          "xpts": 0.7
         }
       ]
     },
@@ -41464,8 +41464,8 @@
       "et": 3,
       "pos": "MID",
       "price": 7.0,
-      "xpts": 1.6,
-      "xpts_h": 4.9,
+      "xpts": 1.5,
+      "xpts_h": 4.6,
       "own": "1.6",
       "owned": false,
       "next": {
@@ -41476,7 +41476,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 1.19
+          "pts": 1.1
         },
         {
           "label": "Gole (xG)",
@@ -41484,11 +41484,11 @@
         },
         {
           "label": "Asysty (xA)",
-          "pts": 0.2
+          "pts": 0.18
         },
         {
           "label": "Czyste konto",
-          "pts": 0.16
+          "pts": 0.14
         },
         {
           "label": "Akcje obronne",
@@ -41509,35 +41509,35 @@
           "opp": "EVE",
           "ven": "A",
           "fdr": 3,
-          "xpts": 1.6
+          "xpts": 1.5
         },
         {
           "gw": 4,
           "opp": "MCI",
           "ven": "H",
           "fdr": 4,
-          "xpts": 1.7
+          "xpts": 1.6
         },
         {
           "gw": 5,
           "opp": "FUL",
           "ven": "A",
           "fdr": 3,
-          "xpts": 1.6
+          "xpts": 1.5
         },
         {
           "gw": 6,
           "opp": "TOT",
           "ven": "H",
           "fdr": 3,
-          "xpts": 1.7
+          "xpts": 1.6
         },
         {
           "gw": 7,
           "opp": "LEE",
           "ven": "A",
           "fdr": 3,
-          "xpts": 1.6
+          "xpts": 1.5
         }
       ]
     },
@@ -41716,8 +41716,8 @@
       "et": 3,
       "pos": "MID",
       "price": 5.5,
-      "xpts": 1.0,
-      "xpts_h": 3.1,
+      "xpts": 0.9,
+      "xpts_h": 2.8,
       "own": "0.9",
       "owned": false,
       "next": {
@@ -41728,11 +41728,11 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.61
+          "pts": 0.56
         },
         {
           "label": "Gole (xG)",
-          "pts": 0.23
+          "pts": 0.21
         },
         {
           "label": "Asysty (xA)",
@@ -41740,7 +41740,7 @@
         },
         {
           "label": "Czyste konto",
-          "pts": 0.08
+          "pts": 0.07
         },
         {
           "label": "Akcje obronne",
@@ -41748,7 +41748,7 @@
         },
         {
           "label": "Bonus",
-          "pts": 0.05
+          "pts": 0.04
         },
         {
           "label": "Stracone + kartki",
@@ -41761,35 +41761,35 @@
           "opp": "EVE",
           "ven": "A",
           "fdr": 3,
-          "xpts": 1.0
+          "xpts": 0.9
         },
         {
           "gw": 4,
           "opp": "MCI",
           "ven": "H",
           "fdr": 4,
-          "xpts": 1.1
+          "xpts": 1.0
         },
         {
           "gw": 5,
           "opp": "FUL",
           "ven": "A",
           "fdr": 3,
-          "xpts": 1.0
+          "xpts": 0.9
         },
         {
           "gw": 6,
           "opp": "TOT",
           "ven": "H",
           "fdr": 3,
-          "xpts": 1.1
+          "xpts": 1.0
         },
         {
           "gw": 7,
           "opp": "LEE",
           "ven": "A",
           "fdr": 3,
-          "xpts": 1.0
+          "xpts": 0.9
         }
       ]
     },
@@ -41968,8 +41968,8 @@
       "et": 3,
       "pos": "MID",
       "price": 5.0,
-      "xpts": 0.4,
-      "xpts_h": 1.2,
+      "xpts": 0.3,
+      "xpts_h": 0.9,
       "own": "0.1",
       "owned": false,
       "next": {
@@ -41980,7 +41980,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.27
+          "pts": 0.24
         },
         {
           "label": "Gole (xG)",
@@ -42013,35 +42013,35 @@
           "opp": "EVE",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.4
+          "xpts": 0.3
         },
         {
           "gw": 4,
           "opp": "MCI",
           "ven": "H",
           "fdr": 4,
-          "xpts": 0.4
+          "xpts": 0.3
         },
         {
           "gw": 5,
           "opp": "FUL",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.4
+          "xpts": 0.3
         },
         {
           "gw": 6,
           "opp": "TOT",
           "ven": "H",
           "fdr": 3,
-          "xpts": 0.4
+          "xpts": 0.3
         },
         {
           "gw": 7,
           "opp": "LEE",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.4
+          "xpts": 0.3
         }
       ]
     },
@@ -45497,7 +45497,7 @@
       "pos": "MID",
       "price": 5.5,
       "xpts": 0.4,
-      "xpts_h": 1.3,
+      "xpts_h": 1.2,
       "own": "0.1",
       "owned": false,
       "next": {
@@ -45508,11 +45508,11 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.27
+          "pts": 0.24
         },
         {
           "label": "Gole (xG)",
-          "pts": 0.1
+          "pts": 0.09
         },
         {
           "label": "Asysty (xA)",
@@ -45548,7 +45548,7 @@
           "opp": "ARS",
           "ven": "H",
           "fdr": 4,
-          "xpts": 0.5
+          "xpts": 0.4
         },
         {
           "gw": 5,
@@ -45562,7 +45562,7 @@
           "opp": "BHA",
           "ven": "H",
           "fdr": 2,
-          "xpts": 0.5
+          "xpts": 0.4
         },
         {
           "gw": 7,
@@ -45916,8 +45916,8 @@
       "et": 3,
       "pos": "MID",
       "price": 5.0,
-      "xpts": 0.4,
-      "xpts_h": 1.2,
+      "xpts": 0.3,
+      "xpts_h": 0.9,
       "own": "0.1",
       "owned": false,
       "next": {
@@ -45928,7 +45928,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.27
+          "pts": 0.24
         },
         {
           "label": "Gole (xG)",
@@ -45961,35 +45961,35 @@
           "opp": "BRE",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.4
+          "xpts": 0.3
         },
         {
           "gw": 4,
           "opp": "ARS",
           "ven": "H",
           "fdr": 4,
-          "xpts": 0.4
+          "xpts": 0.3
         },
         {
           "gw": 5,
           "opp": "MCI",
           "ven": "A",
           "fdr": 5,
-          "xpts": 0.4
+          "xpts": 0.3
         },
         {
           "gw": 6,
           "opp": "BHA",
           "ven": "H",
           "fdr": 2,
-          "xpts": 0.4
+          "xpts": 0.3
         },
         {
           "gw": 7,
           "opp": "BOU",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.4
+          "xpts": 0.3
         }
       ]
     },
@@ -46000,8 +46000,8 @@
       "et": 3,
       "pos": "MID",
       "price": 5.5,
-      "xpts": 1.0,
-      "xpts_h": 3.0,
+      "xpts": 0.9,
+      "xpts_h": 2.7,
       "own": "0.2",
       "owned": false,
       "next": {
@@ -46012,7 +46012,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.82
+          "pts": 0.76
         },
         {
           "label": "Gole (xG)",
@@ -46024,7 +46024,7 @@
         },
         {
           "label": "Czyste konto",
-          "pts": 0.11
+          "pts": 0.09
         },
         {
           "label": "Akcje obronne",
@@ -46045,35 +46045,35 @@
           "opp": "BRE",
           "ven": "A",
           "fdr": 3,
-          "xpts": 1.0
+          "xpts": 0.9
         },
         {
           "gw": 4,
           "opp": "ARS",
           "ven": "H",
           "fdr": 4,
-          "xpts": 1.0
+          "xpts": 0.9
         },
         {
           "gw": 5,
           "opp": "MCI",
           "ven": "A",
           "fdr": 5,
-          "xpts": 1.0
+          "xpts": 0.9
         },
         {
           "gw": 6,
           "opp": "BHA",
           "ven": "H",
           "fdr": 2,
-          "xpts": 1.0
+          "xpts": 0.9
         },
         {
           "gw": 7,
           "opp": "BOU",
           "ven": "A",
           "fdr": 3,
-          "xpts": 1.0
+          "xpts": 0.9
         }
       ]
     },
@@ -47020,7 +47020,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.24
+          "pts": 0.22
         },
         {
           "label": "Gole (xG)",
@@ -47092,8 +47092,8 @@
       "et": 4,
       "pos": "FWD",
       "price": 5.0,
-      "xpts": 0.8,
-      "xpts_h": 2.4,
+      "xpts": 0.7,
+      "xpts_h": 2.3,
       "own": "0.1",
       "owned": false,
       "next": {
@@ -47104,11 +47104,11 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.4
+          "pts": 0.37
         },
         {
           "label": "Gole (xG)",
-          "pts": 0.27
+          "pts": 0.24
         },
         {
           "label": "Asysty (xA)",
@@ -47120,11 +47120,11 @@
         },
         {
           "label": "Akcje obronne",
-          "pts": 0.03
+          "pts": 0.02
         },
         {
           "label": "Bonus",
-          "pts": 0.06
+          "pts": 0.05
         },
         {
           "label": "Stracone + kartki",
@@ -47137,7 +47137,7 @@
           "opp": "NEW",
           "ven": "A",
           "fdr": 3,
-          "xpts": 0.8
+          "xpts": 0.7
         },
         {
           "gw": 4,
@@ -47158,7 +47158,7 @@
           "opp": "CHE",
           "ven": "A",
           "fdr": 4,
-          "xpts": 0.8
+          "xpts": 0.7
         },
         {
           "gw": 7,
@@ -47596,8 +47596,8 @@
       "et": 4,
       "pos": "FWD",
       "price": 5.5,
-      "xpts": 1.5,
-      "xpts_h": 4.3,
+      "xpts": 1.4,
+      "xpts_h": 4.0,
       "own": "0.2",
       "owned": false,
       "next": {
@@ -47608,11 +47608,11 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.69
+          "pts": 0.64
         },
         {
           "label": "Gole (xG)",
-          "pts": 0.62
+          "pts": 0.56
         },
         {
           "label": "Asysty (xA)",
@@ -47624,11 +47624,11 @@
         },
         {
           "label": "Akcje obronne",
-          "pts": 0.07
+          "pts": 0.06
         },
         {
           "label": "Bonus",
-          "pts": 0.14
+          "pts": 0.13
         },
         {
           "label": "Stracone + kartki",
@@ -47641,35 +47641,35 @@
           "opp": "LEE",
           "ven": "H",
           "fdr": 2,
-          "xpts": 1.5
+          "xpts": 1.4
         },
         {
           "gw": 4,
           "opp": "COV",
           "ven": "A",
           "fdr": 2,
-          "xpts": 1.3
+          "xpts": 1.2
         },
         {
           "gw": 5,
           "opp": "ARS",
           "ven": "H",
           "fdr": 4,
-          "xpts": 1.5
+          "xpts": 1.4
         },
         {
           "gw": 6,
           "opp": "SUN",
           "ven": "A",
           "fdr": 3,
-          "xpts": 1.3
+          "xpts": 1.2
         },
         {
           "gw": 7,
           "opp": "CRY",
           "ven": "H",
           "fdr": 3,
-          "xpts": 1.5
+          "xpts": 1.4
         }
       ]
     },
@@ -50285,7 +50285,7 @@
       "pos": "FWD",
       "price": 7.0,
       "xpts": 0.7,
-      "xpts_h": 2.2,
+      "xpts_h": 2.1,
       "own": "1.9",
       "owned": false,
       "next": {
@@ -50296,11 +50296,11 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.61
+          "pts": 0.56
         },
         {
           "label": "Gole (xG)",
-          "pts": 0.11
+          "pts": 0.1
         },
         {
           "label": "Asysty (xA)",
@@ -50336,7 +50336,7 @@
           "opp": "MCI",
           "ven": "H",
           "fdr": 4,
-          "xpts": 0.8
+          "xpts": 0.7
         },
         {
           "gw": 5,
@@ -50350,7 +50350,7 @@
           "opp": "TOT",
           "ven": "H",
           "fdr": 3,
-          "xpts": 0.8
+          "xpts": 0.7
         },
         {
           "gw": 7,
@@ -51640,7 +51640,7 @@
       "factors": [
         {
           "label": "Występ (minuty)",
-          "pts": 0.61
+          "pts": 0.56
         },
         {
           "label": "Gole (xG)",
