@@ -156,7 +156,7 @@ def fit_match_model(fixtures, teams):
             "n_matches": n, "fitted": fitted, "games": games}
 
 
-def make_model(teams, match_lambdas=None, league_avg=1.4):
+def make_model(teams, match_lambdas=None, league_avg=1.4, gw_played=1):
     """Buduje funkcję liczącą xPts jako sumę komponentów wg reguł FPL.
     Korzysta z metryk Opta per 90 (xG, xA, xGC, obrony, akcje obronne) i ocen siły drużyn."""
     atts, defs = [], []
@@ -181,10 +181,22 @@ def make_model(teams, match_lambdas=None, league_avg=1.4):
         chance = p.get("chance_of_playing_next_round")
         if chance is None:
             chance = 100 if p.get("status") == "a" else 0
-        m = chance / 100.0
+        avail = chance / 100.0
         starts = fnum(p, "starts")
         mins = fnum(p, "minutes")
         g90 = (mins / 90.0) if mins > 0 else 0
+        # ── model oczekiwanych minut: rozróżnia pewniaka (90') od zmiennika (10') ──
+        gp = max(1, gw_played)
+        est_starts = starts if starts > 0 else mins / 75.0   # z minut tylko gdy brak 'starts'
+        start_rate = min(1.0, est_starts / gp)             # jak często zaczyna mecz
+        min_frac = min(1.0, mins / (90.0 * gp))            # udział wszystkich minut
+        p60 = avail * min(1.0, start_rate * 0.95)          # szansa na 60+ (czyste konto, 2 pkt)
+        p_appear = avail * min(1.0, max(start_rate, min_frac * 1.25))  # szansa wejścia na boisko
+        vol = avail * min_frac                             # wolumen (skaluje gole/asysty/akcje)
+        # puchary europejskie: gracze poza pewną jedenastką bywają rotowani (murowani grają wszystko)
+        if p.get("_euro") and start_rate < 0.85:
+            p60 *= 0.88; vol *= 0.90; p_appear *= 0.96
+        m = vol  # zgodność wsteczna dla części wzorów
         xg90 = fnum(p, "expected_goals_per_90")
         xa90 = fnum(p, "expected_assists_per_90")
         sv90 = fnum(p, "saves_per_90")
@@ -207,30 +219,32 @@ def make_model(teams, match_lambdas=None, league_avg=1.4):
             att_mult = max(0.6, min(1.5, mean_def / opp_def)) * (1.05 if is_home else 0.97)
             lam = max(0.25, min(3.0, 1.25 * (opp_att / mean_att) * (0.9 if is_home else 1.12)))
         p_cs = math.exp(-lam)
-        e_goals = xg90 * m * att_mult
-        e_assist = xa90 * m * att_mult
+        e_goals = xg90 * vol * att_mult
+        e_assist = xa90 * vol * att_mult
         thr = DC_THRESH.get(et)
         dc_prob = (1 / (1 + math.exp(-(dc90 - thr) / 2.5))) if (thr and dc90 > 0) else 0.0
         yc = fnum(p, "yellow_cards")
-        gp = starts if starts > 0 else max(g90, 1)
-        yc_rate = min(0.4, yc / gp)
-        return {"et": et, "m": m, "e_goals": e_goals, "e_assist": e_assist, "p_cs": p_cs,
+        gpk = starts if starts > 0 else max(g90, 1)
+        yc_rate = min(0.4, yc / gpk)
+        return {"et": et, "m": m, "p_appear": p_appear, "p60": p60, "vol": vol,
+                "e_goals": e_goals, "e_assist": e_assist, "p_cs": p_cs,
                 "lam": lam, "sv90": sv90, "dc_prob": dc_prob, "yc_rate": yc_rate}
 
     def compute(p, opp_id, is_home, team_id=None):
         if not opp_id:  # pusta kolejka (BGW) — brak meczu
             return 0.0, [{"label": "Brak meczu (BGW)", "pts": 0.0}]
         r = _rates(p, opp_id, is_home, team_id)
-        et, m = r["et"], r["m"]
-        pts_app = m * 2.0
+        et = r["et"]
+        p_appear, p60, vol = r["p_appear"], r["p60"], r["vol"]
+        pts_app = p_appear * 1.0 + p60 * 1.0          # 1 za wejście + 1 za 60+
         pts_goals = r["e_goals"] * GOAL_PTS.get(et, 4)
         pts_assist = r["e_assist"] * 3.0
-        pts_cs = (r["p_cs"] * m) * CS_PTS.get(et, 0)
-        pts_conc = -(r["lam"] / 2.0) * m if et in (1, 2) else 0.0
-        pts_sv = (r["sv90"] * m / 3.0) if et == 1 else 0.0
-        pts_dc = r["dc_prob"] * 2.0 * m
-        pts_bonus = min(1.6, r["e_goals"] * 0.9 + r["e_assist"] * 0.6 + (r["p_cs"] * m * 0.3 if et in (1, 2) else 0))
-        pts_cards = -r["yc_rate"] * m
+        pts_cs = (r["p_cs"] * p60) * CS_PTS.get(et, 0)  # czyste konto wymaga 60 min
+        pts_conc = -(r["lam"] / 2.0) * p60 if et in (1, 2) else 0.0
+        pts_sv = (r["sv90"] * vol / 3.0) if et == 1 else 0.0
+        pts_dc = r["dc_prob"] * 2.0 * vol
+        pts_bonus = min(1.6, r["e_goals"] * 0.9 + r["e_assist"] * 0.6 + (r["p_cs"] * p60 * 0.3 if et in (1, 2) else 0))
+        pts_cards = -r["yc_rate"] * p_appear
 
         total = (pts_app + pts_goals + pts_assist + pts_cs + pts_conc
                  + pts_sv + pts_dc + pts_bonus + pts_cards)
@@ -289,11 +303,13 @@ def make_model(teams, match_lambdas=None, league_avg=1.4):
         więc rozkład jest 'grudkowaty' jak prawdziwe punkty FPL, bez zmyślonych mnożników."""
         if spec is None:
             return [0.0] * n
-        et, m = spec["et"], spec["m"]
+        et = spec["et"]
+        p_appear, p60 = spec["p_appear"], spec["p60"]
         gpts = GOAL_PTS.get(et, 4)
         xg, xa = spec["e_goals"], spec["e_assist"]
         p_cs, lam = spec["p_cs"], spec["lam"]
         sv90, dcp, ycr = spec["sv90"], spec["dc_prob"], spec["yc_rate"]
+        cond60 = (p60 / p_appear) if p_appear > 0 else 0.0   # P(60+ | zagrał)
         def pois(l):
             if l <= 0: return 0
             L, k, pr = math.exp(-l), 0, 1.0
@@ -302,9 +318,9 @@ def make_model(teams, match_lambdas=None, league_avg=1.4):
                 if pr <= L: return k - 1
         out = []
         for _ in range(n):
-            if random.random() >= m:      # nie zagrał
+            if random.random() >= p_appear:      # nie wszedł na boisko
                 out.append(0.0); continue
-            plays60 = random.random() < 0.9
+            plays60 = random.random() < cond60
             pts = 2.0 if plays60 else 1.0
             g = pois(xg); pts += g * gpts
             a = pois(xa); pts += a * 3
@@ -549,6 +565,21 @@ def build():
     by_name = {p["web_name"].lower(): p for p in boot["elements"]}
     pos_name = {1: "GK", 2: "DEF", 3: "MID", 4: "FWD"}
 
+    # ── drużyny w europejskich pucharach (z config.json — FPL API tego nie podaje) ──
+    short_to_id = {t["short_name"].upper(): t["id"] for t in boot["teams"]}
+    euro_cfg = cfg.get("european_teams") or []
+    euro_ids = set()
+    for x in euro_cfg:
+        if isinstance(x, int) and x in teams:
+            euro_ids.add(x)
+        elif isinstance(x, str) and x.upper() in short_to_id:
+            euro_ids.add(short_to_id[x.upper()])
+    for e in boot["elements"]:          # flaga na zawodnikach → model minut i rotacja
+        e["_euro"] = 1 if e["team"] in euro_ids else 0
+    if euro_ids:
+        print(f"· puchary europejskie: {len(euro_ids)} drużyn "
+              f"({', '.join(sorted(tshort[i] for i in euro_ids))}) — ryzyko rotacji podwyższone")
+
     cur_gw, next_gw = current_gw(boot["events"])
     gw_name = next(("Gameweek %d" % e["id"] for e in boot["events"] if e["id"] == next_gw), f"GW{next_gw}")
 
@@ -570,10 +601,12 @@ def build():
         return fx[0] if fx else None
 
     mm = fit_match_model(fixtures, boot["teams"])   # model goli Dixon-Coles + predykcje
+    gw_played = max(1, sum(1 for e in boot["events"] if e.get("finished")))
     compute_xpts, explain_xpts, sim_spec, simulate = make_model(
-        boot["teams"], match_lambdas=mm["match_lambdas"], league_avg=mm["league_avg"])
+        boot["teams"], match_lambdas=mm["match_lambdas"], league_avg=mm["league_avg"],
+        gw_played=gw_played)
     print(f"· model meczu: {'dopasowany' if mm['fitted'] else 'prior (za mało meczów)'}"
-          f" ({mm['n_matches']} rozegranych)")
+          f" ({mm['n_matches']} rozegranych) · minuty z {gw_played} kolejek")
 
     def sim_stats(p, opp_id, is_home, n=2000, team_id=None):
         """Floor (P25), ceiling (P90), haul% (P≥10) z symulacji Monte Carlo — uczciwa zmienność."""
@@ -608,7 +641,7 @@ def build():
         hist = (get_es(pid).get("history") or [])
         return [h.get("total_points", 0) for h in hist[-5:]]
 
-    def rotation_recent(pid, chance):
+    def rotation_recent(pid, chance, is_euro=False):
         """Ryzyko rotacji z minut z ostatnich meczów (dla składu — używa cache)."""
         hist = (get_es(pid).get("history") or [])[-5:]
         mins = [h.get("minutes", 0) for h in hist]
@@ -624,14 +657,18 @@ def build():
             lvl = "solid"
         else:
             lvl = "risk"
-        return {"level": lvl, "avg_min": round(avg), "start_rate": round(start_rate, 2), "n": len(mins)}
+        # puchary: gracze spoza murowanej jedenastki — podnieś ryzyko o oczko
+        if is_euro and lvl in ("solid", "risk") and start_rate < 0.85:
+            lvl = "risk" if lvl == "solid" else "doubt"
+        return {"level": lvl, "avg_min": round(avg), "start_rate": round(start_rate, 2),
+                "n": len(mins), "europe": bool(is_euro)}
 
-    def rotation_season(p):
+    def rotation_season(p, is_euro=False):
         """Ryzyko rotacji z sezonowych sum (dla puli — bez dodatkowych zapytań)."""
         starts = fnum2(p, "starts"); mins = fnum2(p, "minutes")
         chance = p.get("chance_of_playing_next_round")
         if starts <= 0 and mins <= 0:
-            return {"level": "unknown", "avg_min": 0, "start_rate": 0.0}
+            return {"level": "unknown", "avg_min": 0, "start_rate": 0.0, "europe": bool(is_euro)}
         avg = (mins / starts) if starts > 0 else 0
         if chance is not None and chance < 75:
             lvl = "doubt"
@@ -641,7 +678,9 @@ def build():
             lvl = "solid"
         else:
             lvl = "risk"
-        return {"level": lvl, "avg_min": round(avg), "start_rate": None}
+        if is_euro and lvl in ("solid", "risk"):
+            lvl = "risk" if lvl == "solid" else "doubt"
+        return {"level": lvl, "avg_min": round(avg), "start_rate": None, "europe": bool(is_euro)}
 
     # ── skład użytkownika ─────────────────────────────────────────────────────
     session = os.environ.get("FPL_SESSION", "").strip()
@@ -721,7 +760,7 @@ def build():
             "price_mom": (p.get("transfers_in_event") or 0) - (p.get("transfers_out_event") or 0),
             "cost_change_event": p.get("cost_change_event") or 0,
             "price_pred": price_pred(p, boot.get("total_players") or 10_000_000),
-            "rotation": rotation_recent(p["id"], p.get("chance_of_playing_next_round")) or rotation_season(p),
+            "rotation": rotation_recent(p["id"], p.get("chance_of_playing_next_round"), p.get("_euro")) or rotation_season(p, p.get("_euro")),
             "form5": last5(p["id"]),
             "roadmap": roadmap,
             "floor": sstat["floor"], "ceiling": sstat["ceiling"], "haul": sstat["haul"], "sd": sstat["sd"],
@@ -800,7 +839,7 @@ def build():
             "next": {"opp": nf["opp"], "ven": nf["ven"], "fdr": nf["fdr"]},
             "factors": fct, "roadmap": p_roadmap,
             "floor": pstat["floor"], "ceiling": pstat["ceiling"], "haul": pstat["haul"], "sd": pstat["sd"],
-            "rotation": rotation_season(p),
+            "rotation": rotation_season(p, p.get("_euro")),
             "price_pred": price_pred(p, boot.get("total_players") or 10_000_000),
         }
         pool_by_pos[p["element_type"]].append(cand)

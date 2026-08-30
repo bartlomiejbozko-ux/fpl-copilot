@@ -245,6 +245,7 @@
   .rotbadge.risk{background:rgba(255,176,32,.15);color:#9a6b00}
   .rotbadge.doubt{background:rgba(233,0,82,.1);color:var(--pink)}
   .rotbadge.unknown{background:rgba(55,0,60,.06);color:var(--muted)}
+  .eurotag{display:inline-block;margin-left:4px;padding:2px 6px;border-radius:5px;font:700 9px/1.5 'Space Mono',monospace;background:rgba(0,82,204,.1);color:#0052cc}
   /* optymalizator chipów */
   .chipgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:8px}
   .chipopt{display:flex;gap:11px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;box-shadow:0 2px 8px rgba(55,0,60,.05)}
@@ -980,7 +981,7 @@ function renderDetail(p){
           <div class="row"><span class="k">Cena / własność</span><span class="v">£${p.price.toFixed(1)} · ${p.selected_by}%</span></div>
           <div class="row"><span class="k">Stałe fragmenty</span><span class="v" style="color:${spBits.length?'var(--green-ink)':'var(--muted)'}">${spTxt}</span></div>
           <div class="row"><span class="k">Ruch ceny</span><span class="v" style="color:${mom>0?'var(--green-ink)':(mom<0?'var(--pink)':'var(--muted)')}">${momTxt}</span></div>
-          ${p.rotation?`<div class="row"><span class="k">Ryzyko rotacji</span><span class="v"><span class="rotbadge ${p.rotation.level}">${rotLabel(p.rotation.level)}</span>${p.rotation.avg_min?' · ~'+p.rotation.avg_min+' min':''}</span></div>`:''}
+          ${p.rotation?`<div class="row"><span class="k">Ryzyko rotacji</span><span class="v"><span class="rotbadge ${p.rotation.level}">${rotLabel(p.rotation.level)}</span>${p.rotation.avg_min?' · ~'+p.rotation.avg_min+' min':''}${p.rotation.europe?' <span class="eurotag">🇪🇺 puchary</span>':''}</span></div>`:''}
           ${p.price_pred&&p.price_pred.dir!=='stable'?`<div class="row"><span class="k">Prognoza ceny</span><span class="v ${p.price_pred.dir==='rise'?'':''}" style="color:${p.price_pred.dir==='rise'?'var(--green-ink)':'var(--pink)'}">${p.price_pred.dir==='rise'?'↑ możliwy wzrost':'↓ możliwy spadek'} (${Math.round(p.price_pred.score*100)}%)</span></div>`:''}
           <div class="row"><span class="k">Forma (5 GW)</span><span class="v">${p.form5&&p.form5.length?sparkline(p.form5)+' <span style="color:var(--muted);font-size:11px">'+p.form5.join("·")+'</span>':"—"}</span></div>
           <div class="row"><span class="k">FPL ep_next</span><span class="v" style="color:var(--cyan)">${p.ep_next??"—"}</span></div>
