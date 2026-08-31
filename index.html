@@ -253,6 +253,9 @@
   .chiptitle{font-weight:900;font-size:14px;color:var(--purple);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
   .chipgw{font:800 10px/1 'Space Mono',monospace;color:#fff;background:var(--green-ink);padding:3px 6px;border-radius:5px}
   .chipdesc{font:400 12px/1.5 'Space Mono',monospace;color:var(--ink);margin-top:4px}
+  .chipwarn{border-radius:10px;padding:10px 13px;margin-bottom:10px;font:600 12px/1.5 'Space Mono',monospace}
+  .chipwarn.expiry{background:rgba(255,176,32,.14);border:1px solid rgba(255,176,32,.35);color:#9a6b00}
+  .chipwarn.conflict{background:rgba(233,0,82,.08);border:1px solid rgba(233,0,82,.25);color:var(--pink)}
   /* planer wieloetapowy */
   .plsummary{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:12px}
   .plkpi{background:rgba(55,0,60,.04);border:1px solid var(--line);border-radius:10px;padding:9px 11px;display:flex;flex-direction:column;gap:2px}
@@ -455,9 +458,23 @@ let DATA=null, CUR="brief", SEL=null, EDIT=false, BANK=0;
 
 /* nadpisania składu (lokalne, GitHub Pages) — rozwiązują brak aktualizacji po transferach */
 function ovKey(){ return "fplco_ov_"+((DATA&&DATA.entry&&DATA.entry.team_id)||"x"); }
+function ovGwKey(){ return "fplco_ovgw_"+((DATA&&DATA.entry&&DATA.entry.team_id)||"x"); }
 function bankKey(){ return "fplco_bank_"+((DATA&&DATA.entry&&DATA.entry.team_id)||"x"); }
+function curGw(){ return (DATA&&DATA.gw&&DATA.gw.next)||0; }
 function loadOv(){ try{return JSON.parse(localStorage.getItem(ovKey())||"[]");}catch(e){return [];} }
-function saveOv(o){ try{localStorage.setItem(ovKey(),JSON.stringify(o));}catch(e){} }
+function saveOv(o){ try{localStorage.setItem(ovKey(),JSON.stringify(o)); localStorage.setItem(ovGwKey(),String(curGw()));}catch(e){} }
+// po deadline (nowy GW) skasuj przeterminowane nadpisania — serwer ma już realny skład
+function expireStaleOverrides(){
+  try{
+    const stamp=parseInt(localStorage.getItem(ovGwKey())||"0",10);
+    const now=curGw();
+    if(stamp && now && now>stamp){
+      localStorage.removeItem(ovKey()); localStorage.removeItem(ovGwKey()); localStorage.removeItem(bankKey());
+      return true;  // wygasło — skład wraca do danych z serwera
+    }
+  }catch(e){}
+  return false;
+}
 function baseBank(){ return (DATA.planner&&DATA.planner.bank!=null)?DATA.planner.bank:(DATA.entry.bank||0); }
 function loadBank(){ try{const v=localStorage.getItem(bankKey()); return v!==null?parseFloat(v):baseBank();}catch(e){return baseBank();} }
 function saveBank(v){ BANK=Math.round(v*10)/10; try{localStorage.setItem(bankKey(),String(BANK));}catch(e){} }
@@ -570,6 +587,7 @@ async function boot(){
     }catch(e){ return renderSetup(); }
   }
   if(!DATA.squad || !DATA.squad.length) return renderSetup(true);
+  const expired = expireStaleOverrides();   // nowy GW po deadline → wróć do składu z serwera
   BANK = loadBank();
 
   el("tagline").textContent = `${DATA.entry.name||"Twój skład"} · ${DATA.gw.name}`;
@@ -783,14 +801,14 @@ function renderBrief(){
     const pcard=p=>`<div class="xip">
         ${p.is_captain?'<span class="xibadge c">C</span>':p.is_vice?'<span class="xibadge v">V</span>':''}
         <span class="xinm">${p.name}</span>
-        <span class="xifx ${fdrC(p.fdr)}">${p.opp?p.opp+' ('+p.ven+')':'—'}</span>
+        <span class="xifx ${fdrC(p.fdr)}">${p.opp?p.opp+' ('+p.ven+')'+(p.dgw?' ×2':''):'—'}</span>
         <span class="xipts">${p.xpts.toFixed(1)}</span>
         ${(p.floor!=null&&p.ceiling!=null)?`<span class="xirange">${p.floor}–${p.ceiling}${p.haul>=0.15?' · 🔥'+Math.round(p.haul*100)+'%':''}</span>`:''}
         ${p.was_benched?'<span class="xiup">↑ z ławki</span>':''}
       </div>`;
     const pitch=['GK','DEF','MID','FWD'].map(r=>rows[r].length?`<div class="xirow">${rows[r].map(pcard).join("")}</div>`:"").join("");
     const ok=b.gw_outlook;
-    const outlookBar=ok?`<div class="xioutlook"><span class="xolab">Zakres kolejki (symulacja)</span>
+    const outlookBar=ok?`<div class="xioutlook"><span class="xolab">Zakres kolejki${ok.correlated?' · skorelowany MC':' (symulacja)'}</span>
         <span class="xorange"><b>${ok.p10}</b> <span class="xosep">–</span> <b>${ok.p90}</b> pkt</span>
         <span class="xomed">mediana ${ok.p50}</span></div>`:"";
     xiHtml=`<div class="xiwrap"><div class="xibar">
@@ -906,12 +924,18 @@ function openSwap(outId){
   const bank=BANK;
   const budget=out.price+bank;
   const ownedIds=new Set(squad.map(p=>p.id));
+  // liczba zawodników z każdego klubu (po odjęciu wymienianego — zwalnia slot)
+  const clubCount={};
+  squad.forEach(p=>{ if(p.id!==outId) clubCount[p.team]=(clubCount[p.team]||0)+1; });
+  const clubOk=c=> (clubCount[c.team]||0) < 3;   // OUT już odjęty, więc próg to 3
   const cands=(DATA.pool||[]).filter(c=>c.et===out.etype && !ownedIds.has(c.id))
     .sort((a,b)=>b.xpts_h-a.xpts_h);
   const list=cands.slice(0,60).map(c=>{
     const aff=c.price<=budget+1e-9;
-    return `<div class="swrow ${aff?'':'na'}" data-in="${c.id}" data-aff="${aff?1:0}">
-      <span class="swnm">${c.name}<span class="swpos">${c.team} · £${c.price.toFixed(1)} · ${c.own}%</span></span>
+    const okClub=clubOk(c);
+    const blocked=!okClub;
+    return `<div class="swrow ${(aff&&okClub)?'':'na'}" data-in="${c.id}" data-aff="${(aff&&okClub)?1:0}">
+      <span class="swnm">${c.name}<span class="swpos">${c.team} · £${c.price.toFixed(1)} · ${c.own}%${blocked?' · <b style="color:var(--pink)">limit 3/klub</b>':''}</span></span>
       <span class="mini-fx f${Math.max(1,Math.min(5,c.next?c.next.fdr:3))}">${c.next?c.next.opp+" ("+c.next.ven+")":"—"}</span>
       <span class="swxp">h${c.xpts_h}</span></div>`;}).join("");
   document.getElementById("detail").innerHTML=`
@@ -927,7 +951,10 @@ function openSwap(outId){
     if(out&&inp){ const sell=sellPrice(out.price,out.price); saveBank(Math.max(0, BANK + sell - inp.price)); }
     const ov=loadOv().filter(m=>m.out!==outId); ov.push({out:outId,in:inId}); saveOv(ov); EDIT=true; renderSquad();
   };
-  document.getElementById("swList").querySelectorAll(".swrow").forEach(r=>r.onclick=()=>doSwap(+r.dataset.in));
+  document.getElementById("swList").querySelectorAll(".swrow").forEach(r=>r.onclick=()=>{
+    if(r.dataset.aff!=="1") return;   // budżet lub limit 3/klub — nie pozwól
+    doSwap(+r.dataset.in);
+  });
   document.getElementById("swSearch").oninput=e=>{
     const q=e.target.value.toLowerCase();
     document.getElementById("swList").querySelectorAll(".swrow").forEach(r=>{
@@ -1042,12 +1069,14 @@ function renderPlanner(){
   let chipOpt="";
   if(CO.bench_boost||CO.triple_captain||CO.free_hit){
     const bb=CO.bench_boost, tc=CO.triple_captain, fh=CO.free_hit;
-    chipOpt=`<div class="chipgrid">
+    chipOpt=`${CO.expiry?`<div class="chipwarn expiry">⏳ ${CO.expiry}</div>`:''}
+      ${CO.conflict?`<div class="chipwarn conflict">⚠️ ${CO.conflict}</div>`:''}
+      <div class="chipgrid">
       ${bb?chipCard('🪑','Bench Boost',`Suma 15 zawodników: <b>${bb.score} xPts</b> — ${bb.note}.`,bb.gw,bb.dgw):''}
       ${tc?chipCard('👑','Triple Captain',`<b>${tc.player}</b> — prognoza ${tc.xpts}, po potrojeniu <b>${tc.tripled} pkt</b>${tc.dgw?' (podwójna kolejka!)':''}.`,tc.gw,tc.dgw):''}
       ${fh?chipCard('🎯','Free Hit',fh.note+'.',fh.gw,false):''}
     </div>
-    <div class="cvfoot" style="margin-bottom:14px">Skan roadmapy z wagą ryzyka rotacji (ławka niepewna waży mniej). Model meczu Dixon-Coles pod xPts. Rekomendacje kierunkowe — decyzja Twoja.</div>`;
+    <div class="cvfoot" style="margin-bottom:14px">Rekomendacje w obrębie <b>${CO.half||'bieżącej'} połowy sezonu</b> (chipy w dwóch zestawach: 1–19 i 20–38, niewykorzystane przepadają). Skan roadmapy z wagą rotacji, model meczu Dixon-Coles pod xPts. Apka nie wie, których chipów już użyłeś — sugeruje timing.</div>`;
   }
 
   // DGW/BGW
@@ -1248,7 +1277,10 @@ function renderSim(){
     const sp=sellPrice(parseFloat(buyInp.value)||out.price, out.price);
     const budget=sp+bank;
     const ownedIds=new Set(squad.map(p=>p.id));
-    const cands=pool.filter(c=>c.et===out.etype && !ownedIds.has(c.id) && c.price<=budget+1e-9)
+    const clubCount={};
+    squad.forEach(p=>{ if(p.id!==out.id) clubCount[p.team]=(clubCount[p.team]||0)+1; });
+    const cands=pool.filter(c=>c.et===out.etype && !ownedIds.has(c.id) && c.price<=budget+1e-9
+        && (clubCount[c.team]||0)<3)   // limit 3 z jednego klubu (OUT już odjęty)
       .sort((a,b)=>b.xpts_h-a.xpts_h).slice(0,40);
     inSel.innerHTML=cands.map(c=>`<option value="${c.id}">${c.name} (${c.team}, £${c.price.toFixed(1)}, h${c.xpts_h}, ${c.own}%)</option>`).join("")
       || `<option value="">brak kandydatów w budżecie £${budget.toFixed(1)}</option>`;
@@ -1281,12 +1313,26 @@ function renderSim(){
 }
 
 /* ---------- FDR ---------- */
+function computeTicker(xi){
+  const groups={};
+  xi.forEach(p=>{ const t=p.team; (groups[t]=groups[t]||{team:t,team_full:p.team_full||t,players:[],roadmap:p.roadmap||[]});
+    groups[t].players.push(p.name); if((p.roadmap||[]).length>groups[t].roadmap.length) groups[t].roadmap=p.roadmap; });
+  const tick=Object.values(groups).map(g=>{
+    const fx=(g.roadmap||[]).map(r=>({gw:r.gw,opp:r.opp,ven:r.ven,fdr:r.fdr}));
+    const avg=fx.length?Math.round(fx.reduce((a,f)=>a+f.fdr,0)/fx.length*10)/10:null;
+    return {team:g.team,team_full:g.team_full,count:g.players.length,players:g.players,fixtures:fx,avg_fdr:avg};
+  });
+  tick.sort((a,b)=>(b.count-a.count)||((a.avg_fdr||9)-(b.avg_fdr||9)));
+  return tick;
+}
 function renderFDR(){
-  const n = Math.max(...DATA.ticker.map(t=>t.fixtures.length),1);
+  const ovF=hasOverrides();
+  const ticker = ovF ? computeTicker(effectiveSquad().filter(p=>!p.on_bench)) : DATA.ticker;
+  const n = Math.max(...ticker.map(t=>t.fixtures.length),1);
   const cols = `1fr repeat(${n},54px) 50px`;
   const head = `<div class="lblhead"></div>`+Array.from({length:n},(_,i)=>`<div class="gwhead">+${i+1}</div>`).join("")+`<div class="gwhead">Śr.</div>`;
   const avgCol=a=>a==null?'var(--ink)':a<=2.4?'var(--green)':a<=3.1?'var(--amber)':'var(--pink)';
-  const rows = DATA.ticker.map(t=>{
+  const rows = ticker.map(t=>{
     const cells = Array.from({length:n},(_,i)=>{const f=t.fixtures[i];
       return f?`<div class="pcell fcell ${fdrClass(f.fdr)}"><span class="opp">${f.opp} (${f.ven})</span><span class="fdr">${f.fdr}</span></div>`
              :`<div class="pcell avg"></div>`;}).join("");
@@ -1317,6 +1363,7 @@ function renderFDR(){
   }
 
   el("app").innerHTML = `
+    ${ovF?'<div class="recbanner">⟳ Terminarz przeliczony po Twoich transferach. <button class="recundo" onclick="editReset()">Cofnij</button></div>':''}
     ${predHtml}
     <div class="h"><span class="no">02</span><span class="t">Terminarz FDR — kolejne ${n} kolejek</span><span class="d">pogrupowane po klubie</span></div>
     <div class="card"><div class="tick" style="grid-template-columns:${cols}">${head}${rows}</div></div>

@@ -218,6 +218,7 @@ def make_model(teams, match_lambdas=None, league_avg=1.4, gw_played=1):
             opp_att = opp_att if opp_att and opp_att > 0 else mean_att
             att_mult = max(0.6, min(1.5, mean_def / opp_def)) * (1.05 if is_home else 0.97)
             lam = max(0.25, min(3.0, 1.25 * (opp_att / mean_att) * (0.9 if is_home else 1.12)))
+            lam_for = max(0.3, min(3.5, league_avg * att_mult))
         p_cs = math.exp(-lam)
         e_goals = xg90 * vol * att_mult
         e_assist = xa90 * vol * att_mult
@@ -228,7 +229,7 @@ def make_model(teams, match_lambdas=None, league_avg=1.4, gw_played=1):
         yc_rate = min(0.4, yc / gpk)
         return {"et": et, "m": m, "p_appear": p_appear, "p60": p60, "vol": vol,
                 "e_goals": e_goals, "e_assist": e_assist, "p_cs": p_cs,
-                "lam": lam, "sv90": sv90, "dc_prob": dc_prob, "yc_rate": yc_rate}
+                "lam": lam, "lam_for": lam_for, "sv90": sv90, "dc_prob": dc_prob, "yc_rate": yc_rate}
 
     def compute(p, opp_id, is_home, team_id=None):
         if not opp_id:  # pusta kolejka (BGW) — brak meczu
@@ -374,6 +375,85 @@ def get_weather(short_name, kickoff_iso):
         }
     except Exception:
         return None
+
+
+def simulate_xi_correlated(players_meta, n=4000):
+    """Skorelowany Monte Carlo: losuje wynik meczu RAZ na drużynę (ze wspólnego λ
+    Dixon-Coles), a punkty zawodników wynikają z tego samego wyniku. Dzięki temu
+    czyste konta obrońców i gole napastników jednej drużyny są sprzężone — wariancja
+    jedenastki jest poprawna, a nie zaniżona jak przy niezależnej symulacji.
+    players_meta: lista {team_id, et, e_goals, e_assist, lam_for, lam_against,
+    p_appear, p60, sv90, dc_prob, yc_rate, is_captain}."""
+    def pois(l):
+        if l <= 0: return 0
+        L, k, pr = math.exp(-l), 0, 1.0
+        while True:
+            pr *= random.random(); k += 1
+            if pr <= L: return k - 1
+    # grupuj po drużynie (wspólny wynik meczu)
+    teams = {}
+    for i, p in enumerate(players_meta):
+        teams.setdefault(p["team_id"], {"lam_for": p["lam_for"], "lam_against": p["lam_against"], "idx": []})
+        teams[p["team_id"]]["idx"].append(i)
+    totals = []
+    for _ in range(n):
+        total = 0.0
+        for tid, tg in teams.items():
+            team_goals = pois(tg["lam_for"])
+            opp_goals = pois(tg["lam_against"])
+            mine = tg["idx"]
+            # rozdziel gole drużyny między naszych graczy (waga xG) + "inni"
+            gw = [players_meta[i]["e_goals"] for i in mine]
+            other_g = max(0.15, tg["lam_for"] - sum(gw))
+            weights_g = gw + [other_g]; sw_g = sum(weights_g)
+            goals_by = {i: 0 for i in mine}
+            for _g in range(team_goals):
+                r = random.random() * sw_g; acc = 0
+                for j, w in enumerate(weights_g):
+                    acc += w
+                    if r <= acc:
+                        if j < len(mine): goals_by[mine[j]] += 1
+                        break
+            # asysty: ~0.75 na gola, waga xA (+ inni)
+            aw = [players_meta[i]["e_assist"] for i in mine]
+            other_a = max(0.15, tg["lam_for"] * 0.7 - sum(aw))
+            weights_a = aw + [other_a]; sw_a = sum(weights_a)
+            assists_by = {i: 0 for i in mine}
+            for _g in range(team_goals):
+                if random.random() < 0.75:
+                    r = random.random() * sw_a; acc = 0
+                    for j, w in enumerate(weights_a):
+                        acc += w
+                        if r <= acc:
+                            if j < len(mine): assists_by[mine[j]] += 1
+                            break
+            for i in mine:
+                p = players_meta[i]
+                if random.random() >= p["p_appear"]:
+                    continue
+                cond60 = (p["p60"] / p["p_appear"]) if p["p_appear"] > 0 else 0.0
+                plays60 = random.random() < cond60
+                pts = 2.0 if plays60 else 1.0
+                pts += goals_by[i] * GOAL_PTS.get(p["et"], 4)
+                pts += assists_by[i] * 3
+                if p["et"] in (1, 2) and plays60 and opp_goals == 0:
+                    pts += CS_PTS.get(p["et"], 0)
+                if p["et"] in (1, 2):
+                    pts -= (opp_goals // 2)
+                if p["et"] == 1:
+                    pts += (pois(p["sv90"]) // 3)
+                if p["et"] in (2, 3, 4) and p["dc_prob"] and random.random() < p["dc_prob"]:
+                    pts += 2
+                if goals_by[i] > 0 or assists_by[i] > 0:
+                    rr = random.random()
+                    pts += 3 if rr < 0.25 else 2 if rr < 0.5 else 1 if rr < 0.75 else 0
+                if random.random() < p["yc_rate"]:
+                    pts -= 1
+                if p.get("is_captain"):
+                    pts *= 2
+                total += pts
+        totals.append(total)
+    return totals
 
 
 def best_xi_value(players, gw):
@@ -735,7 +815,19 @@ def build():
         fdr = nf["fdr"] if nf else 3
         is_home = (nf["ven"] == "H") if nf else True
         opp_id = nf["opp_id"] if nf else None
-        xpts, factors = compute_xpts(p, opp_id, is_home, tid)
+        # DGW: zsumuj xPts po WSZYSTKICH meczach drużyny w najbliższej kolejce
+        next_fixtures = [fx for fx in (team_fixtures.get(tid) or []) if fx["gw"] == next_gw]
+        is_dgw = len(next_fixtures) > 1
+        if next_fixtures:
+            xpts = 0.0; factors = None
+            for k, fx in enumerate(next_fixtures):
+                xp_k, fct_k = compute_xpts(p, fx["opp_id"], fx["ven"] == "H", tid)
+                xpts += xp_k
+                if k == 0:
+                    factors = fct_k
+            xpts = round(xpts, 1)
+        else:
+            xpts, factors = compute_xpts(p, opp_id, is_home, tid)  # BGW/brak → 0/fallback
         sstat = sim_stats(p, opp_id, is_home, n=3000, team_id=tid)
         roadmap = []
         for fx in (team_fixtures.get(tid) or []):
@@ -764,15 +856,18 @@ def build():
             "form5": last5(p["id"]),
             "roadmap": roadmap,
             "floor": sstat["floor"], "ceiling": sstat["ceiling"], "haul": sstat["haul"], "sd": sstat["sd"],
-            "next": ({"opp": nf["opp"], "ven": nf["ven"], "fdr": nf["fdr"], "opp_id": nf["opp_id"]} if nf else None),
+            "next": ({"opp": nf["opp"], "ven": nf["ven"], "fdr": nf["fdr"], "opp_id": nf["opp_id"],
+                      "dgw": is_dgw, "opp2": (next_fixtures[1]["opp"] if is_dgw else None)} if nf else None),
             "team_id": tid,
             "weather": weather,
             "is_captain": s["captain"], "is_vice": s["vice"],
             "multiplier": s["mult"], "on_bench": on_bench, "order": s["order"],
         }
         squad.append(entrypl)
+        _spec = sim_spec(p, opp_id, is_home, tid) if nf else None
         squad_sims[s["id"]] = {"sims": sstat["sims"], "on_bench": entrypl["on_bench"],
-                               "is_captain": entrypl.get("is_captain", False)}
+                               "is_captain": entrypl.get("is_captain", False),
+                               "spec": _spec, "team_id": tid}
         if not on_bench:
             xi_xpts += xpts * (2 if s["captain"] else 1)
         if s["captain"]:
@@ -822,7 +917,17 @@ def build():
         nf = next_fix(tid)
         if not nf:
             continue
-        x, fct = compute_xpts(p, nf["opp_id"], nf["ven"] == "H", tid)
+        c_next = [fx for fx in (team_fixtures.get(tid) or []) if fx["gw"] == next_gw]
+        c_dgw = len(c_next) > 1
+        if c_next:
+            x = 0.0; fct = None
+            for k, fx in enumerate(c_next):
+                xk, fk = compute_xpts(p, fx["opp_id"], fx["ven"] == "H", tid)
+                x += xk
+                if k == 0: fct = fk
+            x = round(x, 1)
+        else:
+            x, fct = compute_xpts(p, nf["opp_id"], nf["ven"] == "H", tid)
         pstat = sim_stats(p, nf["opp_id"], nf["ven"] == "H", n=1200, team_id=tid)
         p_roadmap = []
         for fx in (team_fixtures.get(tid) or []):
@@ -844,12 +949,23 @@ def build():
         }
         pool_by_pos[p["element_type"]].append(cand)
 
+    club_count = {}
+    for p in squad:
+        club_count[p["team"]] = club_count.get(p["team"], 0) + 1
+
     def best_upgrade(op):
-        """Najlepszy transfer za tego zawodnika w ramach budżetu (cena + bank)."""
+        """Najlepszy transfer za tego zawodnika w ramach budżetu (cena + bank).
+        Respektuje limit 3 zawodników z jednego klubu."""
         budget = op["price_t"] + bank_t
+        def club_ok(c):
+            # kandydat z klubu OUT nie zmienia liczby; inaczej klub musi mieć < 3
+            if c["team"] == op["team"]:
+                return True
+            return club_count.get(c["team"], 0) < 3
         cands = [c for c in pool_by_pos.get(op["etype"], [])
                  if c["id"] not in owned and c["price_t"] <= budget
-                 and c["status"] == "a" and (c["chance"] is None or c["chance"] >= 75)]
+                 and c["status"] == "a" and (c["chance"] is None or c["chance"] >= 75)
+                 and club_ok(c)]
         cands.sort(key=lambda c: -c["xpts_h"])
         return cands[0] if cands else None
 
@@ -1005,6 +1121,7 @@ def build():
             "opp": p["next"]["opp"] if p.get("next") else "",
             "ven": p["next"]["ven"] if p.get("next") else "",
             "fdr": p["next"]["fdr"] if p.get("next") else 3,
+            "dgw": (p["next"].get("dgw") if p.get("next") else False),
             "is_captain": p["id"] == cap_id, "is_vice": p["id"] == vice_id,
             "was_benched": p["on_bench"],
         } for p in sorted(xi_players, key=lambda p: (pos_ord.get(p["pos"], 9), -p["xpts"]))]
@@ -1023,32 +1140,29 @@ def build():
     gw_outlook = None
     xi_totals_sample = None
     if lineup and lineup.get("xi"):
-        xi_names = {x["name"] for x in lineup["xi"]}
         cap_nm = next((x["name"] for x in lineup["xi"] if x["is_captain"]), None)
         name_to_id = {pl["name"]: pl["id"] for pl in squad}
-        arrs, cap_arr = [], None
-        for nm in xi_names:
-            pid = name_to_id.get(nm)
+        meta = []
+        for x in lineup["xi"]:
+            pid = name_to_id.get(x["name"])
             rec = squad_sims.get(pid) if pid else None
-            if rec and rec["sims"]:
-                arrs.append(rec["sims"])
-                if nm == cap_nm:
-                    cap_arr = rec["sims"]
-        if arrs:
-            N = min(len(a) for a in arrs)
-            totals = []
-            for i in range(N):
-                t = sum(a[i] for a in arrs)
-                if cap_arr:
-                    t += cap_arr[i]   # podwojenie kapitana
-                totals.append(t)
-            st = sorted(totals)
+            sp = rec.get("spec") if rec else None
+            if sp:
+                meta.append({"team_id": rec["team_id"], "et": sp["et"],
+                             "e_goals": sp["e_goals"], "e_assist": sp["e_assist"],
+                             "lam_for": sp["lam_for"], "lam_against": sp["lam"],
+                             "p_appear": sp["p_appear"], "p60": sp["p60"], "sv90": sp["sv90"],
+                             "dc_prob": sp["dc_prob"], "yc_rate": sp["yc_rate"],
+                             "is_captain": (x["name"] == cap_nm)})
+        if meta:
+            totals = simulate_xi_correlated(meta, n=4000)
+            st = sorted(totals); N = len(totals); mean = sum(totals) / N
             xi_totals_sample = totals
             gw_outlook = {
                 "p10": round(st[int(N * 0.10)]), "p50": round(st[int(N * 0.50)]),
-                "p90": round(st[int(N * 0.90)]), "mean": round(sum(totals) / N, 1),
-                "sd": round((sum((t - sum(totals) / N) ** 2 for t in totals) / N) ** 0.5, 1),
-                "captain": cap_nm,
+                "p90": round(st[int(N * 0.90)]), "mean": round(mean, 1),
+                "sd": round((sum((t - mean) ** 2 for t in totals) / N) ** 0.5, 1),
+                "captain": cap_nm, "correlated": True,
             }
 
     brief = {"captain": captain, "captain_matrix": captain_matrix, "gw_outlook": gw_outlook,
@@ -1071,8 +1185,17 @@ def build():
         playing = len(e["pl"])
         dgw = e["fix"] > playing
         scan.append({"gw": g, "bb": round(e["bb"], 1), "playing": playing, "dgw": dgw})
-    # Bench Boost: max suma 15 tam, gdzie prawie wszyscy grają
-    bb_c = [s for s in scan if s["playing"] >= 13]
+    # granica dwóch zestawów chipów: pierwsza połowa do GW19, druga od GW20
+    HALF_BOUNDARY = 19
+    in_first_half = next_gw <= HALF_BOUNDARY
+    half_end = HALF_BOUNDARY if in_first_half else 38
+    # skan tylko w obrębie bieżącej połowy (chip z tej połowy nie przejdzie granicy)
+    scan_half = [s for s in scan if (s["gw"] <= half_end if in_first_half else s["gw"] >= 20)]
+    def in_half(gw):
+        return (gw <= half_end) if in_first_half else (gw >= 20)
+
+    # Bench Boost: max suma 15 tam, gdzie prawie wszyscy grają (w bieżącej połowie)
+    bb_c = [s for s in scan_half if s["playing"] >= 13]
     bench_boost = None
     if bb_c:
         b = max(bb_c, key=lambda s: s["bb"])
@@ -1083,6 +1206,8 @@ def build():
     triple_captain = None
     tc_best = None
     for g in sorted(gw_scan):
+        if not in_half(g):
+            continue
         e = gw_scan[g]
         dgw = e["fix"] > len(e["pl"])
         for nm, val in e["pl"].items():
@@ -1091,15 +1216,36 @@ def build():
     if tc_best and tc_best[2] >= 6:
         triple_captain = {"gw": tc_best[0], "player": tc_best[1], "xpts": round(tc_best[2], 1),
                           "tripled": round(tc_best[2] * 3, 1), "dgw": tc_best[3]}
-    # Free Hit: kolejka z najmniejszą liczbą Twoich grających (BGW)
+    # Free Hit: kolejka z najmniejszą liczbą Twoich grających (BGW), w bieżącej połowie
     free_hit = None
-    fh_c = [s for s in scan if s["playing"] < 11]
+    fh_c = [s for s in scan_half if s["playing"] < 11]
     if fh_c:
         f_ = min(fh_c, key=lambda s: s["playing"])
         free_hit = {"gw": f_["gw"], "playing": f_["playing"], "blanks": 15 - f_["playing"],
                     "note": f"tylko {f_['playing']} Twoich zawodników gra — Free Hit ratuje pustą kolejkę"}
+
+    # jeden chip na kolejkę — wykryj kolizję rekomendacji na tę samą kolejkę
+    chip_gws = [(c and c["gw"]) for c in (bench_boost, triple_captain, free_hit)]
+    conflict = None
+    seen = {}
+    for nm, gw in zip(("Bench Boost", "Triple Captain", "Free Hit"), chip_gws):
+        if gw is not None:
+            seen.setdefault(gw, []).append(nm)
+    for gw, names in seen.items():
+        if len(names) > 1:
+            conflict = f"Uwaga: {' i '.join(names)} wypadają na GW{gw} — możesz zagrać tylko JEDEN chip w kolejce."
+    # ostrzeżenie „użyj lub strać": pierwsza połowa dobiega końca
+    expiry = None
+    if in_first_half:
+        left = HALF_BOUNDARY - next_gw
+        if left <= 3:
+            expiry = (f"Pierwszy zestaw chipów (Wildcard, Free Hit, Bench Boost, Triple Captain) "
+                      f"wygasa po GW{HALF_BOUNDARY} — zostało {max(0,left)} kolejek. Niewykorzystane przepadają.")
+
     chips_opt = {"bench_boost": bench_boost, "triple_captain": triple_captain,
-                 "free_hit": free_hit, "scan": scan}
+                 "free_hit": free_hit, "scan": scan,
+                 "half": ("pierwsza" if in_first_half else "druga"), "half_end": half_end,
+                 "conflict": conflict, "expiry": expiry}
 
     # ── PLANER: DGW/BGW, chipy, różnicowi, ceny, rywale, pula symulatora ──────
     # double / blank gameweeks — skan kolejnych 8 kolejek z pełnego terminarza
