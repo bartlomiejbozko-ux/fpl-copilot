@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T00:16:26Z",
+  "generated_at": "2026-09-03T05:25:20Z",
   "gw": {
     "current": 2,
     "next": 3,
@@ -27,7 +27,7 @@
       "price": 4.6,
       "form": "10.0",
       "ppg": "10.0",
-      "selected_by": "7.0",
+      "selected_by": "7.1",
       "status": "a",
       "news": "",
       "chance": null,
@@ -68,12 +68,12 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": 237674,
+      "price_mom": 240089,
       "cost_change_event": 1,
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 237674,
+        "net": 240089,
         "moved": 1
       },
       "rotation": {
@@ -124,10 +124,10 @@
           "xpts": 5.3
         }
       ],
-      "floor": 5,
+      "floor": 4,
       "ceiling": 8,
       "haul": 0.001,
-      "sd": 1.95,
+      "sd": 2.02,
       "next": {
         "opp": "AVL",
         "ven": "H",
@@ -201,12 +201,12 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": 262103,
+      "price_mom": 266418,
       "cost_change_event": 0,
       "price_pred": {
         "dir": "stable",
-        "score": 0.97,
-        "net": 262103,
+        "score": 0.98,
+        "net": 266418,
         "moved": 0
       },
       "rotation": {
@@ -259,8 +259,8 @@
       ],
       "floor": 2,
       "ceiling": 11,
-      "haul": 0.18,
-      "sd": 4.15,
+      "haul": 0.164,
+      "sd": 4.03,
       "next": {
         "opp": "CHE",
         "ven": "H",
@@ -293,7 +293,7 @@
       "price": 5.6,
       "form": "7.0",
       "ppg": "7.0",
-      "selected_by": "17.8",
+      "selected_by": "17.9",
       "status": "a",
       "news": "",
       "chance": null,
@@ -334,12 +334,12 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": 306381,
+      "price_mom": 309217,
       "cost_change_event": 1,
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 306381,
+        "net": 309217,
         "moved": 1
       },
       "rotation": {
@@ -392,8 +392,8 @@
       ],
       "floor": 2,
       "ceiling": 11,
-      "haul": 0.14,
-      "sd": 3.75,
+      "haul": 0.139,
+      "sd": 3.83,
       "next": {
         "opp": "COV",
         "ven": "H",
@@ -467,12 +467,12 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": 14898,
+      "price_mom": 15485,
       "cost_change_event": -1,
       "price_pred": {
         "dir": "fall",
-        "score": 0.23,
-        "net": 14898,
+        "score": 0.24,
+        "net": 15485,
         "moved": -1
       },
       "rotation": {
@@ -526,7 +526,7 @@
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.93,
+      "sd": 1.08,
       "next": {
         "opp": "CHE",
         "ven": "H",
@@ -600,12 +600,12 @@
         "corners": 1,
         "fk": 1
       },
-      "price_mom": -109457,
+      "price_mom": -110153,
       "cost_change_event": 0,
       "price_pred": {
         "dir": "stable",
         "score": 0.43,
-        "net": -109457,
+        "net": -110153,
         "moved": 0
       },
       "rotation": {
@@ -658,8 +658,8 @@
       ],
       "floor": 4,
       "ceiling": 16,
-      "haul": 0.413,
-      "sd": 5.52,
+      "haul": 0.414,
+      "sd": 5.56,
       "next": {
         "opp": "IPS",
         "ven": "A",
@@ -670,7 +670,7 @@
       },
       "team_id": 14,
       "weather": {
-        "temp": 17,
+        "temp": 16,
         "rain": 0.0,
         "wind": 27
       },
@@ -733,12 +733,12 @@
         "corners": 4,
         "fk": 4
       },
-      "price_mom": -23438,
+      "price_mom": -24242,
       "cost_change_event": 0,
       "price_pred": {
         "dir": "stable",
-        "score": 0.33,
-        "net": -23438,
+        "score": 0.35,
+        "net": -24242,
         "moved": 0
       },
       "rotation": {
@@ -791,8 +791,8 @@
       ],
       "floor": 2,
       "ceiling": 10,
-      "haul": 0.115,
-      "sd": 3.54,
+      "haul": 0.102,
+      "sd": 3.42,
       "next": {
         "opp": "CHE",
         "ven": "H",
@@ -866,12 +866,12 @@
         "corners": null,
         "fk": 3
       },
-      "price_mom": 162628,
+      "price_mom": 163466,
       "cost_change_event": 1,
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 162628,
+        "net": 163466,
         "moved": 1
       },
       "rotation": {
@@ -924,8 +924,8 @@
       ],
       "floor": 2,
       "ceiling": 11,
-      "haul": 0.167,
-      "sd": 4.08,
+      "haul": 0.166,
+      "sd": 4.05,
       "next": {
         "opp": "ARS",
         "ven": "A",
@@ -999,12 +999,12 @@
         "corners": 3,
         "fk": 2
       },
-      "price_mom": 82597,
+      "price_mom": 84062,
       "cost_change_event": 0,
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 82597,
+        "net": 84062,
         "moved": 0
       },
       "rotation": {
@@ -1055,10 +1055,10 @@
           "xpts": 9.1
         }
       ],
-      "floor": 4,
-      "ceiling": 16,
-      "haul": 0.428,
-      "sd": 5.58,
+      "floor": 5,
+      "ceiling": 17,
+      "haul": 0.438,
+      "sd": 5.67,
       "next": {
         "opp": "COV",
         "ven": "H",
@@ -1091,7 +1091,7 @@
       "price": 7.5,
       "form": "6.5",
       "ppg": "6.5",
-      "selected_by": "24.9",
+      "selected_by": "24.8",
       "status": "a",
       "news": "",
       "chance": null,
@@ -1132,12 +1132,12 @@
         "corners": 4,
         "fk": null
       },
-      "price_mom": -44298,
+      "price_mom": -45735,
       "cost_change_event": 0,
       "price_pred": {
         "dir": "stable",
-        "score": 0.29,
-        "net": -44298,
+        "score": 0.3,
+        "net": -45735,
         "moved": 0
       },
       "rotation": {
@@ -1189,9 +1189,9 @@
         }
       ],
       "floor": 2,
-      "ceiling": 12,
-      "haul": 0.241,
-      "sd": 4.5,
+      "ceiling": 13,
+      "haul": 0.253,
+      "sd": 4.44,
       "next": {
         "opp": "ARS",
         "ven": "A",
@@ -1265,12 +1265,12 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": 235622,
+      "price_mom": 238502,
       "cost_change_event": 0,
       "price_pred": {
         "dir": "stable",
         "score": 0.54,
-        "net": 235622,
+        "net": 238502,
         "moved": 0
       },
       "rotation": {
@@ -1323,8 +1323,8 @@
       ],
       "floor": 2,
       "ceiling": 14,
-      "haul": 0.318,
-      "sd": 4.78,
+      "haul": 0.32,
+      "sd": 4.85,
       "next": {
         "opp": "COV",
         "ven": "H",
@@ -1398,12 +1398,12 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": 231348,
+      "price_mom": 232732,
       "cost_change_event": 1,
       "price_pred": {
         "dir": "rise",
-        "score": 0.53,
-        "net": 231348,
+        "score": 0.54,
+        "net": 232732,
         "moved": 1
       },
       "rotation": {
@@ -1456,8 +1456,8 @@
       ],
       "floor": 2,
       "ceiling": 12,
-      "haul": 0.172,
-      "sd": 4.14,
+      "haul": 0.185,
+      "sd": 4.2,
       "next": {
         "opp": "ARS",
         "ven": "A",
@@ -1531,12 +1531,12 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": -14000,
+      "price_mom": -14194,
       "cost_change_event": 0,
       "price_pred": {
         "dir": "stable",
-        "score": 0.59,
-        "net": -14000,
+        "score": 0.6,
+        "net": -14194,
         "moved": 0
       },
       "rotation": {
@@ -1590,7 +1590,7 @@
       "floor": 0,
       "ceiling": 2,
       "haul": 0.0,
-      "sd": 1.51,
+      "sd": 1.42,
       "next": {
         "opp": "IPS",
         "ven": "A",
@@ -1601,7 +1601,7 @@
       },
       "team_id": 14,
       "weather": {
-        "temp": 17,
+        "temp": 16,
         "rain": 0.0,
         "wind": 27
       },
@@ -1664,12 +1664,12 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": -7142,
+      "price_mom": -7285,
       "cost_change_event": 0,
       "price_pred": {
         "dir": "stable",
-        "score": 0.6,
-        "net": -7142,
+        "score": 0.61,
+        "net": -7285,
         "moved": 0
       },
       "rotation": {
@@ -1723,7 +1723,7 @@
       "floor": 0,
       "ceiling": 2,
       "haul": 0.0,
-      "sd": 1.08,
+      "sd": 1.1,
       "next": {
         "opp": "MCI",
         "ven": "A",
@@ -1797,12 +1797,12 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": 78699,
+      "price_mom": 79747,
       "cost_change_event": 0,
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 78699,
+        "net": 79747,
         "moved": 0
       },
       "rotation": {
@@ -1855,8 +1855,8 @@
       ],
       "floor": 2,
       "ceiling": 13,
-      "haul": 0.224,
-      "sd": 4.39,
+      "haul": 0.232,
+      "sd": 4.44,
       "next": {
         "opp": "SUN",
         "ven": "H",
@@ -1889,7 +1889,7 @@
       "price": 4.7,
       "form": "8.5",
       "ppg": "8.5",
-      "selected_by": "14.9",
+      "selected_by": "15.0",
       "status": "a",
       "news": "",
       "chance": null,
@@ -1930,12 +1930,12 @@
         "corners": 2,
         "fk": 4
       },
-      "price_mom": 461272,
+      "price_mom": 467158,
       "cost_change_event": 1,
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 461272,
+        "net": 467158,
         "moved": 1
       },
       "rotation": {
@@ -1988,8 +1988,8 @@
       ],
       "floor": 5,
       "ceiling": 19,
-      "haul": 0.493,
-      "sd": 6.74,
+      "haul": 0.486,
+      "sd": 6.69,
       "next": {
         "opp": "LEE",
         "ven": "H",
@@ -2299,11 +2299,11 @@
       "same": false
     },
     "gw_outlook": {
-      "p10": 58,
-      "p50": 83,
-      "p90": 112,
-      "mean": 84.2,
-      "sd": 20.9,
+      "p10": 57,
+      "p50": 82,
+      "p90": 110,
+      "mean": 83.1,
+      "sd": 20.8,
       "captain": "De Cuyper",
       "correlated": true
     },
@@ -2335,7 +2335,7 @@
             "ven": "H",
             "fdr": 3
           },
-          "selected_by": "8.0"
+          "selected_by": "8.1"
         }
       },
       {
@@ -2365,7 +2365,7 @@
             "ven": "A",
             "fdr": 3
           },
-          "selected_by": "29.8"
+          "selected_by": "29.7"
         }
       },
       {
@@ -2882,42 +2882,42 @@
         "name": "Konsa",
         "team": "ARS",
         "dir": "fall",
-        "mom": 14898,
+        "mom": 15485,
         "owned": true
       },
       {
         "name": "George Hemmings",
         "team": "AVL",
         "dir": "rise",
-        "mom": 13896,
+        "mom": 14111,
         "owned": false
       },
       {
         "name": "N.Jackson",
         "team": "AVL",
         "dir": "rise",
-        "mom": 16097,
+        "mom": 16626,
         "owned": false
       },
       {
         "name": "Suzuki",
         "team": "AVL",
         "dir": "rise",
-        "mom": 12565,
+        "mom": 12902,
         "owned": false
       },
       {
         "name": "Scott",
         "team": "BOU",
         "dir": "rise",
-        "mom": 28346,
+        "mom": 28728,
         "owned": false
       },
       {
         "name": "Evanilson",
         "team": "BOU",
         "dir": "rise",
-        "mom": 22425,
+        "mom": 22511,
         "owned": false
       }
     ],
@@ -2930,7 +2930,7 @@
           "price": 4.5,
           "dir": "rise",
           "score": 1.0,
-          "net": 13896,
+          "net": 14111,
           "moved": 0,
           "owned": false,
           "own": "0.9"
@@ -2942,7 +2942,7 @@
           "price": 6.5,
           "dir": "rise",
           "score": 1.0,
-          "net": 16097,
+          "net": 16626,
           "moved": 0,
           "owned": false,
           "own": "0.8"
@@ -2954,7 +2954,7 @@
           "price": 5.0,
           "dir": "rise",
           "score": 1.0,
-          "net": 12565,
+          "net": 12902,
           "moved": 0,
           "owned": false,
           "own": "1.1"
@@ -2966,7 +2966,7 @@
           "price": 6.0,
           "dir": "rise",
           "score": 1.0,
-          "net": 28346,
+          "net": 28728,
           "moved": 0,
           "owned": false,
           "own": "1.9"
@@ -2978,7 +2978,7 @@
           "price": 6.0,
           "dir": "rise",
           "score": 1.0,
-          "net": 22425,
+          "net": 22511,
           "moved": 0,
           "owned": false,
           "own": "3.2"
@@ -2990,7 +2990,7 @@
           "price": 5.5,
           "dir": "rise",
           "score": 1.0,
-          "net": 47522,
+          "net": 48249,
           "moved": 0,
           "owned": false,
           "own": "1.9"
@@ -3002,7 +3002,7 @@
           "price": 4.5,
           "dir": "rise",
           "score": 1.0,
-          "net": 55803,
+          "net": 56875,
           "moved": 0,
           "owned": false,
           "own": "4.9"
@@ -3014,7 +3014,7 @@
           "price": 4.6,
           "dir": "rise",
           "score": 1.0,
-          "net": 78699,
+          "net": 79747,
           "moved": 0,
           "owned": true,
           "own": "9.3"
@@ -3028,10 +3028,10 @@
           "price": 8.0,
           "dir": "fall",
           "score": 1.0,
-          "net": -194889,
+          "net": -197543,
           "moved": 0,
           "owned": false,
-          "own": "26.4"
+          "own": "26.3"
         },
         {
           "id": 9,
@@ -3040,7 +3040,7 @@
           "price": 5.4,
           "dir": "fall",
           "score": 1.0,
-          "net": -21735,
+          "net": -22013,
           "moved": 0,
           "owned": false,
           "own": "1.2"
@@ -3052,7 +3052,7 @@
           "price": 5.5,
           "dir": "fall",
           "score": 1.0,
-          "net": -51609,
+          "net": -52383,
           "moved": 0,
           "owned": false,
           "own": "5.0"
@@ -3064,7 +3064,7 @@
           "price": 7.5,
           "dir": "fall",
           "score": 1.0,
-          "net": -154395,
+          "net": -156345,
           "moved": 0,
           "owned": false,
           "own": "14.9"
@@ -3076,7 +3076,7 @@
           "price": 6.4,
           "dir": "fall",
           "score": 1.0,
-          "net": -22872,
+          "net": -23182,
           "moved": -1,
           "owned": false,
           "own": "1.5"
@@ -3088,7 +3088,7 @@
           "price": 6.8,
           "dir": "fall",
           "score": 1.0,
-          "net": -42936,
+          "net": -43253,
           "moved": -1,
           "owned": false,
           "own": "2.2"
@@ -3100,7 +3100,7 @@
           "price": 6.5,
           "dir": "fall",
           "score": 1.0,
-          "net": -300917,
+          "net": -306763,
           "moved": 0,
           "owned": false,
           "own": "21.8"
@@ -3112,7 +3112,7 @@
           "price": 5.5,
           "dir": "fall",
           "score": 1.0,
-          "net": -20183,
+          "net": -20401,
           "moved": 0,
           "owned": false,
           "own": "2.5"
@@ -3124,56 +3124,56 @@
           "team": "HUL",
           "dir": "rise",
           "score": 1.0,
-          "net": 237674
+          "net": 240089
         },
         {
           "name": "Gvardiol",
           "team": "MCI",
           "dir": "rise",
           "score": 1.0,
-          "net": 306381
+          "net": 309217
         },
         {
           "name": "Konsa",
           "team": "ARS",
           "dir": "fall",
-          "score": 0.23,
-          "net": 14898
+          "score": 0.24,
+          "net": 15485
         },
         {
           "name": "Palmer",
           "team": "CHE",
           "dir": "rise",
           "score": 1.0,
-          "net": 162628
+          "net": 163466
         },
         {
           "name": "Foden",
           "team": "MCI",
           "dir": "rise",
           "score": 1.0,
-          "net": 82597
+          "net": 84062
         },
         {
           "name": "João Pedro",
           "team": "CHE",
           "dir": "rise",
-          "score": 0.53,
-          "net": 231348
+          "score": 0.54,
+          "net": 232732
         },
         {
           "name": "Kayode",
           "team": "BRE",
           "dir": "rise",
           "score": 1.0,
-          "net": 78699
+          "net": 79747
         },
         {
           "name": "De Cuyper",
           "team": "BHA",
           "dir": "rise",
           "score": 1.0,
-          "net": 461272
+          "net": 467158
         }
       ]
     },
@@ -3426,7 +3426,7 @@
         "team": "Banda Łysych",
         "total": 131,
         "gap": 3,
-        "hold": 0.73,
+        "hold": 0.72,
         "xi_mean": 69.1,
         "captain": "B.Fernandes",
         "cap_differs": true,
@@ -3450,7 +3450,7 @@
         "team": "FC 2027",
         "total": 107,
         "gap": 27,
-        "hold": 0.91,
+        "hold": 0.9,
         "xi_mean": 72.3,
         "captain": "Haaland",
         "cap_differs": true,
@@ -3784,7 +3784,7 @@
       "price": 6.0,
       "xpts": 2.8,
       "xpts_h": 8.9,
-      "own": "37.9",
+      "own": "37.8",
       "owned": false,
       "next": {
         "opp": "CHE",
@@ -5128,7 +5128,7 @@
       "price": 4.0,
       "xpts": 0.0,
       "xpts_h": 0.0,
-      "own": "0.1",
+      "own": "0.2",
       "owned": false,
       "next": {
         "opp": "MCI",
@@ -5464,7 +5464,7 @@
       "price": 5.5,
       "xpts": 4.5,
       "xpts_h": 14.4,
-      "own": "8.8",
+      "own": "8.7",
       "owned": false,
       "next": {
         "opp": "MUN",
@@ -6052,7 +6052,7 @@
       "price": 4.6,
       "xpts": 6.3,
       "xpts_h": 14.4,
-      "own": "7.0",
+      "own": "7.1",
       "owned": true,
       "next": {
         "opp": "AVL",
@@ -8320,7 +8320,7 @@
       "price": 4.5,
       "xpts": 2.4,
       "xpts_h": 10.1,
-      "own": "20.1",
+      "own": "20.0",
       "owned": false,
       "next": {
         "opp": "NFO",
@@ -8656,7 +8656,7 @@
       "price": 8.0,
       "xpts": 3.8,
       "xpts_h": 10.6,
-      "own": "26.4",
+      "own": "26.3",
       "owned": false,
       "next": {
         "opp": "CHE",
@@ -9580,7 +9580,7 @@
       "price": 4.5,
       "xpts": 2.4,
       "xpts_h": 9.5,
-      "own": "0.7",
+      "own": "0.8",
       "owned": false,
       "next": {
         "opp": "HUL",
@@ -11848,7 +11848,7 @@
       "price": 4.7,
       "xpts": 9.8,
       "xpts_h": 30.3,
-      "own": "14.9",
+      "own": "15.0",
       "owned": true,
       "next": {
         "opp": "LEE",
@@ -13612,7 +13612,7 @@
       "price": 4.0,
       "xpts": 0.9,
       "xpts_h": 4.8,
-      "own": "12.1",
+      "own": "12.0",
       "owned": false,
       "next": {
         "opp": "MCI",
@@ -15040,7 +15040,7 @@
       "price": 6.0,
       "xpts": 4.6,
       "xpts_h": 14.9,
-      "own": "10.4",
+      "own": "10.5",
       "owned": false,
       "next": {
         "opp": "MUN",
@@ -16300,7 +16300,7 @@
       "price": 4.0,
       "xpts": 6.9,
       "xpts_h": 16.0,
-      "own": "4.4",
+      "own": "4.5",
       "owned": false,
       "next": {
         "opp": "AVL",
@@ -16468,7 +16468,7 @@
       "price": 4.1,
       "xpts": 7.6,
       "xpts_h": 16.8,
-      "own": "8.0",
+      "own": "8.1",
       "owned": false,
       "next": {
         "opp": "AVL",
@@ -19828,7 +19828,7 @@
       "price": 5.6,
       "xpts": 5.5,
       "xpts_h": 13.3,
-      "own": "17.8",
+      "own": "17.9",
       "owned": true,
       "next": {
         "opp": "COV",
@@ -20920,7 +20920,7 @@
       "price": 4.5,
       "xpts": 2.5,
       "xpts_h": 8.0,
-      "own": "16.8",
+      "own": "16.7",
       "owned": false,
       "next": {
         "opp": "EVE",
@@ -21424,7 +21424,7 @@
       "price": 5.1,
       "xpts": 5.9,
       "xpts_h": 15.8,
-      "own": "8.5",
+      "own": "8.6",
       "owned": false,
       "next": {
         "opp": "BOU",
@@ -21760,7 +21760,7 @@
       "price": 5.4,
       "xpts": 3.3,
       "xpts_h": 8.8,
-      "own": "6.8",
+      "own": "6.7",
       "owned": false,
       "next": {
         "opp": "TOT",
@@ -22768,7 +22768,7 @@
       "price": 5.9,
       "xpts": 1.8,
       "xpts_h": 6.9,
-      "own": "6.0",
+      "own": "5.9",
       "owned": false,
       "next": {
         "opp": "NFO",
@@ -22852,7 +22852,7 @@
       "price": 5.5,
       "xpts": 1.8,
       "xpts_h": 6.8,
-      "own": "12.1",
+      "own": "12.0",
       "owned": false,
       "next": {
         "opp": "NFO",
@@ -23020,7 +23020,7 @@
       "price": 5.0,
       "xpts": 1.0,
       "xpts_h": 4.4,
-      "own": "3.9",
+      "own": "3.8",
       "owned": false,
       "next": {
         "opp": "NFO",
@@ -28480,7 +28480,7 @@
       "price": 5.7,
       "xpts": 5.3,
       "xpts_h": 15.7,
-      "own": "13.2",
+      "own": "13.3",
       "owned": false,
       "next": {
         "opp": "SUN",
@@ -29572,7 +29572,7 @@
       "price": 7.5,
       "xpts": 6.3,
       "xpts_h": 21.3,
-      "own": "24.9",
+      "own": "24.8",
       "owned": true,
       "next": {
         "opp": "ARS",
@@ -38140,7 +38140,7 @@
       "price": 7.5,
       "xpts": 4.9,
       "xpts_h": 13.7,
-      "own": "10.2",
+      "own": "10.1",
       "owned": false,
       "next": {
         "opp": "IPS",
@@ -38224,7 +38224,7 @@
       "price": 7.0,
       "xpts": 6.0,
       "xpts_h": 16.7,
-      "own": "8.0",
+      "own": "8.1",
       "owned": false,
       "next": {
         "opp": "IPS",
@@ -39316,7 +39316,7 @@
       "price": 6.0,
       "xpts": 6.0,
       "xpts_h": 16.7,
-      "own": "13.7",
+      "own": "13.6",
       "owned": false,
       "next": {
         "opp": "COV",
@@ -39400,7 +39400,7 @@
       "price": 8.5,
       "xpts": 4.9,
       "xpts_h": 13.4,
-      "own": "20.7",
+      "own": "20.6",
       "owned": false,
       "next": {
         "opp": "COV",
@@ -39568,7 +39568,7 @@
       "price": 7.7,
       "xpts": 5.9,
       "xpts_h": 16.0,
-      "own": "25.7",
+      "own": "25.9",
       "owned": false,
       "next": {
         "opp": "COV",
@@ -40744,7 +40744,7 @@
       "price": 8.0,
       "xpts": 6.4,
       "xpts_h": 27.6,
-      "own": "29.8",
+      "own": "29.7",
       "owned": false,
       "next": {
         "opp": "EVE",
@@ -41836,7 +41836,7 @@
       "price": 6.1,
       "xpts": 3.8,
       "xpts_h": 10.1,
-      "own": "8.3",
+      "own": "8.4",
       "owned": false,
       "next": {
         "opp": "BOU",
@@ -42592,7 +42592,7 @@
       "price": 7.9,
       "xpts": 6.4,
       "xpts_h": 16.7,
-      "own": "9.3",
+      "own": "9.4",
       "owned": false,
       "next": {
         "opp": "TOT",
@@ -43348,7 +43348,7 @@
       "price": 5.4,
       "xpts": 2.4,
       "xpts_h": 7.6,
-      "own": "3.1",
+      "own": "3.0",
       "owned": false,
       "next": {
         "opp": "NFO",
@@ -45700,7 +45700,7 @@
       "price": 7.3,
       "xpts": 0.0,
       "xpts_h": 0.0,
-      "own": "5.2",
+      "own": "5.1",
       "owned": false,
       "next": {
         "opp": "CHE",
@@ -46372,7 +46372,7 @@
       "price": 8.0,
       "xpts": 6.6,
       "xpts_h": 21.3,
-      "own": "14.5",
+      "own": "14.4",
       "owned": false,
       "next": {
         "opp": "SUN",
@@ -47884,7 +47884,7 @@
       "price": 6.4,
       "xpts": 0.0,
       "xpts_h": 0.0,
-      "own": "3.0",
+      "own": "2.9",
       "owned": false,
       "next": {
         "opp": "FUL",
@@ -49816,7 +49816,7 @@
       "price": 6.1,
       "xpts": 5.1,
       "xpts_h": 12.7,
-      "own": "11.6",
+      "own": "11.7",
       "owned": false,
       "next": {
         "opp": "BOU",
@@ -50320,7 +50320,7 @@
       "price": 5.9,
       "xpts": 4.8,
       "xpts_h": 12.6,
-      "own": "3.2",
+      "own": "3.1",
       "owned": false,
       "next": {
         "opp": "TOT",
@@ -50740,7 +50740,7 @@
       "price": 5.9,
       "xpts": 2.5,
       "xpts_h": 7.5,
-      "own": "10.1",
+      "own": "10.0",
       "owned": false,
       "next": {
         "opp": "BRE",
