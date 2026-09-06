@@ -141,15 +141,19 @@ def fit_match_model(fixtures, teams):
         # macierz wyników (Poisson) do 8 goli
         def pois(k, l): return math.exp(-l) * (l ** k) / math.factorial(k)
         ph = pa = pd = 0.0
+        best_p, best_ij = 0.0, (0, 0)
         for i in range(9):
             for j in range(9):
                 p = pois(i, lh) * pois(j, la)
+                if p > best_p:
+                    best_p, best_ij = p, (i, j)
                 if i > j: ph += p
                 elif i == j: pd += p
                 else: pa += p
         return {"lam_h": round(lh, 2), "lam_a": round(la, 2),
                 "p_home": round(ph, 3), "p_draw": round(pd, 3), "p_away": round(pa, 3),
-                "cs_home": round(math.exp(-la), 3), "cs_away": round(math.exp(-lh), 3)}
+                "cs_home": round(math.exp(-la), 3), "cs_away": round(math.exp(-lh), 3),
+                "score": f"{best_ij[0]}–{best_ij[1]}", "score_p": round(best_p, 3)}
 
     fitted = n >= 20
     return {"match_lambdas": match_lambdas, "predict": predict, "league_avg": league_avg,
@@ -1689,6 +1693,7 @@ def build():
             "lam_h": pr["lam_h"], "lam_a": pr["lam_a"],
             "p_home": pr["p_home"], "p_draw": pr["p_draw"], "p_away": pr["p_away"],
             "cs_home": pr["cs_home"], "cs_away": pr["cs_away"],
+            "score": pr["score"], "score_p": pr["score_p"],
             "goals": round(pr["lam_h"] + pr["lam_a"], 1),
         })
 
