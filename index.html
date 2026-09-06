@@ -134,6 +134,7 @@
   .cmname{font-weight:900;font-size:16px;color:var(--purple)}
   .cmmeta{font:400 11px/1.3 'Space Mono',monospace;color:var(--muted)}
   .cmnote{margin-top:9px;font:400 11px/1.5 'Space Mono',monospace;color:var(--ink)}
+  .cmctx{display:block;margin-top:4px;font:700 10px/1.3 'Space Mono',monospace;color:var(--green-ink)}
   /* roadmapa */
   .rmtbl{width:100%;border-collapse:separate;border-spacing:4px;font-family:'Space Mono',monospace}
   .rmtbl th{font:700 9px/1.1 'Space Mono',monospace;color:var(--muted);text-transform:uppercase;padding:4px 6px;text-align:center}
@@ -558,7 +559,8 @@ function recomputeBrief(sq){
     out:{name:pout.name,pos:pout.pos,xpts:pout.xpts},
     delta:Math.round((pin.xpts-pout.xpts)*10)/10}:null;}).filter(Boolean);
   const bench=sq.filter(p=>!xiIds.has(p.id)).sort((a,b)=>b.xpts-a.xpts)
-    .map(p=>({name:p.name,pos:p.pos,xpts:p.xpts}));
+    .map(p=>({name:p.name,pos:p.pos,xpts:p.xpts,
+      opp:p.next?.opp||"",ven:p.next?.ven||"",fdr:p.next?.fdr||3}));
   const highlights=[...best.xi].sort((a,b)=>b.xpts-a.xpts).slice(0,3).map(p=>({
     name:p.name,pos:p.pos,xpts:p.xpts,opp:p.next?.opp||"",ven:p.next?.ven||"",reason:reasonFor(p)}));
   const lineup={optimal:swaps.length===0,optimal_formation:best.form,
@@ -745,21 +747,32 @@ function renderBrief(){
            <div class="ap">Opaska jest na <b>${c.current}</b> (${c.current_xpts}), ale <b>${c.best}</b> ma wyższą prognozę (${c.best_xpts}) — zysk <b>+${c.gain} xPts</b>.</div></div></div>`;
   }
 
-  // matryca kapitańska: Tarcza vs Sztylet (teoria gier)
+  // matryca kapitańska: Tarcza vs Sztylet (teoria gier) — wzbogacona o formę/minuty/zagrożenie
   const cm=b.captain_matrix;
+  const pById=(nm)=>effectiveSquad().find(p=>p.name===nm)||(DATA.squad||[]).find(p=>p.name===nm);
+  const capCtx=(side)=>{
+    const p=pById(side.name); if(!p) return "";
+    const form=(p.form5&&p.form5.length)?p.form5.slice(-3).join("-"):null;   // ostatnie 3 mecze
+    const rot=p.rotation?rotLabel(p.rotation.level)+(p.rotation.avg_min?` ~${p.rotation.avg_min}'`:''):null;
+    const dgw=(p.next&&p.next.dgw)?'DGW ×2':null;
+    const bits=[form?`forma ${form}`:null, rot, dgw].filter(Boolean);
+    return bits.length?`<span class="cmctx">${bits.join(' · ')}</span>`:"";
+  };
   let cmHtml="";
   if(cm){
-    cmHtml = cm.same
-      ? `<div class="card" style="margin-top:10px"><div class="cmrow"><div class="cmside shield">
-           <span class="cmtag">🛡️ Tarcza = 🗡️ Sztylet</span><span class="cmname">${cm.shield.name}</span>
-           <span class="cmmeta">${cm.shield.xpts} xPts · ${cm.shield.own}% · ${cm.shield.opp} (${cm.shield.ven})</span></div></div>
-           <div class="cmnote">Bezpieczny i różnicowy wybór to ten sam zawodnik — czysta sytuacja.</div></div>`
-      : `<div class="card" style="margin-top:10px"><div class="cmrow">
-           <div class="cmside shield"><span class="cmtag">🛡️ Tarcza (lider ligi)</span><span class="cmname">${cm.shield.name}</span>
-             <span class="cmmeta">${cm.shield.xpts} xPts · ${cm.shield.own}% · ${cm.shield.opp} (${cm.shield.ven})</span></div>
-           <div class="cmside dagger"><span class="cmtag">🗡️ Sztylet (goniący)</span><span class="cmname">${cm.dagger.name}</span>
-             <span class="cmmeta">${cm.dagger.xpts} xPts · ${cm.dagger.own}% · ${cm.dagger.opp} (${cm.dagger.ven})</span></div></div>
-           <div class="cmnote">Bronisz przewagi w minilidze → Tarcza (wysoka własność, minimalizuje straty). Gonisz → Sztylet (niższa własność = dźwignia na odrobienie punktów). Uwaga: „własność" to przybliżenie EO, nie dokładny wskaźnik.</div></div>`;
+    const shieldSide=`<div class="cmside shield"><span class="cmtag">🛡️ Tarcza${cm.same?' = 🗡️ Sztylet':' (lider ligi)'}</span>
+        <span class="cmname">${cm.shield.name}</span>
+        <span class="cmmeta">${cm.shield.xpts} xPts · ${cm.shield.own}% · ${cm.shield.opp} (${cm.shield.ven})</span>
+        ${capCtx(cm.shield)}</div>`;
+    const daggerSide=cm.same?"":`<div class="cmside dagger"><span class="cmtag">🗡️ Sztylet (goniący)</span>
+        <span class="cmname">${cm.dagger.name}</span>
+        <span class="cmmeta">${cm.dagger.xpts} xPts · ${cm.dagger.own}% · ${cm.dagger.opp} (${cm.dagger.ven})</span>
+        ${capCtx(cm.dagger)}</div>`;
+    const note=cm.same
+      ? `Bezpieczny i różnicowy wybór to ten sam zawodnik — czysta sytuacja.`
+      : `Bronisz przewagi w minilidze → Tarcza (wysoka własność, minimalizuje straty). Gonisz → Sztylet (niższa własność = dźwignia). Kontekst: forma z 3 ostatnich meczów, minuty i najbliższy przeciwnik. „Własność" to przybliżenie EO.`;
+    cmHtml=`<div class="card" style="margin-top:10px"><div class="cmrow">${shieldSide}${daggerSide}</div>
+      <div class="cmnote">${note}</div></div>`;
   }
   if(b.transfers && b.transfers.length){
     trHtml = b.transfers.map(t=>`
@@ -819,7 +832,9 @@ function renderBrief(){
   }
   if(L){
     const benchList = L.bench_order.map((x,i)=>`<div class="benchrow"><span class="bo">${i+1}</span>
-        <span class="bnm">${x.name}<span class="bpos">${x.pos}</span></span><span class="bxp">${x.xpts.toFixed(1)}</span></div>`).join("");
+        <span class="bnm">${x.name}<span class="bpos">${x.pos}${x.opp?' · '+x.opp+' ('+x.ven+')':''}</span></span>
+        ${x.opp?`<span class="mini-fx f${Math.max(1,Math.min(5,x.fdr||3))}">${x.fdr}</span>`:''}
+        <span class="bxp">${x.xpts.toFixed(1)}</span></div>`).join("");
     const hi = (L.highlights&&L.highlights.length)?`<div class="whyblock"><div class="benchhdr">Dlaczego ta jedenastka</div>`+
       L.highlights.map(h=>`<div class="whyrow"><span class="whynm">${h.name}<span class="bpos">${h.pos}${h.opp?' · '+h.opp+' ('+h.ven+')':''}</span></span>
         <span class="whyrs">${h.reason}</span></div>`).join("")+`</div>`:"";
@@ -922,7 +937,6 @@ function openSwap(outId){
   const squad=effectiveSquad();
   const out=squad.find(p=>p.id===outId); if(!out) return;
   const bank=BANK;
-  const budget=out.price+bank;
   const ownedIds=new Set(squad.map(p=>p.id));
   // liczba zawodników z każdego klubu (po odjęciu wymienianego — zwalnia slot)
   const clubCount={};
@@ -930,12 +944,11 @@ function openSwap(outId){
   const clubOk=c=> (clubCount[c.team]||0) < 3;   // OUT już odjęty, więc próg to 3
   const cands=(DATA.pool||[]).filter(c=>c.et===out.etype && !ownedIds.has(c.id))
     .sort((a,b)=>b.xpts_h-a.xpts_h);
-  const list=cands.slice(0,60).map(c=>{
-    const aff=c.price<=budget+1e-9;
+  const list=cands.slice(0,80).map(c=>{
     const okClub=clubOk(c);
-    const blocked=!okClub;
-    return `<div class="swrow ${(aff&&okClub)?'':'na'}" data-in="${c.id}" data-aff="${(aff&&okClub)?1:0}">
-      <span class="swnm">${c.name}<span class="swpos">${c.team} · £${c.price.toFixed(1)} · ${c.own}%${blocked?' · <b style="color:var(--pink)">limit 3/klub</b>':''}</span></span>
+    const overBudget=c.price>out.price+bank+1e-9;   // tylko informacyjnie — nie blokuje
+    return `<div class="swrow ${okClub?'':'na'}" data-in="${c.id}" data-aff="${okClub?1:0}">
+      <span class="swnm">${c.name}<span class="swpos">${c.team} · £${c.price.toFixed(1)} · ${c.own}%${!okClub?' · <b style="color:var(--pink)">limit 3/klub</b>':(overBudget?' · <span style="color:var(--muted)">poza budżetem</span>':'')}</span></span>
       <span class="mini-fx f${Math.max(1,Math.min(5,c.next?c.next.fdr:3))}">${c.next?c.next.opp+" ("+c.next.ven+")":"—"}</span>
       <span class="swxp">h${c.xpts_h}</span></div>`;}).join("");
   document.getElementById("detail").innerHTML=`
@@ -1327,7 +1340,7 @@ function computeTicker(xi){
 }
 function renderFDR(){
   const ovF=hasOverrides();
-  const ticker = ovF ? computeTicker(effectiveSquad().filter(p=>!p.on_bench)) : DATA.ticker;
+  const ticker = ovF ? computeTicker(effectiveSquad()) : (DATA.ticker_full||DATA.ticker);
   const n = Math.max(...ticker.map(t=>t.fixtures.length),1);
   const cols = `1fr repeat(${n},54px) 50px`;
   const head = `<div class="lblhead"></div>`+Array.from({length:n},(_,i)=>`<div class="gwhead">+${i+1}</div>`).join("")+`<div class="gwhead">Śr.</div>`;
@@ -1461,8 +1474,8 @@ function computeConcentration(xi){
 function renderRisk(){
   const ov=hasOverrides();
   const eff=effectiveSquad();
-  const xi = ov ? eff.filter(p=>!p.on_bench) : DATA.squad.filter(p=>!p.on_bench);
-  const concentration = ov ? computeConcentration(xi) : DATA.concentration;
+  const xi = ov ? eff : (DATA.squad);   // pełny skład 15 (z ławką) — pełny przegląd
+  const concentration = ov ? computeConcentration(xi) : (DATA.concentration_full||DATA.concentration);
   const nMatch = concentration.length;
   const maxCnt = Math.max(...concentration.map(c=>c.count),1);
   const blocks = concentration.map(c=>{
@@ -1473,9 +1486,9 @@ function renderRisk(){
   }).join("");
   el("app").innerHTML = `
     ${ov?'<div class="recbanner">⟳ Koncentracja przeliczona po Twoich transferach. <button class="recundo" onclick="editReset()">Cofnij</button></div>':''}
-    <div class="h"><span class="no">03</span><span class="t">Na ilu meczach wisi jedenastka</span><span class="d">${DATA.gw.name}</span></div>
+    <div class="h"><span class="no">03</span><span class="t">Na ilu meczach wisi skład</span><span class="d">${DATA.gw.name} · wszystkich 15</span></div>
     <div class="headline"><div class="bignum">${xi.length}<span class="arrow">→</span><span class="m">${nMatch}</span></div>
-      <div class="txt">Twoja startowa jedenastka rozgrywa się w <b>${nMatch} meczach</b>. Im szerszy i bardziej czerwony pasek, tym więcej Twoich graczy zależy od jednego, trudnego wyniku.</div></div>
+      <div class="txt">Twój pełny skład (15 z ławką) rozgrywa się w <b>${nMatch} meczach</b>. Im szerszy i bardziej czerwony pasek, tym więcej Twoich graczy zależy od jednego, trudnego wyniku.</div></div>
     <div class="card">${blocks}</div>
     <div class="legend"><span>FDR:</span><span class="sw f2">1–2</span><span class="sw f3">3</span><span class="sw f4">4</span><span class="sw f5">5</span><span>· szerokość = liczba Twoich graczy</span></div>`;
 }

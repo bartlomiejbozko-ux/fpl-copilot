@@ -874,35 +874,39 @@ def build():
             cap_name = p["web_name"]
 
     # ── ticker FDR pogrupowany po klubie (tylko kluby użytkownika) ─────────────
-    xi = [p for p in squad if not p["on_bench"]]
-    club_groups = {}
-    for p in xi:
-        club_groups.setdefault(p["team"], {"team": p["team"], "team_full": p["team_full"],
-                                           "players": [], "tid": None})
-        club_groups[p["team"]]["players"].append(p["name"])
-    # dołóż fixtury klubu
-    ticker = []
-    name_to_tid = {tshort[tid]: tid for tid in teams}
-    for short, g in club_groups.items():
-        tid = name_to_tid.get(short)
-        fx = [{"gw": f["gw"], "opp": f["opp"], "ven": f["ven"], "fdr": f["fdr"]}
-              for f in (team_fixtures.get(tid) or [])]
-        avg = round(sum(f["fdr"] for f in fx) / len(fx), 1) if fx else None
-        ticker.append({"team": short, "team_full": g["team_full"],
-                       "count": len(g["players"]), "players": g["players"],
-                       "fixtures": fx, "avg_fdr": avg})
-    ticker.sort(key=lambda x: (-x["count"], x["avg_fdr"] or 9))
+    def build_ticker(players):
+        cg = {}
+        for p in players:
+            cg.setdefault(p["team"], {"team": p["team"], "team_full": p["team_full"], "players": []})
+            cg[p["team"]]["players"].append(p["name"])
+        name_to_tid = {tshort[tid]: tid for tid in teams}
+        out = []
+        for short, g in cg.items():
+            tid = name_to_tid.get(short)
+            fx = [{"gw": f["gw"], "opp": f["opp"], "ven": f["ven"], "fdr": f["fdr"]}
+                  for f in (team_fixtures.get(tid) or [])]
+            avg = round(sum(f["fdr"] for f in fx) / len(fx), 1) if fx else None
+            out.append({"team": short, "team_full": g["team_full"], "count": len(g["players"]),
+                        "players": g["players"], "fixtures": fx, "avg_fdr": avg})
+        out.sort(key=lambda x: (-x["count"], x["avg_fdr"] or 9))
+        return out
 
-    # ── koncentracja (najbliższa kolejka): ile graczy na ten sam mecz ─────────
-    conc = {}
-    for p in xi:
-        if not p["next"]:
-            continue
-        key = f'{p["next"]["opp"]} ({p["next"]["ven"]})'
-        conc.setdefault(key, {"fixture": key, "count": 0, "fdr": p["next"]["fdr"], "players": []})
-        conc[key]["count"] += 1
-        conc[key]["players"].append(p["name"])
-    concentration = sorted(conc.values(), key=lambda x: -x["count"])
+    def build_conc(players):
+        c = {}
+        for p in players:
+            if not p["next"]:
+                continue
+            key = f'{p["next"]["opp"]} ({p["next"]["ven"]})'
+            c.setdefault(key, {"fixture": key, "count": 0, "fdr": p["next"]["fdr"], "players": []})
+            c[key]["count"] += 1
+            c[key]["players"].append(p["name"])
+        return sorted(c.values(), key=lambda x: -x["count"])
+
+    xi = [p for p in squad if not p["on_bench"]]
+    ticker = build_ticker(xi)
+    ticker_full = build_ticker(squad)          # z ławką — pełny przegląd
+    concentration = build_conc(xi)
+    concentration_full = build_conc(squad)     # z ławką
 
     # ── DORADCA: pula zawodników, transfery, kapitan, alerty ─────────────────
     bank_t = bank_override if bank_override is not None else (entry.get("last_deadline_bank") or 0)
@@ -1095,8 +1099,14 @@ def build():
         bench_out = sorted([p for p in squad if p["id"] not in best["ids"] and p["etype"] != 1],
                            key=lambda p: -p["xpts"])
         bench_gk = [p for p in gks if p["id"] != gks[0]["id"]]
-        bench_order = ([{"name": p["name"], "pos": p["pos"], "xpts": p["xpts"]} for p in bench_out]
-                       + [{"name": p["name"], "pos": p["pos"], "xpts": p["xpts"]} for p in bench_gk])
+        bench_order = ([{"name": p["name"], "pos": p["pos"], "xpts": p["xpts"],
+                         "opp": p["next"]["opp"] if p.get("next") else "",
+                         "ven": p["next"]["ven"] if p.get("next") else "",
+                         "fdr": p["next"]["fdr"] if p.get("next") else 3} for p in bench_out]
+                       + [{"name": p["name"], "pos": p["pos"], "xpts": p["xpts"],
+                           "opp": p["next"]["opp"] if p.get("next") else "",
+                           "ven": p["next"]["ven"] if p.get("next") else "",
+                           "fdr": p["next"]["fdr"] if p.get("next") else 3} for p in bench_gk])
 
         # najlepsze wybory w jedenastce — z uzasadnieniem (nawet gdy ustawienie optymalne)
         opt_starters = sorted([p for p in squad if p["id"] in best["ids"]],
@@ -1696,7 +1706,9 @@ def build():
         },
         "squad": squad,
         "ticker": ticker,
+        "ticker_full": ticker_full,
         "concentration": concentration,
+        "concentration_full": concentration_full,
         "brief": brief,
         "planner": planner,
         "leagues": leagues,
