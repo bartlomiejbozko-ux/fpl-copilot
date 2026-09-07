@@ -12,29 +12,22 @@
         "115": {
           "name": "De Cuyper",
           "pos": "DEF",
-          "pred": 8.9,
+          "pred": 8.3,
           "cap": false,
           "actual": null
         },
         "8": {
           "name": "Calafiori",
           "pos": "DEF",
-          "pred": 5.5,
+          "pred": 5.2,
           "cap": false,
           "actual": null
         },
         "88": {
           "name": "Kayode",
           "pos": "DEF",
-          "pred": 4.5,
+          "pred": 4.0,
           "cap": false,
-          "actual": null
-        },
-        "398": {
-          "name": "Foden",
-          "pos": "MID",
-          "pred": 9.9,
-          "cap": true,
           "actual": null
         },
         "368": {
@@ -44,24 +37,31 @@
           "cap": false,
           "actual": null
         },
-        "15": {
-          "name": "Ødegaard",
+        "398": {
+          "name": "Foden",
           "pos": "MID",
-          "pred": 5.5,
+          "pred": 7.2,
           "cap": false,
           "actual": null
         },
         "40": {
           "name": "Rogers",
           "pos": "MID",
-          "pred": 5.4,
+          "pred": 5.3,
+          "cap": false,
+          "actual": null
+        },
+        "15": {
+          "name": "Ødegaard",
+          "pos": "MID",
+          "pred": 4.9,
           "cap": false,
           "actual": null
         },
         "154": {
           "name": "Palmer",
           "pos": "MID",
-          "pred": 4.4,
+          "pred": 4.3,
           "cap": false,
           "actual": null
         },
@@ -69,7 +69,7 @@
           "name": "Haaland",
           "pos": "FWD",
           "pred": 8.4,
-          "cap": false,
+          "cap": true,
           "actual": null
         },
         "165": {
@@ -80,8 +80,8 @@
           "actual": null
         }
       },
-      "cap": "Foden"
+      "cap": "Haaland"
     }
   },
-  "updated": "2026-09-07T12:13:24Z"
+  "updated": "2026-09-07T15:09:45Z"
 }
