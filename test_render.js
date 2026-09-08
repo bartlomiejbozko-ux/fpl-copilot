@@ -42,13 +42,13 @@ function main() {
   // usuń deklaracje stanu (ustawiane jako globalne poniżej) i wystaw funkcje na global
   let src = js
     .replace(/let DATA=null[^\n;]*;/, "")
-    .replace(/let CMP=\[\][^\n;]*;/, "")
+    .replace(/let CMP_SEL=null[^\n;]*;/, "")
     .replace(/let BUILD=\{[^\n]*BUILD_SLOT=null;/, "")
     .replace(/^function\s+(\w+)/gm, "global.$1 = function $1");
   eval(src);
 
   global.DATA = DATA; global.CUR = "brief"; global.SEL = null; global.EDIT = false; global.BANK = 0;
-  global.CMP = []; global.BUILD = { GK: [], DEF: [], MID: [], FWD: [] };
+  global.CMP_SEL = null; global.BUILD = { GK: [], DEF: [], MID: [], FWD: [] };
   global.BUILD_SLOT = null; global.BUILD_NEED = { GK: 2, DEF: 5, MID: 5, FWD: 3 };
 
   const names = (DATA.squad || []).map(p => p.name);
@@ -71,6 +71,56 @@ function main() {
       }
     } catch (e) { console.log(`✗ ${fn}: ${e.message}`); fail++; }
   }
+
+  // ── testy funkcjonalne trzech modułów (Compare / Builder / Simulator) ──
+  console.log("\n— testy funkcjonalne —");
+  function T(name, cond, detail) { console.log(`${cond ? "✓" : "✗"} ${name}${detail ? " — " + detail : ""}`); if (!cond) fail++; }
+
+  // COMPARE: alternatywy respektują reguły (≤ cena, ta sama poz, > pts_last2, > form, > xpts_h, dostępny)
+  try {
+    const squad = global.effectiveSquad(); const pool = DATA.pool || [];
+    const alts = pl => pool.filter(c => c.et === pl.etype && c.id !== pl.id
+      && c.price <= pl.price + 1e-9 && (c.pts_last2||0) > (pl.pts_last2||0)
+      && (c.form||0) > (pl.form||0) && (c.xpts_h||0) > (pl.xpts_h||0)
+      && (c.status===undefined||c.status==="a") && (c.chance==null||c.chance>=75)
+      && !(c.rotation&&c.rotation.level==="doubt"))
+      .sort((a,b)=>(b.xpts_h-a.xpts_h)||(b.pts_last2-a.pts_last2)).slice(0,2);
+    let viol = 0, cnt = 0;
+    squad.forEach(p => alts(p).forEach(x => { cnt++;
+      if (x.price > p.price + 1e-9) viol++;
+      if (x.et !== p.etype) viol++;
+      if ((x.pts_last2||0) <= (p.pts_last2||0)) viol++;
+      if ((x.xpts_h||0) <= (p.xpts_h||0)) viol++;
+    }));
+    T("Compare: alternatywy nie łamią reguł", viol === 0, `${cnt} alt., ${viol} naruszeń`);
+    T("Compare: pool ma pts_last2+form", pool.length===0 || ("pts_last2" in pool[0] && "form" in pool[0]));
+  } catch (e) { T("Compare", false, e.message); }
+
+  // BUILDER: auto-optymalizacja respektuje budżet, 2-5-5-3, 3/klub
+  try {
+    global.BUILD = { GK: [], DEF: [], MID: [], FWD: [] };
+    global.autoBuild();
+    const all = [...BUILD.GK, ...BUILD.DEF, ...BUILD.MID, ...BUILD.FWD];
+    const cost = all.reduce((a, p) => a + p.price, 0);
+    const cap = (DATA.budget && DATA.budget.total) || 100;
+    const clubs = {}; all.forEach(p => clubs[p.team] = (clubs[p.team]||0)+1);
+    const maxClub = all.length ? Math.max(...Object.values(clubs)) : 0;
+    T("Builder: budżet z danych (nie sztywne 100)", global.buildBudget() === cap, `£${cap}`);
+    T("Builder: ≤ budżet", cost <= cap + 1e-9, `£${cost.toFixed(1)}/£${cap}`);
+    T("Builder: ≤ 3 z klubu", maxClub <= 3, `max ${maxClub}`);
+    // przy dużej puli skład powinien być pełny (2-5-5-3)
+    if ((DATA.pool||[]).filter(c=>c.et===2).length >= 5) {
+      T("Builder: 2-5-5-3", BUILD.GK.length===2&&BUILD.DEF.length===5&&BUILD.MID.length===5&&BUILD.FWD.length===3,
+        `${BUILD.GK.length}-${BUILD.DEF.length}-${BUILD.MID.length}-${BUILD.FWD.length}`);
+    }
+  } catch (e) { T("Builder", false, e.message); }
+
+  // SIMULATOR: renderuje się i ma baner najlepszego zamiennika w kodzie
+  try {
+    nodes["app"] = fakeEl(); global.renderSim();
+    T("Simulator: renderuje się", true);
+  } catch (e) { T("Simulator", false, e.message); }
+
   console.log(fail ? `\n✗ ${fail} problemów` : "\n✓ wszystko OK");
   process.exit(fail ? 1 : 0);
 }

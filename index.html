@@ -280,6 +280,8 @@
   .cmpcard.mine{border-left:4px solid var(--purple)} .cmpcard.alt{border-left:4px solid var(--green-ink)}
   .cmphd{font:700 9px 'Space Mono',monospace;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
   .cmpname{font-weight:900;font-size:17px;color:var(--purple);margin:3px 0 8px}
+  .cmparg{background:rgba(0,166,90,.1);border-radius:8px;padding:7px 9px;margin:-2px 0 9px;font:800 12px/1.4 'Space Mono',monospace;color:var(--green-ink)}
+  .cmpkeep{background:rgba(0,166,90,.07);border:1px solid rgba(0,166,90,.25);border-radius:12px;padding:16px;font:600 13px/1.6 'Space Mono',monospace;color:var(--green-ink);align-self:center}
   .cmprow2{display:flex;align-items:center;gap:6px;font:400 11px/1.8 'Space Mono',monospace;color:var(--muted)}
   .cmprow2 span:first-child{flex:1} .cmprow2 b{color:var(--ink);font-weight:800}
   .cmprow2 em{font-style:normal;font-weight:800;font-size:10px;padding:1px 5px;border-radius:5px}
@@ -543,7 +545,9 @@ function effectiveSquad(){
     sq[i]={...sq[i], id:pl.id, name:pl.name, team:pl.team, team_full:pl.team, pos:pl.pos,
       etype:pl.et, price:pl.price, xpts:(pl.xpts??sq[i].xpts), xpts_h:pl.xpts_h, next:pl.next,
       selected_by:pl.own, factors:(pl.factors||null), roadmap:(pl.roadmap||[]),
-      floor:pl.floor, ceiling:pl.ceiling, haul:pl.haul, sd:pl.sd, form5:null, swapped:true};
+      floor:pl.floor, ceiling:pl.ceiling, haul:pl.haul, sd:pl.sd,
+      pts_last2:pl.pts_last2, form:pl.form, rotation:pl.rotation, status:pl.status,
+      chance:pl.chance, price_pred:pl.price_pred, form5:null, swapped:true};
   });
   return sq;
 }
@@ -1324,11 +1328,16 @@ function renderCompare(){
   const squad=effectiveSquad();
   const pool=(DATA.pool||[]);
   function alts(pl){
-    const myL2=pl.pts_last2||0;
+    const myL2=pl.pts_last2||0, myH=pl.xpts_h||0, myForm=pl.form||0;
     return pool.filter(c=>c.et===pl.etype && c.id!==pl.id
-        && c.price < pl.price - 1e-9
-        && (c.pts_last2||0) > myL2)
-      .sort((a,b)=>(b.pts_last2-a.pts_last2)||(b.xpts_h-a.xpts_h))
+        && c.price <= pl.price + 1e-9            // nie droższy
+        && (c.pts_last2||0) > myL2               // lepsza forma z ost. 2 GW
+        && (c.form||0) > myForm                  // lepsza forma ogólna (30 dni)
+        && (c.xpts_h||0) > myH                   // wyższa prognoza /3 GW
+        && (c.status===undefined || c.status==="a")   // dostępny
+        && (c.chance===null || c.chance===undefined || c.chance>=75)  // niskie ryzyko braku gry
+        && !(c.rotation && c.rotation.level==="doubt"))
+      .sort((a,b)=>(b.xpts_h-a.xpts_h)||(b.pts_last2-a.pts_last2))   // ranking wg prognozy /3 GW, potem forma
       .slice(0,2);
   }
   const sel=CMP_SEL?squad.find(p=>p.id===CMP_SEL):null;
@@ -1346,17 +1355,21 @@ function renderCompare(){
     const col=(p,isMine)=>{
       const dP=isMine?null:(p.price-sel.price);
       const dPts=isMine?null:((p.pts_last2||0)-(sel.pts_last2||0));
+      const dH=isMine?null:((p.xpts_h||0)-(sel.xpts_h||0));
+      const arg=isMine?"":`<div class="cmparg">${dP<=0?'+£'+(-dP).toFixed(1)+' oszczędności':'+£'+dP.toFixed(1)+' drożej'} · +${dPts} pkt/2GW · +${dH.toFixed(1)} xPts/3GW</div>`;
       return `<div class="cmpcard ${isMine?'mine':'alt'}">
         <div class="cmphd">${isMine?'Twój zawodnik':'Tańsza alternatywa'}</div>
         <div class="cmpname">${p.name}</div>
+        ${arg}
         <div class="cmprow2"><span>Pozycja / klub</span><b>${p.pos} · ${p.team}</b></div>
-        <div class="cmprow2"><span>Cena</span><b>£${p.price.toFixed(1)}</b>${dP!=null?`<em class="${dP<0?'good':'bad'}">${dP<0?'':'+'}${dP.toFixed(1)}</em>`:''}</div>
+        <div class="cmprow2"><span>Cena</span><b>£${p.price.toFixed(1)}</b>${dP!=null?`<em class="${dP<=0?'good':'bad'}">${dP<=0?'':'+'}${dP.toFixed(1)}</em>`:''}</div>
         <div class="cmprow2"><span>Pkt ost. 2 GW</span><b>${p.pts_last2??0}</b>${dPts!=null?`<em class="${dPts>0?'good':'bad'}">${dPts>0?'+':''}${dPts}</em>`:''}</div>
-        <div class="cmprow2"><span>Prognoza /3 GW</span><b>${p.xpts_h??'–'}</b></div>
+        <div class="cmprow2"><span>Forma (30 dni)</span><b>${(p.form||0).toFixed(1)}</b></div>
+        <div class="cmprow2"><span>Prognoza /3 GW</span><b>${p.xpts_h??'–'}</b>${dH!=null?`<em class="${dH>0?'good':'bad'}">${dH>0?'+':''}${dH.toFixed(1)}</em>`:''}</div>
         <div class="cmprow2"><span>Najbliższy</span><b>${p.next?`${p.next.opp} (${p.next.ven})`:'—'} ${p.next?`<span class="mini-fx f${Math.max(1,Math.min(5,p.next.fdr))}">${p.next.fdr}</span>`:''}</b></div>
         <div class="cmprm2">${(p.roadmap||[]).map(r=>`<span class="cmprm f${Math.max(1,Math.min(5,r.fdr))}">${r.opp} <b>${r.xpts.toFixed(1)}</b></span>`).join("")||''}</div>
       </div>`;};
-    const altCols=a.length?a.map(p=>col(p,false)).join(""):`<div class="ap" style="color:var(--muted);align-self:center;padding:16px">Brak tańszego zawodnika, który zdobył więcej punktów w ostatnich 2 kolejkach. ${sel.name} trzyma pozycję.</div>`;
+    const altCols=a.length?a.map(p=>col(p,false)).join(""):`<div class="cmpkeep">✓ KEEP — brak zawodnika, który jest tańszy (lub równie drogi), w lepszej formie (ost. 2 GW + 30 dni) i z wyższą prognozą /3 GW. ${sel.name} zostaje.</div>`;
     panel=`<div class="h" style="margin-top:16px"><span class="no">·</span><span class="t">Porównanie: ${sel.name}</span>
         <span class="d">tańsze alternatywy w lepszej formie (ost. 2 GW)</span></div>
       <div class="cmpgrid">${col(sel,true)}${altCols}</div>`;
@@ -1383,7 +1396,7 @@ function renderBuilder(){
   const overBudget=cost>CAP+1e-9;
   const clubViol=Object.entries(clubs).filter(([t,n])=>n>3).map(([t])=>t);
   const xptsH=all.reduce((a,p)=>a+(p.xpts_h||0),0);
-  const bsrc=DATA.budget?`wartość składu £${DATA.budget.squad_value} + bank £${DATA.budget.bank}`:'brak danych — domyślnie £100';
+  const bsrc=DATA.budget?`${DATA.budget.estimated?'<b style="color:#9a6b00">szacowany</b> ':''}wartość składu £${DATA.budget.squad_value} + bank £${DATA.budget.bank}`:'brak danych — domyślnie £100';
   const posRow=(pos)=>{
     const need=BUILD_NEED[pos], have=BUILD[pos];
     const slots=Array.from({length:need},(_,i)=>{
@@ -1411,7 +1424,7 @@ function renderBuilder(){
     </div>
     <div class="card">${["GK","DEF","MID","FWD"].map(posRow).join("")}</div>
     <div id="bPicker"></div>
-    <div class="foot" style="margin-top:12px;border:0">Budżet = rzeczywista wartość Twojego składu + bank (ceny bieżące jako wartość sprzedaży). Optymalizacja to heurystyka zachłanna — bliska optymalnej, nie gwarancja ideału (pełny problem plecakowy jest NP-trudny). Zawsze 2-5-5-3, ≤budżet, ≤3/klub.</div>`;
+    <div class="foot" style="margin-top:12px;border:0">Budżet = ${DATA.budget&&DATA.budget.estimated?'<b>szacowany</b> z cen bieżących (bez zalogowanej sesji nie znam dokładnych cen sprzedaży — realny budżet może być nieco niższy przy zawodnikach, którzy zdrożeli)':'realne ceny sprzedaży + bank (z zalogowanej sesji)'}. Optymalizacja to heurystyka zachłanna — bliska optymalnej, nie gwarancja ideału. Zawsze 2-5-5-3, ≤budżet, ≤3/klub.</div>`;
   el("bClear").onclick=()=>{BUILD={GK:[],DEF:[],MID:[],FWD:[]};BUILD_SLOT=null;renderBuilder();};
   el("bAuto").onclick=()=>{autoBuild();renderBuilder();};
   el("app").querySelectorAll(".bslot.empty").forEach(s=>s.onclick=()=>openBuildPicker(s.dataset.addpos));

@@ -782,6 +782,7 @@ def build():
     # ── skład użytkownika ─────────────────────────────────────────────────────
     session = os.environ.get("FPL_SESSION", "").strip()
     picks, entry, bank_override = [], {}, None
+    sell_value_t = None   # rzeczywista wartość sprzedaży składu (tylko z zalogowanej sesji)
     if team_id:
         print(f"· pobieram druzyne {team_id} ...")
         entry = get_json(f"{FPL}/entry/{team_id}/") or {}
@@ -791,7 +792,15 @@ def build():
             if mt and mt.get("picks"):
                 picks = mt["picks"]
                 bank_override = (mt.get("transfers") or {}).get("bank")
-                print("· ✓ uzyto ZALOGOWANEJ druzyny (my-team) — z oczekujacymi transferami")
+                # realna wartość sprzedaży = suma selling_price z my-team
+                try:
+                    sv = sum(int(pk.get("selling_price") or 0) for pk in mt["picks"])
+                    if sv > 0:
+                        sell_value_t = sv
+                except (TypeError, ValueError):
+                    sell_value_t = None
+                print("· ✓ uzyto ZALOGOWANEJ druzyny (my-team) — z oczekujacymi transferami"
+                      + (f" i realna wartoscia sprzedazy £{sell_value_t/10:.1f}" if sell_value_t else ""))
             else:
                 print("! sesja podana, ale my-team nie zwrocilo skladu "
                       "(wygasla sesja lub blokada IP). Wracam do publicznego API.")
@@ -872,7 +881,7 @@ def build():
             "rotation": rotation_recent(p["id"], p.get("chance_of_playing_next_round"), p.get("_euro")) or rotation_season(p, p.get("_euro")),
             "form5": last5(p["id"]),
             "roadmap": roadmap,
-            "floor": sstat["floor"], "ceiling": sstat["ceiling"], "haul": sstat["haul"], "sd": sstat["sd"], "pts_last2": pts_last2.get(p["id"], 0),
+            "floor": sstat["floor"], "ceiling": sstat["ceiling"], "haul": sstat["haul"], "sd": sstat["sd"], "pts_last2": pts_last2.get(p["id"], 0), "form": float(p.get("form") or 0),
             "next": ({"opp": nf["opp"], "ven": nf["ven"], "fdr": nf["fdr"], "opp_id": nf["opp_id"],
                       "dgw": is_dgw, "opp2": (next_fixtures[1]["opp"] if is_dgw else None)} if nf else None),
             "team_id": tid,
@@ -961,6 +970,7 @@ def build():
             "price": p["now_cost"] / 10.0, "price_t": p["now_cost"],
             "xpts": x, "xpts_h": xpts_horizon(p, tid), "status": p.get("status"),
             "chance": p.get("chance_of_playing_next_round"),
+            "form": (float(p.get("form") or 0)),
             "selected_by": p.get("selected_by_percent"),
             "next": {"opp": nf["opp"], "ven": nf["ven"], "fdr": nf["fdr"]},
             "factors": fct, "roadmap": p_roadmap,
@@ -1400,7 +1410,12 @@ def build():
                              "pos": POS[et], "price": c["price"], "xpts": c["xpts"],
                              "xpts_h": c["xpts_h"], "own": c["selected_by"],
                              "owned": c["id"] in owned, "next": c["next"],
-                             "factors": c.get("factors"), "roadmap": c.get("roadmap")})
+                             "factors": c.get("factors"), "roadmap": c.get("roadmap"),
+                             "pts_last2": c.get("pts_last2", 0), "form": c.get("form", 0),
+                             "status": c.get("status"), "chance": c.get("chance"),
+                             "rotation": c.get("rotation"), "price_pred": c.get("price_pred"),
+                             "floor": c.get("floor"), "ceiling": c.get("ceiling"),
+                             "haul": c.get("haul"), "sd": c.get("sd")})
 
     # planer wieloetapowy (beam search) — kogo brać teraz vs czekać
     plan_gws = sorted({r["gw"] for p in squad for r in (p.get("roadmap") or [])})[:HORIZON]
@@ -1710,16 +1725,21 @@ def build():
             "goals": round(pr["lam_h"] + pr["lam_a"], 1),
         })
 
-    # rzeczywisty budżet na Wildcard: wartość składu (ceny bieżące) + bank
-    squad_value = round(sum(p["price"] for p in squad), 1) if squad else 0.0
+    # rzeczywisty budżet na Wildcard
     bank_val = bank_t / 10.0
+    if sell_value_t:   # zalogowana sesja → realne ceny sprzedaży
+        squad_value = round(sell_value_t / 10.0, 1)
+        budget_estimated = False
+    else:              # bez sesji → szacunek z cen bieżących (może zawyżać przy wzrostach)
+        squad_value = round(sum(p["price"] for p in squad), 1) if squad else 0.0
+        budget_estimated = True
     budget_total = round(squad_value + bank_val, 1)
 
     data = {
         "generated_at": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "gw": {"current": cur_gw, "next": next_gw, "name": gw_name},
         "budget": {"squad_value": squad_value, "bank": round(bank_val, 1), "total": budget_total,
-                   "last2_gws": last2_gws},
+                   "estimated": budget_estimated, "last2_gws": last2_gws},
         "entry": {
             "team_id": team_id,
             "name": entry.get("name", ""),
