@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T10:17:43Z",
+  "generated_at": "2026-09-08T12:13:32Z",
   "gw": {
     "current": 3,
     "next": 4,
@@ -78,12 +78,12 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": 100947,
+      "price_mom": 102365,
       "cost_change_event": 0,
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 100947,
+        "net": 102365,
         "moved": 0
       },
       "rotation": {
@@ -138,7 +138,7 @@
       "floor": 2,
       "ceiling": 7,
       "haul": 0.0,
-      "sd": 2.05,
+      "sd": 2.01,
       "pts_last2": 16,
       "next": {
         "opp": "CHE",
@@ -213,12 +213,12 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": 116042,
+      "price_mom": 117086,
       "cost_change_event": 0,
       "price_pred": {
         "dir": "stable",
-        "score": 0.92,
-        "net": 116042,
+        "score": 0.93,
+        "net": 117086,
         "moved": 0
       },
       "rotation": {
@@ -271,9 +271,9 @@
         }
       ],
       "floor": 1,
-      "ceiling": 7,
-      "haul": 0.046,
-      "sd": 3.02,
+      "ceiling": 8,
+      "haul": 0.057,
+      "sd": 3.03,
       "pts_last2": 13,
       "next": {
         "opp": "MUN",
@@ -348,12 +348,12 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": -31765,
+      "price_mom": -32206,
       "cost_change_event": 0,
       "price_pred": {
         "dir": "stable",
-        "score": 0.55,
-        "net": -31765,
+        "score": 0.56,
+        "net": -32206,
         "moved": 0
       },
       "rotation": {
@@ -407,8 +407,8 @@
       ],
       "floor": 2,
       "ceiling": 10,
-      "haul": 0.104,
-      "sd": 3.66,
+      "haul": 0.119,
+      "sd": 3.81,
       "pts_last2": 3,
       "next": {
         "opp": "BOU",
@@ -483,12 +483,12 @@
         "corners": 2,
         "fk": 4
       },
-      "price_mom": 210540,
+      "price_mom": 214124,
       "cost_change_event": 1,
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 210540,
+        "net": 214124,
         "moved": 1
       },
       "rotation": {
@@ -540,10 +540,10 @@
           "xpts": 6.1
         }
       ],
-      "floor": 2,
+      "floor": 3,
       "ceiling": 17,
-      "haul": 0.389,
-      "sd": 6.17,
+      "haul": 0.402,
+      "sd": 6.06,
       "pts_last2": 4,
       "next": {
         "opp": "COV",
@@ -577,7 +577,7 @@
       "price": 5.7,
       "form": 7.3,
       "ppg": "7.3",
-      "selected_by": "47.4",
+      "selected_by": "47.5",
       "status": "a",
       "news": "",
       "chance": null,
@@ -618,12 +618,12 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": 193336,
+      "price_mom": 196843,
       "cost_change_event": 0,
       "price_pred": {
         "dir": "stable",
-        "score": 0.64,
-        "net": 193336,
+        "score": 0.65,
+        "net": 196843,
         "moved": 0
       },
       "rotation": {
@@ -677,8 +677,8 @@
       ],
       "floor": 2,
       "ceiling": 11,
-      "haul": 0.135,
-      "sd": 3.69,
+      "haul": 0.141,
+      "sd": 3.78,
       "pts_last2": 13,
       "next": {
         "opp": "SUN",
@@ -712,7 +712,7 @@
       "price": 7.6,
       "form": 6.3,
       "ppg": "6.3",
-      "selected_by": "28.0",
+      "selected_by": "28.1",
       "status": "a",
       "news": "",
       "chance": null,
@@ -753,12 +753,12 @@
         "corners": 4,
         "fk": null
       },
-      "price_mom": 338336,
+      "price_mom": 343545,
       "cost_change_event": 1,
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 338336,
+        "net": 343545,
         "moved": 1
       },
       "rotation": {
@@ -812,8 +812,8 @@
       ],
       "floor": 2,
       "ceiling": 11,
-      "haul": 0.167,
-      "sd": 4.23,
+      "haul": 0.156,
+      "sd": 4.18,
       "pts_last2": 11,
       "next": {
         "opp": "HUL",
@@ -888,12 +888,12 @@
         "corners": 1,
         "fk": 1
       },
-      "price_mom": -228847,
+      "price_mom": -231898,
       "cost_change_event": 0,
       "price_pred": {
         "dir": "stable",
-        "score": 0.93,
-        "net": -228847,
+        "score": 0.94,
+        "net": -231898,
         "moved": 0
       },
       "rotation": {
@@ -947,8 +947,8 @@
       ],
       "floor": 2,
       "ceiling": 14,
-      "haul": 0.313,
-      "sd": 5.0,
+      "haul": 0.32,
+      "sd": 5.03,
       "pts_last2": 7,
       "next": {
         "opp": "FUL",
@@ -1023,12 +1023,12 @@
         "corners": null,
         "fk": 3
       },
-      "price_mom": 250029,
+      "price_mom": 254692,
       "cost_change_event": 0,
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 250029,
+        "net": 254692,
         "moved": 0
       },
       "rotation": {
@@ -1081,9 +1081,9 @@
         }
       ],
       "floor": 2,
-      "ceiling": 9,
-      "haul": 0.099,
-      "sd": 3.58,
+      "ceiling": 10,
+      "haul": 0.107,
+      "sd": 3.71,
       "pts_last2": 8,
       "next": {
         "opp": "HUL",
@@ -1117,7 +1117,7 @@
       "price": 7.0,
       "form": 3.7,
       "ppg": "3.7",
-      "selected_by": "4.9",
+      "selected_by": "4.8",
       "status": "a",
       "news": "",
       "chance": null,
@@ -1158,12 +1158,12 @@
         "corners": 3,
         "fk": 2
       },
-      "price_mom": -89485,
+      "price_mom": -90632,
       "cost_change_event": 0,
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -89485,
+        "net": -90632,
         "moved": 0
       },
       "rotation": {
@@ -1215,10 +1215,10 @@
           "xpts": 5.7
         }
       ],
-      "floor": 2,
+      "floor": 1,
       "ceiling": 14,
-      "haul": 0.287,
-      "sd": 5.49,
+      "haul": 0.296,
+      "sd": 5.58,
       "pts_last2": 10,
       "next": {
         "opp": "MUN",
@@ -1293,12 +1293,12 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": 18729,
+      "price_mom": 19190,
       "cost_change_event": 0,
       "price_pred": {
         "dir": "stable",
         "score": 0.04,
-        "net": 18729,
+        "net": 19190,
         "moved": 0
       },
       "rotation": {
@@ -1350,10 +1350,10 @@
           "xpts": 6.5
         }
       ],
-      "floor": 2,
+      "floor": 4,
       "ceiling": 15,
-      "haul": 0.379,
-      "sd": 5.09,
+      "haul": 0.378,
+      "sd": 5.14,
       "pts_last2": 22,
       "next": {
         "opp": "MUN",
@@ -1387,7 +1387,7 @@
       "price": 7.7,
       "form": 7.0,
       "ppg": "7.0",
-      "selected_by": "72.2",
+      "selected_by": "72.3",
       "status": "a",
       "news": "",
       "chance": null,
@@ -1428,12 +1428,12 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": 125316,
+      "price_mom": 127202,
       "cost_change_event": 0,
       "price_pred": {
         "dir": "stable",
-        "score": 0.27,
-        "net": 125316,
+        "score": 0.28,
+        "net": 127202,
         "moved": 0
       },
       "rotation": {
@@ -1487,8 +1487,8 @@
       ],
       "floor": 2,
       "ceiling": 10,
-      "haul": 0.114,
-      "sd": 3.85,
+      "haul": 0.117,
+      "sd": 3.83,
       "pts_last2": 10,
       "next": {
         "opp": "HUL",
@@ -1563,12 +1563,12 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": 4409,
+      "price_mom": 4484,
       "cost_change_event": 0,
       "price_pred": {
         "dir": "stable",
-        "score": 0.18,
-        "net": 4409,
+        "score": 0.19,
+        "net": 4484,
         "moved": 0
       },
       "rotation": {
@@ -1623,7 +1623,7 @@
       "floor": 2,
       "ceiling": 7,
       "haul": 0.0,
-      "sd": 2.22,
+      "sd": 2.21,
       "pts_last2": 8,
       "next": {
         "opp": "FUL",
@@ -1698,12 +1698,12 @@
         "corners": 4,
         "fk": 4
       },
-      "price_mom": 180562,
+      "price_mom": 185376,
       "cost_change_event": 0,
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 180562,
+        "net": 185376,
         "moved": 0
       },
       "rotation": {
@@ -1757,8 +1757,8 @@
       ],
       "floor": 2,
       "ceiling": 10,
-      "haul": 0.131,
-      "sd": 3.68,
+      "haul": 0.133,
+      "sd": 3.7,
       "pts_last2": 13,
       "next": {
         "opp": "SUN",
@@ -1833,12 +1833,12 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": 47487,
+      "price_mom": 47849,
       "cost_change_event": 0,
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 47487,
+        "net": 47849,
         "moved": 0
       },
       "rotation": {
@@ -1892,7 +1892,7 @@
       ],
       "floor": 1,
       "ceiling": 6,
-      "haul": 0.02,
+      "haul": 0.019,
       "sd": 2.43,
       "pts_last2": 12,
       "next": {
@@ -1968,12 +1968,12 @@
         "corners": null,
         "fk": null
       },
-      "price_mom": -3639,
+      "price_mom": -3715,
       "cost_change_event": 0,
       "price_pred": {
         "dir": "stable",
-        "score": 0.3,
-        "net": -3639,
+        "score": 0.31,
+        "net": -3715,
         "moved": 0
       },
       "rotation": {
@@ -2028,7 +2028,7 @@
       "floor": 0,
       "ceiling": 2,
       "haul": 0.002,
-      "sd": 1.45,
+      "sd": 1.46,
       "pts_last2": 1,
       "next": {
         "opp": "BHA",
@@ -2883,18 +2883,18 @@
       "dagger": {
         "name": "Foden",
         "xpts": 7.2,
-        "own": "4.9",
+        "own": "4.8",
         "opp": "MUN",
         "ven": "A"
       },
       "same": false
     },
     "gw_outlook": {
-      "p10": 46,
+      "p10": 47,
       "p50": 69,
-      "p90": 96,
-      "mean": 70.2,
-      "sd": 19.2,
+      "p90": 95,
+      "mean": 70.4,
+      "sd": 18.9,
       "captain": "Haaland",
       "correlated": true
     },
@@ -3486,42 +3486,42 @@
         "name": "Foden",
         "team": "MCI",
         "dir": "fall",
-        "mom": -89485,
+        "mom": -90632,
         "owned": true
       },
       {
         "name": "Ødegaard",
         "team": "ARS",
         "dir": "rise",
-        "mom": 180562,
+        "mom": 185376,
         "owned": true
       },
       {
         "name": "Havertz",
         "team": "ARS",
         "dir": "rise",
-        "mom": 54643,
+        "mom": 56162,
         "owned": false
       },
       {
         "name": "Konsa",
         "team": "ARS",
         "dir": "rise",
-        "mom": 202857,
+        "mom": 207060,
         "owned": false
       },
       {
         "name": "George Hemmings",
         "team": "AVL",
         "dir": "rise",
-        "mom": 13267,
+        "mom": 13459,
         "owned": false
       },
       {
         "name": "Suzuki",
         "team": "AVL",
         "dir": "rise",
-        "mom": 28264,
+        "mom": 28817,
         "owned": false
       }
     ],
@@ -3534,7 +3534,7 @@
           "price": 6.6,
           "dir": "rise",
           "score": 1.0,
-          "net": 180562,
+          "net": 185376,
           "moved": 0,
           "owned": true,
           "own": "13.2"
@@ -3546,7 +3546,7 @@
           "price": 7.5,
           "dir": "rise",
           "score": 1.0,
-          "net": 54643,
+          "net": 56162,
           "moved": 0,
           "owned": false,
           "own": "7.4"
@@ -3558,10 +3558,10 @@
           "price": 4.4,
           "dir": "rise",
           "score": 1.0,
-          "net": 202857,
+          "net": 207060,
           "moved": 0,
           "owned": false,
-          "own": "13.0"
+          "own": "13.1"
         },
         {
           "id": 51,
@@ -3570,7 +3570,7 @@
           "price": 4.5,
           "dir": "rise",
           "score": 1.0,
-          "net": 13267,
+          "net": 13459,
           "moved": 0,
           "owned": false,
           "own": "1.1"
@@ -3582,7 +3582,7 @@
           "price": 5.0,
           "dir": "rise",
           "score": 1.0,
-          "net": 28264,
+          "net": 28817,
           "moved": 0,
           "owned": false,
           "own": "1.5"
@@ -3594,7 +3594,7 @@
           "price": 6.0,
           "dir": "rise",
           "score": 1.0,
-          "net": 63084,
+          "net": 63891,
           "moved": 0,
           "owned": false,
           "own": "3.1"
@@ -3606,7 +3606,7 @@
           "price": 6.0,
           "dir": "rise",
           "score": 1.0,
-          "net": 162643,
+          "net": 165361,
           "moved": 0,
           "owned": false,
           "own": "4.1"
@@ -3618,7 +3618,7 @@
           "price": 5.0,
           "dir": "rise",
           "score": 1.0,
-          "net": 58139,
+          "net": 59141,
           "moved": 0,
           "owned": false,
           "own": "1.5"
@@ -3632,10 +3632,10 @@
           "price": 5.4,
           "dir": "fall",
           "score": 1.0,
-          "net": -84563,
+          "net": -85998,
           "moved": -1,
           "owned": false,
-          "own": "3.6"
+          "own": "3.5"
         },
         {
           "id": 14,
@@ -3644,7 +3644,7 @@
           "price": 6.4,
           "dir": "fall",
           "score": 1.0,
-          "net": -13470,
+          "net": -13696,
           "moved": 0,
           "owned": false,
           "own": "1.3"
@@ -3656,7 +3656,7 @@
           "price": 7.3,
           "dir": "fall",
           "score": 1.0,
-          "net": -45090,
+          "net": -45801,
           "moved": 0,
           "owned": false,
           "own": "4.1"
@@ -3668,7 +3668,7 @@
           "price": 6.8,
           "dir": "fall",
           "score": 1.0,
-          "net": -19225,
+          "net": -19479,
           "moved": 0,
           "owned": false,
           "own": "1.9"
@@ -3680,10 +3680,10 @@
           "price": 6.4,
           "dir": "fall",
           "score": 1.0,
-          "net": -161176,
+          "net": -162913,
           "moved": -1,
           "owned": false,
-          "own": "17.6"
+          "own": "17.5"
         },
         {
           "id": 67,
@@ -3692,7 +3692,7 @@
           "price": 6.4,
           "dir": "fall",
           "score": 1.0,
-          "net": -18133,
+          "net": -18411,
           "moved": -1,
           "owned": false,
           "own": "2.1"
@@ -3704,7 +3704,7 @@
           "price": 5.5,
           "dir": "fall",
           "score": 1.0,
-          "net": -34301,
+          "net": -34866,
           "moved": 0,
           "owned": false,
           "own": "1.8"
@@ -3716,7 +3716,7 @@
           "price": 7.9,
           "dir": "fall",
           "score": 1.0,
-          "net": -148350,
+          "net": -150377,
           "moved": -1,
           "owned": false,
           "own": "12.1"
@@ -3728,49 +3728,49 @@
           "team": "HUL",
           "dir": "rise",
           "score": 1.0,
-          "net": 100947
+          "net": 102365
         },
         {
           "name": "De Cuyper",
           "team": "BHA",
           "dir": "rise",
           "score": 1.0,
-          "net": 210540
+          "net": 214124
         },
         {
           "name": "Rogers",
           "team": "CHE",
           "dir": "rise",
           "score": 1.0,
-          "net": 338336
+          "net": 343545
         },
         {
           "name": "Palmer",
           "team": "CHE",
           "dir": "rise",
           "score": 1.0,
-          "net": 250029
+          "net": 254692
         },
         {
           "name": "Foden",
           "team": "MCI",
           "dir": "fall",
           "score": 1.0,
-          "net": -89485
+          "net": -90632
         },
         {
           "name": "Ødegaard",
           "team": "ARS",
           "dir": "rise",
           "score": 1.0,
-          "net": 180562
+          "net": 185376
         },
         {
           "name": "Dedić",
           "team": "NEW",
           "dir": "rise",
           "score": 1.0,
-          "net": 47487
+          "net": 47849
         }
       ]
     },
@@ -4047,7 +4047,7 @@
         "team": "BrexitTeam",
         "total": 154,
         "gap": 31,
-        "hold": 0.93,
+        "hold": 0.94,
         "xi_mean": 61.6,
         "captain": "B.Fernandes",
         "cap_differs": true,
@@ -4441,13 +4441,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.09,
-        "net": 22914,
+        "net": 23208,
         "moved": 0
       },
       "floor": 2,
-      "ceiling": 6,
+      "ceiling": 7,
       "haul": 0.0,
-      "sd": 2.12
+      "sd": 2.16
     },
     {
       "id": 2,
@@ -4545,7 +4545,7 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.02,
-        "net": -282,
+        "net": -290,
         "moved": -1
       },
       "floor": 0,
@@ -4649,7 +4649,7 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.01,
-        "net": -106,
+        "net": -109,
         "moved": -1
       },
       "floor": 0,
@@ -4753,13 +4753,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.03,
-        "net": -324,
+        "net": -334,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 6,
-      "haul": 0.0,
-      "sd": 2.26
+      "haul": 0.001,
+      "sd": 2.29
     },
     {
       "id": 597,
@@ -4857,13 +4857,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 28264,
+        "net": 28817,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 7,
       "haul": 0.0,
-      "sd": 2.45
+      "sd": 2.46
     },
     {
       "id": 57,
@@ -4961,13 +4961,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.16,
-        "net": -3376,
+        "net": -3452,
         "moved": 0
       },
       "floor": 2,
-      "ceiling": 6,
+      "ceiling": 7,
       "haul": 0.0,
-      "sd": 1.95
+      "sd": 2.01
     },
     {
       "id": 58,
@@ -5064,8 +5064,8 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.36,
-        "net": 7777,
+        "score": 0.37,
+        "net": 7894,
         "moved": 0
       },
       "floor": 0,
@@ -5169,7 +5169,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": 133,
+        "net": 137,
         "moved": 0
       },
       "floor": 0,
@@ -5273,13 +5273,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.22,
-        "net": -9422,
+        "net": -9668,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 6,
       "haul": 0.0,
-      "sd": 1.94
+      "sd": 1.98
     },
     {
       "id": 83,
@@ -5377,7 +5377,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": -207,
+        "net": -211,
         "moved": 0
       },
       "floor": 0,
@@ -5480,14 +5480,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.14,
-        "net": 19901,
+        "score": 0.15,
+        "net": 20582,
         "moved": 0
       },
       "floor": 2,
-      "ceiling": 7,
+      "ceiling": 6,
       "haul": 0.029,
-      "sd": 2.56
+      "sd": 2.54
     },
     {
       "id": 111,
@@ -5585,7 +5585,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.27,
-        "net": 7414,
+        "net": 7428,
         "moved": 0
       },
       "floor": 0,
@@ -5689,13 +5689,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 34950,
+        "net": 35517,
         "moved": 0
       },
       "floor": 2,
-      "ceiling": 8,
-      "haul": 0.003,
-      "sd": 2.55
+      "ceiling": 7,
+      "haul": 0.002,
+      "sd": 2.5
     },
     {
       "id": 560,
@@ -5793,7 +5793,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": -247,
+        "net": -252,
         "moved": 0
       },
       "floor": 0,
@@ -5897,13 +5897,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.45,
-        "net": -5345,
+        "net": -5394,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 5,
       "haul": 0.0,
-      "sd": 1.66
+      "sd": 1.7
     },
     {
       "id": 172,
@@ -6001,7 +6001,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.08,
-        "net": -949,
+        "net": -959,
         "moved": 0
       },
       "floor": 0,
@@ -6104,8 +6104,8 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.96,
-        "net": 11479,
+        "score": 0.97,
+        "net": 11652,
         "moved": 0
       },
       "floor": 0,
@@ -6208,14 +6208,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.37,
-        "net": 4482,
+        "score": 0.38,
+        "net": 4595,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 6,
       "haul": 0.0,
-      "sd": 1.93
+      "sd": 1.82
     },
     {
       "id": 199,
@@ -6313,7 +6313,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": -229,
+        "net": -235,
         "moved": 0
       },
       "floor": 0,
@@ -6417,7 +6417,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.11,
-        "net": -1336,
+        "net": -1356,
         "moved": 0
       },
       "floor": 0,
@@ -6521,13 +6521,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.04,
-        "net": -2214,
+        "net": -2174,
         "moved": 0
       },
       "floor": 3,
       "ceiling": 7,
-      "haul": 0.002,
-      "sd": 2.15
+      "haul": 0.004,
+      "sd": 2.22
     },
     {
       "id": 227,
@@ -6625,7 +6625,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": -19,
+        "net": -20,
         "moved": 0
       },
       "floor": 0,
@@ -6729,7 +6729,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": -56,
+        "net": -59,
         "moved": 0
       },
       "floor": 0,
@@ -6832,14 +6832,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.24,
-        "net": -4562,
+        "score": 0.25,
+        "net": -4688,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 3,
       "haul": 0.0,
-      "sd": 1.42
+      "sd": 1.44
     },
     {
       "id": 251,
@@ -6937,7 +6937,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.1,
-        "net": 1154,
+        "net": 1149,
         "moved": 0
       },
       "floor": 0,
@@ -7041,7 +7041,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": 254,
+        "net": 229,
         "moved": 0
       },
       "floor": 0,
@@ -7145,7 +7145,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.03,
-        "net": -407,
+        "net": -411,
         "moved": 0
       },
       "floor": 0,
@@ -7249,13 +7249,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 100947,
+        "net": 102365,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 7,
       "haul": 0.0,
-      "sd": 2.04
+      "sd": 2.05
     },
     {
       "id": 300,
@@ -7353,7 +7353,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.1,
-        "net": -1179,
+        "net": -1193,
         "moved": 0
       },
       "floor": 0,
@@ -7457,7 +7457,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.11,
-        "net": -3022,
+        "net": -3066,
         "moved": 0
       },
       "floor": 0,
@@ -7560,8 +7560,8 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.33,
-        "net": 4016,
+        "score": 0.34,
+        "net": 4058,
         "moved": 0
       },
       "floor": 0,
@@ -7665,13 +7665,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": 128,
+        "net": 131,
         "moved": 0
       },
-      "floor": 1,
+      "floor": 2,
       "ceiling": 4,
-      "haul": 0.001,
-      "sd": 1.63
+      "haul": 0.0,
+      "sd": 1.49
     },
     {
       "id": 385,
@@ -7769,7 +7769,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.25,
-        "net": 8692,
+        "net": 8747,
         "moved": 0
       },
       "floor": 2,
@@ -7873,7 +7873,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.2,
-        "net": 2392,
+        "net": 2423,
         "moved": 0
       },
       "floor": 0,
@@ -7976,8 +7976,8 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.84,
-        "net": 10139,
+        "score": 0.85,
+        "net": 10258,
         "moved": 0
       },
       "floor": 0,
@@ -8080,8 +8080,8 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.18,
-        "net": 4409,
+        "score": 0.19,
+        "net": 4484,
         "moved": 0
       },
       "floor": 2,
@@ -8185,7 +8185,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.07,
-        "net": -818,
+        "net": -824,
         "moved": 0
       },
       "floor": 0,
@@ -8289,7 +8289,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.16,
-        "net": -1918,
+        "net": -1965,
         "moved": 0
       },
       "floor": 0,
@@ -8393,7 +8393,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": 147,
+        "net": 149,
         "moved": 0
       },
       "floor": 0,
@@ -8497,7 +8497,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": 44,
+        "net": 39,
         "moved": 0
       },
       "floor": 0,
@@ -8600,14 +8600,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.4,
-        "net": -20075,
+        "score": 0.41,
+        "net": -20383,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 6,
       "haul": 0.0,
-      "sd": 1.74
+      "sd": 1.76
     },
     {
       "id": 386,
@@ -8704,8 +8704,8 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.0,
-        "net": -58,
+        "score": 0.01,
+        "net": -61,
         "moved": 0
       },
       "floor": 0,
@@ -8809,7 +8809,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -69,
+        "net": -71,
         "moved": 0
       },
       "floor": 0,
@@ -8913,7 +8913,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": -52,
+        "net": -55,
         "moved": 0
       },
       "floor": 0,
@@ -9017,13 +9017,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -104670,
+        "net": -106543,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 5,
       "haul": 0.0,
-      "sd": 1.74
+      "sd": 1.65
     },
     {
       "id": 414,
@@ -9121,7 +9121,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": -36,
+        "net": -34,
         "moved": 0
       },
       "floor": 0,
@@ -9225,7 +9225,7 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.43,
-        "net": -5114,
+        "net": -5185,
         "moved": -1
       },
       "floor": 0,
@@ -9329,7 +9329,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -77,
+        "net": -79,
         "moved": 0
       },
       "floor": 0,
@@ -9433,7 +9433,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -94,
+        "net": -93,
         "moved": 0
       },
       "floor": 0,
@@ -9537,13 +9537,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 13566,
+        "net": 13773,
         "moved": 0
       },
       "floor": 2,
-      "ceiling": 7,
+      "ceiling": 6,
       "haul": 0.0,
-      "sd": 2.08
+      "sd": 2.01
     },
     {
       "id": 467,
@@ -9641,13 +9641,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.07,
-        "net": 786,
+        "net": 806,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 6,
       "haul": 0.0,
-      "sd": 2.1
+      "sd": 2.09
     },
     {
       "id": 468,
@@ -9745,7 +9745,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -119,
+        "net": -121,
         "moved": 0
       },
       "floor": 0,
@@ -9953,7 +9953,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.14,
-        "net": 1697,
+        "net": 1711,
         "moved": 0
       },
       "floor": 0,
@@ -10057,13 +10057,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.47,
-        "net": -55736,
+        "net": -56395,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 6,
       "haul": 0.0,
-      "sd": 2.09
+      "sd": 2.05
     },
     {
       "id": 497,
@@ -10265,13 +10265,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -21187,
+        "net": -21480,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 6,
       "haul": 0.0,
-      "sd": 1.99
+      "sd": 2.05
     },
     {
       "id": 531,
@@ -10369,7 +10369,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": -226,
+        "net": -236,
         "moved": 0
       },
       "floor": 0,
@@ -10472,14 +10472,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.57,
-        "net": -90169,
+        "score": 0.58,
+        "net": -91866,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 9,
-      "haul": 0.09,
-      "sd": 3.45
+      "haul": 0.087,
+      "sd": 3.47
     },
     {
       "id": 5,
@@ -10577,7 +10577,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.04,
-        "net": -443,
+        "net": -452,
         "moved": 0
       },
       "floor": 0,
@@ -10681,7 +10681,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.14,
-        "net": -1632,
+        "net": -1656,
         "moved": 0
       },
       "floor": 0,
@@ -10698,7 +10698,7 @@
       "price": 5.7,
       "xpts": 5.2,
       "xpts_h": 14.9,
-      "own": "47.4",
+      "own": "47.5",
       "owned": true,
       "next": {
         "opp": "SUN",
@@ -10784,14 +10784,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.64,
-        "net": 193336,
+        "score": 0.65,
+        "net": 196843,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 11,
-      "haul": 0.154,
-      "sd": 3.8
+      "haul": 0.134,
+      "sd": 3.61
     },
     {
       "id": 9,
@@ -10888,14 +10888,14 @@
       },
       "price_pred": {
         "dir": "fall",
-        "score": 0.69,
-        "net": -8272,
+        "score": 0.7,
+        "net": -8401,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 2,
       "haul": 0.0,
-      "sd": 1.74
+      "sd": 1.73
     },
     {
       "id": 10,
@@ -10993,13 +10993,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.17,
-        "net": 8420,
+        "net": 8351,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 8,
-      "haul": 0.054,
-      "sd": 2.91
+      "haul": 0.052,
+      "sd": 2.88
     },
     {
       "id": 11,
@@ -11010,7 +11010,7 @@
       "price": 5.4,
       "xpts": 2.1,
       "xpts_h": 5.6,
-      "own": "3.6",
+      "own": "3.5",
       "owned": false,
       "next": {
         "opp": "SUN",
@@ -11097,13 +11097,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -84563,
+        "net": -85998,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 6,
-      "haul": 0.0,
-      "sd": 2.48
+      "haul": 0.001,
+      "sd": 2.53
     },
     {
       "id": 31,
@@ -11114,7 +11114,7 @@
       "price": 4.4,
       "xpts": 1.7,
       "xpts_h": 4.7,
-      "own": "13.0",
+      "own": "13.1",
       "owned": false,
       "next": {
         "opp": "SUN",
@@ -11201,13 +11201,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 202857,
+        "net": 207060,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 6,
       "haul": 0.0,
-      "sd": 2.49
+      "sd": 2.56
     },
     {
       "id": 32,
@@ -11218,7 +11218,7 @@
       "price": 4.5,
       "xpts": 3.6,
       "xpts_h": 10.0,
-      "own": "6.9",
+      "own": "6.8",
       "owned": false,
       "next": {
         "opp": "NFO",
@@ -11304,14 +11304,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.19,
-        "net": -8365,
+        "score": 0.2,
+        "net": -8532,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 6,
-      "haul": 0.026,
-      "sd": 2.66
+      "haul": 0.022,
+      "sd": 2.67
     },
     {
       "id": 33,
@@ -11414,8 +11414,8 @@
       },
       "floor": 0,
       "ceiling": 6,
-      "haul": 0.007,
-      "sd": 2.28
+      "haul": 0.008,
+      "sd": 2.41
     },
     {
       "id": 34,
@@ -11512,14 +11512,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.18,
-        "net": -2195,
+        "score": 0.19,
+        "net": -2230,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 6,
-      "haul": 0.003,
-      "sd": 2.51
+      "haul": 0.002,
+      "sd": 2.48
     },
     {
       "id": 36,
@@ -11616,14 +11616,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.15,
-        "net": 1838,
+        "score": 0.16,
+        "net": 1886,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 8,
-      "haul": 0.051,
-      "sd": 2.96
+      "haul": 0.048,
+      "sd": 2.86
     },
     {
       "id": 37,
@@ -11721,13 +11721,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.04,
-        "net": 471,
+        "net": 485,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 6,
-      "haul": 0.011,
-      "sd": 2.35
+      "haul": 0.009,
+      "sd": 2.29
     },
     {
       "id": 38,
@@ -11824,8 +11824,8 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.17,
-        "net": -2091,
+        "score": 0.18,
+        "net": -2163,
         "moved": 0
       },
       "floor": 0,
@@ -11929,13 +11929,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.04,
-        "net": -511,
+        "net": -521,
         "moved": 0
       },
       "floor": 0,
-      "ceiling": 2,
+      "ceiling": 1,
       "haul": 0.0,
-      "sd": 1.68
+      "sd": 1.62
     },
     {
       "id": 606,
@@ -12033,7 +12033,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.05,
-        "net": 615,
+        "net": 613,
         "moved": 0
       },
       "floor": 0,
@@ -12137,13 +12137,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": 238,
+        "net": 242,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 1.6
+      "sd": 1.61
     },
     {
       "id": 630,
@@ -12241,7 +12241,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": 240,
+        "net": 239,
         "moved": 0
       },
       "floor": 0,
@@ -12345,13 +12345,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.16,
-        "net": -1923,
+        "net": -1946,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 8,
-      "haul": 0.056,
-      "sd": 2.93
+      "haul": 0.057,
+      "sd": 2.96
     },
     {
       "id": 61,
@@ -12448,14 +12448,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.84,
-        "net": -18795,
+        "score": 0.86,
+        "net": -19086,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 6,
-      "haul": 0.006,
-      "sd": 2.33
+      "haul": 0.004,
+      "sd": 2.24
     },
     {
       "id": 62,
@@ -12553,7 +12553,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.08,
-        "net": -930,
+        "net": -942,
         "moved": 0
       },
       "floor": 0,
@@ -12657,7 +12657,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": -47,
+        "net": -49,
         "moved": 0
       },
       "floor": 0,
@@ -12761,13 +12761,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": -274,
+        "net": -275,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 6,
-      "haul": 0.001,
-      "sd": 2.07
+      "haul": 0.003,
+      "sd": 2.13
     },
     {
       "id": 65,
@@ -12865,7 +12865,7 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.01,
-        "net": -74,
+        "net": -75,
         "moved": -1
       },
       "floor": 0,
@@ -13073,13 +13073,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.06,
-        "net": -680,
+        "net": -694,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 8,
-      "haul": 0.055,
-      "sd": 3.1
+      "haul": 0.061,
+      "sd": 3.23
     },
     {
       "id": 573,
@@ -13177,7 +13177,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.06,
-        "net": -675,
+        "net": -686,
         "moved": 0
       },
       "floor": 0,
@@ -13281,13 +13281,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -34301,
+        "net": -34866,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 3,
-      "haul": 0.003,
-      "sd": 1.75
+      "haul": 0.007,
+      "sd": 1.87
     },
     {
       "id": 85,
@@ -13385,7 +13385,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.06,
-        "net": -711,
+        "net": -720,
         "moved": 0
       },
       "floor": 0,
@@ -13488,14 +13488,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.59,
-        "net": -18456,
+        "score": 0.61,
+        "net": -18942,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 7,
-      "haul": 0.026,
-      "sd": 2.54
+      "haul": 0.032,
+      "sd": 2.7
     },
     {
       "id": 88,
@@ -13592,14 +13592,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.55,
-        "net": -31765,
+        "score": 0.56,
+        "net": -32206,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 10,
-      "haul": 0.104,
-      "sd": 3.58
+      "haul": 0.105,
+      "sd": 3.66
     },
     {
       "id": 89,
@@ -13697,13 +13697,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.07,
-        "net": -827,
+        "net": -836,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.38
+      "sd": 0.3
     },
     {
       "id": 90,
@@ -13801,13 +13801,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": -205,
+        "net": -217,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 4,
-      "haul": 0.001,
-      "sd": 1.87
+      "haul": 0.0,
+      "sd": 1.75
     },
     {
       "id": 92,
@@ -13905,7 +13905,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -75,
+        "net": -77,
         "moved": 0
       },
       "floor": 0,
@@ -14008,14 +14008,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.01,
-        "net": -179,
+        "score": 0.02,
+        "net": -181,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 4,
-      "haul": 0.005,
-      "sd": 2.25
+      "haul": 0.007,
+      "sd": 2.43
     },
     {
       "id": 620,
@@ -14113,7 +14113,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": -225,
+        "net": -220,
         "moved": 0
       },
       "floor": 0,
@@ -14216,14 +14216,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.72,
-        "net": -8703,
+        "score": 0.73,
+        "net": -8860,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 6,
-      "haul": 0.01,
-      "sd": 2.52
+      "haul": 0.018,
+      "sd": 2.64
     },
     {
       "id": 114,
@@ -14321,13 +14321,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.03,
-        "net": -313,
+        "net": -322,
         "moved": 0
       },
       "floor": 2,
-      "ceiling": 8,
-      "haul": 0.076,
-      "sd": 3.21
+      "ceiling": 9,
+      "haul": 0.081,
+      "sd": 3.3
     },
     {
       "id": 115,
@@ -14425,13 +14425,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 210540,
+        "net": 214124,
         "moved": 1
       },
-      "floor": 3,
+      "floor": 4,
       "ceiling": 17,
-      "haul": 0.419,
-      "sd": 6.1
+      "haul": 0.423,
+      "sd": 6.13
     },
     {
       "id": 116,
@@ -14528,14 +14528,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.28,
-        "net": 3418,
+        "score": 0.29,
+        "net": 3473,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 6,
-      "haul": 0.007,
-      "sd": 2.38
+      "haul": 0.006,
+      "sd": 2.33
     },
     {
       "id": 117,
@@ -14737,13 +14737,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": -44,
+        "net": -45,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 4,
-      "haul": 0.018,
-      "sd": 2.45
+      "haul": 0.013,
+      "sd": 2.35
     },
     {
       "id": 120,
@@ -14944,8 +14944,8 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.95,
-        "net": -11413,
+        "score": 0.96,
+        "net": -11525,
         "moved": 0
       },
       "floor": 0,
@@ -15049,13 +15049,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.04,
-        "net": -533,
+        "net": -538,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.19
+      "sd": 0.27
     },
     {
       "id": 504,
@@ -15153,13 +15153,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 35902,
+        "net": 36770,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 10,
-      "haul": 0.12,
-      "sd": 3.9
+      "haul": 0.115,
+      "sd": 3.61
     },
     {
       "id": 614,
@@ -15257,7 +15257,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -124,
+        "net": -126,
         "moved": 0
       },
       "floor": 0,
@@ -15360,14 +15360,14 @@
       },
       "price_pred": {
         "dir": "fall",
-        "score": 0.41,
-        "net": -20439,
+        "score": 0.42,
+        "net": -20694,
         "moved": -1
       },
       "floor": 1,
       "ceiling": 6,
-      "haul": 0.028,
-      "sd": 2.8
+      "haul": 0.019,
+      "sd": 2.72
     },
     {
       "id": 144,
@@ -15465,13 +15465,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.28,
-        "net": -3308,
+        "net": -3375,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 6,
-      "haul": 0.009,
-      "sd": 2.36
+      "haul": 0.011,
+      "sd": 2.41
     },
     {
       "id": 145,
@@ -15568,14 +15568,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.26,
-        "net": 3148,
+        "score": 0.27,
+        "net": 3208,
         "moved": 0
       },
       "floor": 0,
-      "ceiling": 7,
-      "haul": 0.001,
-      "sd": 2.6
+      "ceiling": 8,
+      "haul": 0.005,
+      "sd": 2.75
     },
     {
       "id": 148,
@@ -15673,13 +15673,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 17838,
+        "net": 18075,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 6,
       "haul": 0.007,
-      "sd": 2.3
+      "sd": 2.26
     },
     {
       "id": 149,
@@ -15776,14 +15776,14 @@
       },
       "price_pred": {
         "dir": "fall",
-        "score": 0.68,
-        "net": -8103,
+        "score": 0.69,
+        "net": -8244,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 6,
-      "haul": 0.005,
-      "sd": 2.44
+      "haul": 0.004,
+      "sd": 2.46
     },
     {
       "id": 151,
@@ -15880,14 +15880,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.03,
-        "net": 415,
+        "score": 0.04,
+        "net": 424,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 6,
-      "haul": 0.001,
-      "sd": 2.32
+      "haul": 0.003,
+      "sd": 2.3
     },
     {
       "id": 152,
@@ -15985,7 +15985,7 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -15628,
+        "net": -15885,
         "moved": 0
       },
       "floor": 0,
@@ -16088,14 +16088,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.2,
-        "net": -10572,
+        "score": 0.21,
+        "net": -10766,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 8,
-      "haul": 0.028,
-      "sd": 2.63
+      "haul": 0.022,
+      "sd": 2.6
     },
     {
       "id": 561,
@@ -16193,7 +16193,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": 12,
+        "net": 14,
         "moved": 0
       },
       "floor": 0,
@@ -16297,13 +16297,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.06,
-        "net": -737,
+        "net": -748,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 5,
       "haul": 0.001,
-      "sd": 2.16
+      "sd": 2.11
     },
     {
       "id": 91,
@@ -16401,13 +16401,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": -26,
+        "net": -27,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 4,
-      "haul": 0.004,
-      "sd": 1.95
+      "haul": 0.012,
+      "sd": 2.16
     },
     {
       "id": 173,
@@ -16505,13 +16505,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.35,
-        "net": 19259,
+        "net": 19561,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 7,
-      "haul": 0.04,
-      "sd": 2.78
+      "haul": 0.039,
+      "sd": 2.66
     },
     {
       "id": 175,
@@ -16608,14 +16608,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.69,
-        "net": -49277,
+        "score": 0.7,
+        "net": -50150,
         "moved": 0
       },
       "floor": 1,
-      "ceiling": 6,
+      "ceiling": 5,
       "haul": 0.003,
-      "sd": 2.2
+      "sd": 2.12
     },
     {
       "id": 176,
@@ -16713,13 +16713,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.1,
-        "net": -1152,
+        "net": -1173,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 6,
-      "haul": 0.018,
-      "sd": 2.34
+      "haul": 0.022,
+      "sd": 2.39
     },
     {
       "id": 177,
@@ -16817,7 +16817,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": -270,
+        "net": -279,
         "moved": 0
       },
       "floor": 0,
@@ -16921,7 +16921,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": -57,
+        "net": -54,
         "moved": 0
       },
       "floor": 0,
@@ -17129,7 +17129,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.07,
-        "net": -798,
+        "net": -806,
         "moved": 0
       },
       "floor": 0,
@@ -17233,12 +17233,12 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.09,
-        "net": -1073,
+        "net": -1091,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 6,
-      "haul": 0.007,
+      "haul": 0.013,
       "sd": 2.31
     },
     {
@@ -17337,13 +17337,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.12,
-        "net": 1466,
+        "net": 1484,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 4,
-      "haul": 0.003,
-      "sd": 2.06
+      "haul": 0.001,
+      "sd": 1.99
     },
     {
       "id": 202,
@@ -17441,13 +17441,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.04,
-        "net": -428,
+        "net": -444,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 7,
-      "haul": 0.033,
-      "sd": 2.53
+      "haul": 0.028,
+      "sd": 2.49
     },
     {
       "id": 203,
@@ -17545,13 +17545,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.07,
-        "net": -864,
+        "net": -878,
         "moved": 0
       },
       "floor": 1,
-      "ceiling": 6,
-      "haul": 0.019,
-      "sd": 2.4
+      "ceiling": 7,
+      "haul": 0.023,
+      "sd": 2.53
     },
     {
       "id": 204,
@@ -17649,13 +17649,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 81569,
+        "net": 82879,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 13,
-      "haul": 0.223,
-      "sd": 5.24
+      "haul": 0.225,
+      "sd": 5.13
     },
     {
       "id": 206,
@@ -17753,7 +17753,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.03,
-        "net": -330,
+        "net": -336,
         "moved": 0
       },
       "floor": 0,
@@ -17857,13 +17857,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -143,
+        "net": -142,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.91
+      "sd": 0.99
     },
     {
       "id": 577,
@@ -17961,13 +17961,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.11,
-        "net": -1351,
+        "net": -1370,
         "moved": 0
       },
       "floor": 0,
-      "ceiling": 4,
-      "haul": 0.001,
-      "sd": 1.8
+      "ceiling": 3,
+      "haul": 0.0,
+      "sd": 1.74
     },
     {
       "id": 588,
@@ -18064,14 +18064,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.21,
-        "net": 2577,
+        "score": 0.23,
+        "net": 2805,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 13,
-      "haul": 0.237,
-      "sd": 5.11
+      "haul": 0.212,
+      "sd": 4.98
     },
     {
       "id": 633,
@@ -18169,7 +18169,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": 122,
+        "net": 127,
         "moved": 0
       },
       "floor": 0,
@@ -18273,13 +18273,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 12989,
+        "net": 13192,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.003,
-      "sd": 1.03
+      "sd": 0.84
     },
     {
       "id": 229,
@@ -18376,14 +18376,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.53,
-        "net": 37768,
+        "score": 0.54,
+        "net": 38340,
         "moved": 0
       },
-      "floor": 4,
+      "floor": 3,
       "ceiling": 8,
-      "haul": 0.052,
-      "sd": 2.93
+      "haul": 0.039,
+      "sd": 2.84
     },
     {
       "id": 230,
@@ -18480,14 +18480,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.57,
-        "net": 6904,
+        "score": 0.58,
+        "net": 7048,
         "moved": 0
       },
-      "floor": 3,
+      "floor": 4,
       "ceiling": 8,
-      "haul": 0.042,
-      "sd": 2.79
+      "haul": 0.045,
+      "sd": 2.91
     },
     {
       "id": 231,
@@ -18584,8 +18584,8 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.61,
-        "net": -7317,
+        "score": 0.62,
+        "net": -7462,
         "moved": 0
       },
       "floor": 0,
@@ -18689,7 +18689,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.15,
-        "net": -1742,
+        "net": -1771,
         "moved": 0
       },
       "floor": 0,
@@ -18793,12 +18793,12 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 12852,
+        "net": 13016,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 8,
-      "haul": 0.005,
+      "haul": 0.006,
       "sd": 2.32
     },
     {
@@ -18896,14 +18896,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.47,
-        "net": 5641,
+        "score": 0.48,
+        "net": 5774,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.93
+      "sd": 1.01
     },
     {
       "id": 253,
@@ -19001,13 +19001,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": -227,
+        "net": -242,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 3,
-      "haul": 0.001,
-      "sd": 1.71
+      "haul": 0.0,
+      "sd": 1.68
     },
     {
       "id": 254,
@@ -19104,14 +19104,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.78,
-        "net": -9348,
+        "score": 0.79,
+        "net": -9500,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 5,
-      "haul": 0.017,
-      "sd": 2.37
+      "haul": 0.018,
+      "sd": 2.29
     },
     {
       "id": 255,
@@ -19209,13 +19209,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": -220,
+        "net": -222,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 3,
-      "haul": 0.001,
-      "sd": 1.44
+      "haul": 0.0,
+      "sd": 1.43
     },
     {
       "id": 256,
@@ -19313,7 +19313,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.09,
-        "net": -1052,
+        "net": -1069,
         "moved": 0
       },
       "floor": 0,
@@ -19417,13 +19417,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.28,
-        "net": -3312,
+        "net": -3376,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 3,
-      "haul": 0.003,
-      "sd": 1.78
+      "haul": 0.0,
+      "sd": 1.7
     },
     {
       "id": 258,
@@ -19520,14 +19520,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.29,
-        "net": -3464,
+        "score": 0.3,
+        "net": -3545,
         "moved": 0
       },
       "floor": 0,
-      "ceiling": 7,
-      "haul": 0.044,
-      "sd": 3.26
+      "ceiling": 8,
+      "haul": 0.052,
+      "sd": 3.48
     },
     {
       "id": 269,
@@ -19624,14 +19624,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.15,
-        "net": -1830,
+        "score": 0.16,
+        "net": -1868,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 1,
-      "haul": 0.003,
-      "sd": 1.26
+      "haul": 0.005,
+      "sd": 1.5
     },
     {
       "id": 610,
@@ -19729,7 +19729,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.03,
-        "net": -363,
+        "net": -371,
         "moved": 0
       },
       "floor": 0,
@@ -19833,7 +19833,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": 110,
+        "net": 107,
         "moved": 0
       },
       "floor": 0,
@@ -19937,13 +19937,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 118857,
+        "net": 119406,
         "moved": 1
       },
       "floor": 3,
       "ceiling": 8,
       "haul": 0.0,
-      "sd": 2.11
+      "sd": 2.09
     },
     {
       "id": 278,
@@ -20041,7 +20041,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.04,
-        "net": -502,
+        "net": -511,
         "moved": 0
       },
       "floor": 0,
@@ -20145,13 +20145,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 133915,
+        "net": 135899,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 8,
-      "haul": 0.066,
-      "sd": 3.4
+      "haul": 0.077,
+      "sd": 3.32
     },
     {
       "id": 280,
@@ -20248,14 +20248,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.1,
-        "net": 1237,
+        "score": 0.11,
+        "net": 1285,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 6,
-      "haul": 0.002,
-      "sd": 2.06
+      "haul": 0.0,
+      "sd": 2.08
     },
     {
       "id": 282,
@@ -20353,13 +20353,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 16026,
+        "net": 16405,
         "moved": 0
       },
-      "floor": 2,
+      "floor": 1,
       "ceiling": 6,
-      "haul": 0.017,
-      "sd": 2.31
+      "haul": 0.013,
+      "sd": 2.27
     },
     {
       "id": 284,
@@ -20457,7 +20457,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -79,
+        "net": -81,
         "moved": 0
       },
       "floor": 0,
@@ -20561,13 +20561,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.03,
-        "net": -304,
+        "net": -309,
         "moved": 0
       },
       "floor": 0,
-      "ceiling": 0,
+      "ceiling": 2,
       "haul": 0.0,
-      "sd": 1.17
+      "sd": 1.31
     },
     {
       "id": 556,
@@ -20664,14 +20664,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.57,
-        "net": -7267,
+        "score": 0.58,
+        "net": -7401,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.42
+      "sd": 0.59
     },
     {
       "id": 585,
@@ -20769,13 +20769,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.1,
-        "net": -1237,
+        "net": -1256,
         "moved": 0
       },
       "floor": 0,
-      "ceiling": 4,
+      "ceiling": 5,
       "haul": 0.0,
-      "sd": 2.01
+      "sd": 2.1
     },
     {
       "id": 586,
@@ -20786,7 +20786,7 @@
       "price": 4.0,
       "xpts": 4.4,
       "xpts_h": 15.2,
-      "own": "6.9",
+      "own": "7.0",
       "owned": false,
       "next": {
         "opp": "CHE",
@@ -20873,13 +20873,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 125105,
+        "net": 127524,
         "moved": 0
       },
       "floor": 3,
       "ceiling": 8,
-      "haul": 0.062,
-      "sd": 2.92
+      "haul": 0.067,
+      "sd": 2.85
     },
     {
       "id": 638,
@@ -20976,8 +20976,8 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.56,
-        "net": 6737,
+        "score": 0.57,
+        "net": 6811,
         "moved": 0
       },
       "floor": 0,
@@ -21080,14 +21080,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.5,
-        "net": -47268,
+        "score": 0.51,
+        "net": -48151,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 4,
       "haul": 0.001,
-      "sd": 1.75
+      "sd": 1.74
     },
     {
       "id": 303,
@@ -21184,8 +21184,8 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.14,
-        "net": -1716,
+        "score": 0.15,
+        "net": -1754,
         "moved": 0
       },
       "floor": 0,
@@ -21288,14 +21288,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.57,
-        "net": -11281,
+        "score": 0.58,
+        "net": -11461,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 6,
-      "haul": 0.022,
-      "sd": 2.37
+      "haul": 0.013,
+      "sd": 2.28
     },
     {
       "id": 305,
@@ -21393,13 +21393,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.26,
-        "net": -8371,
+        "net": -8556,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 10,
-      "haul": 0.117,
-      "sd": 4.17
+      "haul": 0.128,
+      "sd": 4.31
     },
     {
       "id": 306,
@@ -21410,7 +21410,7 @@
       "price": 4.0,
       "xpts": 1.6,
       "xpts_h": 6.3,
-      "own": "1.3",
+      "own": "1.2",
       "owned": false,
       "next": {
         "opp": "CRY",
@@ -21497,13 +21497,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.24,
-        "net": -2882,
+        "net": -2934,
         "moved": 0
       },
-      "floor": 0,
+      "floor": 1,
       "ceiling": 4,
-      "haul": 0.003,
-      "sd": 1.9
+      "haul": 0.0,
+      "sd": 1.92
     },
     {
       "id": 308,
@@ -21601,13 +21601,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.13,
-        "net": -1594,
+        "net": -1619,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 1.05
+      "sd": 0.89
     },
     {
       "id": 592,
@@ -21705,13 +21705,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.1,
-        "net": -1168,
+        "net": -1194,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 1,
       "haul": 0.0,
-      "sd": 0.88
+      "sd": 0.86
     },
     {
       "id": 327,
@@ -21808,14 +21808,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.43,
-        "net": -5203,
+        "score": 0.44,
+        "net": -5295,
         "moved": 0
       },
-      "floor": 1,
+      "floor": 0,
       "ceiling": 8,
-      "haul": 0.022,
-      "sd": 3.07
+      "haul": 0.016,
+      "sd": 2.97
     },
     {
       "id": 329,
@@ -21913,7 +21913,7 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -54955,
+        "net": -55593,
         "moved": -1
       },
       "floor": 0,
@@ -22017,13 +22017,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 43041,
+        "net": 43767,
         "moved": 0
       },
       "floor": 2,
-      "ceiling": 12,
-      "haul": 0.165,
-      "sd": 4.42
+      "ceiling": 13,
+      "haul": 0.2,
+      "sd": 4.62
     },
     {
       "id": 331,
@@ -22121,13 +22121,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": 264,
+        "net": 270,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 6,
       "haul": 0.0,
-      "sd": 2.17
+      "sd": 2.11
     },
     {
       "id": 332,
@@ -22225,13 +22225,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.15,
-        "net": 1776,
+        "net": 1784,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 8,
-      "haul": 0.053,
-      "sd": 3.01
+      "haul": 0.054,
+      "sd": 2.97
     },
     {
       "id": 334,
@@ -22328,14 +22328,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.75,
-        "net": 16310,
+        "score": 0.78,
+        "net": 16804,
         "moved": 0
       },
-      "floor": 3,
+      "floor": 4,
       "ceiling": 8,
-      "haul": 0.034,
-      "sd": 2.71
+      "haul": 0.033,
+      "sd": 2.59
     },
     {
       "id": 598,
@@ -22433,13 +22433,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": 252,
+        "net": 255,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 8,
       "haul": 0.025,
-      "sd": 3.01
+      "sd": 3.05
     },
     {
       "id": 603,
@@ -22537,7 +22537,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": 145,
+        "net": 146,
         "moved": 0
       },
       "floor": 0,
@@ -22641,7 +22641,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": 101,
+        "net": 102,
         "moved": 0
       },
       "floor": 0,
@@ -22745,13 +22745,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.19,
-        "net": -20994,
+        "net": -21249,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 9,
-      "haul": 0.086,
-      "sd": 3.47
+      "haul": 0.097,
+      "sd": 3.6
     },
     {
       "id": 357,
@@ -22849,13 +22849,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -46751,
+        "net": -47214,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 6,
-      "haul": 0.012,
-      "sd": 2.65
+      "haul": 0.013,
+      "sd": 2.62
     },
     {
       "id": 358,
@@ -22952,14 +22952,14 @@
       },
       "price_pred": {
         "dir": "fall",
-        "score": 0.61,
-        "net": -10897,
+        "score": 0.62,
+        "net": -11039,
         "moved": -1
       },
       "floor": 2,
       "ceiling": 7,
-      "haul": 0.016,
-      "sd": 2.58
+      "haul": 0.018,
+      "sd": 2.62
     },
     {
       "id": 359,
@@ -23057,7 +23057,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -88,
+        "net": -90,
         "moved": 0
       },
       "floor": 0,
@@ -23161,7 +23161,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": -57,
+        "net": -58,
         "moved": 0
       },
       "floor": 0,
@@ -23265,7 +23265,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.03,
-        "net": -370,
+        "net": -372,
         "moved": 0
       },
       "floor": 0,
@@ -23369,13 +23369,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.38,
-        "net": 6475,
+        "net": 6511,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 8,
-      "haul": 0.018,
-      "sd": 2.52
+      "haul": 0.011,
+      "sd": 2.51
     },
     {
       "id": 363,
@@ -23473,7 +23473,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -160,
+        "net": -161,
         "moved": 0
       },
       "floor": 0,
@@ -23577,13 +23577,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.05,
-        "net": -625,
+        "net": -632,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 0,
-      "haul": 0.003,
-      "sd": 1.35
+      "haul": 0.001,
+      "sd": 1.06
     },
     {
       "id": 579,
@@ -23681,13 +23681,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.68,
-        "net": 9873,
+        "net": 10014,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 6,
-      "haul": 0.005,
-      "sd": 2.35
+      "haul": 0.003,
+      "sd": 2.47
     },
     {
       "id": 387,
@@ -23785,13 +23785,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -304212,
+        "net": -308860,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 6,
-      "haul": 0.019,
-      "sd": 2.56
+      "haul": 0.018,
+      "sd": 2.55
     },
     {
       "id": 388,
@@ -23889,13 +23889,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": -2512,
+        "net": -2627,
         "moved": 0
       },
       "floor": 2,
-      "ceiling": 14,
-      "haul": 0.229,
-      "sd": 5.1
+      "ceiling": 13,
+      "haul": 0.244,
+      "sd": 5.09
     },
     {
       "id": 389,
@@ -23992,14 +23992,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.39,
-        "net": -4696,
+        "score": 0.4,
+        "net": -4749,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 1,
       "haul": 0.0,
-      "sd": 1.04
+      "sd": 0.94
     },
     {
       "id": 390,
@@ -24096,14 +24096,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.22,
-        "net": -2668,
+        "score": 0.23,
+        "net": -2729,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 9,
-      "haul": 0.071,
-      "sd": 3.27
+      "haul": 0.091,
+      "sd": 3.49
     },
     {
       "id": 391,
@@ -24200,14 +24200,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.92,
-        "net": 116042,
+        "score": 0.93,
+        "net": 117086,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 8,
-      "haul": 0.054,
-      "sd": 3.12
+      "haul": 0.045,
+      "sd": 2.94
     },
     {
       "id": 392,
@@ -24305,7 +24305,7 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.5,
-        "net": -5961,
+        "net": -6046,
         "moved": -1
       },
       "floor": 0,
@@ -24408,14 +24408,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.29,
-        "net": -3491,
+        "score": 0.3,
+        "net": -3541,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 5,
       "haul": 0.003,
-      "sd": 1.96
+      "sd": 2.04
     },
     {
       "id": 395,
@@ -24513,13 +24513,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.15,
-        "net": -1819,
+        "net": -1846,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
-      "haul": 0.016,
-      "sd": 2.2
+      "haul": 0.013,
+      "sd": 2.11
     },
     {
       "id": 396,
@@ -24617,13 +24617,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -121,
+        "net": -122,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.19
+      "sd": 0.25
     },
     {
       "id": 622,
@@ -24721,13 +24721,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.08,
-        "net": 995,
+        "net": 1006,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.17
+      "sd": 0.21
     },
     {
       "id": 416,
@@ -24825,7 +24825,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -122,
+        "net": -126,
         "moved": 0
       },
       "floor": 0,
@@ -24929,13 +24929,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -14162,
+        "net": -14454,
         "moved": -1
       },
       "floor": 0,
-      "ceiling": 5,
-      "haul": 0.023,
-      "sd": 2.6
+      "ceiling": 6,
+      "haul": 0.024,
+      "sd": 2.8
     },
     {
       "id": 418,
@@ -25033,13 +25033,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -153143,
+        "net": -155679,
         "moved": -1
       },
       "floor": 1,
       "ceiling": 7,
-      "haul": 0.032,
-      "sd": 2.78
+      "haul": 0.027,
+      "sd": 2.77
     },
     {
       "id": 419,
@@ -25137,13 +25137,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.29,
-        "net": -3466,
+        "net": -3522,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 5,
       "haul": 0.006,
-      "sd": 1.99
+      "sd": 2.01
     },
     {
       "id": 420,
@@ -25240,14 +25240,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.27,
-        "net": -3260,
+        "score": 0.28,
+        "net": -3309,
         "moved": 0
       },
       "floor": 0,
-      "ceiling": 2,
-      "haul": 0.001,
-      "sd": 1.34
+      "ceiling": 3,
+      "haul": 0.0,
+      "sd": 1.38
     },
     {
       "id": 421,
@@ -25345,13 +25345,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.22,
-        "net": -2601,
+        "net": -2643,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 2,
-      "haul": 0.007,
-      "sd": 1.86
+      "haul": 0.006,
+      "sd": 1.71
     },
     {
       "id": 422,
@@ -25448,14 +25448,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.42,
-        "net": -5069,
+        "score": 0.43,
+        "net": -5144,
         "moved": 0
       },
       "floor": 0,
-      "ceiling": 3,
-      "haul": 0.016,
-      "sd": 2.2
+      "ceiling": 4,
+      "haul": 0.012,
+      "sd": 2.08
     },
     {
       "id": 423,
@@ -25553,13 +25553,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -151976,
+        "net": -154027,
         "moved": -1
       },
       "floor": 1,
       "ceiling": 7,
-      "haul": 0.033,
-      "sd": 2.88
+      "haul": 0.031,
+      "sd": 2.78
     },
     {
       "id": 424,
@@ -25657,7 +25657,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -174,
+        "net": -180,
         "moved": 0
       },
       "floor": 0,
@@ -25761,13 +25761,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.06,
-        "net": -855,
+        "net": -857,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 6,
-      "haul": 0.003,
-      "sd": 2.05
+      "haul": 0.001,
+      "sd": 2.07
     },
     {
       "id": 446,
@@ -25865,13 +25865,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.13,
-        "net": -1549,
+        "net": -1565,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.32
+      "sd": 0.0
     },
     {
       "id": 447,
@@ -25969,13 +25969,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.03,
-        "net": -342,
+        "net": -349,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 6,
-      "haul": 0.003,
-      "sd": 2.26
+      "haul": 0.009,
+      "sd": 2.25
     },
     {
       "id": 448,
@@ -26072,8 +26072,8 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.93,
-        "net": -11103,
+        "score": 0.94,
+        "net": -11258,
         "moved": 0
       },
       "floor": 0,
@@ -26177,13 +26177,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 190281,
+        "net": 193191,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 8,
-      "haul": 0.044,
-      "sd": 2.79
+      "haul": 0.036,
+      "sd": 2.67
     },
     {
       "id": 450,
@@ -26281,13 +26281,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.08,
-        "net": 903,
+        "net": 922,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.24
+      "sd": 0.21
     },
     {
       "id": 593,
@@ -26385,13 +26385,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 47487,
+        "net": 47849,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 6,
-      "haul": 0.018,
-      "sd": 2.45
+      "haul": 0.021,
+      "sd": 2.48
     },
     {
       "id": 609,
@@ -26489,7 +26489,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.04,
-        "net": 454,
+        "net": 456,
         "moved": 0
       },
       "floor": 0,
@@ -26593,12 +26593,12 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -39529,
+        "net": -40146,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 6,
-      "haul": 0.016,
+      "haul": 0.019,
       "sd": 2.77
     },
     {
@@ -26697,13 +26697,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.16,
-        "net": 8326,
+        "net": 8449,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 8,
-      "haul": 0.033,
-      "sd": 2.72
+      "haul": 0.04,
+      "sd": 2.82
     },
     {
       "id": 471,
@@ -26801,13 +26801,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": 45,
+        "net": 47,
         "moved": 0
       },
       "floor": 3,
       "ceiling": 8,
-      "haul": 0.022,
-      "sd": 2.62
+      "haul": 0.026,
+      "sd": 2.65
     },
     {
       "id": 472,
@@ -26905,13 +26905,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.2,
-        "net": 2380,
+        "net": 2432,
         "moved": 0
       },
       "floor": 3,
       "ceiling": 8,
-      "haul": 0.077,
-      "sd": 3.24
+      "haul": 0.085,
+      "sd": 3.32
     },
     {
       "id": 473,
@@ -27009,13 +27009,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -20017,
+        "net": -20324,
         "moved": 0
       },
       "floor": 2,
-      "ceiling": 8,
-      "haul": 0.049,
-      "sd": 2.81
+      "ceiling": 7,
+      "haul": 0.047,
+      "sd": 2.78
     },
     {
       "id": 474,
@@ -27113,13 +27113,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.11,
-        "net": 1315,
+        "net": 1342,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 8,
-      "haul": 0.006,
-      "sd": 2.43
+      "haul": 0.002,
+      "sd": 2.41
     },
     {
       "id": 475,
@@ -27320,8 +27320,8 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.03,
-        "net": -415,
+        "score": 0.04,
+        "net": -430,
         "moved": 0
       },
       "floor": 0,
@@ -27425,13 +27425,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -141,
+        "net": -144,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 1,
       "haul": 0.0,
-      "sd": 1.39
+      "sd": 1.29
     },
     {
       "id": 581,
@@ -27529,13 +27529,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.28,
-        "net": -3344,
+        "net": -3381,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.31
+      "sd": 0.18
     },
     {
       "id": 112,
@@ -27632,14 +27632,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.47,
-        "net": -21097,
+        "score": 0.48,
+        "net": -21461,
         "moved": 0
       },
       "floor": 2,
-      "ceiling": 8,
-      "haul": 0.032,
-      "sd": 2.74
+      "ceiling": 7,
+      "haul": 0.028,
+      "sd": 2.62
     },
     {
       "id": 147,
@@ -27737,7 +27737,7 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.04,
-        "net": -522,
+        "net": -525,
         "moved": -1
       },
       "floor": 0,
@@ -27841,13 +27841,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -54243,
+        "net": -54967,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 7,
-      "haul": 0.001,
-      "sd": 2.58
+      "haul": 0.003,
+      "sd": 2.56
     },
     {
       "id": 499,
@@ -27944,13 +27944,13 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.05,
-        "net": -3926,
+        "score": 0.06,
+        "net": -4205,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 6,
-      "haul": 0.04,
+      "haul": 0.034,
       "sd": 2.99
     },
     {
@@ -28049,13 +28049,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -27672,
+        "net": -28108,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 6,
       "haul": 0.011,
-      "sd": 2.61
+      "sd": 2.46
     },
     {
       "id": 503,
@@ -28153,13 +28153,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.27,
-        "net": 6478,
+        "net": 6510,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 8,
-      "haul": 0.057,
-      "sd": 3.48
+      "haul": 0.068,
+      "sd": 3.62
     },
     {
       "id": 506,
@@ -28257,13 +28257,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.06,
-        "net": -724,
+        "net": -739,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 5,
       "haul": 0.003,
-      "sd": 2.07
+      "sd": 2.04
     },
     {
       "id": 508,
@@ -28361,7 +28361,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.27,
-        "net": -3202,
+        "net": -3252,
         "moved": 0
       },
       "floor": 0,
@@ -28569,7 +28569,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": -15,
+        "net": -18,
         "moved": 0
       },
       "floor": 0,
@@ -28673,12 +28673,12 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": 74,
+        "net": 71,
         "moved": 0
       },
       "floor": 0,
-      "ceiling": 6,
-      "haul": 0.001,
+      "ceiling": 5,
+      "haul": 0.003,
       "sd": 2.21
     },
     {
@@ -28777,13 +28777,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -43578,
+        "net": -44138,
         "moved": -1
       },
       "floor": 2,
       "ceiling": 8,
-      "haul": 0.016,
-      "sd": 2.52
+      "haul": 0.029,
+      "sd": 2.85
     },
     {
       "id": 533,
@@ -28880,14 +28880,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.51,
-        "net": -7421,
+        "score": 0.52,
+        "net": -7570,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 8,
-      "haul": 0.002,
-      "sd": 2.5
+      "haul": 0.003,
+      "sd": 2.59
     },
     {
       "id": 534,
@@ -28985,13 +28985,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -69649,
+        "net": -70659,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 6,
-      "haul": 0.015,
-      "sd": 2.55
+      "haul": 0.014,
+      "sd": 2.49
     },
     {
       "id": 535,
@@ -29089,13 +29089,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.26,
-        "net": -3081,
+        "net": -3116,
         "moved": -1
       },
       "floor": 0,
-      "ceiling": 1,
+      "ceiling": 0,
       "haul": 0.0,
-      "sd": 1.17
+      "sd": 1.12
     },
     {
       "id": 536,
@@ -29193,13 +29193,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.15,
-        "net": -1750,
+        "net": -1790,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 7,
-      "haul": 0.014,
-      "sd": 2.41
+      "haul": 0.021,
+      "sd": 2.48
     },
     {
       "id": 539,
@@ -29296,14 +29296,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.84,
-        "net": -14997,
+        "score": 0.86,
+        "net": -15266,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 4,
       "haul": 0.0,
-      "sd": 1.87
+      "sd": 1.79
     },
     {
       "id": 541,
@@ -29401,13 +29401,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.06,
-        "net": -681,
+        "net": -696,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 7,
-      "haul": 0.034,
-      "sd": 2.65
+      "haul": 0.029,
+      "sd": 2.69
     },
     {
       "id": 612,
@@ -29609,13 +29609,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.1,
-        "net": -1158,
+        "net": -1214,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 4,
-      "haul": 0.013,
-      "sd": 1.64
+      "haul": 0.008,
+      "sd": 1.67
     },
     {
       "id": 12,
@@ -29713,13 +29713,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.59,
-        "net": 42453,
+        "net": 42719,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 10,
-      "haul": 0.15,
-      "sd": 4.01
+      "haul": 0.151,
+      "sd": 3.95
     },
     {
       "id": 13,
@@ -29816,14 +29816,14 @@
       },
       "price_pred": {
         "dir": "fall",
-        "score": 0.64,
-        "net": -55931,
+        "score": 0.65,
+        "net": -56908,
         "moved": -1
       },
       "floor": 2,
       "ceiling": 4,
-      "haul": 0.018,
-      "sd": 1.78
+      "haul": 0.014,
+      "sd": 1.76
     },
     {
       "id": 14,
@@ -29921,13 +29921,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -13470,
+        "net": -13696,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
       "haul": 0.001,
-      "sd": 1.17
+      "sd": 1.21
     },
     {
       "id": 15,
@@ -30025,13 +30025,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 180562,
+        "net": 185376,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 10,
-      "haul": 0.123,
-      "sd": 3.58
+      "haul": 0.126,
+      "sd": 3.74
     },
     {
       "id": 16,
@@ -30129,13 +30129,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.12,
-        "net": -1415,
+        "net": -1439,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
-      "haul": 0.002,
-      "sd": 1.01
+      "haul": 0.0,
+      "sd": 0.94
     },
     {
       "id": 17,
@@ -30233,13 +30233,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.4,
-        "net": -4744,
+        "net": -4834,
         "moved": 0
       },
       "floor": 0,
-      "ceiling": 2,
-      "haul": 0.003,
-      "sd": 1.3
+      "ceiling": 3,
+      "haul": 0.002,
+      "sd": 1.37
     },
     {
       "id": 19,
@@ -30336,14 +30336,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.46,
-        "net": -5502,
+        "score": 0.47,
+        "net": -5595,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 4,
       "haul": 0.001,
-      "sd": 1.57
+      "sd": 1.61
     },
     {
       "id": 20,
@@ -30441,7 +30441,7 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.03,
-        "net": -407,
+        "net": -410,
         "moved": -1
       },
       "floor": 0,
@@ -30545,13 +30545,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -19225,
+        "net": -19479,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 1.01
+      "sd": 0.97
     },
     {
       "id": 557,
@@ -30562,7 +30562,7 @@
       "price": 6.4,
       "xpts": 2.8,
       "xpts_h": 8.4,
-      "own": "17.6",
+      "own": "17.5",
       "owned": false,
       "next": {
         "opp": "SUN",
@@ -30649,13 +30649,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -161176,
+        "net": -162913,
         "moved": -1
       },
       "floor": 1,
-      "ceiling": 6,
-      "haul": 0.02,
-      "sd": 2.18
+      "ceiling": 5,
+      "haul": 0.013,
+      "sd": 2.09
     },
     {
       "id": 35,
@@ -30753,13 +30753,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": -257,
+        "net": -261,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.51
+      "sd": 0.55
     },
     {
       "id": 41,
@@ -30856,14 +30856,14 @@
       },
       "price_pred": {
         "dir": "fall",
-        "score": 0.55,
-        "net": -6636,
+        "score": 0.56,
+        "net": -6716,
         "moved": -1
       },
       "floor": 2,
       "ceiling": 8,
-      "haul": 0.058,
-      "sd": 2.8
+      "haul": 0.046,
+      "sd": 2.67
     },
     {
       "id": 45,
@@ -30960,14 +30960,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.68,
-        "net": -10008,
+        "score": 0.7,
+        "net": -10200,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 8,
-      "haul": 0.034,
-      "sd": 2.7
+      "haul": 0.038,
+      "sd": 2.73
     },
     {
       "id": 46,
@@ -31065,13 +31065,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.06,
-        "net": 739,
+        "net": 737,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 4,
-      "haul": 0.023,
-      "sd": 1.93
+      "haul": 0.019,
+      "sd": 1.9
     },
     {
       "id": 47,
@@ -31169,7 +31169,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.04,
-        "net": -441,
+        "net": -456,
         "moved": 0
       },
       "floor": 2,
@@ -31273,7 +31273,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -101,
+        "net": -103,
         "moved": 0
       },
       "floor": 0,
@@ -31377,7 +31377,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": -262,
+        "net": -298,
         "moved": 0
       },
       "floor": 0,
@@ -31481,13 +31481,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 13267,
+        "net": 13459,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 4,
-      "haul": 0.007,
-      "sd": 1.29
+      "haul": 0.004,
+      "sd": 1.33
     },
     {
       "id": 52,
@@ -31585,13 +31585,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -113,
+        "net": -118,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 3,
       "haul": 0.0,
-      "sd": 1.17
+      "sd": 1.21
     },
     {
       "id": 53,
@@ -31689,7 +31689,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.07,
-        "net": -858,
+        "net": -862,
         "moved": 0
       },
       "floor": 0,
@@ -31793,7 +31793,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": -237,
+        "net": -239,
         "moved": 0
       },
       "floor": 0,
@@ -31897,13 +31897,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.32,
-        "net": -3809,
+        "net": -3841,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
       "haul": 0.0,
-      "sd": 0.7
+      "sd": 0.77
     },
     {
       "id": 618,
@@ -32001,7 +32001,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -130,
+        "net": -139,
         "moved": 0
       },
       "floor": 0,
@@ -32105,7 +32105,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.09,
-        "net": 1123,
+        "net": 1133,
         "moved": 0
       },
       "floor": 0,
@@ -32209,13 +32209,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -18133,
+        "net": -18411,
         "moved": -1
       },
       "floor": 2,
       "ceiling": 8,
-      "haul": 0.049,
-      "sd": 2.56
+      "haul": 0.043,
+      "sd": 2.49
     },
     {
       "id": 68,
@@ -32313,13 +32313,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 63084,
+        "net": 63891,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 12,
-      "haul": 0.186,
-      "sd": 4.44
+      "haul": 0.212,
+      "sd": 4.45
     },
     {
       "id": 69,
@@ -32417,13 +32417,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 162643,
+        "net": 165361,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 8,
-      "haul": 0.068,
-      "sd": 2.75
+      "haul": 0.053,
+      "sd": 2.59
     },
     {
       "id": 70,
@@ -32521,13 +32521,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.53,
-        "net": -6337,
+        "net": -6417,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 9,
-      "haul": 0.06,
-      "sd": 3.2
+      "haul": 0.067,
+      "sd": 3.26
     },
     {
       "id": 71,
@@ -32625,13 +32625,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.05,
-        "net": -572,
+        "net": -587,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
       "haul": 0.0,
-      "sd": 1.07
+      "sd": 1.1
     },
     {
       "id": 72,
@@ -32729,13 +32729,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.03,
-        "net": -368,
+        "net": -373,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.44
+      "sd": 0.43
     },
     {
       "id": 73,
@@ -32833,13 +32833,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.11,
-        "net": 1266,
+        "net": 1282,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 4,
       "haul": 0.0,
-      "sd": 1.75
+      "sd": 1.78
     },
     {
       "id": 74,
@@ -32937,13 +32937,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": -34,
+        "net": -33,
         "moved": 0
       },
       "floor": 0,
-      "ceiling": 2,
+      "ceiling": 1,
       "haul": 0.0,
-      "sd": 0.64
+      "sd": 0.63
     },
     {
       "id": 75,
@@ -33041,13 +33041,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": 22,
+        "net": 21,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.56
+      "sd": 0.62
     },
     {
       "id": 76,
@@ -33145,13 +33145,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -73,
+        "net": -74,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.79
+      "sd": 0.77
     },
     {
       "id": 77,
@@ -33249,7 +33249,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -133,
+        "net": -135,
         "moved": 0
       },
       "floor": 0,
@@ -33353,7 +33353,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.16,
-        "net": -1893,
+        "net": -1919,
         "moved": 0
       },
       "floor": 0,
@@ -33456,14 +33456,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.04,
-        "net": -606,
+        "score": 0.05,
+        "net": -706,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 10,
       "haul": 0.158,
-      "sd": 3.89
+      "sd": 3.86
     },
     {
       "id": 94,
@@ -33560,14 +33560,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.92,
-        "net": -23404,
+        "score": 0.94,
+        "net": -23862,
         "moved": 0
       },
       "floor": 2,
-      "ceiling": 9,
-      "haul": 0.094,
-      "sd": 3.25
+      "ceiling": 10,
+      "haul": 0.101,
+      "sd": 3.33
     },
     {
       "id": 95,
@@ -33664,14 +33664,14 @@
       },
       "price_pred": {
         "dir": "fall",
-        "score": 0.83,
-        "net": -9990,
+        "score": 0.84,
+        "net": -10113,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 4,
-      "haul": 0.022,
-      "sd": 2.51
+      "haul": 0.025,
+      "sd": 2.47
     },
     {
       "id": 96,
@@ -33769,13 +33769,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.06,
-        "net": 697,
+        "net": 709,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 4,
       "haul": 0.009,
-      "sd": 2.09
+      "sd": 2.05
     },
     {
       "id": 97,
@@ -33873,7 +33873,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.19,
-        "net": -2269,
+        "net": -2299,
         "moved": 0
       },
       "floor": 0,
@@ -33977,13 +33977,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 58139,
+        "net": 59141,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 9,
       "haul": 0.079,
-      "sd": 3.13
+      "sd": 3.01
     },
     {
       "id": 99,
@@ -34081,7 +34081,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": -9,
+        "net": -8,
         "moved": 0
       },
       "floor": 0,
@@ -34185,7 +34185,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": 14,
+        "net": 13,
         "moved": 0
       },
       "floor": 0,
@@ -34288,14 +34288,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.6,
-        "net": -7145,
+        "score": 0.61,
+        "net": -7273,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 4,
       "haul": 0.001,
-      "sd": 1.52
+      "sd": 1.57
     },
     {
       "id": 103,
@@ -34393,7 +34393,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.03,
-        "net": -335,
+        "net": -339,
         "moved": 0
       },
       "floor": 0,
@@ -34496,14 +34496,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.07,
-        "net": -896,
+        "score": 0.08,
+        "net": -906,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 5,
-      "haul": 0.017,
-      "sd": 2.38
+      "haul": 0.013,
+      "sd": 2.31
     },
     {
       "id": 565,
@@ -34600,14 +34600,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.87,
-        "net": -78836,
+        "score": 0.89,
+        "net": -80678,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 9,
-      "haul": 0.075,
-      "sd": 2.79
+      "haul": 0.089,
+      "sd": 3.05
     },
     {
       "id": 121,
@@ -34705,7 +34705,7 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.02,
-        "net": -237,
+        "net": -242,
         "moved": -1
       },
       "floor": 0,
@@ -34809,7 +34809,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.04,
-        "net": -420,
+        "net": -428,
         "moved": 0
       },
       "floor": 0,
@@ -34913,13 +34913,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -22169,
+        "net": -22489,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
-      "haul": 0.016,
-      "sd": 2.04
+      "haul": 0.014,
+      "sd": 1.93
     },
     {
       "id": 124,
@@ -35016,14 +35016,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.5,
-        "net": 51683,
+        "score": 0.51,
+        "net": 52502,
         "moved": 0
       },
-      "floor": 2,
+      "floor": 1,
       "ceiling": 10,
-      "haul": 0.138,
-      "sd": 4.11
+      "haul": 0.122,
+      "sd": 3.95
     },
     {
       "id": 126,
@@ -35121,7 +35121,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": -265,
+        "net": -267,
         "moved": 0
       },
       "floor": 0,
@@ -35225,13 +35225,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.05,
-        "net": 1434,
+        "net": 1437,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 11,
-      "haul": 0.148,
-      "sd": 3.91
+      "haul": 0.193,
+      "sd": 4.11
     },
     {
       "id": 129,
@@ -35329,13 +35329,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.19,
-        "net": -2250,
+        "net": -2281,
         "moved": 0
       },
       "floor": 0,
-      "ceiling": 6,
-      "haul": 0.021,
-      "sd": 2.49
+      "ceiling": 5,
+      "haul": 0.019,
+      "sd": 2.41
     },
     {
       "id": 134,
@@ -35433,7 +35433,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.03,
-        "net": -382,
+        "net": -386,
         "moved": 0
       },
       "floor": 0,
@@ -35543,7 +35543,7 @@
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.52
+      "sd": 0.55
     },
     {
       "id": 600,
@@ -35641,13 +35641,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -72,
+        "net": -73,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
       "haul": 0.0,
-      "sd": 0.99
+      "sd": 0.93
     },
     {
       "id": 605,
@@ -35745,13 +35745,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 61705,
+        "net": 62560,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 10,
-      "haul": 0.102,
-      "sd": 4.0
+      "haul": 0.101,
+      "sd": 3.97
     },
     {
       "id": 639,
@@ -35849,7 +35849,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": 232,
+        "net": 231,
         "moved": 0
       },
       "floor": 0,
@@ -35953,7 +35953,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": 55,
+        "net": 53,
         "moved": 0
       },
       "floor": 0,
@@ -35970,7 +35970,7 @@
       "price": 7.6,
       "xpts": 5.3,
       "xpts_h": 18.9,
-      "own": "28.0",
+      "own": "28.1",
       "owned": true,
       "next": {
         "opp": "HUL",
@@ -36057,13 +36057,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 338336,
+        "net": 343545,
         "moved": 1
       },
       "floor": 2,
-      "ceiling": 11,
-      "haul": 0.167,
-      "sd": 4.2
+      "ceiling": 10,
+      "haul": 0.138,
+      "sd": 4.04
     },
     {
       "id": 101,
@@ -36161,7 +36161,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": -222,
+        "net": -226,
         "moved": 0
       },
       "floor": 0,
@@ -36265,13 +36265,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 250029,
+        "net": 254692,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 10,
-      "haul": 0.106,
-      "sd": 3.66
+      "haul": 0.1,
+      "sd": 3.86
     },
     {
       "id": 156,
@@ -36369,12 +36369,12 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.36,
-        "net": 4302,
+        "net": 4359,
         "moved": 0
       },
       "floor": 1,
-      "ceiling": 8,
-      "haul": 0.048,
+      "ceiling": 7,
+      "haul": 0.049,
       "sd": 2.96
     },
     {
@@ -36473,13 +36473,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.46,
-        "net": -5497,
+        "net": -5554,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
-      "haul": 0.001,
-      "sd": 0.7
+      "haul": 0.0,
+      "sd": 0.56
     },
     {
       "id": 158,
@@ -36577,7 +36577,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -128,
+        "net": -130,
         "moved": 0
       },
       "floor": 0,
@@ -36681,13 +36681,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -22451,
+        "net": -22798,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.43
+      "sd": 0.41
     },
     {
       "id": 161,
@@ -36784,14 +36784,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.18,
-        "net": 2216,
+        "score": 0.19,
+        "net": 2241,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 9,
       "haul": 0.076,
-      "sd": 3.05
+      "sd": 3.16
     },
     {
       "id": 164,
@@ -36889,13 +36889,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": -230,
+        "net": -232,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.5
+      "sd": 0.61
     },
     {
       "id": 568,
@@ -36993,13 +36993,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.03,
-        "net": -407,
+        "net": -412,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.001,
-      "sd": 0.65
+      "sd": 0.7
     },
     {
       "id": 104,
@@ -37097,13 +37097,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.04,
-        "net": -477,
+        "net": -486,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 2,
       "haul": 0.0,
-      "sd": 1.21
+      "sd": 1.17
     },
     {
       "id": 183,
@@ -37201,13 +37201,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.03,
-        "net": -376,
+        "net": -379,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 4,
-      "haul": 0.032,
-      "sd": 2.56
+      "haul": 0.028,
+      "sd": 2.48
     },
     {
       "id": 184,
@@ -37305,13 +37305,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.08,
-        "net": -911,
+        "net": -918,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 4,
       "haul": 0.003,
-      "sd": 1.13
+      "sd": 1.14
     },
     {
       "id": 185,
@@ -37409,13 +37409,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.04,
-        "net": -444,
+        "net": -449,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
-      "haul": 0.001,
-      "sd": 1.12
+      "haul": 0.0,
+      "sd": 1.04
     },
     {
       "id": 186,
@@ -37513,13 +37513,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.03,
-        "net": -363,
+        "net": -368,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
-      "haul": 0.001,
-      "sd": 1.26
+      "haul": 0.0,
+      "sd": 1.21
     },
     {
       "id": 187,
@@ -37617,7 +37617,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -81,
+        "net": -85,
         "moved": 0
       },
       "floor": 0,
@@ -37721,13 +37721,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.06,
-        "net": -698,
+        "net": -710,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
       "haul": 0.0,
-      "sd": 1.01
+      "sd": 0.91
     },
     {
       "id": 189,
@@ -37825,7 +37825,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.06,
-        "net": -672,
+        "net": -680,
         "moved": 0
       },
       "floor": 0,
@@ -37929,13 +37929,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.05,
-        "net": -558,
+        "net": -567,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 4,
-      "haul": 0.018,
-      "sd": 2.07
+      "haul": 0.01,
+      "sd": 1.84
     },
     {
       "id": 575,
@@ -38033,13 +38033,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.11,
-        "net": -1303,
+        "net": -1318,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 4,
-      "haul": 0.004,
-      "sd": 1.59
+      "haul": 0.003,
+      "sd": 1.66
     },
     {
       "id": 584,
@@ -38137,13 +38137,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.04,
-        "net": -524,
+        "net": -529,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 2,
       "haul": 0.0,
-      "sd": 0.84
+      "sd": 0.85
     },
     {
       "id": 42,
@@ -38246,8 +38246,8 @@
       },
       "floor": 0,
       "ceiling": 2,
-      "haul": 0.002,
-      "sd": 1.11
+      "haul": 0.0,
+      "sd": 1.02
     },
     {
       "id": 208,
@@ -38345,7 +38345,7 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -17950,
+        "net": -18215,
         "moved": 0
       },
       "floor": 0,
@@ -38449,13 +38449,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.05,
-        "net": -597,
+        "net": -624,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 7,
-      "haul": 0.024,
-      "sd": 2.13
+      "haul": 0.016,
+      "sd": 2.06
     },
     {
       "id": 211,
@@ -38552,14 +38552,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.75,
-        "net": 8992,
+        "score": 0.77,
+        "net": 9201,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 9,
-      "haul": 0.092,
-      "sd": 3.57
+      "haul": 0.098,
+      "sd": 3.59
     },
     {
       "id": 212,
@@ -38656,14 +38656,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.63,
-        "net": -35762,
+        "score": 0.64,
+        "net": -36461,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.97
+      "sd": 0.93
     },
     {
       "id": 213,
@@ -38761,7 +38761,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.03,
-        "net": -372,
+        "net": -375,
         "moved": 0
       },
       "floor": 0,
@@ -38865,13 +38865,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.33,
-        "net": 3948,
+        "net": 4005,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 7,
-      "haul": 0.026,
-      "sd": 2.33
+      "haul": 0.022,
+      "sd": 2.27
     },
     {
       "id": 217,
@@ -38969,7 +38969,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.03,
-        "net": -306,
+        "net": -310,
         "moved": 0
       },
       "floor": 0,
@@ -39073,7 +39073,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": -223,
+        "net": -227,
         "moved": 0
       },
       "floor": 0,
@@ -39177,7 +39177,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": -11,
+        "net": -10,
         "moved": 0
       },
       "floor": 0,
@@ -39281,7 +39281,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": 0,
+        "net": -9,
         "moved": 0
       },
       "floor": 0,
@@ -39384,14 +39384,14 @@
       },
       "price_pred": {
         "dir": "fall",
-        "score": 0.05,
-        "net": -657,
+        "score": 0.06,
+        "net": -672,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 2,
-      "haul": 0.004,
-      "sd": 1.45
+      "haul": 0.001,
+      "sd": 1.31
     },
     {
       "id": 595,
@@ -39493,9 +39493,9 @@
         "moved": 0
       },
       "floor": 0,
-      "ceiling": 0,
+      "ceiling": 2,
       "haul": 0.0,
-      "sd": 0.6
+      "sd": 0.65
     },
     {
       "id": 644,
@@ -39593,13 +39593,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.06,
-        "net": 736,
+        "net": 743,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
-      "haul": 0.002,
-      "sd": 1.31
+      "haul": 0.001,
+      "sd": 1.15
     },
     {
       "id": 647,
@@ -39697,13 +39697,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": 204,
+        "net": 205,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.36
+      "sd": 0.28
     },
     {
       "id": 21,
@@ -39801,7 +39801,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.05,
-        "net": -583,
+        "net": -589,
         "moved": 0
       },
       "floor": 0,
@@ -39905,13 +39905,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.04,
-        "net": -432,
+        "net": -449,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 3,
       "haul": 0.002,
-      "sd": 1.39
+      "sd": 1.51
     },
     {
       "id": 236,
@@ -40008,14 +40008,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.55,
-        "net": 15306,
+        "score": 0.56,
+        "net": 15530,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 8,
-      "haul": 0.058,
-      "sd": 2.63
+      "haul": 0.06,
+      "sd": 2.8
     },
     {
       "id": 238,
@@ -40113,13 +40113,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.47,
-        "net": 5586,
+        "net": 5658,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
       "haul": 0.0,
-      "sd": 0.88
+      "sd": 0.97
     },
     {
       "id": 239,
@@ -40216,14 +40216,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.04,
-        "net": -530,
+        "score": 0.05,
+        "net": -565,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 4,
-      "haul": 0.001,
-      "sd": 1.54
+      "haul": 0.0,
+      "sd": 1.55
     },
     {
       "id": 242,
@@ -40321,13 +40321,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 15037,
+        "net": 15426,
         "moved": 0
       },
       "floor": 2,
-      "ceiling": 4,
-      "haul": 0.02,
-      "sd": 1.86
+      "ceiling": 5,
+      "haul": 0.024,
+      "sd": 2.01
     },
     {
       "id": 243,
@@ -40425,13 +40425,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.03,
-        "net": -306,
+        "net": -315,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
-      "haul": 0.001,
-      "sd": 0.57
+      "haul": 0.002,
+      "sd": 0.67
     },
     {
       "id": 244,
@@ -40528,14 +40528,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.2,
-        "net": 2446,
+        "score": 0.21,
+        "net": 2499,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 4,
-      "haul": 0.012,
-      "sd": 1.62
+      "haul": 0.008,
+      "sd": 1.61
     },
     {
       "id": 245,
@@ -40633,7 +40633,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -109,
+        "net": -110,
         "moved": 0
       },
       "floor": 0,
@@ -40737,13 +40737,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -157,
+        "net": -162,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 4,
-      "haul": 0.001,
-      "sd": 1.39
+      "haul": 0.0,
+      "sd": 1.25
     },
     {
       "id": 247,
@@ -40841,7 +40841,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -113,
+        "net": -112,
         "moved": 0
       },
       "floor": 0,
@@ -40944,8 +40944,8 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.26,
-        "net": 3126,
+        "score": 0.27,
+        "net": 3223,
         "moved": 0
       },
       "floor": 0,
@@ -41048,14 +41048,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.5,
-        "net": -6001,
+        "score": 0.51,
+        "net": -6097,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 6,
-      "haul": 0.016,
-      "sd": 1.93
+      "haul": 0.013,
+      "sd": 1.95
     },
     {
       "id": 262,
@@ -41153,13 +41153,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.17,
-        "net": -2018,
+        "net": -2035,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 2,
       "haul": 0.0,
-      "sd": 0.77
+      "sd": 0.72
     },
     {
       "id": 263,
@@ -41257,13 +41257,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.04,
-        "net": -428,
+        "net": -431,
         "moved": 0
       },
       "floor": 0,
-      "ceiling": 2,
+      "ceiling": 1,
       "haul": 0.0,
-      "sd": 0.98
+      "sd": 0.9
     },
     {
       "id": 264,
@@ -41361,13 +41361,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.13,
-        "net": -1584,
+        "net": -1610,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 8,
-      "haul": 0.046,
-      "sd": 2.61
+      "haul": 0.039,
+      "sd": 2.46
     },
     {
       "id": 265,
@@ -41465,13 +41465,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.17,
-        "net": -1980,
+        "net": -2018,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 2,
-      "haul": 0.002,
-      "sd": 1.55
+      "haul": 0.001,
+      "sd": 1.4
     },
     {
       "id": 266,
@@ -41569,7 +41569,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": -9,
+        "net": -11,
         "moved": 0
       },
       "floor": 0,
@@ -41673,13 +41673,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 28943,
+        "net": 29411,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 9,
-      "haul": 0.075,
-      "sd": 3.15
+      "haul": 0.068,
+      "sd": 2.94
     },
     {
       "id": 270,
@@ -41777,7 +41777,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.46,
-        "net": -5478,
+        "net": -5577,
         "moved": 0
       },
       "floor": 0,
@@ -41881,13 +41881,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": -13,
+        "net": -10,
         "moved": 0
       },
       "floor": 1,
-      "ceiling": 8,
-      "haul": 0.05,
-      "sd": 2.9
+      "ceiling": 9,
+      "haul": 0.059,
+      "sd": 3.11
     },
     {
       "id": 580,
@@ -41985,13 +41985,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": -225,
+        "net": -230,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 4,
       "haul": 0.004,
-      "sd": 1.73
+      "sd": 1.77
     },
     {
       "id": 626,
@@ -42088,8 +42088,8 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.35,
-        "net": 4259,
+        "score": 0.36,
+        "net": 4294,
         "moved": 0
       },
       "floor": 0,
@@ -42193,13 +42193,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": 112,
+        "net": 113,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.54
+      "sd": 0.53
     },
     {
       "id": 636,
@@ -42297,7 +42297,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": 55,
+        "net": 54,
         "moved": 0
       },
       "floor": 0,
@@ -42401,13 +42401,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": 101,
+        "net": 103,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.24
+      "sd": 0.28
     },
     {
       "id": 286,
@@ -42504,14 +42504,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.69,
-        "net": 8290,
+        "score": 0.7,
+        "net": 8396,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 4,
-      "haul": 0.029,
-      "sd": 1.88
+      "haul": 0.024,
+      "sd": 1.91
     },
     {
       "id": 288,
@@ -42609,7 +42609,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.05,
-        "net": -634,
+        "net": -639,
         "moved": 0
       },
       "floor": 0,
@@ -42712,14 +42712,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.38,
-        "net": -4555,
+        "score": 0.39,
+        "net": -4627,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
       "haul": 0.0,
-      "sd": 1.01
+      "sd": 1.0
     },
     {
       "id": 290,
@@ -42817,13 +42817,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 32754,
+        "net": 33377,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 4,
-      "haul": 0.007,
-      "sd": 1.7
+      "haul": 0.006,
+      "sd": 1.71
     },
     {
       "id": 291,
@@ -43025,7 +43025,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": -9,
+        "net": -6,
         "moved": 0
       },
       "floor": 0,
@@ -43129,7 +43129,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.04,
-        "net": -431,
+        "net": -438,
         "moved": 0
       },
       "floor": 0,
@@ -43233,7 +43233,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -121,
+        "net": -126,
         "moved": 0
       },
       "floor": 0,
@@ -43337,7 +43337,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -109,
+        "net": -110,
         "moved": 0
       },
       "floor": 0,
@@ -43441,7 +43441,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": 32,
+        "net": 35,
         "moved": 0
       },
       "floor": 0,
@@ -43551,7 +43551,7 @@
       "floor": 0,
       "ceiling": 2,
       "haul": 0.0,
-      "sd": 1.07
+      "sd": 1.09
     },
     {
       "id": 574,
@@ -43649,13 +43649,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.01,
-        "net": -158,
+        "net": -162,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.62
+      "sd": 0.57
     },
     {
       "id": 576,
@@ -43753,13 +43753,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -159,
+        "net": -167,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 3,
-      "haul": 0.004,
-      "sd": 1.21
+      "haul": 0.003,
+      "sd": 1.16
     },
     {
       "id": 589,
@@ -43863,7 +43863,7 @@
       "floor": 0,
       "ceiling": 3,
       "haul": 0.0,
-      "sd": 1.4
+      "sd": 1.35
     },
     {
       "id": 617,
@@ -43961,13 +43961,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": 104,
+        "net": 105,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
-      "haul": 0.001,
-      "sd": 0.62
+      "haul": 0.0,
+      "sd": 0.53
     },
     {
       "id": 642,
@@ -44065,13 +44065,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.03,
-        "net": 369,
+        "net": 372,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
       "haul": 0.0,
-      "sd": 0.73
+      "sd": 0.67
     },
     {
       "id": 645,
@@ -44169,7 +44169,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": 115,
+        "net": 117,
         "moved": 0
       },
       "floor": 0,
@@ -44273,13 +44273,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.03,
-        "net": -302,
+        "net": -307,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 4,
-      "haul": 0.004,
-      "sd": 1.27
+      "haul": 0.002,
+      "sd": 1.24
     },
     {
       "id": 309,
@@ -44376,14 +44376,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.06,
-        "net": -776,
+        "score": 0.07,
+        "net": -786,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 4,
-      "haul": 0.01,
-      "sd": 2.01
+      "haul": 0.003,
+      "sd": 1.9
     },
     {
       "id": 310,
@@ -44481,7 +44481,7 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.0,
-        "net": -9,
+        "net": -10,
         "moved": -1
       },
       "floor": 0,
@@ -44585,7 +44585,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -167,
+        "net": -166,
         "moved": 0
       },
       "floor": 0,
@@ -44689,13 +44689,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.13,
-        "net": -1554,
+        "net": -1571,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
-      "haul": 0.002,
-      "sd": 1.3
+      "haul": 0.005,
+      "sd": 1.39
     },
     {
       "id": 315,
@@ -44792,14 +44792,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.01,
-        "net": -174,
+        "score": 0.02,
+        "net": -188,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 7,
-      "haul": 0.021,
-      "sd": 2.47
+      "haul": 0.036,
+      "sd": 2.6
     },
     {
       "id": 318,
@@ -44897,7 +44897,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.06,
-        "net": -751,
+        "net": -757,
         "moved": 0
       },
       "floor": 0,
@@ -45000,14 +45000,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.21,
-        "net": -2551,
+        "score": 0.22,
+        "net": -2611,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
-      "haul": 0.0,
-      "sd": 1.17
+      "haul": 0.003,
+      "sd": 1.38
     },
     {
       "id": 324,
@@ -45105,7 +45105,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": -201,
+        "net": -209,
         "moved": 0
       },
       "floor": 0,
@@ -45209,13 +45209,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.14,
-        "net": -1640,
+        "net": -1679,
         "moved": -1
       },
       "floor": 2,
-      "ceiling": 10,
-      "haul": 0.113,
-      "sd": 3.45
+      "ceiling": 9,
+      "haul": 0.092,
+      "sd": 3.26
     },
     {
       "id": 571,
@@ -45313,7 +45313,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": -279,
+        "net": -283,
         "moved": 0
       },
       "floor": 0,
@@ -45417,13 +45417,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.49,
-        "net": 5890,
+        "net": 5931,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 11,
-      "haul": 0.158,
-      "sd": 4.15
+      "haul": 0.163,
+      "sd": 3.99
     },
     {
       "id": 619,
@@ -45521,13 +45521,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.08,
-        "net": 902,
+        "net": 911,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 4,
-      "haul": 0.0,
-      "sd": 1.88
+      "haul": 0.001,
+      "sd": 1.91
     },
     {
       "id": 260,
@@ -45625,13 +45625,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -61070,
+        "net": -61988,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
       "haul": 0.001,
-      "sd": 1.2
+      "sd": 1.16
     },
     {
       "id": 335,
@@ -45729,13 +45729,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.53,
-        "net": -9348,
+        "net": -9520,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 9,
-      "haul": 0.094,
-      "sd": 2.96
+      "haul": 0.095,
+      "sd": 2.94
     },
     {
       "id": 336,
@@ -45833,13 +45833,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.15,
-        "net": -1803,
+        "net": -1839,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
-      "haul": 0.007,
-      "sd": 1.69
+      "haul": 0.006,
+      "sd": 1.79
     },
     {
       "id": 337,
@@ -45936,14 +45936,14 @@
       },
       "price_pred": {
         "dir": "fall",
-        "score": 0.4,
-        "net": -4857,
+        "score": 0.41,
+        "net": -4939,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 2,
-      "haul": 0.005,
-      "sd": 1.27
+      "haul": 0.0,
+      "sd": 1.14
     },
     {
       "id": 338,
@@ -46040,14 +46040,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.52,
-        "net": -6277,
+        "score": 0.53,
+        "net": -6391,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 4,
       "haul": 0.006,
-      "sd": 1.5
+      "sd": 1.42
     },
     {
       "id": 339,
@@ -46145,13 +46145,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.04,
-        "net": -518,
+        "net": -525,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.34
+      "sd": 0.36
     },
     {
       "id": 343,
@@ -46249,13 +46249,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.05,
-        "net": -563,
+        "net": -574,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
-      "haul": 0.001,
-      "sd": 0.93
+      "haul": 0.003,
+      "sd": 1.14
     },
     {
       "id": 344,
@@ -46457,13 +46457,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.14,
-        "net": 1683,
+        "net": 1703,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 4,
-      "haul": 0.054,
-      "sd": 3.06
+      "haul": 0.043,
+      "sd": 2.97
     },
     {
       "id": 604,
@@ -46561,7 +46561,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.07,
-        "net": 834,
+        "net": 837,
         "moved": 0
       },
       "floor": 0,
@@ -46665,7 +46665,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.03,
-        "net": 325,
+        "net": 331,
         "moved": 0
       },
       "floor": 0,
@@ -46769,13 +46769,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -122327,
+        "net": -123729,
         "moved": -1
       },
       "floor": 2,
       "ceiling": 10,
-      "haul": 0.132,
-      "sd": 3.92
+      "haul": 0.138,
+      "sd": 4.08
     },
     {
       "id": 367,
@@ -46786,7 +46786,7 @@
       "price": 7.2,
       "xpts": 6.2,
       "xpts_h": 15.5,
-      "own": "13.9",
+      "own": "14.0",
       "owned": false,
       "next": {
         "opp": "FUL",
@@ -46873,13 +46873,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 470739,
+        "net": 477439,
         "moved": 1
       },
       "floor": 2,
-      "ceiling": 11,
-      "haul": 0.204,
-      "sd": 4.06
+      "ceiling": 12,
+      "haul": 0.217,
+      "sd": 4.13
     },
     {
       "id": 368,
@@ -46976,14 +46976,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.93,
-        "net": -228847,
+        "score": 0.94,
+        "net": -231898,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 14,
-      "haul": 0.322,
-      "sd": 5.02
+      "haul": 0.338,
+      "sd": 5.03
     },
     {
       "id": 369,
@@ -47081,13 +47081,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -13396,
+        "net": -13540,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 2,
-      "haul": 0.002,
-      "sd": 1.23
+      "haul": 0.001,
+      "sd": 1.36
     },
     {
       "id": 370,
@@ -47185,7 +47185,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.07,
-        "net": -821,
+        "net": -832,
         "moved": 0
       },
       "floor": 0,
@@ -47202,7 +47202,7 @@
       "price": 5.9,
       "xpts": 1.6,
       "xpts_h": 4.4,
-      "own": "1.5",
+      "own": "1.4",
       "owned": false,
       "next": {
         "opp": "FUL",
@@ -47289,13 +47289,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -19369,
+        "net": -19619,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 4,
       "haul": 0.006,
-      "sd": 1.91
+      "sd": 1.81
     },
     {
       "id": 372,
@@ -47392,14 +47392,14 @@
       },
       "price_pred": {
         "dir": "fall",
-        "score": 0.59,
-        "net": -7088,
+        "score": 0.6,
+        "net": -7174,
         "moved": -1
       },
       "floor": 1,
       "ceiling": 7,
-      "haul": 0.04,
-      "sd": 2.78
+      "haul": 0.036,
+      "sd": 2.74
     },
     {
       "id": 374,
@@ -47497,7 +47497,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.03,
-        "net": -346,
+        "net": -351,
         "moved": 0
       },
       "floor": 0,
@@ -47601,13 +47601,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.01,
-        "net": -111,
+        "net": -113,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 1.0
+      "sd": 1.08
     },
     {
       "id": 377,
@@ -47704,14 +47704,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.55,
-        "net": -6593,
+        "score": 0.56,
+        "net": -6670,
         "moved": 0
       },
       "floor": 1,
-      "ceiling": 9,
-      "haul": 0.061,
-      "sd": 3.45
+      "ceiling": 8,
+      "haul": 0.054,
+      "sd": 3.33
     },
     {
       "id": 378,
@@ -47809,7 +47809,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.07,
-        "net": -889,
+        "net": -898,
         "moved": 0
       },
       "floor": 0,
@@ -47913,13 +47913,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -98,
+        "net": -100,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.57
+      "sd": 0.59
     },
     {
       "id": 627,
@@ -48017,13 +48017,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 35047,
+        "net": 35443,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
       "haul": 0.0,
-      "sd": 0.79
+      "sd": 0.68
     },
     {
       "id": 155,
@@ -48120,14 +48120,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.53,
-        "net": -10852,
+        "score": 0.54,
+        "net": -11062,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
       "haul": 0.007,
-      "sd": 1.82
+      "sd": 1.92
     },
     {
       "id": 237,
@@ -48138,7 +48138,7 @@
       "price": 5.9,
       "xpts": 4.2,
       "xpts_h": 12.2,
-      "own": "10.3",
+      "own": "10.2",
       "owned": false,
       "next": {
         "opp": "MUN",
@@ -48225,13 +48225,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -136458,
+        "net": -138394,
         "moved": -1
       },
       "floor": 2,
       "ceiling": 9,
-      "haul": 0.081,
-      "sd": 2.97
+      "haul": 0.087,
+      "sd": 3.06
     },
     {
       "id": 397,
@@ -48329,13 +48329,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -122518,
+        "net": -124480,
         "moved": -1
       },
       "floor": 2,
       "ceiling": 9,
-      "haul": 0.083,
-      "sd": 3.22
+      "haul": 0.098,
+      "sd": 3.34
     },
     {
       "id": 398,
@@ -48346,7 +48346,7 @@
       "price": 7.0,
       "xpts": 7.2,
       "xpts_h": 18.7,
-      "own": "4.9",
+      "own": "4.8",
       "owned": true,
       "next": {
         "opp": "MUN",
@@ -48433,13 +48433,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -89485,
+        "net": -90632,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 14,
-      "haul": 0.285,
-      "sd": 5.54
+      "haul": 0.272,
+      "sd": 5.5
     },
     {
       "id": 399,
@@ -48536,14 +48536,14 @@
       },
       "price_pred": {
         "dir": "rise",
-        "score": 0.03,
-        "net": 5352,
+        "score": 0.02,
+        "net": 4550,
         "moved": 1
       },
       "floor": 1,
-      "ceiling": 10,
-      "haul": 0.128,
-      "sd": 4.23
+      "ceiling": 11,
+      "haul": 0.159,
+      "sd": 4.46
     },
     {
       "id": 400,
@@ -48640,8 +48640,8 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.65,
-        "net": -7740,
+        "score": 0.66,
+        "net": -7864,
         "moved": 0
       },
       "floor": 0,
@@ -48745,13 +48745,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.04,
-        "net": -521,
+        "net": -528,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 2,
       "haul": 0.0,
-      "sd": 0.86
+      "sd": 0.93
     },
     {
       "id": 481,
@@ -48762,7 +48762,7 @@
       "price": 6.3,
       "xpts": 3.9,
       "xpts_h": 11.5,
-      "own": "4.7",
+      "own": "4.6",
       "owned": false,
       "next": {
         "opp": "MUN",
@@ -48849,13 +48849,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -33662,
+        "net": -34246,
         "moved": -1
       },
       "floor": 2,
       "ceiling": 8,
-      "haul": 0.057,
-      "sd": 2.84
+      "haul": 0.052,
+      "sd": 2.81
     },
     {
       "id": 616,
@@ -48952,14 +48952,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.05,
-        "net": -648,
+        "score": 0.06,
+        "net": -664,
         "moved": 0
       },
       "floor": 0,
-      "ceiling": 0,
-      "haul": 0.0,
-      "sd": 1.22
+      "ceiling": 4,
+      "haul": 0.003,
+      "sd": 1.38
     },
     {
       "id": 621,
@@ -49057,13 +49057,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.08,
-        "net": 939,
+        "net": 947,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
-      "haul": 0.004,
-      "sd": 1.08
+      "haul": 0.001,
+      "sd": 0.95
     },
     {
       "id": 628,
@@ -49265,7 +49265,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.12,
-        "net": 1444,
+        "net": 1454,
         "moved": 0
       },
       "floor": 0,
@@ -49369,13 +49369,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -14694,
+        "net": -14954,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 9,
-      "haul": 0.094,
-      "sd": 3.27
+      "haul": 0.093,
+      "sd": 3.29
     },
     {
       "id": 131,
@@ -49473,7 +49473,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.07,
-        "net": -815,
+        "net": -833,
         "moved": 0
       },
       "floor": 0,
@@ -49576,14 +49576,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.53,
-        "net": -6415,
+        "score": 0.54,
+        "net": -6537,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 4,
-      "haul": 0.013,
-      "sd": 2.36
+      "haul": 0.01,
+      "sd": 2.26
     },
     {
       "id": 415,
@@ -49680,14 +49680,14 @@
       },
       "price_pred": {
         "dir": "fall",
-        "score": 0.79,
-        "net": -9432,
+        "score": 0.8,
+        "net": -9569,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 4,
-      "haul": 0.03,
-      "sd": 2.66
+      "haul": 0.026,
+      "sd": 2.72
     },
     {
       "id": 426,
@@ -49698,7 +49698,7 @@
       "price": 12.0,
       "xpts": 8.7,
       "xpts_h": 30.8,
-      "own": "46.6",
+      "own": "46.5",
       "owned": false,
       "next": {
         "opp": "MCI",
@@ -49784,14 +49784,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.62,
-        "net": -184978,
+        "score": 0.64,
+        "net": -189278,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 16,
-      "haul": 0.417,
-      "sd": 5.68
+      "haul": 0.418,
+      "sd": 5.72
     },
     {
       "id": 427,
@@ -49888,14 +49888,14 @@
       },
       "price_pred": {
         "dir": "fall",
-        "score": 0.82,
-        "net": -134726,
+        "score": 0.84,
+        "net": -136576,
         "moved": -1
       },
       "floor": 2,
       "ceiling": 15,
-      "haul": 0.339,
-      "sd": 5.72
+      "haul": 0.352,
+      "sd": 5.85
     },
     {
       "id": 428,
@@ -49993,13 +49993,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -66810,
+        "net": -67932,
         "moved": -1
       },
       "floor": 2,
       "ceiling": 9,
-      "haul": 0.073,
-      "sd": 3.09
+      "haul": 0.094,
+      "sd": 3.36
     },
     {
       "id": 429,
@@ -50097,13 +50097,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.2,
-        "net": -2442,
+        "net": -2423,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 7,
-      "haul": 0.032,
-      "sd": 2.48
+      "haul": 0.027,
+      "sd": 2.52
     },
     {
       "id": 430,
@@ -50201,7 +50201,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": 8,
+        "net": 7,
         "moved": 0
       },
       "floor": 0,
@@ -50305,7 +50305,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.55,
-        "net": -6562,
+        "net": -6647,
         "moved": 0
       },
       "floor": 0,
@@ -50408,14 +50408,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.8,
-        "net": 9605,
+        "score": 0.82,
+        "net": 9804,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 8,
-      "haul": 0.058,
-      "sd": 2.78
+      "haul": 0.051,
+      "sd": 2.81
     },
     {
       "id": 433,
@@ -50617,7 +50617,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": -35,
+        "net": -37,
         "moved": 0
       },
       "floor": 0,
@@ -50721,13 +50721,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.03,
-        "net": -336,
+        "net": -341,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.51
+      "sd": 0.48
     },
     {
       "id": 437,
@@ -50825,7 +50825,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": -276,
+        "net": -282,
         "moved": 0
       },
       "floor": 0,
@@ -50929,7 +50929,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.07,
-        "net": -860,
+        "net": -885,
         "moved": 0
       },
       "floor": 0,
@@ -51032,14 +51032,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.04,
-        "net": 430,
+        "score": 0.03,
+        "net": 416,
         "moved": 0
       },
       "floor": 0,
-      "ceiling": 3,
-      "haul": 0.001,
-      "sd": 1.5
+      "ceiling": 2,
+      "haul": 0.0,
+      "sd": 1.32
     },
     {
       "id": 453,
@@ -51137,13 +51137,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 70262,
+        "net": 71313,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 4,
-      "haul": 0.018,
-      "sd": 1.7
+      "haul": 0.011,
+      "sd": 1.37
     },
     {
       "id": 454,
@@ -51241,13 +51241,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 80851,
+        "net": 81463,
         "moved": 0
       },
       "floor": 1,
-      "ceiling": 5,
-      "haul": 0.02,
-      "sd": 2.14
+      "ceiling": 6,
+      "haul": 0.018,
+      "sd": 2.21
     },
     {
       "id": 456,
@@ -51344,14 +51344,14 @@
       },
       "price_pred": {
         "dir": "fall",
-        "score": 0.32,
-        "net": 3886,
+        "score": 0.33,
+        "net": 3953,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 4,
-      "haul": 0.006,
-      "sd": 1.84
+      "haul": 0.008,
+      "sd": 1.91
     },
     {
       "id": 457,
@@ -51449,13 +51449,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.04,
-        "net": -517,
+        "net": -523,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 3,
       "haul": 0.001,
-      "sd": 1.35
+      "sd": 1.27
     },
     {
       "id": 458,
@@ -51553,7 +51553,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -136,
+        "net": -139,
         "moved": 0
       },
       "floor": 0,
@@ -51657,13 +51657,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -150,
+        "net": -154,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 4,
-      "haul": 0.007,
-      "sd": 1.42
+      "haul": 0.004,
+      "sd": 1.37
     },
     {
       "id": 460,
@@ -51761,13 +51761,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.28,
-        "net": 3330,
+        "net": 3340,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 5,
-      "haul": 0.027,
-      "sd": 2.35
+      "haul": 0.022,
+      "sd": 2.37
     },
     {
       "id": 461,
@@ -51865,7 +51865,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.13,
-        "net": -1576,
+        "net": -1603,
         "moved": 0
       },
       "floor": 0,
@@ -51969,13 +51969,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.04,
-        "net": -534,
+        "net": -538,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 2,
       "haul": 0.0,
-      "sd": 1.13
+      "sd": 1.12
     },
     {
       "id": 559,
@@ -52073,13 +52073,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.05,
-        "net": -559,
+        "net": -570,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.69
+      "sd": 0.72
     },
     {
       "id": 480,
@@ -52176,14 +52176,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.16,
-        "net": 9726,
+        "score": 0.17,
+        "net": 9990,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 9,
-      "haul": 0.092,
-      "sd": 3.39
+      "haul": 0.086,
+      "sd": 3.24
     },
     {
       "id": 482,
@@ -52281,13 +52281,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.1,
-        "net": -1202,
+        "net": -1218,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.08
+      "sd": 0.15
     },
     {
       "id": 483,
@@ -52385,13 +52385,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.09,
-        "net": -1036,
+        "net": -1071,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 7,
       "haul": 0.034,
-      "sd": 2.36
+      "sd": 2.39
     },
     {
       "id": 486,
@@ -52489,13 +52489,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.03,
-        "net": 316,
+        "net": 326,
         "moved": 0
       },
-      "floor": 1,
+      "floor": 2,
       "ceiling": 6,
-      "haul": 0.018,
-      "sd": 2.12
+      "haul": 0.01,
+      "sd": 1.98
     },
     {
       "id": 487,
@@ -52593,13 +52593,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.02,
-        "net": -244,
+        "net": -248,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.12
+      "sd": 0.1
     },
     {
       "id": 488,
@@ -52697,13 +52697,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.25,
-        "net": -2979,
+        "net": -3045,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
-      "haul": 0.002,
-      "sd": 1.2
+      "haul": 0.001,
+      "sd": 1.1
     },
     {
       "id": 489,
@@ -52800,8 +52800,8 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.33,
-        "net": -3989,
+        "score": 0.34,
+        "net": -4093,
         "moved": 0
       },
       "floor": 0,
@@ -52905,13 +52905,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -90,
+        "net": -96,
         "moved": 0
       },
-      "floor": 1,
+      "floor": 2,
       "ceiling": 4,
-      "haul": 0.01,
-      "sd": 1.67
+      "haul": 0.011,
+      "sd": 1.75
     },
     {
       "id": 403,
@@ -53009,13 +53009,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.06,
-        "net": -688,
+        "net": -673,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
       "haul": 0.0,
-      "sd": 1.17
+      "sd": 1.33
     },
     {
       "id": 455,
@@ -53112,14 +53112,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.71,
-        "net": -12268,
+        "score": 0.73,
+        "net": -12543,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 4,
-      "haul": 0.007,
-      "sd": 1.23
+      "haul": 0.003,
+      "sd": 1.24
     },
     {
       "id": 512,
@@ -53217,13 +53217,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": 139,
+        "net": 141,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
-      "haul": 0.002,
-      "sd": 1.39
+      "haul": 0.003,
+      "sd": 1.35
     },
     {
       "id": 513,
@@ -53321,7 +53321,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -69,
+        "net": -70,
         "moved": 0
       },
       "floor": 0,
@@ -53424,14 +53424,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.24,
-        "net": -2929,
+        "score": 0.25,
+        "net": -2992,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 4,
-      "haul": 0.016,
-      "sd": 1.59
+      "haul": 0.011,
+      "sd": 1.68
     },
     {
       "id": 515,
@@ -53529,7 +53529,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.64,
-        "net": -7630,
+        "net": -7735,
         "moved": 0
       },
       "floor": 0,
@@ -53633,13 +53633,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": 35,
+        "net": 38,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 4,
-      "haul": 0.001,
-      "sd": 1.19
+      "haul": 0.002,
+      "sd": 1.22
     },
     {
       "id": 517,
@@ -53841,13 +53841,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.06,
-        "net": -751,
+        "net": -754,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 4,
-      "haul": 0.001,
-      "sd": 1.47
+      "haul": 0.002,
+      "sd": 1.49
     },
     {
       "id": 520,
@@ -53945,7 +53945,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.07,
-        "net": -838,
+        "net": -852,
         "moved": 0
       },
       "floor": 0,
@@ -54049,7 +54049,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": -50,
+        "net": -51,
         "moved": 0
       },
       "floor": 0,
@@ -54153,13 +54153,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.11,
-        "net": -1297,
+        "net": -1319,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
       "haul": 0.0,
-      "sd": 1.13
+      "sd": 1.14
     },
     {
       "id": 524,
@@ -54257,7 +54257,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.24,
-        "net": -2872,
+        "net": -2923,
         "moved": 0
       },
       "floor": 0,
@@ -54361,13 +54361,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -14876,
+        "net": -15113,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
-      "haul": 0.0,
-      "sd": 1.36
+      "haul": 0.002,
+      "sd": 1.35
     },
     {
       "id": 578,
@@ -54465,13 +54465,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.04,
-        "net": 534,
+        "net": 535,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.55
+      "sd": 0.51
     },
     {
       "id": 601,
@@ -54569,7 +54569,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.03,
-        "net": 368,
+        "net": 377,
         "moved": 0
       },
       "floor": 0,
@@ -54673,13 +54673,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -56042,
+        "net": -56885,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 9,
-      "haul": 0.08,
-      "sd": 3.27
+      "haul": 0.083,
+      "sd": 3.25
     },
     {
       "id": 543,
@@ -54777,7 +54777,7 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.07,
-        "net": -839,
+        "net": -848,
         "moved": -1
       },
       "floor": 0,
@@ -54880,14 +54880,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.46,
-        "net": -12901,
+        "score": 0.47,
+        "net": -13229,
         "moved": 0
       },
       "floor": 2,
-      "ceiling": 6,
-      "haul": 0.018,
-      "sd": 2.02
+      "ceiling": 5,
+      "haul": 0.019,
+      "sd": 2.04
     },
     {
       "id": 545,
@@ -54984,14 +54984,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.15,
-        "net": -1828,
+        "score": 0.16,
+        "net": -1868,
         "moved": 0
       },
       "floor": 1,
-      "ceiling": 5,
-      "haul": 0.022,
-      "sd": 2.12
+      "ceiling": 6,
+      "haul": 0.021,
+      "sd": 2.16
     },
     {
       "id": 547,
@@ -55089,13 +55089,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.0,
-        "net": -38,
+        "net": -37,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.26
+      "sd": 0.28
     },
     {
       "id": 548,
@@ -55193,13 +55193,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.02,
-        "net": -252,
+        "net": -256,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.59
+      "sd": 0.57
     },
     {
       "id": 549,
@@ -55297,13 +55297,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.1,
-        "net": -1214,
+        "net": -1229,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
       "haul": 0.0,
-      "sd": 0.76
+      "sd": 0.79
     },
     {
       "id": 550,
@@ -55401,7 +55401,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": -7,
+        "net": -9,
         "moved": 0
       },
       "floor": 0,
@@ -55510,8 +55510,8 @@
       },
       "floor": 1,
       "ceiling": 4,
-      "haul": 0.007,
-      "sd": 1.53
+      "haul": 0.01,
+      "sd": 1.72
     },
     {
       "id": 613,
@@ -55609,7 +55609,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.14,
-        "net": 1712,
+        "net": 1717,
         "moved": 0
       },
       "floor": 0,
@@ -55713,13 +55713,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.05,
-        "net": 606,
+        "net": 609,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.5
+      "sd": 0.51
     },
     {
       "id": 25,
@@ -55817,13 +55817,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -45090,
+        "net": -45801,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.56
+      "sd": 0.53
     },
     {
       "id": 26,
@@ -55921,13 +55921,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 54643,
+        "net": 56162,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 7,
       "haul": 0.021,
-      "sd": 2.4
+      "sd": 2.22
     },
     {
       "id": 56,
@@ -56025,13 +56025,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.08,
-        "net": 931,
+        "net": 930,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
       "haul": 0.0,
-      "sd": 0.64
+      "sd": 0.71
     },
     {
       "id": 166,
@@ -56129,13 +56129,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.4,
-        "net": 4794,
+        "net": 4836,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 5,
-      "haul": 0.005,
-      "sd": 2.07
+      "haul": 0.007,
+      "sd": 2.11
     },
     {
       "id": 582,
@@ -56232,8 +56232,8 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.22,
-        "net": -2662,
+        "score": 0.23,
+        "net": -2708,
         "moved": 0
       },
       "floor": 0,
@@ -56337,13 +56337,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.07,
-        "net": 1435,
+        "net": 1485,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 8,
-      "haul": 0.041,
-      "sd": 2.83
+      "haul": 0.04,
+      "sd": 2.88
     },
     {
       "id": 81,
@@ -56441,13 +56441,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": -242,
+        "net": -248,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.51
+      "sd": 0.53
     },
     {
       "id": 608,
@@ -56545,13 +56545,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.08,
-        "net": 905,
+        "net": 909,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.68
+      "sd": 0.59
     },
     {
       "id": 106,
@@ -56649,13 +56649,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -148350,
+        "net": -150377,
         "moved": -1
       },
       "floor": 2,
-      "ceiling": 12,
-      "haul": 0.165,
-      "sd": 4.03
+      "ceiling": 11,
+      "haul": 0.168,
+      "sd": 3.99
     },
     {
       "id": 107,
@@ -56753,7 +56753,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.29,
-        "net": 3439,
+        "net": 3458,
         "moved": 0
       },
       "floor": 0,
@@ -56857,13 +56857,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.13,
-        "net": -1538,
+        "net": -1562,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.91
+      "sd": 0.8
     },
     {
       "id": 125,
@@ -56960,14 +56960,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.71,
-        "net": -8501,
+        "score": 0.72,
+        "net": -8631,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
       "haul": 0.002,
-      "sd": 1.54
+      "sd": 1.69
     },
     {
       "id": 137,
@@ -57065,7 +57065,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": -28,
+        "net": -30,
         "moved": 0
       },
       "floor": 0,
@@ -57169,13 +57169,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.32,
-        "net": 3809,
+        "net": 3868,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 8,
-      "haul": 0.052,
-      "sd": 3.14
+      "haul": 0.05,
+      "sd": 3.13
     },
     {
       "id": 139,
@@ -57273,7 +57273,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -75,
+        "net": -82,
         "moved": 0
       },
       "floor": 0,
@@ -57377,13 +57377,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.09,
-        "net": -1109,
+        "net": -1133,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 1,
-      "haul": 0.004,
-      "sd": 1.19
+      "haul": 0.002,
+      "sd": 1.16
     },
     {
       "id": 136,
@@ -57480,14 +57480,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.33,
-        "net": -3969,
+        "score": 0.34,
+        "net": -4041,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.17
+      "sd": 0.22
     },
     {
       "id": 165,
@@ -57498,7 +57498,7 @@
       "price": 7.7,
       "xpts": 4.5,
       "xpts_h": 16.5,
-      "own": "72.2",
+      "own": "72.3",
       "owned": true,
       "next": {
         "opp": "HUL",
@@ -57584,14 +57584,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.27,
-        "net": 125316,
+        "score": 0.28,
+        "net": 127202,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 10,
-      "haul": 0.117,
-      "sd": 3.92
+      "haul": 0.113,
+      "sd": 3.81
     },
     {
       "id": 169,
@@ -57689,7 +57689,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.11,
-        "net": 1265,
+        "net": 1269,
         "moved": 0
       },
       "floor": 0,
@@ -57793,7 +57793,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.0,
-        "net": 53,
+        "net": 48,
         "moved": 0
       },
       "floor": 0,
@@ -57897,7 +57897,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.08,
-        "net": -935,
+        "net": -948,
         "moved": 0
       },
       "floor": 0,
@@ -58001,13 +58001,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": -185,
+        "net": -207,
         "moved": 0
       },
       "floor": 0,
-      "ceiling": 2,
-      "haul": 0.0,
-      "sd": 1.15
+      "ceiling": 3,
+      "haul": 0.001,
+      "sd": 1.24
     },
     {
       "id": 195,
@@ -58104,14 +58104,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.3,
-        "net": -3639,
+        "score": 0.31,
+        "net": -3715,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
-      "haul": 0.003,
-      "sd": 1.44
+      "haul": 0.0,
+      "sd": 1.23
     },
     {
       "id": 492,
@@ -58208,14 +58208,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.08,
-        "net": -1013,
+        "score": 0.09,
+        "net": -1041,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 8,
-      "haul": 0.033,
-      "sd": 2.97
+      "haul": 0.029,
+      "sd": 2.94
     },
     {
       "id": 599,
@@ -58417,13 +58417,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": -267,
+        "net": -283,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 6,
-      "haul": 0.009,
-      "sd": 2.29
+      "haul": 0.011,
+      "sd": 2.34
     },
     {
       "id": 223,
@@ -58521,7 +58521,7 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -37445,
+        "net": -37992,
         "moved": 0
       },
       "floor": 0,
@@ -58624,14 +58624,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.81,
-        "net": 9673,
+        "score": 0.82,
+        "net": 9799,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 12,
-      "haul": 0.201,
-      "sd": 4.25
+      "haul": 0.213,
+      "sd": 4.31
     },
     {
       "id": 249,
@@ -58729,13 +58729,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 68179,
+        "net": 69587,
         "moved": 1
       },
       "floor": 2,
       "ceiling": 10,
-      "haul": 0.123,
-      "sd": 3.8
+      "haul": 0.124,
+      "sd": 3.85
     },
     {
       "id": 271,
@@ -58833,13 +58833,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.18,
-        "net": -2180,
+        "net": -2207,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 0,
-      "haul": 0.001,
-      "sd": 0.81
+      "haul": 0.0,
+      "sd": 0.61
     },
     {
       "id": 272,
@@ -58936,8 +58936,8 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.42,
-        "net": -16901,
+        "score": 0.43,
+        "net": -17323,
         "moved": 0
       },
       "floor": 0,
@@ -59040,14 +59040,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.98,
-        "net": -26733,
+        "score": 1.0,
+        "net": -27282,
         "moved": 0
       },
       "floor": 2,
-      "ceiling": 8,
-      "haul": 0.038,
-      "sd": 2.9
+      "ceiling": 9,
+      "haul": 0.043,
+      "sd": 2.91
     },
     {
       "id": 295,
@@ -59145,13 +59145,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.66,
-        "net": -8339,
+        "net": -8440,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 6,
-      "haul": 0.013,
-      "sd": 2.17
+      "haul": 0.008,
+      "sd": 2.07
     },
     {
       "id": 632,
@@ -59249,7 +59249,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.15,
-        "net": 1777,
+        "net": 1799,
         "moved": 0
       },
       "floor": 0,
@@ -59353,7 +59353,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.1,
-        "net": 1181,
+        "net": 1199,
         "moved": 0
       },
       "floor": 0,
@@ -59457,13 +59457,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.09,
-        "net": 1124,
+        "net": 1091,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 9,
-      "haul": 0.077,
-      "sd": 3.35
+      "haul": 0.065,
+      "sd": 3.25
     },
     {
       "id": 320,
@@ -59560,14 +59560,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.84,
-        "net": 10045,
+        "score": 0.85,
+        "net": 10181,
         "moved": 0
       },
       "floor": 0,
-      "ceiling": 2,
-      "haul": 0.013,
-      "sd": 2.36
+      "ceiling": 6,
+      "haul": 0.02,
+      "sd": 2.69
     },
     {
       "id": 321,
@@ -59664,14 +59664,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.69,
-        "net": 14893,
+        "score": 0.7,
+        "net": 15062,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.39
+      "sd": 0.42
     },
     {
       "id": 640,
@@ -59769,13 +59769,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.08,
-        "net": 919,
+        "net": 931,
         "moved": 0
       },
       "floor": 0,
-      "ceiling": 2,
+      "ceiling": 1,
       "haul": 0.0,
-      "sd": 0.68
+      "sd": 0.62
     },
     {
       "id": 346,
@@ -59786,7 +59786,7 @@
       "price": 6.0,
       "xpts": 4.4,
       "xpts_h": 13.5,
-      "own": "24.2",
+      "own": "24.1",
       "owned": false,
       "next": {
         "opp": "NEW",
@@ -59873,13 +59873,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -162741,
+        "net": -165605,
         "moved": 0
       },
       "floor": 2,
-      "ceiling": 9,
-      "haul": 0.092,
-      "sd": 3.6
+      "ceiling": 10,
+      "haul": 0.105,
+      "sd": 3.85
     },
     {
       "id": 347,
@@ -59977,13 +59977,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.08,
-        "net": -1019,
+        "net": -1013,
         "moved": -1
       },
       "floor": 0,
       "ceiling": 2,
-      "haul": 0.0,
-      "sd": 1.15
+      "haul": 0.002,
+      "sd": 1.31
     },
     {
       "id": 349,
@@ -60081,7 +60081,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.01,
-        "net": -129,
+        "net": -132,
         "moved": 0
       },
       "floor": 0,
@@ -60098,7 +60098,7 @@
       "price": 9.1,
       "xpts": 8.1,
       "xpts_h": 19.4,
-      "own": "20.1",
+      "own": "20.2",
       "owned": false,
       "next": {
         "opp": "FUL",
@@ -60185,13 +60185,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 315877,
+        "net": 320556,
         "moved": 1
       },
       "floor": 2,
-      "ceiling": 15,
-      "haul": 0.349,
-      "sd": 5.1
+      "ceiling": 14,
+      "haul": 0.353,
+      "sd": 4.89
     },
     {
       "id": 380,
@@ -60289,7 +60289,7 @@
       "price_pred": {
         "dir": "fall",
         "score": 0.09,
-        "net": -1091,
+        "net": -1100,
         "moved": -1
       },
       "floor": 0,
@@ -60393,7 +60393,7 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.23,
-        "net": 2766,
+        "net": 2796,
         "moved": 0
       },
       "floor": 0,
@@ -60497,13 +60497,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.04,
-        "net": 18729,
+        "net": 19190,
         "moved": 0
       },
-      "floor": 4,
+      "floor": 2,
       "ceiling": 15,
-      "haul": 0.37,
-      "sd": 5.08
+      "haul": 0.352,
+      "sd": 5.03
     },
     {
       "id": 439,
@@ -60601,13 +60601,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.1,
-        "net": -1212,
+        "net": -1147,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
       "haul": 0.004,
-      "sd": 1.51
+      "sd": 1.77
     },
     {
       "id": 440,
@@ -60704,8 +60704,8 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.19,
-        "net": -2332,
+        "score": 0.2,
+        "net": -2380,
         "moved": 0
       },
       "floor": 0,
@@ -60808,8 +60808,8 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.11,
-        "net": 1279,
+        "score": 0.1,
+        "net": 1260,
         "moved": 0
       },
       "floor": 0,
@@ -60913,13 +60913,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 185954,
+        "net": 187885,
         "moved": 1
       },
       "floor": 1,
       "ceiling": 8,
-      "haul": 0.037,
-      "sd": 2.93
+      "haul": 0.043,
+      "sd": 2.98
     },
     {
       "id": 465,
@@ -61016,8 +61016,8 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.59,
-        "net": -7067,
+        "score": 0.6,
+        "net": -7184,
         "moved": 0
       },
       "floor": 0,
@@ -61121,13 +61121,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.24,
-        "net": 2902,
+        "net": 2936,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
       "haul": 0.0,
-      "sd": 0.67
+      "sd": 0.68
     },
     {
       "id": 167,
@@ -61225,13 +61225,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.36,
-        "net": 4291,
+        "net": 4349,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
-      "haul": 0.001,
-      "sd": 1.33
+      "haul": 0.0,
+      "sd": 1.31
     },
     {
       "id": 490,
@@ -61328,14 +61328,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.67,
-        "net": -8076,
+        "score": 0.68,
+        "net": -8196,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
       "haul": 0.001,
-      "sd": 1.03
+      "sd": 1.02
     },
     {
       "id": 491,
@@ -61433,13 +61433,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -27175,
+        "net": -27641,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 7,
-      "haul": 0.021,
-      "sd": 2.57
+      "haul": 0.016,
+      "sd": 2.44
     },
     {
       "id": 493,
@@ -61543,7 +61543,7 @@
       "floor": 0,
       "ceiling": 0,
       "haul": 0.0,
-      "sd": 0.1
+      "sd": 0.15
     },
     {
       "id": 401,
@@ -61641,13 +61641,13 @@
       "price_pred": {
         "dir": "stable",
         "score": 0.02,
-        "net": 319,
+        "net": 301,
         "moved": 0
       },
       "floor": 1,
       "ceiling": 2,
       "haul": 0.003,
-      "sd": 1.58
+      "sd": 1.73
     },
     {
       "id": 526,
@@ -61744,14 +61744,14 @@
       },
       "price_pred": {
         "dir": "stable",
-        "score": 0.53,
-        "net": -6381,
+        "score": 0.54,
+        "net": -6504,
         "moved": 0
       },
       "floor": 0,
       "ceiling": 2,
-      "haul": 0.0,
-      "sd": 1.17
+      "haul": 0.002,
+      "sd": 1.33
     },
     {
       "id": 552,
@@ -61849,13 +61849,13 @@
       "price_pred": {
         "dir": "fall",
         "score": 1.0,
-        "net": -112028,
+        "net": -113779,
         "moved": 0
       },
       "floor": 2,
       "ceiling": 6,
-      "haul": 0.007,
-      "sd": 1.93
+      "haul": 0.011,
+      "sd": 2.09
     },
     {
       "id": 553,
@@ -61953,13 +61953,13 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 15866,
+        "net": 16112,
         "moved": 0
       },
       "floor": 0,
-      "ceiling": 2,
-      "haul": 0.01,
-      "sd": 2.37
+      "ceiling": 4,
+      "haul": 0.013,
+      "sd": 2.42
     },
     {
       "id": 651,
@@ -62057,7 +62057,7 @@
       "price_pred": {
         "dir": "rise",
         "score": 1.0,
-        "net": 14044,
+        "net": 14176,
         "moved": 0
       },
       "floor": 0,
