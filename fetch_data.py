@@ -692,6 +692,19 @@ def build():
     print(f"· model meczu: {'dopasowany' if mm['fitted'] else 'prior (za mało meczów)'}"
           f" ({mm['n_matches']} rozegranych) · minuty z {gw_played} kolejek")
 
+    # punkty z ostatnich 2 rozegranych kolejek dla WSZYSTKICH zawodników (1 zapytanie/kolejkę)
+    finished_gws = sorted((e["id"] for e in boot["events"] if e.get("finished")))
+    last2_gws = finished_gws[-2:]
+    pts_last2 = {}
+    for g in last2_gws:
+        live = get_json(f"{FPL}/event/{g}/live/")
+        for el_ in ((live or {}).get("elements") or []):
+            eid = el_.get("id")
+            tp = ((el_.get("stats") or {}).get("total_points")) or 0
+            pts_last2[eid] = pts_last2.get(eid, 0) + tp
+    if last2_gws:
+        print(f"· punkty z ostatnich 2 kolejek (GW{last2_gws}) pobrane dla {len(pts_last2)} zawodników")
+
     def sim_stats(p, opp_id, is_home, n=2000, team_id=None):
         """Floor (P25), ceiling (P90), haul% (P≥10) z symulacji Monte Carlo — uczciwa zmienność."""
         if not opp_id:
@@ -859,7 +872,7 @@ def build():
             "rotation": rotation_recent(p["id"], p.get("chance_of_playing_next_round"), p.get("_euro")) or rotation_season(p, p.get("_euro")),
             "form5": last5(p["id"]),
             "roadmap": roadmap,
-            "floor": sstat["floor"], "ceiling": sstat["ceiling"], "haul": sstat["haul"], "sd": sstat["sd"],
+            "floor": sstat["floor"], "ceiling": sstat["ceiling"], "haul": sstat["haul"], "sd": sstat["sd"], "pts_last2": pts_last2.get(p["id"], 0),
             "next": ({"opp": nf["opp"], "ven": nf["ven"], "fdr": nf["fdr"], "opp_id": nf["opp_id"],
                       "dgw": is_dgw, "opp2": (next_fixtures[1]["opp"] if is_dgw else None)} if nf else None),
             "team_id": tid,
@@ -951,7 +964,7 @@ def build():
             "selected_by": p.get("selected_by_percent"),
             "next": {"opp": nf["opp"], "ven": nf["ven"], "fdr": nf["fdr"]},
             "factors": fct, "roadmap": p_roadmap,
-            "floor": pstat["floor"], "ceiling": pstat["ceiling"], "haul": pstat["haul"], "sd": pstat["sd"],
+            "floor": pstat["floor"], "ceiling": pstat["ceiling"], "haul": pstat["haul"], "sd": pstat["sd"], "pts_last2": pts_last2.get(p["id"], 0),
             "rotation": rotation_season(p, p.get("_euro")),
             "price_pred": price_pred(p, boot.get("total_players") or 10_000_000),
         }
@@ -1697,9 +1710,16 @@ def build():
             "goals": round(pr["lam_h"] + pr["lam_a"], 1),
         })
 
+    # rzeczywisty budżet na Wildcard: wartość składu (ceny bieżące) + bank
+    squad_value = round(sum(p["price"] for p in squad), 1) if squad else 0.0
+    bank_val = bank_t / 10.0
+    budget_total = round(squad_value + bank_val, 1)
+
     data = {
         "generated_at": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "gw": {"current": cur_gw, "next": next_gw, "name": gw_name},
+        "budget": {"squad_value": squad_value, "bank": round(bank_val, 1), "total": budget_total,
+                   "last2_gws": last2_gws},
         "entry": {
             "team_id": team_id,
             "name": entry.get("name", ""),

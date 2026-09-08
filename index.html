@@ -267,6 +267,33 @@
   .cmprm{display:inline-block;min-width:22px;padding:1px 3px;margin:1px;border-radius:4px;font:700 9px 'Space Mono',monospace}
   .cmprm.f1,.cmprm.f2{background:var(--f2);color:#0a3d24}.cmprm.f3{background:var(--f3)}.cmprm.f4{background:var(--f4);color:#fff}.cmprm.f5{background:var(--f5);color:#fff}
   .cmplist{max-height:340px;overflow-y:auto}
+  /* porównanie powiązane ze składem */
+  .cmprow{display:flex;align-items:center;gap:10px;padding:9px 10px;border-bottom:1px solid var(--line);cursor:pointer;border-radius:8px}
+  .cmprow:hover{background:rgba(55,0,60,.04)} .cmprow.on{background:rgba(0,166,90,.08);outline:1px solid var(--green-ink)}
+  .cmpnm{font-weight:800;font-size:13px;color:var(--purple);flex:1}
+  .cmpnm .cmpsub{display:block;font:400 10px 'Space Mono',monospace;color:var(--muted)}
+  .cmpl2{font:800 12px 'Space Mono',monospace;color:var(--ink);white-space:nowrap}
+  .cmpalt{font:700 10px 'Space Mono',monospace;color:var(--green-ink);white-space:nowrap}
+  .cmpnone{font:400 10px 'Space Mono',monospace;color:var(--muted);white-space:nowrap}
+  .cmpgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+  .cmpcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px;box-shadow:0 2px 8px rgba(55,0,60,.05)}
+  .cmpcard.mine{border-left:4px solid var(--purple)} .cmpcard.alt{border-left:4px solid var(--green-ink)}
+  .cmphd{font:700 9px 'Space Mono',monospace;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  .cmpname{font-weight:900;font-size:17px;color:var(--purple);margin:3px 0 8px}
+  .cmprow2{display:flex;align-items:center;gap:6px;font:400 11px/1.8 'Space Mono',monospace;color:var(--muted)}
+  .cmprow2 span:first-child{flex:1} .cmprow2 b{color:var(--ink);font-weight:800}
+  .cmprow2 em{font-style:normal;font-weight:800;font-size:10px;padding:1px 5px;border-radius:5px}
+  .cmprow2 em.good{background:rgba(0,166,90,.12);color:var(--green-ink)} .cmprow2 em.bad{background:rgba(233,0,82,.1);color:var(--pink)}
+  .cmprm2{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+  .cmprm2 .cmprm{display:flex;flex-direction:column;align-items:center;min-width:40px;padding:3px 4px;border-radius:5px;font:700 8px 'Space Mono',monospace}
+  .cmprm2 .cmprm b{font-size:11px}
+  .cmprm2 .cmprm.f1,.cmprm2 .cmprm.f2{background:var(--f2);color:#0a3d24}.cmprm2 .cmprm.f3{background:var(--f3)}.cmprm2 .cmprm.f4{background:var(--f4);color:#fff}.cmprm2 .cmprm.f5{background:var(--f5);color:#fff}
+  /* symulator: najlepszy zamiennik */
+  .simbest{margin:10px 0}
+  .simbest .simbesthd{font:700 10px 'Space Mono',monospace;text-transform:uppercase;letter-spacing:.05em;color:var(--green-ink);margin-bottom:5px}
+  .simbest .simbestbody{background:rgba(0,166,90,.08);border:1px solid rgba(0,166,90,.25);border-radius:10px;padding:11px 13px;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+  .simbest b{font-size:15px;color:var(--purple)} .simbestm{font:400 11px 'Space Mono',monospace;color:var(--muted)}
+  .simbestgain{margin-left:auto;font:900 13px 'Space Mono',monospace}.simbestgain.good{color:var(--green-ink)}.simbestgain.bad{color:var(--pink)}
   /* kreator składu */
   .bstatbar{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}
   .bstat{background:rgba(55,0,60,.04);border:1px solid var(--line);border-radius:10px;padding:9px 8px;text-align:center}
@@ -1292,90 +1319,99 @@ function renderAccuracy(){
     <div class="advcard ok" style="margin-top:12px"><div class="ai">i</div><div class="ab"><div class="at">Jak to czytać</div>
       <div class="ap">Niższy MAE = celniejsze prognozy. Bias blisko 0 = model nie jest systematycznie zbyt optymistyczny ani pesymistyczny. To fundament pod ewentualne auto-strojenie — ale świadomie <b>nie</b> stroję modelu na kilku kolejkach, żeby nie przeuczył się na szumie.</div></div></div>`;
 }
-let CMP=[];  // wybrani do porównania (id)
+let CMP_SEL=null;  // wybrany zawodnik z mojego składu (id)
 function renderCompare(){
-  const pool=(DATA.pool||[]).slice().sort((a,b)=>b.xpts_h-a.xpts_h);
-  const sel=CMP.map(id=>pool.find(p=>p.id===id)).filter(Boolean);
-  const rotL={nailed:"pewniak",solid:"raczej gra",risk:"rotacja",doubt:"wątpliwość",unknown:"—"};
-  const rows=[
-    ["Pozycja / klub", p=>`${p.pos} · ${p.team}`],
-    ["Cena", p=>`£${p.price.toFixed(1)}`],
-    ["xPts (nast. GW)", p=>`<b>${(p.xpts??0).toFixed(1)}</b>`],
-    ["xPts /3 kolejki", p=>`${p.xpts_h}`],
-    ["Wartość (xPts/£m)", p=>`${(p.xpts_h/p.price).toFixed(2)}`],
-    ["Własność", p=>`${p.own}%`],
-    ["Floor / Ceiling", p=>`${p.floor??'–'} / ${p.ceiling??'–'}`],
-    ["Haul (≥10)", p=>`${Math.round((p.haul||0)*100)}%`],
-    ["Rotacja", p=>`${rotL[(p.rotation&&p.rotation.level)||'unknown']||'—'}${p.rotation&&p.rotation.europe?' 🇪🇺':''}`],
-    ["Cena — trend", p=>p.price_pred&&p.price_pred.dir!=='stable'?(p.price_pred.dir==='rise'?'↑':'↓')+' '+Math.round(p.price_pred.score*100)+'%':'—'],
-    ["Najbliższy mecz", p=>p.next?`${p.next.opp} (${p.next.ven}) FDR${p.next.fdr}`:'—'],
-  ];
-  // roadmapa mini (xPts na kolejne kolejki)
-  const roadRow=`<tr><td class="cmpk">Roadmapa xPts</td>${sel.map(p=>`<td class="cmpv">${(p.roadmap||[]).map(r=>`<span class="cmprm f${Math.max(1,Math.min(5,r.fdr))}">${r.xpts.toFixed(1)}</span>`).join("")||'—'}</td>`).join("")}</tr>`;
-  const best=(rowFn)=>{ // podświetl najlepszą wartość liczbową w wierszu
-    return null;
-  };
-  const table=sel.length?`<table class="cmptbl"><thead><tr><th></th>${sel.map(p=>`<th>${p.name}<button class="cmpx" data-rm="${p.id}">✕</button></th>`).join("")}</tr></thead>
-    <tbody>${rows.map(([label,fn])=>`<tr><td class="cmpk">${label}</td>${sel.map(p=>`<td class="cmpv">${fn(p)}</td>`).join("")}</tr>`).join("")}${roadRow}</tbody></table>`
-    :`<div class="ap" style="color:var(--muted)">Dodaj 2-3 zawodników, żeby porównać.</div>`;
-  const picker=`<input id="cmpSearch" placeholder="Szukaj zawodnika do dodania…" style="width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;font:600 13px 'Archivo';color:var(--purple);margin-bottom:8px">
-    <div id="cmpList" class="cmplist"></div>`;
+  const squad=effectiveSquad();
+  const pool=(DATA.pool||[]);
+  function alts(pl){
+    const myL2=pl.pts_last2||0;
+    return pool.filter(c=>c.et===pl.etype && c.id!==pl.id
+        && c.price < pl.price - 1e-9
+        && (c.pts_last2||0) > myL2)
+      .sort((a,b)=>(b.pts_last2-a.pts_last2)||(b.xpts_h-a.xpts_h))
+      .slice(0,2);
+  }
+  const sel=CMP_SEL?squad.find(p=>p.id===CMP_SEL):null;
+  const posOrd={GK:0,DEF:1,MID:2,FWD:3};
+  const roster=[...squad].sort((a,b)=>(posOrd[a.pos]-posOrd[b.pos])||b.xpts-a.xpts).map(p=>{
+    const n=alts(p).length;
+    return `<div class="cmprow ${p.id===CMP_SEL?'on':''}" data-p="${p.id}">
+      <span class="cmpnm">${p.name}<span class="cmpsub">${p.pos} · ${p.team} · £${p.price.toFixed(1)}</span></span>
+      <span class="cmpl2">${p.pts_last2??0} pkt/2GW</span>
+      ${n?`<span class="cmpalt">${n} tańsz${n===1?'a alt.':'e alt.'} ↓</span>`:'<span class="cmpnone">brak tańszych w formie</span>'}
+    </div>`;}).join("");
+  let panel="";
+  if(sel){
+    const a=alts(sel);
+    const col=(p,isMine)=>{
+      const dP=isMine?null:(p.price-sel.price);
+      const dPts=isMine?null:((p.pts_last2||0)-(sel.pts_last2||0));
+      return `<div class="cmpcard ${isMine?'mine':'alt'}">
+        <div class="cmphd">${isMine?'Twój zawodnik':'Tańsza alternatywa'}</div>
+        <div class="cmpname">${p.name}</div>
+        <div class="cmprow2"><span>Pozycja / klub</span><b>${p.pos} · ${p.team}</b></div>
+        <div class="cmprow2"><span>Cena</span><b>£${p.price.toFixed(1)}</b>${dP!=null?`<em class="${dP<0?'good':'bad'}">${dP<0?'':'+'}${dP.toFixed(1)}</em>`:''}</div>
+        <div class="cmprow2"><span>Pkt ost. 2 GW</span><b>${p.pts_last2??0}</b>${dPts!=null?`<em class="${dPts>0?'good':'bad'}">${dPts>0?'+':''}${dPts}</em>`:''}</div>
+        <div class="cmprow2"><span>Prognoza /3 GW</span><b>${p.xpts_h??'–'}</b></div>
+        <div class="cmprow2"><span>Najbliższy</span><b>${p.next?`${p.next.opp} (${p.next.ven})`:'—'} ${p.next?`<span class="mini-fx f${Math.max(1,Math.min(5,p.next.fdr))}">${p.next.fdr}</span>`:''}</b></div>
+        <div class="cmprm2">${(p.roadmap||[]).map(r=>`<span class="cmprm f${Math.max(1,Math.min(5,r.fdr))}">${r.opp} <b>${r.xpts.toFixed(1)}</b></span>`).join("")||''}</div>
+      </div>`;};
+    const altCols=a.length?a.map(p=>col(p,false)).join(""):`<div class="ap" style="color:var(--muted);align-self:center;padding:16px">Brak tańszego zawodnika, który zdobył więcej punktów w ostatnich 2 kolejkach. ${sel.name} trzyma pozycję.</div>`;
+    panel=`<div class="h" style="margin-top:16px"><span class="no">·</span><span class="t">Porównanie: ${sel.name}</span>
+        <span class="d">tańsze alternatywy w lepszej formie (ost. 2 GW)</span></div>
+      <div class="cmpgrid">${col(sel,true)}${altCols}</div>`;
+  }
   el("app").innerHTML=`
-    <div class="h"><span class="no">01</span><span class="t">Porównywarka zawodników</span><span class="d">2-3 obok siebie · wszystkie metryki</span></div>
-    <div class="card">${table}</div>
-    <div class="h"><span class="no">02</span><span class="t">Dodaj zawodnika</span></div>
-    <div class="card">${picker}</div>`;
-  el("app").querySelectorAll(".cmpx").forEach(b=>b.onclick=()=>{CMP=CMP.filter(id=>id!==+b.dataset.rm);renderCompare();});
-  const renderList=q=>{
-    const f=pool.filter(p=>!CMP.includes(p.id)&&(!q||p.name.toLowerCase().includes(q))).slice(0,40);
-    el("cmpList").innerHTML=f.map(p=>`<div class="swrow" data-add="${p.id}">
-      <span class="swnm">${p.name}<span class="swpos">${p.pos} · ${p.team} · £${p.price.toFixed(1)} · h${p.xpts_h}</span></span>
-      <span class="swxp">${(p.xpts??0).toFixed(1)}</span></div>`).join("")||`<div class="ap" style="color:var(--muted)">Brak.</div>`;
-    el("cmpList").querySelectorAll(".swrow").forEach(r=>r.onclick=()=>{ if(CMP.length<3){CMP.push(+r.dataset.add);renderCompare();} });
-  };
-  renderList("");
-  el("cmpSearch").oninput=e=>renderList(e.target.value.toLowerCase());
+    <div class="h"><span class="no">01</span><span class="t">Porównaj zawodników</span><span class="d">kliknij gracza ze składu → tańsze alternatywy w lepszej formie</span></div>
+    <div class="card">${roster}</div>
+    ${panel}
+    <div class="foot" style="margin-top:12px;border:0">Alternatywy: tańsze, ta sama pozycja, więcej punktów FPL w ostatnich 2 kolejkach. Sortowane wg formy, potem prognozy /3 GW.</div>`;
+  el("app").querySelectorAll(".cmprow").forEach(r=>r.onclick=()=>{CMP_SEL=+r.dataset.p;renderCompare();});
 }
+/* ---------- KREATOR SKŁADU / WILDCARD ---------- */
 let BUILD={GK:[],DEF:[],MID:[],FWD:[]}, BUILD_SLOT=null;
 const BUILD_NEED={GK:2,DEF:5,MID:5,FWD:3};
+function buildBudget(){ return (DATA.budget&&DATA.budget.total)||100; }  // realny budżet: wartość składu + bank
 function buildAll(){ return [...BUILD.GK,...BUILD.DEF,...BUILD.MID,...BUILD.FWD]; }
 function buildCost(){ return buildAll().reduce((a,p)=>a+p.price,0); }
 function buildClubs(){ const c={}; buildAll().forEach(p=>c[p.team]=(c[p.team]||0)+1); return c; }
+function buildInc(pick,c){ return pick.GK.includes(c)||pick.DEF.includes(c)||pick.MID.includes(c)||pick.FWD.includes(c); }
 function renderBuilder(){
-  const pool=(DATA.pool||[]);
-  const all=buildAll(); const cost=buildCost(); const left=100-cost; const clubs=buildClubs();
+  const CAP=buildBudget();
+  const all=buildAll(); const cost=buildCost(); const left=CAP-cost; const clubs=buildClubs();
   const complete=(BUILD.GK.length===2&&BUILD.DEF.length===5&&BUILD.MID.length===5&&BUILD.FWD.length===3);
-  const overBudget=cost>100+1e-9;
+  const overBudget=cost>CAP+1e-9;
   const clubViol=Object.entries(clubs).filter(([t,n])=>n>3).map(([t])=>t);
   const xptsH=all.reduce((a,p)=>a+(p.xpts_h||0),0);
+  const bsrc=DATA.budget?`wartość składu £${DATA.budget.squad_value} + bank £${DATA.budget.bank}`:'brak danych — domyślnie £100';
   const posRow=(pos)=>{
     const need=BUILD_NEED[pos], have=BUILD[pos];
     const slots=Array.from({length:need},(_,i)=>{
       const p=have[i];
-      return p?`<div class="bslot filled" data-pos="${pos}" data-i="${i}"><span class="bsn">${p.name}</span><span class="bsm">${p.team} · £${p.price.toFixed(1)}</span><button class="bsx" data-rmpos="${pos}" data-rmi="${i}">✕</button></div>`
+      return p?`<div class="bslot filled"><span class="bsn">${p.name}</span><span class="bsm">${p.team} · £${p.price.toFixed(1)}</span><button class="bsx" data-rmpos="${pos}" data-rmi="${i}">✕</button></div>`
         :`<div class="bslot empty" data-addpos="${pos}">+ ${pos}</div>`;
     }).join("");
     return `<div class="brow"><div class="brlab">${pos} ${have.length}/${need}</div><div class="bslots">${slots}</div></div>`;
   };
   const validMsg = complete&&!overBudget&&!clubViol.length
-    ? `<span class="bok">✓ Skład legalny — 15 zawodników, £${cost.toFixed(1)}, limit 3/klub OK</span>`
-    : `<span class="bwarn">${!complete?`Wybrano ${all.length}/15. `:''}${overBudget?`Przekroczono budżet o £${(cost-100).toFixed(1)}. `:''}${clubViol.length?`Za dużo z klubu: ${clubViol.join(", ")}.`:''}</span>`;
+    ? `<span class="bok">✓ Skład legalny — 15 zawodników, £${cost.toFixed(1)} / £${CAP.toFixed(1)}, limit 3/klub OK</span>`
+    : `<span class="bwarn">${!complete?`Wybrano ${all.length}/15. `:''}${overBudget?`Przekroczono budżet o £${(cost-CAP).toFixed(1)}. `:''}${clubViol.length?`Za dużo z klubu: ${clubViol.join(", ")}.`:''}</span>`;
   el("app").innerHTML=`
-    <div class="h"><span class="no">01</span><span class="t">Kreator składu (Wildcard)</span><span class="d">buduj 15 od zera · £100m · 2-5-5-3 · max 3/klub</span></div>
+    <div class="h"><span class="no">01</span><span class="t">Kreator składu (Wildcard)</span><span class="d">buduj 15 od zera · realny budżet · 2-5-5-3 · max 3/klub</span></div>
     <div class="bstatbar">
       <div class="bstat"><span class="bk">Koszt</span><span class="bv ${overBudget?'neg':''}">£${cost.toFixed(1)}</span></div>
+      <div class="bstat"><span class="bk">Budżet</span><span class="bv">£${CAP.toFixed(1)}</span></div>
       <div class="bstat"><span class="bk">Zostało</span><span class="bv ${left<0?'neg':''}">£${left.toFixed(1)}</span></div>
       <div class="bstat"><span class="bk">xPts /3 kol.</span><span class="bv">${xptsH.toFixed(1)}</span></div>
-      <div class="bstat"><span class="bk">Zawodnicy</span><span class="bv">${all.length}/15</span></div>
     </div>
-    <div class="bvalid">${validMsg}</div>
+    <div class="bvalid">${validMsg} <span style="color:var(--muted);font-weight:400"> · budżet = ${bsrc}</span></div>
     <div class="bbtns">
-      <button class="editbtn" id="bAuto">⚡ Auto-optymalizuj (max xPts w £100m)</button>
+      <button class="editbtn" id="bAuto">⚡ Auto-optymalizuj (max xPts w £${CAP.toFixed(1)})</button>
       <button class="editbtn ghost" id="bClear">Wyczyść</button>
     </div>
     <div class="card">${["GK","DEF","MID","FWD"].map(posRow).join("")}</div>
     <div id="bPicker"></div>
-    <div class="foot" style="margin-top:12px;border:0">Optymalizacja to heurystyka (zachłanna + dopasowanie budżetu) — bliska optymalnej, nie gwarancja ideału (pełny problem plecakowy jest NP-trudny). xPts /3 kolejki z modelu meczu. Ranking i tak respektuje 2-5-5-3, £100m i 3/klub.</div>`;
+    <div class="foot" style="margin-top:12px;border:0">Budżet = rzeczywista wartość Twojego składu + bank (ceny bieżące jako wartość sprzedaży). Optymalizacja to heurystyka zachłanna — bliska optymalnej, nie gwarancja ideału (pełny problem plecakowy jest NP-trudny). Zawsze 2-5-5-3, ≤budżet, ≤3/klub.</div>`;
   el("bClear").onclick=()=>{BUILD={GK:[],DEF:[],MID:[],FWD:[]};BUILD_SLOT=null;renderBuilder();};
   el("bAuto").onclick=()=>{autoBuild();renderBuilder();};
   el("app").querySelectorAll(".bslot.empty").forEach(s=>s.onclick=()=>openBuildPicker(s.dataset.addpos));
@@ -1402,46 +1438,34 @@ function openBuildPicker(pos){
   el("bList").querySelectorAll(".swrow").forEach(r=>r.onclick=()=>{ if(r.dataset.ok==="1") add(+r.dataset.add); });
   el("bSearch").oninput=e=>{const q=e.target.value.toLowerCase();
     el("bList").querySelectorAll(".swrow").forEach(r=>r.style.display=r.querySelector(".swnm").textContent.toLowerCase().includes(q)?"":"none");};
-  el("bPicker").scrollIntoView({behavior:"smooth",block:"nearest"});
 }
 function autoBuild(){
-  // heurystyka: dobierz najlepszych wg xPts/£ i xPts, respektując 2-5-5-3, £100m, 3/klub
   const need={GK:2,DEF:5,MID:5,FWD:3}, etype={GK:1,DEF:2,MID:3,FWD:4};
   const byPos={}; for(const pos in need){
-    byPos[pos]=(DATA.pool||[]).filter(c=>c.et===etype[pos]&&c.xpts_h>0)
-      .sort((a,b)=>b.xpts_h-a.xpts_h);
+    byPos[pos]=(DATA.pool||[]).filter(c=>c.et===etype[pos]&&c.xpts_h>0).sort((a,b)=>b.xpts_h-a.xpts_h);
   }
-  // strategia: 2 tanich GK + tani 4. def/5. mid jako ławka, reszta budżetu na najlepszych
   const pick={GK:[],DEF:[],MID:[],FWD:[]}, clubs={};
   const canClub=t=>(clubs[t]||0)<3;
   const take=(pos,c)=>{pick[pos].push(c);clubs[c.team]=(clubs[c.team]||0)+1;};
-  // 1) wypełnij minimalnymi cenami „wypełniacze ławki": 1 GK, 1 DEF, 1 MID najtańsze grające
   const cheap=pos=>byPos[pos].slice().sort((a,b)=>a.price-b.price||b.xpts_h-a.xpts_h);
-  // 2) zachłannie po xPts/£, ale pilnuj budżetu na komplet 15
-  const order=["FWD","MID","DEF","GK"];
-  // najpierw rezerwa minimalna: 1 tani GK, 3 tanich obrońców-ławka? Uprość: greedy value z limitem
   const all=[]; for(const pos in need) byPos[pos].forEach(c=>all.push({pos,c,val:c.xpts_h/c.price}));
   all.sort((a,b)=>b.val-a.val);
-  let budget=100;
-  // zapewnij minimalny koszt reszty: policz najtańsze ceny per pozycja
+  let budget=buildBudget();   // realny budżet zamiast 100
   const cheapest={}; for(const pos in need) cheapest[pos]=cheap(pos).map(x=>x.price);
   function minRemain(){ let s=0; for(const pos in need){ const rem=need[pos]-pick[pos].length;
     for(let i=0;i<rem;i++) s+=(cheapest[pos][i]||4.0);} return s; }
   for(const {pos,c} of all){
     if(pick[pos].length>=need[pos]) continue;
-    if(pick.GK.includes(c)||pick.DEF.includes(c)||pick.MID.includes(c)||pick.FWD.includes(c)) continue;
+    if(buildInc(pick,c)) continue;
     if(!canClub(c.team)) continue;
-    // czy stać nas, zostawiając minimum na resztę?
     const afterMin = (budget - c.price) - (minRemain() - (cheapest[pos][need[pos]-pick[pos].length-1]||4.0));
     if(c.price<=budget && afterMin>=-0.01){ take(pos,c); budget-=c.price; }
   }
-  // dopełnij braki najtańszymi grającymi
   for(const pos in need){ while(pick[pos].length<need[pos]){
     const c=cheap(pos).find(x=>!buildInc(pick,x)&&canClub(x.team)&&x.price<=budget+0.01);
     if(!c) break; take(pos,c); budget-=c.price; } }
   BUILD=pick;
 }
-function buildInc(pick,c){ return pick.GK.includes(c)||pick.DEF.includes(c)||pick.MID.includes(c)||pick.FWD.includes(c); }
 function renderSim(){
   const pool=DATA.pool||[];
   const squad=effectiveSquad();
@@ -1457,6 +1481,7 @@ function renderSim(){
       <div class="simctl"><label>Kupujesz (IN) — w budżecie, ta sama pozycja</label>
         <select id="simIn"></select></div>
       <label class="simchk"><input type="checkbox" id="simFree" checked> To darmowy transfer (bez −4)</label>
+      <div id="simBest" class="simbest"></div>
       <div id="simResult" class="simres"></div>
     </div>
     <p class="foot" style="margin-top:14px;border:0">Cena sprzedaży wg reguły FPL: przy wzroście ceny dostajesz zakup + połowę wzrostu (zaokrągloną w dół), więc +0.1 nie daje zysku. Zysk xPts liczony na 3 kolejki (h).</p>`;
@@ -1477,6 +1502,15 @@ function renderSim(){
       .sort((a,b)=>b.xpts_h-a.xpts_h).slice(0,40);
     inSel.innerHTML=cands.map(c=>`<option value="${c.id}">${c.name} (${c.team}, £${c.price.toFixed(1)}, h${c.xpts_h}, ${c.own}%)</option>`).join("")
       || `<option value="">brak kandydatów w budżecie £${budget.toFixed(1)}</option>`;
+    // najlepszy zamiennik wg prognozy na 3 kolejki (cands już posortowane malejąco po xpts_h)
+    const bestC=cands[0], bestEl=el("simBest");
+    if(bestC && bestEl){
+      const dg=+(bestC.xpts_h-(out.xpts_h||0)).toFixed(1);
+      bestEl.innerHTML=`<div class="simbesthd">★ Najlepszy zamiennik (prognoza /3 kolejki)</div>
+        <div class="simbestbody"><b>${bestC.name}</b> <span class="simbestm">${bestC.team} · £${bestC.price.toFixed(1)} · h${bestC.xpts_h} · ${bestC.own}%</span>
+        <span class="simbestgain ${dg>0?'good':'bad'}">${dg>0?'+':''}${dg} xPts vs ${out.name}</span></div>`;
+      inSel.value=String(bestC.id);   // auto-wybór najlepszego
+    } else if(bestEl){ bestEl.innerHTML=""; }
     calc();
   }
   function calc(){
