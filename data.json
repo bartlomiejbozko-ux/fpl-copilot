@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-08T09:21:50Z",
+  "generated_at": "2026-09-08T09:25:55Z",
   "gw": {
     "current": 3,
     "next": 4,
@@ -137,7 +137,7 @@
       "floor": 2,
       "ceiling": 7,
       "haul": 0.0,
-      "sd": 2.02,
+      "sd": 2.03,
       "pts_last2": 16,
       "next": {
         "opp": "CHE",
@@ -271,8 +271,8 @@
       ],
       "floor": 1,
       "ceiling": 8,
-      "haul": 0.056,
-      "sd": 3.08,
+      "haul": 0.06,
+      "sd": 3.14,
       "pts_last2": 13,
       "next": {
         "opp": "MUN",
@@ -406,8 +406,8 @@
       ],
       "floor": 2,
       "ceiling": 10,
-      "haul": 0.103,
-      "sd": 3.74,
+      "haul": 0.116,
+      "sd": 3.82,
       "pts_last2": 3,
       "next": {
         "opp": "BOU",
@@ -542,7 +542,7 @@
       "floor": 4,
       "ceiling": 17,
       "haul": 0.407,
-      "sd": 6.1,
+      "sd": 6.26,
       "pts_last2": 4,
       "next": {
         "opp": "COV",
@@ -676,8 +676,8 @@
       ],
       "floor": 2,
       "ceiling": 11,
-      "haul": 0.132,
-      "sd": 3.66,
+      "haul": 0.137,
+      "sd": 3.68,
       "pts_last2": 13,
       "next": {
         "opp": "SUN",
@@ -811,8 +811,8 @@
       ],
       "floor": 2,
       "ceiling": 11,
-      "haul": 0.162,
-      "sd": 4.17,
+      "haul": 0.176,
+      "sd": 4.27,
       "pts_last2": 11,
       "next": {
         "opp": "HUL",
@@ -946,8 +946,8 @@
       ],
       "floor": 2,
       "ceiling": 14,
-      "haul": 0.327,
-      "sd": 5.02,
+      "haul": 0.318,
+      "sd": 4.98,
       "pts_last2": 7,
       "next": {
         "opp": "FUL",
@@ -1081,8 +1081,8 @@
       ],
       "floor": 2,
       "ceiling": 10,
-      "haul": 0.103,
-      "sd": 3.71,
+      "haul": 0.109,
+      "sd": 3.75,
       "pts_last2": 8,
       "next": {
         "opp": "HUL",
@@ -1214,10 +1214,10 @@
           "xpts": 5.7
         }
       ],
-      "floor": 1,
+      "floor": 2,
       "ceiling": 14,
-      "haul": 0.304,
-      "sd": 5.69,
+      "haul": 0.276,
+      "sd": 5.56,
       "pts_last2": 10,
       "next": {
         "opp": "MUN",
@@ -1351,8 +1351,8 @@
       ],
       "floor": 4,
       "ceiling": 15,
-      "haul": 0.39,
-      "sd": 5.15,
+      "haul": 0.384,
+      "sd": 5.07,
       "pts_last2": 22,
       "next": {
         "opp": "MUN",
@@ -1486,8 +1486,8 @@
       ],
       "floor": 2,
       "ceiling": 10,
-      "haul": 0.106,
-      "sd": 3.84,
+      "haul": 0.101,
+      "sd": 3.8,
       "pts_last2": 10,
       "next": {
         "opp": "HUL",
@@ -1622,7 +1622,7 @@
       "floor": 2,
       "ceiling": 7,
       "haul": 0.0,
-      "sd": 2.23,
+      "sd": 2.18,
       "pts_last2": 8,
       "next": {
         "opp": "FUL",
@@ -1756,8 +1756,8 @@
       ],
       "floor": 2,
       "ceiling": 10,
-      "haul": 0.122,
-      "sd": 3.62,
+      "haul": 0.142,
+      "sd": 3.84,
       "pts_last2": 13,
       "next": {
         "opp": "SUN",
@@ -1891,8 +1891,8 @@
       ],
       "floor": 1,
       "ceiling": 6,
-      "haul": 0.023,
-      "sd": 2.45,
+      "haul": 0.02,
+      "sd": 2.42,
       "pts_last2": 12,
       "next": {
         "opp": "LEE",
@@ -2026,8 +2026,8 @@
       ],
       "floor": 0,
       "ceiling": 2,
-      "haul": 0.002,
-      "sd": 1.5,
+      "haul": 0.001,
+      "sd": 1.46,
       "pts_last2": 1,
       "next": {
         "opp": "BHA",
@@ -2893,7 +2893,7 @@
       "p50": 69,
       "p90": 95,
       "mean": 70.5,
-      "sd": 18.7,
+      "sd": 18.5,
       "captain": "Haaland",
       "correlated": true
     },
@@ -4022,7 +4022,7 @@
         "team": "FC 2027",
         "total": 157,
         "gap": 28,
-        "hold": 0.91,
+        "hold": 0.92,
         "xi_mean": 63.7,
         "captain": "Haaland",
         "cap_differs": false,
@@ -4046,7 +4046,7 @@
         "team": "BrexitTeam",
         "total": 154,
         "gap": 31,
-        "hold": 0.95,
+        "hold": 0.94,
         "xi_mean": 61.6,
         "captain": "B.Fernandes",
         "cap_differs": true,
