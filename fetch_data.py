@@ -723,42 +723,51 @@ def build():
     last2_gws = finished_gws[-2:]
     pts_last2 = {}
     xgi_last2 = {}   # xG + xA z ostatnich 2 kolejek (underlying „forma xG")
-    for g in last2_gws:
-        live = get_json(f"{FPL}/event/{g}/live/")
-        for el_ in ((live or {}).get("elements") or []):
-            eid = el_.get("id"); stt = el_.get("stats") or {}
-            pts_last2[eid] = pts_last2.get(eid, 0) + (stt.get("total_points") or 0)
-            try:
-                xgi = float(stt.get("expected_goals") or 0) + float(stt.get("expected_assists") or 0)
-            except (TypeError, ValueError):
-                xgi = 0.0
-            xgi_last2[eid] = xgi_last2.get(eid, 0.0) + xgi
+    try:
+        for g in last2_gws:
+            live = get_json(f"{FPL}/event/{g}/live/")
+            elems = (live.get("elements") if isinstance(live, dict) else None) or []
+            for el_ in elems:
+                if not isinstance(el_, dict):
+                    continue
+                eid = el_.get("id"); stt = el_.get("stats") or {}
+                pts_last2[eid] = pts_last2.get(eid, 0) + (stt.get("total_points") or 0)
+                try:
+                    xgi = float(stt.get("expected_goals") or 0) + float(stt.get("expected_assists") or 0)
+                except (TypeError, ValueError):
+                    xgi = 0.0
+                xgi_last2[eid] = xgi_last2.get(eid, 0.0) + xgi
+    except Exception as e:
+        sys.stderr.write(f"  ! xGI/last2 pominięte: {e}\n")
     if last2_gws:
         print(f"· punkty + xGI z ostatnich 2 kolejek (GW{last2_gws}) pobrane dla {len(pts_last2)} zawodników")
 
     # ── EO i kapitan względem TOP menedżerów (liga Overall = 314) ──────────────
-    TOPN = 30
-    top_own, top_cap, n_top = {}, {}, 0
+    TOPN = 20   # próbka; pacing niżej, by nie prowokować rate-limitu API
+    eo_own, eo_cap, n_top = {}, {}, 0
     try:
         st = get_json(f"{FPL}/leagues-classic/314/standings/?page_standings=1")
-        results = ((st or {}).get("standings") or {}).get("results") or []
+        results = (((st.get("standings") if isinstance(st, dict) else None) or {}).get("results")) or []
         for r in results[:TOPN]:
+            if not isinstance(r, dict) or not r.get("entry"):
+                continue
             pk = get_json(f"{FPL}/entry/{r.get('entry')}/event/{cur_gw}/picks/")
-            picks = (pk or {}).get("picks") or []
+            time.sleep(0.25)   # tempo — chroni kolejne zapytania przed rate-limitem
+            picks = (pk.get("picks") if isinstance(pk, dict) else None) or []
             if not picks:
                 continue
             n_top += 1
             for p in picks:
-                if p.get("position", 99) <= 11:      # tylko wyjściowa XI liczy się do EO
-                    top_own[p["element"]] = top_own.get(p["element"], 0) + 1
+                if isinstance(p, dict) and p.get("position", 99) <= 11 and p.get("element"):
+                    eo_own[p["element"]] = eo_own.get(p["element"], 0) + 1
                     if p.get("is_captain"):
-                        top_cap[p["element"]] = top_cap.get(p["element"], 0) + 1
+                        eo_cap[p["element"]] = eo_cap.get(p["element"], 0) + 1
     except Exception as e:
         sys.stderr.write(f"  ! EO overall pominięte: {e}\n")
     def eo_top(eid):
         if not n_top:
             return None
-        return round(100.0 * (top_own.get(eid, 0) + top_cap.get(eid, 0)) / n_top)
+        return round(100.0 * (eo_own.get(eid, 0) + eo_cap.get(eid, 0)) / n_top)
     if n_top:
         print(f"· EO overall: próbka {n_top} top menedżerów (liga Overall, GW{cur_gw})")
 
@@ -842,11 +851,12 @@ def build():
     sell_value_t = None   # rzeczywista wartość sprzedaży składu (tylko z zalogowanej sesji)
     if team_id:
         print(f"· pobieram druzyne {team_id} ...")
-        entry = get_json(f"{FPL}/entry/{team_id}/") or {}
+        entry = get_json(f"{FPL}/entry/{team_id}/")
+        if not isinstance(entry, dict): entry = {}
         # 1) zalogowana drużyna (my-team) — zawiera OCZEKUJĄCE transfery na najbliższy GW
         if session and not manual:
             mt = get_json_auth(f"{FPL}/my-team/{team_id}/", session)
-            if mt and mt.get("picks"):
+            if isinstance(mt, dict) and mt.get("picks"):
                 picks = mt["picks"]
                 bank_override = (mt.get("transfers") or {}).get("bank")
                 # realna wartość sprzedaży = suma selling_price z my-team
@@ -864,7 +874,7 @@ def build():
         # 2) publiczny skład zablokowany po ostatnim deadline
         if not picks and not manual:
             pk = get_json(f"{FPL}/entry/{team_id}/event/{cur_gw}/picks/")
-            if pk and pk.get("picks"):
+            if isinstance(pk, dict) and pk.get("picks"):
                 picks = pk["picks"]
                 print(f"· uzyto zablokowanego skladu z GW{cur_gw} (publiczne API — "
                       "bez oczekujacych transferow)")
@@ -1817,8 +1827,8 @@ def build():
         def _nm(eid): return (players.get(eid) or {}).get("web_name", "?")
         def _tm(eid): return tshort.get((players.get(eid) or {}).get("team"), "?")
         my_ids = {p["id"] for p in squad}
-        template = sorted(top_own.items(), key=lambda kv: -kv[1])[:8]
-        captains = sorted(top_cap.items(), key=lambda kv: -kv[1])[:5]
+        template = sorted(eo_own.items(), key=lambda kv: -kv[1])[:8]
+        captains = sorted(eo_cap.items(), key=lambda kv: -kv[1])[:5]
         meta = {
             "n": n_top, "gw": cur_gw,
             "template": [{"name": _nm(e), "team": _tm(e), "own": round(100*c/n_top),
