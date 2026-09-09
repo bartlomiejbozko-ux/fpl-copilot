@@ -296,6 +296,31 @@
   .simbest .simbestbody{background:rgba(0,166,90,.08);border:1px solid rgba(0,166,90,.25);border-radius:10px;padding:11px 13px;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
   .simbest b{font-size:15px;color:var(--purple)} .simbestm{font:400 11px 'Space Mono',monospace;color:var(--muted)}
   .simbestgain{margin-left:auto;font:900 13px 'Space Mono',monospace}.simbestgain.good{color:var(--green-ink)}.simbestgain.bad{color:var(--pink)}
+  /* rekomendacje transferów (planer) */
+  .trec{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+  .trec:last-child{border:0}
+  @media(max-width:560px){.trec{grid-template-columns:1fr;text-align:center}}
+  .trecside{border-radius:12px;padding:11px 13px}
+  .trecside.out{background:rgba(233,0,82,.06);border:1px solid rgba(233,0,82,.18)}
+  .trecside.in{background:rgba(0,166,90,.07);border:1px solid rgba(0,166,90,.22)}
+  .treclab{font:700 8px 'Space Mono',monospace;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
+  .trecside.out .treclab{color:var(--pink)} .trecside.in .treclab{color:var(--green-ink)}
+  .trecname{font-weight:900;font-size:16px;color:var(--purple)}
+  .trecmeta{font:400 10px/1.4 'Space Mono',monospace;color:var(--muted);margin-top:2px}
+  .trecproj{margin-top:5px;font:400 11px 'Space Mono',monospace;color:var(--ink)}
+  .trecarrow{font-size:20px;color:var(--muted);text-align:center;display:flex;flex-direction:column;gap:2px}
+  .trecgain{font:900 12px 'Space Mono',monospace;color:var(--green-ink);white-space:nowrap}
+  /* pasek formacji (taktyka) */
+  .formbar{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .formbtn{border:1px solid var(--line);background:#fff;color:var(--purple);font:800 12px 'Space Mono',monospace;padding:6px 11px;border-radius:8px;cursor:pointer}
+  .formbtn.on{background:var(--green-ink);color:#fff;border-color:var(--green-ink)}
+  /* meta (top menedżerowie) */
+  .metahd{font:800 13px 'Archivo';color:var(--purple);margin-bottom:8px}
+  .metalab{font:700 10px 'Space Mono',monospace;text-transform:uppercase;color:var(--muted)}
+  .metachips{display:flex;flex-wrap:wrap;gap:6px;margin-top:5px}
+  .metachip{font:700 11px 'Space Mono',monospace;padding:4px 9px;border-radius:8px;background:rgba(55,0,60,.05);color:var(--purple)}
+  .metachip.have{background:rgba(0,166,90,.1);color:var(--green-ink)}
+  .metachip.miss{background:rgba(233,0,82,.08);color:var(--pink)}
   /* kreator składu */
   .bstatbar{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}
   .bstat{background:rgba(55,0,60,.04);border:1px solid var(--line);border-radius:10px;padding:9px 8px;text-align:center}
@@ -557,6 +582,36 @@ function rotLabel(l){return {nailed:"pewniak",solid:"raczej gra",risk:"ryzyko ro
 
 function hasOverrides(){ return loadOv().length>0; }
 function editReset(){ saveOv([]); saveBank(baseBank()); SEL=null; render(); }
+/* taktyka / ręczny skład (lokalny) */
+let TACTIC=false;
+const FORMATIONS=["3-4-3","3-5-2","4-3-3","4-4-2","4-5-1","5-3-2","5-4-1","5-2-3"];
+function lnKey(){ return "fplco_ln_"+((DATA&&DATA.entry&&DATA.entry.team_id)||"x"); }
+function loadLn(){ try{const v=localStorage.getItem(lnKey()); return v?JSON.parse(v):null;}catch(e){return null;} }
+function saveLn(o){ try{localStorage.setItem(lnKey(),JSON.stringify(o));}catch(e){} }
+function clearLn(){ try{localStorage.removeItem(lnKey());}catch(e){} }
+// zastosuj lokalne ustawienie (bench/formacja) na skład
+function applyLineup(squad){
+  const ln=loadLn(); if(!ln||!ln.bench) return squad;
+  const bset=new Set(ln.bench);
+  return squad.map(p=>({...p, on_bench:bset.has(p.id)}));
+}
+// najlepsza XI dla danej formacji z 15-osobowego składu (po xpts)
+function pickFormation(squad, form){
+  const [d,m,f]=form.split("-").map(Number);
+  const need={GK:1,DEF:d,MID:m,FWD:f};
+  const by={GK:[],DEF:[],MID:[],FWD:[]};
+  squad.forEach(p=>by[p.pos]&&by[p.pos].push(p));
+  Object.keys(by).forEach(k=>by[k].sort((a,b)=>(b.xpts||0)-(a.xpts||0)));
+  const start=new Set();
+  for(const pos in need){ by[pos].slice(0,need[pos]).forEach(p=>start.add(p.id)); }
+  const bench=squad.filter(p=>!start.has(p.id)).map(p=>p.id);
+  return {form, bench};
+}
+function curFormation(squad){
+  const xi=squad.filter(p=>!p.on_bench);
+  const d=xi.filter(p=>p.pos==="DEF").length, m=xi.filter(p=>p.pos==="MID").length, f=xi.filter(p=>p.pos==="FWD").length;
+  return `${d}-${m}-${f}`;
+}
 function normCdf(z){ // przybliżenie dystrybuanty N(0,1)
   const t=1/(1+0.2316419*Math.abs(z));
   const d=0.3989423*Math.exp(-z*z/2);
@@ -834,18 +889,17 @@ function renderBrief(){
     cmHtml=`<div class="card" style="margin-top:10px"><div class="cmrow">${shieldSide}${daggerSide}</div>
       <div class="cmnote">${note}</div></div>`;
   }
-  if(b.transfers && b.transfers.length){
-    trHtml = b.transfers.map(t=>`
-      <div class="trow">
-        <div class="tside out"><span class="tlab">OUT</span><span class="tn">${t.out.name}</span>
-          <span class="tsub">£${t.out.price.toFixed(1)} · ${t.out.pos} · h${t.out.xpts_h} ${fxChip(t.out.next)}</span></div>
-        <div class="tarrow">→<span class="tgain">+${t.gain}</span></div>
-        <div class="tside in"><span class="tlab">IN</span><span class="tn">${t.in.name}</span>
-          <span class="tsub">£${t.in.price.toFixed(1)} · h${t.in.xpts_h} · ${t.in.selected_by}% ${fxChip(t.in.next)}</span></div>
-      </div>`).join("");
-  } else {
-    trHtml = `<div class="advcard ok"><div class="ai">✓</div><div class="ab"><div class="at">Brak oczywistych transferów</div>
-      <div class="ap">Żaden dostępny zawodnik w Twoim budżecie nie bije obecnego składu o sensowny margines. Możesz zachować transfer.</div></div></div>`;
+  // meta: kapitani i szablon top menedżerów (overall)
+  const meta=DATA.meta;
+  let metaHtml="";
+  if(meta && (meta.captains||[]).length){
+    const caps=meta.captains.map(c=>`<span class="metachip ${c.have?'have':''}">${c.name} <b>${c.cap}%</b>${c.have?' ✓':''}</span>`).join("");
+    const tmpl=(meta.template||[]).slice(0,6).map(t=>`<span class="metachip ${t.have?'have':'miss'}">${t.name} ${t.own}%${t.have?' ✓':' ✗'}</span>`).join("");
+    metaHtml=`<div class="card" style="margin-top:10px">
+      <div class="metahd">🌍 Meta — top ${meta.n} menedżerów (overall, GW${meta.gw})</div>
+      <div class="metalab">Najczęściej kapitanowani:</div><div class="metachips">${caps}</div>
+      <div class="metalab" style="margin-top:8px">Szablon (musisz mieć / masz):</div><div class="metachips">${tmpl}</div>
+      <div class="cmnote">Względem najlepszych, nie miniligi. ✓ = masz, ✗ = luka szablonowa (ryzyko rankingu, jeśli pęknie). Kapitanowanie zgodne z metą chroni rank; różnicowa opaska to dźwignia.</div></div>`;
   }
 
   // alerty
@@ -922,13 +976,13 @@ function renderBrief(){
         <div class="big">${(b.lineup&&b.lineup.xi_total!=null?b.lineup.xi_total:DATA.totals.xi_xpts).toFixed(1)}</div>
         <div class="sub">${DATA.gw.name} · kliknij zakładki po szczegóły</div></div>
       <div class="stats">
-        <div class="stat"><div class="k">Transfery</div><div class="v">${(b.transfers||[]).length}</div></div>
+        <div class="stat"><div class="k">Ustawienie</div><div class="v">${b.lineup&&b.lineup.optimal_formation||'—'}</div></div>
         <div class="stat"><div class="k">Alerty</div><div class="v" style="color:${(b.alerts||[]).length?'#ff8fa3':'#00FF87'}">${(b.alerts||[]).length}</div></div>
       </div>
     </div>
 
     <div class="h"><span class="no">01</span><span class="t">Kapitan</span></div>
-    ${capHtml}${cmHtml}
+    ${capHtml}${cmHtml}${metaHtml}
 
     <div class="h"><span class="no">02</span><span class="t">Proponowana jedenastka</span><span class="d">${DATA.gw.name} · najlepsza XI z Twojego składu</span></div>
     ${xiHtml || '<div class="card">Brak danych jedenastki.</div>'}
@@ -936,16 +990,13 @@ function renderBrief(){
     <div class="h"><span class="no">03</span><span class="t">Ustawienie i ławka</span><span class="d">jak dojść do tej jedenastki + kolejność zmian</span></div>
     ${luHtml || '<div class="card">Brak danych ustawienia.</div>'}
 
-    <div class="h"><span class="no">04</span><span class="t">Rekomendacje transferów</span><span class="d">najlepszy w Twoim budżecie · h = xPts na 3 kolejki</span></div>
-    <div class="card">${trHtml}</div>
-
-    <div class="h"><span class="no">05</span><span class="t">Alerty — kontuzje i dostępność</span></div>
+    <div class="h"><span class="no">04</span><span class="t">Alerty — kontuzje i dostępność</span></div>
     <div class="card">${alHtml}</div>`;
 }
 
 /* ---------- SKŁAD ---------- */
 function renderSquad(){
-  const squad=effectiveSquad();
+  const squad=applyLineup(effectiveSquad());
   const xi = squad.filter(p=>!p.on_bench).sort((a,b)=>a.order-b.order);
   const bench = squad.filter(p=>p.on_bench).sort((a,b)=>a.order-b.order);
   const rows={GK:[],DEF:[],MID:[],FWD:[]};
@@ -974,22 +1025,51 @@ function renderSquad(){
     </div>
     <div class="editbar">
       <button class="editbtn ${EDIT?'on':''}" id="editToggle">${EDIT?'✓ Gotowe':'✎ Edytuj skład (transfery)'}</button>
-      ${ovN?`<button class="editbtn ghost" id="editReset">Cofnij zmiany (${ovN})</button>`:''}
+      <button class="editbtn ghost ${TACTIC?'on':''}" id="tacticToggle">${TACTIC?'✓ Gotowe':'⚙ Taktyka i skład'}</button>
+      ${ovN?`<button class="editbtn ghost" id="editReset">Cofnij transfery (${ovN})</button>`:''}
+      ${loadLn()?`<button class="editbtn ghost" id="lnReset">Reset ustawienia</button>`:''}
     </div>
-    ${EDIT?`<div class="edithint">Tryb edycji: kliknij zawodnika, żeby go wymienić. Zmiany zapisują się lokalnie w przeglądarce — użyj tego, gdy API jeszcze nie pokazuje Twoich transferów.</div>`:''}
-    <div class="h"><span class="no">01</span><span class="t">Boisko</span><span class="d">${EDIT?'kliknij → wymień zawodnika':'kliknij zawodnika → warstwy ↓'}</span></div>
+    ${EDIT?`<div class="edithint">Tryb transferów: kliknij zawodnika, żeby go wymienić. Zmiany zapisują się lokalnie.</div>`:''}
+    ${TACTIC?`<div class="edithint">Taktyka: wybierz formację (auto-ustawia najlepszą XI) lub kliknij zawodnika — z ławki wchodzi do składu, ze składu na ławkę (na tej samej pozycji). Obecna: <b>${curFormation(squad)}</b>.
+      <div class="formbar">${FORMATIONS.map(f=>`<button class="formbtn ${curFormation(squad)===f?'on':''}" data-form="${f}">${f}</button>`).join("")}</div></div>`:''}
+    <div class="h"><span class="no">01</span><span class="t">Boisko</span><span class="d">${EDIT?'kliknij → wymień':(TACTIC?'kliknij → skład/ławka':'kliknij → szczegóły ↓')}</span></div>
     <div class="pitch">${pitch}<div class="bench-strip">${benchHtml}</div></div>
     <div id="detail"></div>`;
 
-  el("editToggle").onclick=()=>{EDIT=!EDIT;SEL=null;renderSquad();};
+  el("editToggle").onclick=()=>{EDIT=!EDIT;TACTIC=false;SEL=null;renderSquad();};
+  el("tacticToggle").onclick=()=>{TACTIC=!TACTIC;EDIT=false;SEL=null;renderSquad();};
   if(el("editReset")) el("editReset").onclick=()=>{saveOv([]);saveBank(baseBank());SEL=null;renderSquad();};
+  if(el("lnReset")) el("lnReset").onclick=()=>{clearLn();SEL=null;renderSquad();};
+  el("app").querySelectorAll(".formbtn").forEach(b=>b.onclick=()=>{ saveLn(pickFormation(squad,b.dataset.form)); renderSquad(); });
   el("app").querySelectorAll(".p").forEach(b=>b.onclick=()=>{
     const id=+b.dataset.id;
     if(EDIT){ openSwap(id); }
+    else if(TACTIC){ toggleStart(squad,id); renderSquad(); }
     else { SEL=id; renderSquad(); document.getElementById("detail").scrollIntoView({behavior:"smooth",block:"nearest"}); }
   });
   if(EDIT){ const p=squad.find(x=>x.id===SEL); if(p) openSwap(SEL); }
-  else renderDetail(squad.find(p=>p.id===SEL) || xi.find(p=>p.is_captain) || xi[0]);
+  else if(!TACTIC) renderDetail(squad.find(p=>p.id===SEL) || xi.find(p=>p.is_captain) || xi[0]);
+}
+// przełącz zawodnika skład↔ławka z zachowaniem reguł formacji
+function toggleStart(squad, id){
+  const p=squad.find(x=>x.id===id); if(!p) return;
+  const benched=new Set(squad.filter(x=>x.on_bench).map(x=>x.id));
+  const xi=squad.filter(x=>!x.on_bench);
+  const cnt=pos=>xi.filter(x=>x.pos===pos).length;
+  const MIN={GK:1,DEF:3,MID:2,FWD:1}, MAX={GK:1,DEF:5,MID:5,FWD:3};
+  if(p.on_bench){
+    // wchodzi do składu — musi być miejsce (XI<11) i limit pozycji, inaczej zamień z najsłabszym tej pozycji
+    if(xi.length<11 && cnt(p.pos)<MAX[p.pos]){ benched.delete(id); }
+    else{
+      const weakest=xi.filter(x=>x.pos===p.pos).sort((a,b)=>(a.xpts||0)-(b.xpts||0))[0];
+      if(weakest && cnt(p.pos)>MIN[p.pos]){ benched.delete(id); benched.add(weakest.id); }
+      else return; // nie da się bez złamania formacji
+    }
+  } else {
+    // schodzi na ławkę — tylko jeśli nie łamie minimum
+    if(cnt(p.pos)>MIN[p.pos]) benched.add(id); else return;
+  }
+  saveLn({form:null, bench:[...benched]});
 }
 
 function openSwap(outId){
@@ -1083,6 +1163,8 @@ function renderDetail(p){
           <div class="row"><span class="k">Stałe fragmenty</span><span class="v" style="color:${spBits.length?'var(--green-ink)':'var(--muted)'}">${spTxt}</span></div>
           <div class="row"><span class="k">Ruch ceny</span><span class="v" style="color:${mom>0?'var(--green-ink)':(mom<0?'var(--pink)':'var(--muted)')}">${momTxt}</span></div>
           ${p.rotation?`<div class="row"><span class="k">Ryzyko rotacji</span><span class="v"><span class="rotbadge ${p.rotation.level}">${rotLabel(p.rotation.level)}</span>${p.rotation.avg_min?' · ~'+p.rotation.avg_min+' min':''}${p.rotation.europe?' <span class="eurotag">🇪🇺 puchary</span>':''}</span></div>`:''}
+          ${p.eo_top!=null?`<div class="row"><span class="k">EO top menedżerów</span><span class="v">${p.eo_top}%${p.eo_top>=50?' <span class="eurotag" style="background:rgba(55,0,60,.08);color:var(--purple)">szablon</span>':(p.eo_top<=15?' <span class="eurotag" style="background:rgba(233,0,82,.1);color:var(--pink)">różnicowy</span>':'')}</span></div>`:''}
+          ${p.xgi_last2!=null?`<div class="row"><span class="k">xGI ost. 2 GW</span><span class="v">${p.xgi_last2.toFixed(2)} xG+xA</span></div>`:''}
           ${p.price_pred&&p.price_pred.dir!=='stable'?`<div class="row"><span class="k">Prognoza ceny</span><span class="v ${p.price_pred.dir==='rise'?'':''}" style="color:${p.price_pred.dir==='rise'?'var(--green-ink)':'var(--pink)'}">${p.price_pred.dir==='rise'?'↑ możliwy wzrost':'↓ możliwy spadek'} (${Math.round(p.price_pred.score*100)}%)</span></div>`:''}
           <div class="row"><span class="k">Forma (5 GW)</span><span class="v">${p.form5&&p.form5.length?sparkline(p.form5)+' <span style="color:var(--muted);font-size:11px">'+p.form5.join("·")+'</span>':"—"}</span></div>
           <div class="row"><span class="k">FPL ep_next</span><span class="v" style="color:var(--cyan)">${p.ep_next??"—"}</span></div>
@@ -1129,6 +1211,26 @@ function renderPlanner(){
     if(newPlan) P.transfer_plan=newPlan;
     planBanner=`<div class="recbanner">⟳ Planer przeliczony po Twoich transferach (${loadOv().length}). Plan, chipy, różnicowi i ceny uwzględniają nowy skład. <button class="recundo" onclick="editReset()">Cofnij</button></div>`;
   }
+
+  // rekomendacje transferów (traci formę + trudne GW → forma rośnie + łatwiejszy FDR)
+  const trend={rising:"↗ rośnie",falling:"↘ spada",flat:"→ płaska"};
+  const trHtml=(P.transfers&&P.transfers.length)?P.transfers.map(t=>`
+      <div class="trec">
+        <div class="trecside out">
+          <div class="treclab">SPRZEDAJ · traci formę + trudny terminarz</div>
+          <div class="trecname">${t.out.name}</div>
+          <div class="trecmeta">£${t.out.price.toFixed(1)} · ${t.out.pos} · forma ${trend[(t.out.form_trend&&t.out.form_trend.dir)||'flat']} · FDR3 ${t.out.fdr3} · /5GW ${t.out.xpts5}</div>
+        </div>
+        <div class="trecarrow">→<span class="trecgain">+${t.gain5} /5GW</span></div>
+        <div class="trecside in">
+          <div class="treclab">KUP · forma rośnie + łatwiejszy terminarz</div>
+          <div class="trecname">${t.in.name}</div>
+          <div class="trecmeta">£${t.in.price.toFixed(1)} · ↗ forma rośnie · FDR3 ${t.in.fdr3} · ${t.in.selected_by}%</div>
+          <div class="trecproj">prognoza po zamianie: <b>${t.proj_after} /3GW</b> · <b>${t.proj_after5} /5GW</b></div>
+        </div>
+      </div>`).join("")
+    :`<div class="advcard ok"><div class="ai">✓</div><div class="ab"><div class="at">Brak pilnego transferu</div>
+      <div class="ap">Żaden Twój zawodnik nie łączy spadku formy z trudnym terminarzem tak, by tańszy/dostępny zawodnik w rosnącej formie i lepszym FDR go wyraźnie bił. Możesz zachować transfer.</div></div></div>`;
 
   // chipy
   const chips=(P.chips||[]).map(c=>`<div class="advcard ${c.ready?'ok':'warn'}"><div class="ai">${c.ready?'★':'·'}</div>
@@ -1191,7 +1293,7 @@ function renderPlanner(){
   // rywale
   let rivals="";
   if(P.rivals && P.rivals.length){
-    rivals = `<div class="h"><span class="no">07</span><span class="t">Skauting rywali</span></div><div class="card">`+
+    rivals = `<div class="h"><span class="no">08</span><span class="t">Skauting rywali</span></div><div class="card">`+
       P.rivals.map(r=>`<div class="rivrow">
         <div class="rivhead"><span class="rivnm">${r.name}</span><span class="rivxp">${r.xi_xpts} xPts · C: ${r.captain||'—'}</span></div>
         <div class="rivdiff"><b>Mają, czego nie masz:</b> ${r.they_have.join(", ")||'—'}</div>
@@ -1220,7 +1322,7 @@ function renderPlanner(){
     }).join("");
     const gainCls=TP.gain_vs_hold>0?'pos':'zero';
     planHtml=`
-      <div class="h"><span class="no">02</span><span class="t">Plan transferów — ${TP.horizon} kolejek</span>
+      <div class="h"><span class="no">03</span><span class="t">Plan transferów — ${TP.horizon} kolejek</span>
         <span class="d">beam search · kogo brać teraz vs czekać</span></div>
       <div class="card">
         <div class="plsummary">
@@ -1236,17 +1338,19 @@ function renderPlanner(){
 
   el("app").innerHTML = `
     ${planBanner}
-    <div class="h"><span class="no">01</span><span class="t">Doradca chipów</span><span class="d">model + heurystyki</span></div>
+    <div class="h"><span class="no">01</span><span class="t">Rekomendacje transferów</span><span class="d">traci formę + trudny FDR → forma rośnie + łatwiejszy FDR · prognoza po zamianie</span></div>
+    <div class="card">${trHtml}</div>
+    <div class="h"><span class="no">02</span><span class="t">Doradca chipów</span><span class="d">model + heurystyki</span></div>
     ${chipOpt}
     <div class="advstack">${chips}</div>
     ${planHtml}
-    <div class="h"><span class="no">03</span><span class="t">Radar DGW / BGW</span><span class="d">podwójne i puste kolejki</span></div>
+    <div class="h"><span class="no">04</span><span class="t">Radar DGW / BGW</span><span class="d">podwójne i puste kolejki</span></div>
     <div class="card">${dg}</div>
-    <div class="h"><span class="no">04</span><span class="t">Różnicowi</span><span class="d">wysokie xPts, niska własność (&lt;10%)</span></div>
+    <div class="h"><span class="no">05</span><span class="t">Różnicowi</span><span class="d">wysokie xPts, niska własność (&lt;10%)</span></div>
     <div class="card">${diffs}</div>
-    <div class="h"><span class="no">05</span><span class="t">Ranking wartości</span><span class="d">xPts na 3 kolejki za £1m</span></div>
+    <div class="h"><span class="no">06</span><span class="t">Ranking wartości</span><span class="d">xPts na 3 kolejki za £1m</span></div>
     <div class="card">${vp}</div>
-    <div class="h"><span class="no">06</span><span class="t">Ruchy cenowe</span><span class="d">predyktor skalowany własnością</span></div>
+    <div class="h"><span class="no">07</span><span class="t">Ruchy cenowe</span><span class="d">predyktor skalowany własnością</span></div>
     <div class="card">${pr}</div>
     ${rivals}`;
 }
@@ -1327,9 +1431,10 @@ let CMP_SEL=null;  // wybrany zawodnik z mojego składu (id)
 function renderCompare(){
   const squad=effectiveSquad();
   const pool=(DATA.pool||[]);
+  const ownedIds=new Set(squad.map(p=>p.id));
   function alts(pl){
     const myL2=pl.pts_last2||0, myH=pl.xpts_h||0, myForm=pl.form||0;
-    return pool.filter(c=>c.et===pl.etype && c.id!==pl.id
+    return pool.filter(c=>c.et===pl.etype && c.id!==pl.id && !ownedIds.has(c.id)  // pomiń posiadanych
         && c.price <= pl.price + 1e-9            // nie droższy
         && (c.pts_last2||0) > myL2               // lepsza forma z ost. 2 GW
         && (c.form||0) > myForm                  // lepsza forma ogólna (30 dni)
@@ -1395,7 +1500,7 @@ function renderBuilder(){
   const complete=(BUILD.GK.length===2&&BUILD.DEF.length===5&&BUILD.MID.length===5&&BUILD.FWD.length===3);
   const overBudget=cost>CAP+1e-9;
   const clubViol=Object.entries(clubs).filter(([t,n])=>n>3).map(([t])=>t);
-  const xptsH=all.reduce((a,p)=>a+(p.xpts_h||0),0);
+  const xpts5=all.reduce((a,p)=>a+(p.xpts5!=null?p.xpts5:(p.xpts_h||0)*1.6),0);
   const bsrc=DATA.budget?`${DATA.budget.estimated?'<b style="color:#9a6b00">szacowany</b> ':''}wartość składu £${DATA.budget.squad_value} + bank £${DATA.budget.bank}`:'brak danych — domyślnie £100';
   const posRow=(pos)=>{
     const need=BUILD_NEED[pos], have=BUILD[pos];
@@ -1410,16 +1515,16 @@ function renderBuilder(){
     ? `<span class="bok">✓ Skład legalny — 15 zawodników, £${cost.toFixed(1)} / £${CAP.toFixed(1)}, limit 3/klub OK</span>`
     : `<span class="bwarn">${!complete?`Wybrano ${all.length}/15. `:''}${overBudget?`Przekroczono budżet o £${(cost-CAP).toFixed(1)}. `:''}${clubViol.length?`Za dużo z klubu: ${clubViol.join(", ")}.`:''}</span>`;
   el("app").innerHTML=`
-    <div class="h"><span class="no">01</span><span class="t">Kreator składu (Wildcard)</span><span class="d">buduj 15 od zera · realny budżet · 2-5-5-3 · max 3/klub</span></div>
+    <div class="h"><span class="no">01</span><span class="t">Kreator składu (Wildcard)</span><span class="d">w formie · pewniacy · najlepsza prognoza /5 GW · realny budżet · 2-5-5-3 · max 3/klub</span></div>
     <div class="bstatbar">
       <div class="bstat"><span class="bk">Koszt</span><span class="bv ${overBudget?'neg':''}">£${cost.toFixed(1)}</span></div>
       <div class="bstat"><span class="bk">Budżet</span><span class="bv">£${CAP.toFixed(1)}</span></div>
       <div class="bstat"><span class="bk">Zostało</span><span class="bv ${left<0?'neg':''}">£${left.toFixed(1)}</span></div>
-      <div class="bstat"><span class="bk">xPts /3 kol.</span><span class="bv">${xptsH.toFixed(1)}</span></div>
+      <div class="bstat"><span class="bk">xPts /5 kol.</span><span class="bv">${xpts5.toFixed(1)}</span></div>
     </div>
     <div class="bvalid">${validMsg} <span style="color:var(--muted);font-weight:400"> · budżet = ${bsrc}</span></div>
     <div class="bbtns">
-      <button class="editbtn" id="bAuto">⚡ Auto-optymalizuj (max xPts w £${CAP.toFixed(1)})</button>
+      <button class="editbtn" id="bAuto">⚡ Auto-optymalizuj (max xPts /5 GW w £${CAP.toFixed(1)})</button>
       <button class="editbtn ghost" id="bClear">Wyczyść</button>
     </div>
     <div class="card">${["GK","DEF","MID","FWD"].map(posRow).join("")}</div>
@@ -1454,15 +1559,20 @@ function openBuildPicker(pos){
 }
 function autoBuild(){
   const need={GK:2,DEF:5,MID:5,FWD:3}, etype={GK:1,DEF:2,MID:3,FWD:4};
+  const val=c=>(c.xpts5!=null?c.xpts5:(c.xpts_h||0)*1.6);   // prognoza /5 GW (fallback z /3)
+  const rotOk=c=>!c.rotation || ["nailed","solid","unknown"].includes(c.rotation.level);
+  const avail=c=>(c.status===undefined||c.status==="a")&&(c.chance==null||c.chance>=75);
   const byPos={}; for(const pos in need){
-    byPos[pos]=(DATA.pool||[]).filter(c=>c.et===etype[pos]&&c.xpts_h>0).sort((a,b)=>b.xpts_h-a.xpts_h);
+    let arr=(DATA.pool||[]).filter(c=>c.et===etype[pos]&&val(c)>0&&avail(c)&&rotOk(c));
+    if(arr.length<need[pos]) arr=(DATA.pool||[]).filter(c=>c.et===etype[pos]&&val(c)>0);
+    byPos[pos]=arr.sort((a,b)=>val(b)-val(a));
   }
   const pick={GK:[],DEF:[],MID:[],FWD:[]}, clubs={};
   const canClub=t=>(clubs[t]||0)<3;
   const take=(pos,c)=>{pick[pos].push(c);clubs[c.team]=(clubs[c.team]||0)+1;};
-  const cheap=pos=>byPos[pos].slice().sort((a,b)=>a.price-b.price||b.xpts_h-a.xpts_h);
-  const all=[]; for(const pos in need) byPos[pos].forEach(c=>all.push({pos,c,val:c.xpts_h/c.price}));
-  all.sort((a,b)=>b.val-a.val);
+  const cheap=pos=>byPos[pos].slice().sort((a,b)=>a.price-b.price||val(b)-val(a));
+  const all=[]; for(const pos in need) byPos[pos].forEach(c=>all.push({pos,c,v:val(c)/c.price}));
+  all.sort((a,b)=>b.v-a.v);
   let budget=buildBudget();   // realny budżet zamiast 100
   const cheapest={}; for(const pos in need) cheapest[pos]=cheap(pos).map(x=>x.price);
   function minRemain(){ let s=0; for(const pos in need){ const rem=need[pos]-pick[pos].length;

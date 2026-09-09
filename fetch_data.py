@@ -591,6 +591,32 @@ def fnum2(p, key, d=0.0):
         return d
 
 
+def form_trend(form5):
+    """Trend formy z punktów ostatnich 5 kolejek: rosnący/spadkowy/płaski."""
+    f = [x for x in (form5 or []) if x is not None]
+    if len(f) < 4:
+        return {"dir": "flat", "last2": sum(f[-2:]) if f else 0, "prev2": 0}
+    last2 = sum(f[-2:]); prev2 = sum(f[-4:-2])
+    if last2 >= prev2 + 3:
+        d = "rising"
+    elif last2 <= prev2 - 3:
+        d = "falling"
+    else:
+        d = "flat"
+    return {"dir": d, "last2": last2, "prev2": prev2}
+
+
+def fdr_next(roadmap, n=3):
+    """Średni FDR najbliższych n kolejek (im wyżej, tym trudniej)."""
+    rm = (roadmap or [])[:n]
+    return round(sum(r["fdr"] for r in rm) / len(rm), 1) if rm else 3.0
+
+
+def xpts_next(roadmap, n=5):
+    """Suma prognozy xPts na najbliższe n kolejek."""
+    return round(sum(r["xpts"] for r in (roadmap or [])[:n]), 1)
+
+
 def price_pred(e, total_players):
     """Predyktor zmiany ceny (przybliżony — algorytm FPL jest tajny).
     Skaluje przepływ transferów liczbą właścicieli: rośnie/spada, gdy net-transfery
@@ -696,14 +722,45 @@ def build():
     finished_gws = sorted((e["id"] for e in boot["events"] if e.get("finished")))
     last2_gws = finished_gws[-2:]
     pts_last2 = {}
+    xgi_last2 = {}   # xG + xA z ostatnich 2 kolejek (underlying „forma xG")
     for g in last2_gws:
         live = get_json(f"{FPL}/event/{g}/live/")
         for el_ in ((live or {}).get("elements") or []):
-            eid = el_.get("id")
-            tp = ((el_.get("stats") or {}).get("total_points")) or 0
-            pts_last2[eid] = pts_last2.get(eid, 0) + tp
+            eid = el_.get("id"); stt = el_.get("stats") or {}
+            pts_last2[eid] = pts_last2.get(eid, 0) + (stt.get("total_points") or 0)
+            try:
+                xgi = float(stt.get("expected_goals") or 0) + float(stt.get("expected_assists") or 0)
+            except (TypeError, ValueError):
+                xgi = 0.0
+            xgi_last2[eid] = xgi_last2.get(eid, 0.0) + xgi
     if last2_gws:
-        print(f"· punkty z ostatnich 2 kolejek (GW{last2_gws}) pobrane dla {len(pts_last2)} zawodników")
+        print(f"· punkty + xGI z ostatnich 2 kolejek (GW{last2_gws}) pobrane dla {len(pts_last2)} zawodników")
+
+    # ── EO i kapitan względem TOP menedżerów (liga Overall = 314) ──────────────
+    TOPN = 30
+    top_own, top_cap, n_top = {}, {}, 0
+    try:
+        st = get_json(f"{FPL}/leagues-classic/314/standings/?page_standings=1")
+        results = ((st or {}).get("standings") or {}).get("results") or []
+        for r in results[:TOPN]:
+            pk = get_json(f"{FPL}/entry/{r.get('entry')}/event/{cur_gw}/picks/")
+            picks = (pk or {}).get("picks") or []
+            if not picks:
+                continue
+            n_top += 1
+            for p in picks:
+                if p.get("position", 99) <= 11:      # tylko wyjściowa XI liczy się do EO
+                    top_own[p["element"]] = top_own.get(p["element"], 0) + 1
+                    if p.get("is_captain"):
+                        top_cap[p["element"]] = top_cap.get(p["element"], 0) + 1
+    except Exception as e:
+        sys.stderr.write(f"  ! EO overall pominięte: {e}\n")
+    def eo_top(eid):
+        if not n_top:
+            return None
+        return round(100.0 * (top_own.get(eid, 0) + top_cap.get(eid, 0)) / n_top)
+    if n_top:
+        print(f"· EO overall: próbka {n_top} top menedżerów (liga Overall, GW{cur_gw})")
 
     def sim_stats(p, opp_id, is_home, n=2000, team_id=None):
         """Floor (P25), ceiling (P90), haul% (P≥10) z symulacji Monte Carlo — uczciwa zmienność."""
@@ -880,8 +937,11 @@ def build():
             "price_pred": price_pred(p, boot.get("total_players") or 10_000_000),
             "rotation": rotation_recent(p["id"], p.get("chance_of_playing_next_round"), p.get("_euro")) or rotation_season(p, p.get("_euro")),
             "form5": last5(p["id"]),
+            "form_trend": form_trend(last5(p["id"])),
+            "fdr3": fdr_next(roadmap, 3),
+            "xpts5": xpts_next(roadmap, 5),
             "roadmap": roadmap,
-            "floor": sstat["floor"], "ceiling": sstat["ceiling"], "haul": sstat["haul"], "sd": sstat["sd"], "pts_last2": pts_last2.get(p["id"], 0), "form": float(p.get("form") or 0),
+            "floor": sstat["floor"], "ceiling": sstat["ceiling"], "haul": sstat["haul"], "sd": sstat["sd"], "pts_last2": pts_last2.get(p["id"], 0), "form": float(p.get("form") or 0), "xgi_last2": round(xgi_last2.get(p["id"], 0.0), 2), "eo_top": eo_top(p["id"]),
             "next": ({"opp": nf["opp"], "ven": nf["ven"], "fdr": nf["fdr"], "opp_id": nf["opp_id"],
                       "dgw": is_dgw, "opp2": (next_fixtures[1]["opp"] if is_dgw else None)} if nf else None),
             "team_id": tid,
@@ -974,7 +1034,12 @@ def build():
             "selected_by": p.get("selected_by_percent"),
             "next": {"opp": nf["opp"], "ven": nf["ven"], "fdr": nf["fdr"]},
             "factors": fct, "roadmap": p_roadmap,
-            "floor": pstat["floor"], "ceiling": pstat["ceiling"], "haul": pstat["haul"], "sd": pstat["sd"], "pts_last2": pts_last2.get(p["id"], 0),
+            "fdr3": fdr_next(p_roadmap, 3), "xpts5": xpts_next(p_roadmap, 5),
+            "form_rising": (((pts_last2.get(p["id"], 0) / 2.0) > float(p.get("form") or 0))
+                            or (xgi_last2.get(p["id"], 0.0) >= 0.8)),   # punkty LUB underlying (xGI)
+            "floor": pstat["floor"], "ceiling": pstat["ceiling"], "haul": pstat["haul"], "sd": pstat["sd"],
+            "pts_last2": pts_last2.get(p["id"], 0), "xgi_last2": round(xgi_last2.get(p["id"], 0.0), 2),
+            "eo_top": eo_top(p["id"]),
             "rotation": rotation_season(p, p.get("_euro")),
             "price_pred": price_pred(p, boot.get("total_players") or 10_000_000),
         }
@@ -984,40 +1049,48 @@ def build():
     for p in squad:
         club_count[p["team"]] = club_count.get(p["team"], 0) + 1
 
-    def best_upgrade(op):
-        """Najlepszy transfer za tego zawodnika w ramach budżetu (cena + bank).
-        Respektuje limit 3 zawodników z jednego klubu."""
+    # rekomendacje transferów (wg specyfikacji):
+    # OUT = traci formę I ma trudne najbliższe kolejki → IN = forma rosnąca, łatwiejszy FDR,
+    # w budżecie, zgodny z 3/klub, z wyższą prognozą. Plus prognoza po zamianie.
+    def smart_in(op):
         budget = op["price_t"] + bank_t
         def club_ok(c):
-            # kandydat z klubu OUT nie zmienia liczby; inaczej klub musi mieć < 3
             if c["team"] == op["team"]:
                 return True
             return club_count.get(c["team"], 0) < 3
         cands = [c for c in pool_by_pos.get(op["etype"], [])
                  if c["id"] not in owned and c["price_t"] <= budget
                  and c["status"] == "a" and (c["chance"] is None or c["chance"] >= 75)
-                 and club_ok(c)]
-        cands.sort(key=lambda c: -c["xpts_h"])
+                 and club_ok(c)
+                 and c.get("form_rising")                          # forma rosnąca
+                 and c["fdr3"] < op["fdr3"] - 0.1                   # łatwiejsze najbliższe kolejki
+                 and c["xpts_h"] > op["xpts_h"]]                    # wyższa prognoza /3 GW
+        cands.sort(key=lambda c: -(c["xpts5"]))                    # ranking po prognozie /5 GW
         return cands[0] if cands else None
 
-    # rekomendacje transferów: najlepsze pary OUT→IN po całym składzie startowym
     trans = []
     for op in [p for p in squad if not p["on_bench"]]:
-        up = best_upgrade(op)
+        ft = op.get("form_trend", {}).get("dir")
+        losing = ft == "falling"
+        hard = op["fdr3"] >= 3.3
+        if not (losing and hard):        # tylko gracze tracący formę I z trudnym terminarzem
+            continue
+        up = smart_in(op)
         if not up:
             continue
-        gain = round(up["xpts_h"] - op["xpts_h"], 1)
-        if gain >= 1.5:  # próg sensowności
-            trans.append({
-                "gain": gain,
-                "out": {"name": op["name"], "team": op["team"], "pos": op["pos"],
-                        "price": op["price"], "xpts_h": op["xpts_h"], "next": op["next"]},
-                "in": {"name": up["name"], "team": up["team"],
-                       "price": up["price"], "xpts_h": up["xpts_h"], "next": up["next"],
-                       "selected_by": up["selected_by"]},
-            })
-    trans.sort(key=lambda t: -t["gain"])
-    trans = trans[:3]
+        trans.append({
+            "gain": round(up["xpts_h"] - op["xpts_h"], 1),
+            "gain5": round(up["xpts5"] - op["xpts5"], 1),
+            "proj_after": up["xpts_h"], "proj_after5": up["xpts5"],
+            "out": {"name": op["name"], "team": op["team"], "pos": op["pos"], "price": op["price"],
+                    "xpts_h": op["xpts_h"], "xpts5": op["xpts5"], "fdr3": op["fdr3"],
+                    "form_trend": op.get("form_trend"), "next": op["next"]},
+            "in": {"name": up["name"], "team": up["team"], "price": up["price"],
+                   "xpts_h": up["xpts_h"], "xpts5": up["xpts5"], "fdr3": up["fdr3"],
+                   "next": up["next"], "selected_by": up["selected_by"]},
+        })
+    trans.sort(key=lambda t: -t["gain5"])
+    trans = trans[:4]
 
     # kapitan-optymalizator
     xi_sorted = sorted(xi, key=lambda p: -p["xpts"])
@@ -1203,7 +1276,7 @@ def build():
             }
 
     brief = {"captain": captain, "captain_matrix": captain_matrix, "gw_outlook": gw_outlook,
-             "transfers": trans, "alerts": alerts, "lineup": lineup}
+             "alerts": alerts, "lineup": lineup}
 
     # ── optymalizator chipów (model: skan roadmap z wagą rotacji) ─────────────
     rot_w = {"nailed": 1.0, "solid": 0.9, "risk": 0.6, "doubt": 0.35, "unknown": 0.8}
@@ -1415,7 +1488,10 @@ def build():
                              "status": c.get("status"), "chance": c.get("chance"),
                              "rotation": c.get("rotation"), "price_pred": c.get("price_pred"),
                              "floor": c.get("floor"), "ceiling": c.get("ceiling"),
-                             "haul": c.get("haul"), "sd": c.get("sd")})
+                             "haul": c.get("haul"), "sd": c.get("sd"),
+                             "xpts5": c.get("xpts5"), "fdr3": c.get("fdr3"),
+                             "form_rising": c.get("form_rising"),
+                             "eo_top": c.get("eo_top"), "xgi_last2": c.get("xgi_last2")})
 
     # planer wieloetapowy (beam search) — kogo brać teraz vs czekać
     plan_gws = sorted({r["gw"] for p in squad for r in (p.get("roadmap") or [])})[:HORIZON]
@@ -1427,7 +1503,7 @@ def build():
             sys.stderr.write(f"  ! planer wieloetapowy pominięty: {e}\n")
             transfer_plan = None
 
-    planner = {"dgw_bgw": dgw_bgw, "chips": chips, "chips_opt": chips_opt,
+    planner = {"dgw_bgw": dgw_bgw, "chips": chips, "chips_opt": chips_opt, "transfers": trans,
                "transfer_plan": transfer_plan, "differentials": differentials,
                "price_risk": price_risk, "price_watch": price_watch,
                "rivals": rivals, "bank": bank_t / 10.0}
@@ -1735,11 +1811,28 @@ def build():
         budget_estimated = True
     budget_total = round(squad_value + bank_val, 1)
 
+    # meta: szablon (najczęściej posiadani) i kapitani wśród top menedżerów
+    meta = None
+    if n_top:
+        def _nm(eid): return (players.get(eid) or {}).get("web_name", "?")
+        def _tm(eid): return tshort.get((players.get(eid) or {}).get("team"), "?")
+        my_ids = {p["id"] for p in squad}
+        template = sorted(top_own.items(), key=lambda kv: -kv[1])[:8]
+        captains = sorted(top_cap.items(), key=lambda kv: -kv[1])[:5]
+        meta = {
+            "n": n_top, "gw": cur_gw,
+            "template": [{"name": _nm(e), "team": _tm(e), "own": round(100*c/n_top),
+                          "have": e in my_ids} for e, c in template],
+            "captains": [{"name": _nm(e), "team": _tm(e), "cap": round(100*c/n_top),
+                          "have": e in my_ids} for e, c in captains],
+        }
+
     data = {
         "generated_at": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "gw": {"current": cur_gw, "next": next_gw, "name": gw_name},
         "budget": {"squad_value": squad_value, "bank": round(bank_val, 1), "total": budget_total,
                    "estimated": budget_estimated, "last2_gws": last2_gws},
+        "meta": meta,
         "entry": {
             "team_id": team_id,
             "name": entry.get("name", ""),
