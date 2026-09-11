@@ -1831,9 +1831,9 @@ def build():
         captains = sorted(eo_cap.items(), key=lambda kv: -kv[1])[:5]
         meta = {
             "n": n_top, "gw": cur_gw,
-            "template": [{"name": _nm(e), "team": _tm(e), "own": round(100*c/n_top),
+            "template": [{"id": e, "name": _nm(e), "team": _tm(e), "own": round(100*c/n_top),
                           "have": e in my_ids} for e, c in template],
-            "captains": [{"name": _nm(e), "team": _tm(e), "cap": round(100*c/n_top),
+            "captains": [{"id": e, "name": _nm(e), "team": _tm(e), "cap": round(100*c/n_top),
                           "have": e in my_ids} for e, c in captains],
         }
 

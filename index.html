@@ -893,8 +893,10 @@ function renderBrief(){
   const meta=DATA.meta;
   let metaHtml="";
   if(meta && (meta.captains||[]).length){
-    const caps=meta.captains.map(c=>`<span class="metachip ${c.have?'have':''}">${c.name} <b>${c.cap}%</b>${c.have?' ✓':''}</span>`).join("");
-    const tmpl=(meta.template||[]).slice(0,6).map(t=>`<span class="metachip ${t.have?'have':'miss'}">${t.name} ${t.own}%${t.have?' ✓':' ✗'}</span>`).join("");
+    const myIds=new Set(effectiveSquad().map(p=>p.id));            // uwzględnia lokalne transfery
+    const has=x=>(x.id!=null)?myIds.has(x.id):x.have;              // po id; fallback do backendu
+    const caps=meta.captains.map(c=>{const h=has(c);return `<span class="metachip ${h?'have':''}">${c.name} <b>${c.cap}%</b>${h?' ✓':''}</span>`;}).join("");
+    const tmpl=(meta.template||[]).slice(0,6).map(t=>{const h=has(t);return `<span class="metachip ${h?'have':'miss'}">${t.name} ${t.own}%${h?' ✓':' ✗'}</span>`;}).join("");
     metaHtml=`<div class="card" style="margin-top:10px">
       <div class="metahd">🌍 Meta — top ${meta.n} menedżerów (overall, GW${meta.gw})</div>
       <div class="metalab">Najczęściej kapitanowani:</div><div class="metachips">${caps}</div>
