@@ -1681,6 +1681,12 @@ def build():
                            f"pokrycie go zmniejsza wariancję względem pościgu.")
                 else:
                     rec = "Brak wyraźnej ekspozycji — Twój skład dobrze pokrywa najbliższych goniących."
+                # surowa własność rywali (element→liczba) + info, do przeliczeń po transferze
+                rival_own = {int(e): c for e, c in own_all.items()}
+                rival_cap = {int(e): c for e, c in cap_all.items()}
+                elem_info = {int(e): {"name": elinfo(e)["name"], "pos": elinfo(e)["pos"],
+                                      "team": elinfo(e)["team"], "xpts": elinfo(e)["xpts"]}
+                             for e in own_all}
                 cover = {
                     "league": {"id": lg["id"], "name": lg["name"]},
                     "my_rank": me_row.get("rank"), "my_total": my_total,
@@ -1689,6 +1695,7 @@ def build():
                     "captain_exposure": cap_exposure, "threats": threats,
                     "protected": protected, "recommendation": rec,
                     "eo_template": eo_template, "eo_diff": eo_diff, "eo_n": nch,
+                    "rival_own": rival_own, "rival_cap": rival_cap, "elem_info": elem_info,
                     "leader": me_row.get("rank") == 1,
                 }
 

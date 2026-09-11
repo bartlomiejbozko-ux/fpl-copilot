@@ -775,10 +775,11 @@ function renderLeague(){
 
   // obrona pozycji: analiza najbliższych goniących
   const cov=DATA.cover;
-  // po transferach: przelicz % utrzymania na bazie efektywnej jedenastki
-  let myXi=null;
+  // po transferach: przelicz % utrzymania, zagrożenia, chronionych i EO z efektywnej jedenastki
+  let myXi=null, eff=null, effIds=null, effXI=null;
   if(cov && hasOverrides()){
-    const rb=recomputeBrief(effectiveSquad());
+    eff=effectiveSquad(); effIds=new Set(eff.map(p=>p.id)); effXI=eff.filter(p=>!p.on_bench);
+    const rb=recomputeBrief(eff);
     if(rb && rb.gw_outlook) myXi={mean:rb.gw_outlook.mean, sd:rb.gw_outlook.sd};
   }
   const holdOf=ch=>{
@@ -790,8 +791,32 @@ function renderLeague(){
     }
     return ch.hold;
   };
+  // przeliczone listy (jeśli transfer) lub z serwera
+  function recomputeCover(){
+    if(!eff || !cov.rival_own) return null;
+    const ro=cov.rival_own, ei=cov.elem_info||{}, n=cov.eo_n||1;
+    // zagrożenia: gracze rywali, których NIE masz (po transferze)
+    const threats=Object.keys(ro).filter(id=>!effIds.has(+id)).map(id=>{
+      const info=ei[id]||{name:"?",pos:"?",team:"?",xpts:0};
+      return {name:info.name,pos:info.pos,team:info.team,xpts:info.xpts,owned_by:ro[id],of:n};
+    }).sort((a,b)=>(b.owned_by-a.owned_by)||(b.xpts-a.xpts)).slice(0,6);
+    // chronieni: Twoja XI, której nikt z rywali nie ma
+    const protectedL=effXI.filter(p=>!ro[p.id]).map(p=>({name:p.name,pos:p.pos,xpts:p.xpts}))
+      .sort((a,b)=>b.xpts-a.xpts).slice(0,6);
+    // EO w lidze dla Twojej XI
+    const eo=effXI.map(p=>({name:p.name,pos:p.pos,xpts:p.xpts,
+      eo:Math.round(100*((ro[p.id]||0)+((cov.rival_cap||{})[p.id]||0))/n)})).sort((a,b)=>b.eo-a.eo);
+    return {threats, protected:protectedL,
+      eo_template:eo.filter(x=>x.eo>=60).slice(0,6),
+      eo_diff:[...eo].reverse().filter(x=>x.eo<=40).slice(0,6)};
+  }
+  const rc = (cov && hasOverrides()) ? recomputeCover() : null;
   let coverHtml="";
   if(cov){
+    const threats = rc?rc.threats:cov.threats;
+    const protectedL = rc?rc.protected:cov.protected;
+    const eoTemplate = rc?rc.eo_template:cov.eo_template;
+    const eoDiff = rc?rc.eo_diff:cov.eo_diff;
     const chRows=cov.chasers.map(ch=>{
       const gapTxt=ch.gap>=0?`+${ch.gap} przewagi`:`${ch.gap} (przed Tobą)`;
       const hv=holdOf(ch);
@@ -809,22 +834,22 @@ function renderLeague(){
            <b>${cov.captain_exposure.count}/${cov.captain_exposure.of}</b> goniących kapitanuje
            <b>${cov.captain_exposure.name}</b> (${cov.captain_exposure.xpts} xPts). Twój kapitan: <b>${cov.my_captain}</b>.</div>`
       : `<div class="cvexp ok">Żaden z najbliższych goniących nie ma innego kapitana niż Ty — brak ekspozycji kapitańskiej.</div>`;
-    const thr=cov.threats.length?cov.threats.map(t=>`<div class="cvchip threat">${t.name}<span class="cvchipm">${t.pos} · ${t.owned_by}/${t.of} · ${t.xpts}</span></div>`).join(""):`<span class="ap" style="color:var(--muted)">Brak — pokrywasz ich różnicowych.</span>`;
-    const prot=cov.protected.length?cov.protected.map(t=>`<div class="cvchip prot">${t.name}<span class="cvchipm">${t.pos} · ${t.xpts}</span></div>`).join(""):`<span class="ap" style="color:var(--muted)">Brak unikalnych graczy względem goniących.</span>`;
+    const thr=threats.length?threats.map(t=>`<div class="cvchip threat">${t.name}<span class="cvchipm">${t.pos} · ${t.owned_by}/${t.of} · ${t.xpts}</span></div>`).join(""):`<span class="ap" style="color:var(--muted)">Brak — pokrywasz ich różnicowych.</span>`;
+    const prot=protectedL.length?protectedL.map(t=>`<div class="cvchip prot">${t.name}<span class="cvchipm">${t.pos} · ${t.xpts}</span></div>`).join(""):`<span class="ap" style="color:var(--muted)">Brak unikalnych graczy względem goniących.</span>`;
     coverHtml=`
       <div class="h" style="margin-top:16px"><span class="no">·</span><span class="t">Obrona pozycji ${cov.leader?'lidera':'#'+ (cov.my_rank||'')}</span>
-        <span class="d">${cov.league.name} · goniący (dane z GW${cov.as_of_gw})</span></div>
+        <span class="d">${cov.league.name} · goniący (dane z GW${cov.as_of_gw})${rc?' · przeliczone po transferach':''}</span></div>
       <div class="advcard ${cov.captain_exposure?'warn':'ok'}"><div class="ai">${cov.captain_exposure?'⚔':'🛡'}</div>
         <div class="ab"><div class="at">Rekomendacja obronna</div><div class="ap">${cov.recommendation}</div></div></div>
       <div class="card" style="margin-top:10px">${expHtml}
         <div class="cvsechdr">Najbliżsi goniący</div>${chRows}
         <div class="cvsechdr">Zagrożenia — ich różnicowi, których nie masz</div><div class="cvchips">${thr}</div>
         <div class="cvsechdr">Twoje atuty — chronieni różnicowi</div><div class="cvchips">${prot}</div>
-        ${(cov.eo_template&&cov.eo_template.length)?`<div class="cvsechdr">EO w Twojej lidze — szkielet (musisz mieć)</div>
-          <div class="cvchips">${cov.eo_template.map(x=>`<div class="cvchip tmpl">${x.name}<span class="cvchipm">${x.pos} · EO ${x.eo}%</span></div>`).join("")}</div>`:''}
-        ${(cov.eo_diff&&cov.eo_diff.length)?`<div class="cvsechdr">EO w Twojej lidze — Twoja dźwignia (niskie EO)</div>
-          <div class="cvchips">${cov.eo_diff.map(x=>`<div class="cvchip prot">${x.name}<span class="cvchipm">${x.pos} · EO ${x.eo}%</span></div>`).join("")}</div>`:''}
-        <div class="cvfoot">Składy goniących z ostatniej zablokowanej kolejki (przed deadline to przybliżenie). EO liczone z realnych składów ${cov.eo_n} najbliższych goniących — dokładniej niż globalna własność. Dopasowanie do rywali obniża wariancję — chroni pozycję kosztem potencjału skoku w rankingu ogólnym.</div>
+        ${(eoTemplate&&eoTemplate.length)?`<div class="cvsechdr">EO w Twojej lidze — szkielet (musisz mieć)</div>
+          <div class="cvchips">${eoTemplate.map(x=>`<div class="cvchip tmpl">${x.name}<span class="cvchipm">${x.pos} · EO ${x.eo}%</span></div>`).join("")}</div>`:''}
+        ${(eoDiff&&eoDiff.length)?`<div class="cvsechdr">EO w Twojej lidze — Twoja dźwignia (niskie EO)</div>
+          <div class="cvchips">${eoDiff.map(x=>`<div class="cvchip prot">${x.name}<span class="cvchipm">${x.pos} · EO ${x.eo}%</span></div>`).join("")}</div>`:''}
+        <div class="cvfoot">Składy goniących z ostatniej zablokowanej kolejki (przed deadline to przybliżenie). EO liczone z realnych składów ${cov.eo_n} najbliższych goniących${rc?', przeliczone po Twoich transferach':''}. Dopasowanie do rywali obniża wariancję — chroni pozycję kosztem potencjału skoku w rankingu ogólnym.</div>
       </div>`;
   }
 
