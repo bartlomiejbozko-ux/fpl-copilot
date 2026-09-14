@@ -1092,10 +1092,10 @@ def build():
             "gain": round(up["xpts_h"] - op["xpts_h"], 1),
             "gain5": round(up["xpts5"] - op["xpts5"], 1),
             "proj_after": up["xpts_h"], "proj_after5": up["xpts5"],
-            "out": {"name": op["name"], "team": op["team"], "pos": op["pos"], "price": op["price"],
+            "out": {"id": op["id"], "name": op["name"], "team": op["team"], "pos": op["pos"], "price": op["price"],
                     "xpts_h": op["xpts_h"], "xpts5": op["xpts5"], "fdr3": op["fdr3"],
                     "form_trend": op.get("form_trend"), "next": op["next"]},
-            "in": {"name": up["name"], "team": up["team"], "price": up["price"],
+            "in": {"id": up["id"], "name": up["name"], "team": up["team"], "price": up["price"],
                    "xpts_h": up["xpts_h"], "xpts5": up["xpts5"], "fdr3": up["fdr3"],
                    "next": up["next"], "selected_by": up["selected_by"]},
         })
@@ -1727,6 +1727,7 @@ def build():
         if lineup and lineup.get("xi") and not ev_finished.get(next_gw, False):
             name_to = {pl["name"]: pl for pl in squad}
             cap_nm2 = next((x["name"] for x in lineup["xi"] if x["is_captain"]), None)
+            cap_pl = name_to.get(cap_nm2) if cap_nm2 else None
             gp = {}
             for x in lineup["xi"]:
                 pl = name_to.get(x["name"])
@@ -1734,7 +1735,15 @@ def build():
                     gp[str(pl["id"])] = {"name": pl["name"], "pos": pl["pos"],
                                          "pred": pl["xpts"], "cap": (x["name"] == cap_nm2),
                                          "actual": None}
-            preds[str(next_gw)] = {"players": gp, "cap": cap_nm2}
+            # ławka (do oceny bench/start) i transfery (do oceny rekomendacji)
+            bench = [{"id": pl["id"], "name": pl["name"], "pos": pl["pos"], "pred": pl["xpts"],
+                      "actual": None} for pl in squad if pl["on_bench"]]
+            tlog = [{"out_id": t["out"]["id"], "out_name": t["out"]["name"],
+                     "in_id": t["in"]["id"], "in_name": t["in"]["name"],
+                     "out_actual": None, "in_actual": None} for t in trans]
+            preds[str(next_gw)] = {"players": gp, "cap": cap_nm2,
+                                   "cap_id": (cap_pl["id"] if cap_pl else None),
+                                   "bench": bench, "transfers": tlog}
 
         # 2) uzupełnij realne punkty dla rozegranych już kolejek (backfill)
         es_cache = {}
@@ -1742,7 +1751,7 @@ def build():
             if pid not in es_cache:
                 es = get_json(f"{FPL}/element-summary/{pid}/") or {}
                 m = {}
-                for h in es.get("history", []):
+                for h in (es.get("history") if isinstance(es, dict) else []) or []:
                     m.setdefault(h.get("round"), 0)
                     m[h["round"]] += h.get("total_points", 0)  # DGW: sumuj
                 es_cache[pid] = m
@@ -1757,25 +1766,66 @@ def build():
                     ap = actual_pts(int(pid), gw_i)
                     if ap is not None:
                         pd["actual"] = ap
+            for b in rec.get("bench", []):
+                if b.get("actual") is None:
+                    ap = actual_pts(int(b["id"]), gw_i)
+                    if ap is not None:
+                        b["actual"] = ap
+            for t in rec.get("transfers", []):
+                if t.get("out_actual") is None:
+                    ap = actual_pts(int(t["out_id"]), gw_i)
+                    if ap is not None:
+                        t["out_actual"] = ap
+                if t.get("in_actual") is None:
+                    ap = actual_pts(int(t["in_id"]), gw_i)
+                    if ap is not None:
+                        t["in_actual"] = ap
 
         # 3) policz metryki z rozegranych predykcji
         pairs, per_gw, cap_hits, cap_n = [], [], 0, 0
+        cap_capt, cap_best = 0.0, 0.0        # punkty kapitana zdobyte / możliwe (najlepszy w XI)
+        bench_opt, bench_n, bench_lost = 0, 0, 0   # ile kolejek XI optymalna / stracone pkt na ławce
+        tr_gain, tr_n, tr_win = 0.0, 0, 0    # skuteczność transferów
         for gw_str in sorted(preds, key=lambda x: int(x)):
             rec = preds[gw_str]
-            scored = [(pd["pred"], pd["actual"], pd.get("cap"), pd["name"])
+            scored = [(pd["pred"], pd["actual"], pd.get("cap"), pd["name"], pd.get("pos"))
                       for pd in rec["players"].values() if pd.get("actual") is not None]
             if not scored:
                 continue
-            errs = [abs(pr - ac) for pr, ac, _, _ in scored]
-            pairs.extend([(pr, ac) for pr, ac, _, _ in scored])
-            capd = next(((pr, ac, nm) for pr, ac, c, nm in scored if c), None)
-            best_actual = max(ac for _, ac, _, _ in scored)
+            errs = [abs(pr - ac) for pr, ac, _, _, _ in scored]
+            pairs.extend([(pr, ac) for pr, ac, _, _, _ in scored])
+            capd = next(((pr, ac, nm) for pr, ac, c, nm, ps in scored if c), None)
+            best_actual = max(ac for _, ac, _, _, _ in scored)
             if capd is not None:
                 cap_n += 1
-                if capd[1] >= best_actual:   # kapitan = najlepszy strzelec XI
+                if capd[1] >= best_actual:
                     cap_hits += 1
-            pred_tot = sum(pr * (2 if c else 1) for pr, ac, c, nm in scored)
-            act_tot = sum(ac * (2 if c else 1) for pr, ac, c, nm in scored)
+                cap_capt += capd[1]; cap_best += best_actual   # captured vs possible
+            # bench/start: czy któryś z ławki (outfield) pobił najsłabszego startera tej samej pozycji
+            bench_scored = [(b["pos"], b["actual"]) for b in rec.get("bench", []) if b.get("actual") is not None and b["pos"] != "GK"]
+            if bench_scored:
+                bench_n += 1
+                lost = 0
+                starters_by_pos = {}
+                for pr, ac, c, nm, ps in scored:
+                    starters_by_pos.setdefault(ps, []).append(ac)
+                for bpos, bac in bench_scored:
+                    weakest = min(starters_by_pos.get(bpos, [999]))
+                    if bac > weakest:
+                        lost += (bac - weakest)
+                if lost <= 0:
+                    bench_opt += 1
+                bench_lost += lost
+            # transfery: IN vs OUT realnie
+            for t in rec.get("transfers", []):
+                if t.get("in_actual") is not None and t.get("out_actual") is not None:
+                    tr_n += 1
+                    d = t["in_actual"] - t["out_actual"]
+                    tr_gain += d
+                    if d > 0:
+                        tr_win += 1
+            pred_tot = sum(pr * (2 if c else 1) for pr, ac, c, nm, ps in scored)
+            act_tot = sum(ac * (2 if c else 1) for pr, ac, c, nm, ps in scored)
             per_gw.append({"gw": int(gw_str), "pred": round(pred_tot, 1),
                            "actual": round(act_tot, 1), "mae": round(sum(errs) / len(errs), 2),
                            "n": len(scored)})
@@ -1785,10 +1835,12 @@ def build():
             bias = round(sum(pr - ac for pr, ac in pairs) / n, 2)
             accuracy = {"n": n, "mae": mae, "bias": bias,
                         "captain_hits": cap_hits, "captain_n": cap_n,
-                        "per_gw": per_gw[-10:],
+                        "cap_captured": round(cap_capt, 1), "cap_possible": round(cap_best, 1),
+                        "bench_opt": bench_opt, "bench_n": bench_n, "bench_lost": round(bench_lost, 1),
+                        "tr_n": tr_n, "tr_win": tr_win, "tr_gain": round(tr_gain, 1),
+                        "per_gw": per_gw[-10:], "gws_scored": len(per_gw),
                         "note": "Prognoza vs realne punkty Twojej XI. MAE = średni błąd na zawodnika. "
-                                "Bias>0 = model przeszacowuje. Trafność kapitana = jak często typ na opaskę "
-                                "był najlepszym strzelcem jedenastki."}
+                                "Bias>0 = model przeszacowuje."}
         else:
             accuracy = {"n": 0, "per_gw": [], "note": "Zbieram dane — metryki pojawią się po pierwszej "
                         "rozegranej kolejce od wdrożenia śledzenia."}

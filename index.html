@@ -487,6 +487,8 @@
   .editbtn.on{background:var(--purple);border-color:var(--purple)}
   .edithint{background:rgba(0,166,90,.08);border:1px solid rgba(0,166,90,.25);border-radius:10px;padding:11px 13px;font:400 12px/1.5 'Space Mono',monospace;color:var(--ink);margin-bottom:12px}
   .p.swp{outline:2px solid var(--green-ink);outline-offset:1px}
+  .dgw2{font:800 8px "Space Mono",monospace;color:#fff;background:var(--pink);padding:1px 4px;border-radius:4px}
+  .p.tsel{outline:3px solid var(--cyan,#22d3ee);outline-offset:2px;box-shadow:0 0 0 4px rgba(34,211,238,.25)}
   .swlist{max-height:520px;overflow-y:auto}
   .swrow{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px solid var(--line);cursor:pointer;border-radius:8px}
   .swrow:hover{background:rgba(55,0,60,.04)}
@@ -518,16 +520,16 @@
   </div>
 
   <div class="tabs" id="tabs" style="display:none">
-    <button data-tab="brief" class="on">Doradca</button>
-    <button data-tab="squad">Skład</button>
+    <button data-tab="squad" class="on">Skład</button>
+    <button data-tab="brief">Doradca</button>
     <button data-tab="fdr">Terminarz FDR</button>
-    <button data-tab="risk">Koncentracja</button>
     <button data-tab="planner">Planer</button>
     <button data-tab="roadmap">Roadmapa</button>
-    <button data-tab="league">Moja liga</button>
-    <button data-tab="acc">Skuteczność</button>
     <button data-tab="compare">Porównaj</button>
+    <button data-tab="league">Moja liga</button>
+    <button data-tab="risk">Koncentracja</button>
     <button data-tab="builder">Kreator</button>
+    <button data-tab="acc">Skuteczność</button>
     <button data-tab="sim">Symulator</button>
   </div>
 
@@ -538,7 +540,7 @@
 <script>
 
 const FDR_LABEL = "Trudność rywala (FDR) z oficjalnego API FPL · xPts to model heurystyczny, nie oficjalny.";
-let DATA=null, CUR="brief", SEL=null, EDIT=false, BANK=0;
+let DATA=null, CUR="squad", SEL=null, EDIT=false, BANK=0;
 
 /* nadpisania składu (lokalne, GitHub Pages) — rozwiązują brak aktualizacji po transferach */
 function ovKey(){ return "fplco_ov_"+((DATA&&DATA.entry&&DATA.entry.team_id)||"x"); }
@@ -583,7 +585,7 @@ function rotLabel(l){return {nailed:"pewniak",solid:"raczej gra",risk:"ryzyko ro
 function hasOverrides(){ return loadOv().length>0; }
 function editReset(){ saveOv([]); saveBank(baseBank()); SEL=null; render(); }
 /* taktyka / ręczny skład (lokalny) */
-let TACTIC=false;
+let TACTIC=false, TSEL=null;
 const FORMATIONS=["3-4-3","3-5-2","4-3-3","4-4-2","4-5-1","5-3-2","5-4-1","5-2-3"];
 function lnKey(){ return "fplco_ln_"+((DATA&&DATA.entry&&DATA.entry.team_id)||"x"); }
 function loadLn(){ try{const v=localStorage.getItem(lnKey()); return v?JSON.parse(v):null;}catch(e){return null;} }
@@ -1057,46 +1059,47 @@ function renderSquad(){
       ${loadLn()?`<button class="editbtn ghost" id="lnReset">Reset ustawienia</button>`:''}
     </div>
     ${EDIT?`<div class="edithint">Tryb transferów: kliknij zawodnika, żeby go wymienić. Zmiany zapisują się lokalnie.</div>`:''}
-    ${TACTIC?`<div class="edithint">Taktyka: wybierz formację (auto-ustawia najlepszą XI) lub kliknij zawodnika — z ławki wchodzi do składu, ze składu na ławkę (na tej samej pozycji). Obecna: <b>${curFormation(squad)}</b>.
+    ${TACTIC?`<div class="edithint">Taktyka: wybierz formację (auto-ustawia najlepszą XI) albo <b>kliknij dwóch zawodników</b>, żeby zamienić ich miejscami (ławka ↔ boisko). System pilnuje reguł FPL. Obecna formacja: <b>${curFormation(squad)}</b>.
       <div class="formbar">${FORMATIONS.map(f=>`<button class="formbtn ${curFormation(squad)===f?'on':''}" data-form="${f}">${f}</button>`).join("")}</div></div>`:''}
-    <div class="h"><span class="no">01</span><span class="t">Boisko</span><span class="d">${EDIT?'kliknij → wymień':(TACTIC?'kliknij → skład/ławka':'kliknij → szczegóły ↓')}</span></div>
+    <div class="h"><span class="no">01</span><span class="t">Boisko</span><span class="d">${EDIT?'kliknij → wymień':(TACTIC?(TSEL?'kliknij drugiego → zamiana':'kliknij zawodnika → zaznacz'):'kliknij → szczegóły ↓')}</span></div>
     <div class="pitch">${pitch}<div class="bench-strip">${benchHtml}</div></div>
     <div id="detail"></div>`;
 
-  el("editToggle").onclick=()=>{EDIT=!EDIT;TACTIC=false;SEL=null;renderSquad();};
-  el("tacticToggle").onclick=()=>{TACTIC=!TACTIC;EDIT=false;SEL=null;renderSquad();};
+  el("editToggle").onclick=()=>{EDIT=!EDIT;TACTIC=false;SEL=null;TSEL=null;renderSquad();};
+  el("tacticToggle").onclick=()=>{TACTIC=!TACTIC;EDIT=false;SEL=null;TSEL=null;renderSquad();};
   if(el("editReset")) el("editReset").onclick=()=>{saveOv([]);saveBank(baseBank());SEL=null;renderSquad();};
-  if(el("lnReset")) el("lnReset").onclick=()=>{clearLn();SEL=null;renderSquad();};
-  el("app").querySelectorAll(".formbtn").forEach(b=>b.onclick=()=>{ saveLn(pickFormation(squad,b.dataset.form)); renderSquad(); });
+  if(el("lnReset")) el("lnReset").onclick=()=>{clearLn();SEL=null;TSEL=null;renderSquad();};
+  el("app").querySelectorAll(".formbtn").forEach(b=>b.onclick=()=>{ saveLn(pickFormation(squad,b.dataset.form)); TSEL=null; renderSquad(); });
   el("app").querySelectorAll(".p").forEach(b=>b.onclick=()=>{
     const id=+b.dataset.id;
     if(EDIT){ openSwap(id); }
-    else if(TACTIC){ toggleStart(squad,id); renderSquad(); }
+    else if(TACTIC){
+      if(TSEL===null){ TSEL=id; }
+      else if(TSEL===id){ TSEL=null; }
+      else { const ok=swapTactic(squad,TSEL,id); TSEL=ok?null:id; }
+      renderSquad();
+    }
     else { SEL=id; renderSquad(); document.getElementById("detail").scrollIntoView({behavior:"smooth",block:"nearest"}); }
   });
+  if(TACTIC && TSEL!=null){ const selEl=el("app").querySelector(`.p[data-id="${TSEL}"]`); if(selEl) selEl.classList.add("tsel"); }
   if(EDIT){ const p=squad.find(x=>x.id===SEL); if(p) openSwap(SEL); }
   else if(!TACTIC) renderDetail(squad.find(p=>p.id===SEL) || xi.find(p=>p.is_captain) || xi[0]);
 }
-// przełącz zawodnika skład↔ławka z zachowaniem reguł formacji
-function toggleStart(squad, id){
-  const p=squad.find(x=>x.id===id); if(!p) return;
+// zamiana dwóch zawodników (ławka ↔ boisko) z walidacją reguł FPL
+function swapTactic(squad, aId, bId){
+  const a=squad.find(x=>x.id===aId), b=squad.find(x=>x.id===bId);
+  if(!a||!b||a.on_bench===b.on_bench) return false;       // musi być jeden z ławki, jeden z boiska
+  const xiOne=a.on_bench?b:a, benchOne=a.on_bench?a:b;
+  if((xiOne.pos==="GK")!==(benchOne.pos==="GK")) return false;  // bramkarz tylko z bramkarzem
   const benched=new Set(squad.filter(x=>x.on_bench).map(x=>x.id));
-  const xi=squad.filter(x=>!x.on_bench);
-  const cnt=pos=>xi.filter(x=>x.pos===pos).length;
-  const MIN={GK:1,DEF:3,MID:2,FWD:1}, MAX={GK:1,DEF:5,MID:5,FWD:3};
-  if(p.on_bench){
-    // wchodzi do składu — musi być miejsce (XI<11) i limit pozycji, inaczej zamień z najsłabszym tej pozycji
-    if(xi.length<11 && cnt(p.pos)<MAX[p.pos]){ benched.delete(id); }
-    else{
-      const weakest=xi.filter(x=>x.pos===p.pos).sort((a,b)=>(a.xpts||0)-(b.xpts||0))[0];
-      if(weakest && cnt(p.pos)>MIN[p.pos]){ benched.delete(id); benched.add(weakest.id); }
-      else return; // nie da się bez złamania formacji
-    }
-  } else {
-    // schodzi na ławkę — tylko jeśli nie łamie minimum
-    if(cnt(p.pos)>MIN[p.pos]) benched.add(id); else return;
-  }
+  benched.delete(benchOne.id); benched.add(xiOne.id);
+  const newXI=squad.filter(p=>!benched.has(p.id));
+  const c=pos=>newXI.filter(p=>p.pos===pos).length;
+  const valid = newXI.length===11 && c("GK")===1 && c("DEF")>=3 && c("DEF")<=5
+    && c("MID")>=2 && c("MID")<=5 && c("FWD")>=1 && c("FWD")<=3;
+  if(!valid) return false;
   saveLn({form:null, bench:[...benched]});
+  return true;
 }
 
 function openSwap(outId){
@@ -1426,24 +1429,28 @@ function renderAccuracy(){
     return;
   }
   const capRate=a.captain_n?Math.round(100*a.captain_hits/a.captain_n):0;
+  const capCap=(a.cap_possible)?Math.round(100*a.cap_captured/a.cap_possible):null;
+  const benchRate=a.bench_n?Math.round(100*a.bench_opt/a.bench_n):null;
+  const trRate=a.tr_n?Math.round(100*a.tr_win/a.tr_n):null;
   const biasTxt=a.bias>0.15?`przeszacowuje o ${a.bias}`:a.bias<-0.15?`niedoszacowuje o ${Math.abs(a.bias)}`:'praktycznie bez obciążenia';
-  // wykres pred vs realne
+  const gws=a.gws_scored||a.per_gw.length;
+  const conf = gws>=8?'wiarygodna próbka':gws>=4?'pierwszy odczyt (mała próbka)':'bardzo mała próbka';
   const rows=a.per_gw.map(g=>{
-    const diff=(g.actual-g.pred);
-    const sign=diff>=0?'+':'';
+    const diff=(g.actual-g.pred); const sign=diff>=0?'+':'';
     return `<tr><td class="rmname" style="min-width:64px">GW${g.gw}</td>
-      <td class="accc">${g.pred.toFixed(1)}</td>
-      <td class="accc">${g.actual.toFixed(1)}</td>
+      <td class="accc">${g.pred.toFixed(1)}</td><td class="accc">${g.actual.toFixed(1)}</td>
       <td class="accc ${diff>=0?'pos':'neg'}">${sign}${diff.toFixed(1)}</td>
       <td class="accc">${g.mae.toFixed(2)}</td></tr>`;
   }).join("");
   el("app").innerHTML=`
-    <div class="h"><span class="no">01</span><span class="t">Skuteczność modelu</span><span class="d">prognoza vs realne punkty Twojej XI</span></div>
+    <div class="h"><span class="no">01</span><span class="t">Skuteczność Copilota</span><span class="d">${gws} ocenionych kolejek · ${conf}</span></div>
     <div class="accgrid">
       <div class="acckpi"><div class="acck">Średni błąd (MAE)</div><div class="accv">${a.mae}</div><div class="accu">pkt / zawodnik</div></div>
       <div class="acckpi"><div class="acck">Obciążenie (bias)</div><div class="accv">${a.bias>0?'+':''}${a.bias}</div><div class="accu">${biasTxt}</div></div>
-      <div class="acckpi"><div class="acck">Trafność kapitana</div><div class="accv">${capRate}%</div><div class="accu">${a.captain_hits}/${a.captain_n} kolejek</div></div>
-      <div class="acckpi"><div class="acck">Próbka</div><div class="accv">${a.n}</div><div class="accu">ocenionych prognoz</div></div>
+      <div class="acckpi"><div class="acck">Trafność kapitana</div><div class="accv">${capRate}%</div><div class="accu">${a.captain_hits}/${a.captain_n} kolejek${capCap!=null?` · ${capCap}% pkt`:''}</div></div>
+      <div class="acckpi"><div class="acck">Ustawienie (bench/start)</div><div class="accv">${benchRate!=null?benchRate+'%':'—'}</div><div class="accu">${benchRate!=null?`optymalne ${a.bench_opt}/${a.bench_n} · stracone ${a.bench_lost} pkt`:'brak danych'}</div></div>
+      <div class="acckpi"><div class="acck">Rekomendacje transferów</div><div class="accv">${trRate!=null?trRate+'%':'—'}</div><div class="accu">${trRate!=null?`trafione ${a.tr_win}/${a.tr_n} · bilans ${a.tr_gain>0?'+':''}${a.tr_gain} pkt`:'brak (nie zalecono transferu)'}</div></div>
+      <div class="acckpi"><div class="acck">Próbka</div><div class="accv">${a.n}</div><div class="accu">ocenionych prognoz zawodników</div></div>
     </div>
     <div class="h"><span class="no">02</span><span class="t">Kolejka po kolejce</span><span class="d">prognoza vs rzeczywistość (z C ×2)</span></div>
     <div class="card" style="overflow-x:auto">
@@ -1451,8 +1458,8 @@ function renderAccuracy(){
       <tbody>${rows}</tbody></table>
       <div class="cvfoot" style="margin-top:10px">${a.note}</div>
     </div>
-    <div class="advcard ok" style="margin-top:12px"><div class="ai">i</div><div class="ab"><div class="at">Jak to czytać</div>
-      <div class="ap">Niższy MAE = celniejsze prognozy. Bias blisko 0 = model nie jest systematycznie zbyt optymistyczny ani pesymistyczny. To fundament pod ewentualne auto-strojenie — ale świadomie <b>nie</b> stroję modelu na kilku kolejkach, żeby nie przeuczył się na szumie.</div></div></div>`;
+    <div class="advcard ${gws>=8?'ok':'warn'}" style="margin-top:12px"><div class="ai">${gws>=8?'✓':'i'}</div><div class="ab"><div class="at">Jak to czytać (${gws} kolejek)</div>
+      <div class="ap"><b>MAE</b> — niżej = celniej. <b>Bias</b> blisko 0 = bez systematycznego przeszacowania. <b>Kapitan</b> — jak często typ na opaskę był najlepszym strzelcem XI (i ile % możliwych punktów opaski zgarnął). <b>Ustawienie</b> — jak często Twoja XI była optymalna (0 straconych na ławce). <b>Transfery</b> — czy zalecony IN pobił OUT. ${gws<8?'<b>Uwaga:</b> to '+(gws<4?'bardzo mała':'mała')+' próbka — wiarygodna ocena po ~8-10 kolejkach. Świadomie NIE stroję modelu na tak małych danych (przeuczyłby się na szumie).':'Próbka wystarcza na wiarygodny pierwszy obraz.'}</div></div></div>`;
 }
 let CMP_SEL=null;  // wybrany zawodnik z mojego składu (id)
 function renderCompare(){
@@ -1514,7 +1521,7 @@ function renderCompare(){
   el("app").querySelectorAll(".cmprow").forEach(r=>r.onclick=()=>{CMP_SEL=+r.dataset.p;renderCompare();});
 }
 /* ---------- KREATOR SKŁADU / WILDCARD ---------- */
-let BUILD={GK:[],DEF:[],MID:[],FWD:[]}, BUILD_SLOT=null;
+let BUILD={GK:[],DEF:[],MID:[],FWD:[]}, BUILD_SLOT=null, BUILD_MODE="wildcard";
 const BUILD_NEED={GK:2,DEF:5,MID:5,FWD:3};
 function buildBudget(){ return (DATA.budget&&DATA.budget.total)||100; }  // realny budżet: wartość składu + bank
 function buildAll(){ return [...BUILD.GK,...BUILD.DEF,...BUILD.MID,...BUILD.FWD]; }
@@ -1528,12 +1535,14 @@ function renderBuilder(){
   const overBudget=cost>CAP+1e-9;
   const clubViol=Object.entries(clubs).filter(([t,n])=>n>3).map(([t])=>t);
   const xpts5=all.reduce((a,p)=>a+(p.xpts5!=null?p.xpts5:(p.xpts_h||0)*1.6),0);
+  const xptsGw=all.reduce((a,p)=>a+(p.xpts||0),0);
+  const FH=BUILD_MODE==="freehit";
   const bsrc=DATA.budget?`${DATA.budget.estimated?'<b style="color:#9a6b00">szacowany</b> ':''}wartość składu £${DATA.budget.squad_value} + bank £${DATA.budget.bank}`:'brak danych — domyślnie £100';
   const posRow=(pos)=>{
     const need=BUILD_NEED[pos], have=BUILD[pos];
     const slots=Array.from({length:need},(_,i)=>{
       const p=have[i];
-      return p?`<div class="bslot filled"><span class="bsn">${p.name}</span><span class="bsm">${p.team} · £${p.price.toFixed(1)}</span><button class="bsx" data-rmpos="${pos}" data-rmi="${i}">✕</button></div>`
+      return p?`<div class="bslot filled"><span class="bsn">${p.name}${(p.next&&p.next.dgw)?' <span class="dgw2">×2</span>':''}</span><span class="bsm">${p.team} · £${p.price.toFixed(1)}</span><button class="bsx" data-rmpos="${pos}" data-rmi="${i}">✕</button></div>`
         :`<div class="bslot empty" data-addpos="${pos}">+ ${pos}</div>`;
     }).join("");
     return `<div class="brow"><div class="brlab">${pos} ${have.length}/${need}</div><div class="bslots">${slots}</div></div>`;
@@ -1542,21 +1551,27 @@ function renderBuilder(){
     ? `<span class="bok">✓ Skład legalny — 15 zawodników, £${cost.toFixed(1)} / £${CAP.toFixed(1)}, limit 3/klub OK</span>`
     : `<span class="bwarn">${!complete?`Wybrano ${all.length}/15. `:''}${overBudget?`Przekroczono budżet o £${(cost-CAP).toFixed(1)}. `:''}${clubViol.length?`Za dużo z klubu: ${clubViol.join(", ")}.`:''}</span>`;
   el("app").innerHTML=`
-    <div class="h"><span class="no">01</span><span class="t">Kreator składu (Wildcard)</span><span class="d">w formie · pewniacy · najlepsza prognoza /5 GW · realny budżet · 2-5-5-3 · max 3/klub</span></div>
+    <div class="h"><span class="no">01</span><span class="t">Kreator składu</span><span class="d">${FH?'Free Hit — max punktów na NAJBLIŻSZY GW (premia za DGW)':'Wildcard — najlepsza prognoza /5 GW'} · realny budżet · 2-5-5-3 · max 3/klub</span></div>
+    <div class="editbar">
+      <button class="editbtn ${FH?'ghost':'on'}" id="bModeWC">🃏 Wildcard (5 GW)</button>
+      <button class="editbtn ${FH?'on':'ghost'}" id="bModeFH">⚡ Free Hit (1 GW)</button>
+    </div>
     <div class="bstatbar">
       <div class="bstat"><span class="bk">Koszt</span><span class="bv ${overBudget?'neg':''}">£${cost.toFixed(1)}</span></div>
       <div class="bstat"><span class="bk">Budżet</span><span class="bv">£${CAP.toFixed(1)}</span></div>
       <div class="bstat"><span class="bk">Zostało</span><span class="bv ${left<0?'neg':''}">£${left.toFixed(1)}</span></div>
-      <div class="bstat"><span class="bk">xPts /5 kol.</span><span class="bv">${xpts5.toFixed(1)}</span></div>
+      <div class="bstat"><span class="bk">${FH?'xPts nast. GW':'xPts /5 kol.'}</span><span class="bv">${(FH?xptsGw:xpts5).toFixed(1)}</span></div>
     </div>
     <div class="bvalid">${validMsg} <span style="color:var(--muted);font-weight:400"> · budżet = ${bsrc}</span></div>
     <div class="bbtns">
-      <button class="editbtn" id="bAuto">⚡ Auto-optymalizuj (max xPts /5 GW w £${CAP.toFixed(1)})</button>
+      <button class="editbtn" id="bAuto">⚡ Auto-optymalizuj (${FH?'max xPts na najbliższy GW':'max xPts /5 GW'} w £${CAP.toFixed(1)})</button>
       <button class="editbtn ghost" id="bClear">Wyczyść</button>
     </div>
     <div class="card">${["GK","DEF","MID","FWD"].map(posRow).join("")}</div>
     <div id="bPicker"></div>
-    <div class="foot" style="margin-top:12px;border:0">Budżet = ${DATA.budget&&DATA.budget.estimated?'<b>szacowany</b> z cen bieżących (bez zalogowanej sesji nie znam dokładnych cen sprzedaży — realny budżet może być nieco niższy przy zawodnikach, którzy zdrożeli)':'realne ceny sprzedaży + bank (z zalogowanej sesji)'}. Optymalizacja to heurystyka zachłanna — bliska optymalnej, nie gwarancja ideału. Zawsze 2-5-5-3, ≤budżet, ≤3/klub.</div>`;
+    <div class="foot" style="margin-top:12px;border:0">${FH?'<b>Free Hit:</b> najlepszy skład tylko na najbliższą kolejkę — po niej wracasz do swojego. Premia za podwójne mecze (×2), ale z uwzględnieniem minut i przeciwników. ':'<b>Wildcard:</b> najlepszy skład na horyzont 5 kolejek (forma, minuty, dostępność, prognoza). '}Budżet = ${DATA.budget&&DATA.budget.estimated?'<b>szacowany</b> z cen bieżących':'realne ceny sprzedaży + bank'}. Heurystyka zachłanna — zawsze 2-5-5-3, ≤budżet, ≤3/klub.</div>`;
+  el("bModeWC").onclick=()=>{BUILD_MODE="wildcard";renderBuilder();};
+  el("bModeFH").onclick=()=>{BUILD_MODE="freehit";renderBuilder();};
   el("bClear").onclick=()=>{BUILD={GK:[],DEF:[],MID:[],FWD:[]};BUILD_SLOT=null;renderBuilder();};
   el("bAuto").onclick=()=>{autoBuild();renderBuilder();};
   el("app").querySelectorAll(".bslot.empty").forEach(s=>s.onclick=()=>openBuildPicker(s.dataset.addpos));
@@ -1586,7 +1601,9 @@ function openBuildPicker(pos){
 }
 function autoBuild(){
   const need={GK:2,DEF:5,MID:5,FWD:3}, etype={GK:1,DEF:2,MID:3,FWD:4};
-  const val=c=>(c.xpts5!=null?c.xpts5:(c.xpts_h||0)*1.6);   // prognoza /5 GW (fallback z /3)
+  const FH=BUILD_MODE==="freehit";
+  // Free Hit: prognoza na najbliższy GW (xpts już sumuje DGW). Wildcard: prognoza /5 GW.
+  const val=c=> FH ? (c.xpts||0) : (c.xpts5!=null?c.xpts5:(c.xpts_h||0)*1.6);
   const rotOk=c=>!c.rotation || ["nailed","solid","unknown"].includes(c.rotation.level);
   const avail=c=>(c.status===undefined||c.status==="a")&&(c.chance==null||c.chance>=75);
   const byPos={}; for(const pos in need){
