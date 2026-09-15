@@ -5,77 +5,77 @@
         "572": {
           "name": "Tzolakis",
           "pos": "GK",
-          "pred": 4.3,
+          "pred": 4.0,
           "cap": false,
           "actual": null
         },
         "115": {
           "name": "De Cuyper",
           "pos": "DEF",
-          "pred": 5.7,
+          "pred": 6.1,
           "cap": false,
           "actual": null
         },
         "391": {
           "name": "Gvardiol",
           "pos": "DEF",
-          "pred": 4.6,
+          "pred": 4.9,
           "cap": false,
           "actual": null
         },
         "277": {
           "name": "Egan",
           "pos": "DEF",
-          "pred": 4.6,
-          "cap": false,
-          "actual": null
-        },
-        "15": {
-          "name": "Ødegaard",
-          "pos": "MID",
-          "pred": 5.5,
+          "pred": 4.3,
           "cap": false,
           "actual": null
         },
         "40": {
           "name": "Rogers",
           "pos": "MID",
-          "pred": 5.3,
+          "pred": 5.8,
           "cap": false,
           "actual": null
         },
-        "368": {
-          "name": "Szoboszlai",
+        "15": {
+          "name": "Ødegaard",
           "pos": "MID",
-          "pred": 5.1,
-          "cap": false,
-          "actual": null
-        },
-        "367": {
-          "name": "Gakpo",
-          "pos": "MID",
-          "pred": 4.7,
+          "pred": 4.9,
           "cap": false,
           "actual": null
         },
         "154": {
           "name": "Palmer",
           "pos": "MID",
-          "pred": 4.4,
+          "pred": 4.8,
+          "cap": false,
+          "actual": null
+        },
+        "368": {
+          "name": "Szoboszlai",
+          "pos": "MID",
+          "pred": 4.6,
+          "cap": false,
+          "actual": null
+        },
+        "367": {
+          "name": "Gakpo",
+          "pos": "MID",
+          "pred": 4.3,
           "cap": false,
           "actual": null
         },
         "411": {
           "name": "Haaland",
           "pos": "FWD",
-          "pred": 6.9,
+          "pred": 6.3,
           "cap": true,
           "actual": null
         },
         "165": {
           "name": "João Pedro",
           "pos": "FWD",
-          "pred": 4.7,
+          "pred": 5.2,
           "cap": false,
           "actual": null
         }
@@ -87,7 +87,7 @@
           "id": 572,
           "name": "Tzolakis",
           "pos": "GK",
-          "pred": 4.3,
+          "pred": 4.0,
           "actual": null
         },
         {
@@ -101,14 +101,14 @@
           "id": 593,
           "name": "Dedić",
           "pos": "DEF",
-          "pred": 3.9,
+          "pred": 3.2,
           "actual": null
         },
         {
           "id": 277,
           "name": "Egan",
           "pos": "DEF",
-          "pred": 4.6,
+          "pred": 4.3,
           "actual": null
         }
       ],
@@ -116,13 +116,21 @@
         {
           "out_id": 367,
           "out_name": "Gakpo",
-          "in_id": 432,
-          "in_name": "Mainoo",
+          "in_id": 483,
+          "in_name": "Ndoye",
+          "out_actual": null,
+          "in_actual": null
+        },
+        {
+          "out_id": 368,
+          "out_name": "Szoboszlai",
+          "in_id": 483,
+          "in_name": "Ndoye",
           "out_actual": null,
           "in_actual": null
         }
       ]
     }
   },
-  "updated": "2026-09-15T06:13:18Z"
+  "updated": "2026-09-15T09:11:48Z"
 }
