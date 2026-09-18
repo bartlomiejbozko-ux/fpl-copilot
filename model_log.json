@@ -113,7 +113,121 @@
         }
       ],
       "transfers": []
+    },
+    "6": {
+      "players": {
+        "572": {
+          "name": "Tzolakis",
+          "pos": "GK",
+          "pred": 5.3,
+          "cap": false,
+          "actual": null
+        },
+        "115": {
+          "name": "De Cuyper",
+          "pos": "DEF",
+          "pred": 7.0,
+          "cap": true,
+          "actual": null
+        },
+        "277": {
+          "name": "Egan",
+          "pos": "DEF",
+          "pred": 5.6,
+          "cap": false,
+          "actual": null
+        },
+        "8": {
+          "name": "Calafiori",
+          "pos": "DEF",
+          "pred": 4.9,
+          "cap": false,
+          "actual": null
+        },
+        "391": {
+          "name": "Gvardiol",
+          "pos": "DEF",
+          "pred": 3.8,
+          "cap": false,
+          "actual": null
+        },
+        "40": {
+          "name": "Rogers",
+          "pos": "MID",
+          "pred": 6.9,
+          "cap": false,
+          "actual": null
+        },
+        "480": {
+          "name": "Gibbs-White",
+          "pos": "MID",
+          "pred": 6.4,
+          "cap": false,
+          "actual": null
+        },
+        "154": {
+          "name": "Palmer",
+          "pos": "MID",
+          "pred": 5.6,
+          "cap": false,
+          "actual": null
+        },
+        "15": {
+          "name": "Ødegaard",
+          "pos": "MID",
+          "pred": 4.5,
+          "cap": false,
+          "actual": null
+        },
+        "411": {
+          "name": "Haaland",
+          "pos": "FWD",
+          "pred": 5.0,
+          "cap": false,
+          "actual": null
+        },
+        "165": {
+          "name": "João Pedro",
+          "pos": "FWD",
+          "pred": 4.7,
+          "cap": false,
+          "actual": null
+        }
+      },
+      "cap": "De Cuyper",
+      "cap_id": 115,
+      "bench": [
+        {
+          "id": 572,
+          "name": "Tzolakis",
+          "pos": "GK",
+          "pred": 5.3,
+          "actual": null
+        },
+        {
+          "id": 277,
+          "name": "Egan",
+          "pos": "DEF",
+          "pred": 5.6,
+          "actual": null
+        },
+        {
+          "id": 593,
+          "name": "Dedić",
+          "pos": "DEF",
+          "pred": 0.0,
+          "actual": null
+        },
+        {
+          "id": 195,
+          "name": "Simms",
+          "pos": "FWD",
+          "pred": 0.8,
+          "actual": null
+        }
+      ],
+      "transfers": []
     }
   },
-  "updated": "2026-09-18T18:12:53Z"
+  "updated": "2026-09-18T21:08:42Z"
 }
