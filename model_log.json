@@ -126,21 +126,21 @@
         "115": {
           "name": "De Cuyper",
           "pos": "DEF",
-          "pred": 6.9,
-          "cap": true,
+          "pred": 6.5,
+          "cap": false,
           "actual": null
         },
         "277": {
           "name": "Egan",
           "pos": "DEF",
-          "pred": 5.5,
+          "pred": 5.4,
           "cap": false,
           "actual": null
         },
         "8": {
           "name": "Calafiori",
           "pos": "DEF",
-          "pred": 5.0,
+          "pred": 4.9,
           "cap": false,
           "actual": null
         },
@@ -155,13 +155,13 @@
           "name": "Rogers",
           "pos": "MID",
           "pred": 6.9,
-          "cap": false,
+          "cap": true,
           "actual": null
         },
         "480": {
           "name": "Gibbs-White",
           "pos": "MID",
-          "pred": 6.4,
+          "pred": 5.9,
           "cap": false,
           "actual": null
         },
@@ -175,7 +175,7 @@
         "15": {
           "name": "Ødegaard",
           "pos": "MID",
-          "pred": 4.6,
+          "pred": 4.4,
           "cap": false,
           "actual": null
         },
@@ -194,8 +194,8 @@
           "actual": null
         }
       },
-      "cap": "De Cuyper",
-      "cap_id": 115,
+      "cap": "Rogers",
+      "cap_id": 40,
       "bench": [
         {
           "id": 572,
@@ -208,7 +208,7 @@
           "id": 277,
           "name": "Egan",
           "pos": "DEF",
-          "pred": 5.5,
+          "pred": 5.4,
           "actual": null
         },
         {
@@ -229,5 +229,5 @@
       "transfers": []
     }
   },
-  "updated": "2026-09-19T15:08:44Z"
+  "updated": "2026-09-19T18:10:07Z"
 }
