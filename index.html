@@ -933,9 +933,24 @@ function renderBrief(){
 
   // alerty
   let alHtml;
-  if(b.alerts && b.alerts.length){
-    const sevCls=s=>s>=3?"i":(s>=2?"d":"a");
-    alHtml = b.alerts.map(a=>`
+  const sevCls=s=>s>=3?"i":(s>=2?"d":"a");
+  // alerty przeliczone po transferach (sprawdza dostępność nowych zawodników)
+  let alerts=b.alerts||[];
+  if(hasOverrides()){
+    const SEV={i:["Kontuzja",3],s:["Zawieszenie",3],u:["Niedostępny",3],d:["Wątpliwy",2],n:["Poza kadrą",2]};
+    alerts=[];
+    effectiveSquad().forEach(p=>{
+      const st=p.status, ch=p.chance;
+      const flagged=(st&&st!=="a")||(ch!=null&&ch<100)||p.news;
+      if(!flagged) return;
+      let lab=(SEV[st]||["Uwaga",1])[0], sev=(SEV[st]||["Uwaga",1])[1];
+      if((!st||st==="a")&&ch!=null&&ch<100){ lab=`Szansa gry ${ch}%`; sev=2; }
+      alerts.push({name:p.name,pos:p.pos,label:lab,sev:sev,news:p.news||"",on_bench:p.on_bench});
+    });
+    alerts.sort((a,b)=>b.sev-a.sev);
+  }
+  if(alerts && alerts.length){
+    alHtml = alerts.map(a=>`
       <div class="alertrow">
         <span class="adot ${sevCls(a.sev)}"></span>
         <span class="anm">${a.name}<span class="apos">${a.pos}${a.on_bench?" · ławka":""}</span></span>
@@ -1006,7 +1021,7 @@ function renderBrief(){
         <div class="sub">${DATA.gw.name} · kliknij zakładki po szczegóły</div></div>
       <div class="stats">
         <div class="stat"><div class="k">Ustawienie</div><div class="v">${b.lineup&&b.lineup.optimal_formation||'—'}</div></div>
-        <div class="stat"><div class="k">Alerty</div><div class="v" style="color:${(b.alerts||[]).length?'#ff8fa3':'#00FF87'}">${(b.alerts||[]).length}</div></div>
+        <div class="stat"><div class="k">Alerty</div><div class="v" style="color:${alerts.length?"#ff8fa3":"#00FF87"}">${alerts.length}</div></div>
       </div>
     </div>
 
@@ -1524,6 +1539,46 @@ function renderCompare(){
 let BUILD={GK:[],DEF:[],MID:[],FWD:[]}, BUILD_SLOT=null, BUILD_MODE="wildcard";
 const BUILD_NEED={GK:2,DEF:5,MID:5,FWD:3};
 function buildBudget(){ return (DATA.budget&&DATA.budget.total)||100; }  // realny budżet: wartość składu + bank
+// najlepsza XI + ławka z 15 (wg wartości trybu: FH=nast. GW, WC=/5 GW)
+function builderXI(all, FH){
+  const val=p=> FH ? (p.xpts||0) : (p.xpts5!=null?p.xpts5:(p.xpts_h||0)*1.6);
+  const by={GK:[],DEF:[],MID:[],FWD:[]};
+  all.forEach(p=>{ (by[p.pos]||by.MID).push(p); });
+  Object.keys(by).forEach(k=>by[k].sort((a,b)=>val(b)-val(a)));
+  if(by.GK.length<1||by.DEF.length<3||by.FWD.length<1) return null;
+  const FORMS=[[3,4,3],[3,5,2],[4,3,3],[4,4,2],[4,5,1],[5,3,2],[5,4,1],[5,2,3]];
+  let best=null;
+  for(const [d,m,f] of FORMS){
+    if(by.DEF.length<d||by.MID.length<m||by.FWD.length<f) continue;
+    const xi=[by.GK[0],...by.DEF.slice(0,d),...by.MID.slice(0,m),...by.FWD.slice(0,f)];
+    const tot=xi.reduce((a,p)=>a+val(p),0);
+    if(!best||tot>best.tot) best={tot,xi,form:`${d}-${m}-${f}`};
+  }
+  if(!best) return null;
+  const xiIds=new Set(best.xi.map(p=>p.id));
+  const bench=all.filter(p=>!xiIds.has(p.id)).sort((a,b)=>val(b)-val(a));
+  return {xi:best.xi, bench, form:best.form, val};
+}
+function builderXIhtml(all, FH){
+  const r=builderXI(all,FH); if(!r) return '';
+  const posOrd={GK:0,DEF:1,MID:2,FWD:3};
+  const rows={GK:[],DEF:[],MID:[],FWD:[]};
+  r.xi.forEach(p=>rows[p.pos].push(p));
+  const cap=[...r.xi].sort((a,b)=>r.val(b)-r.val(a))[0];
+  const card=p=>`<div class="xip"><span class="xinm">${p.name}${p===cap?' <span class="xibadge c">C</span>':''}${(p.next&&p.next.dgw)?' <span class="dgw2">×2</span>':''}</span>
+    <span class="xifx f${Math.max(1,Math.min(5,p.next?p.next.fdr:3))}">${p.next?p.next.opp+' ('+p.next.ven+')':'-'}</span>
+    <span class="xipts">${(FH?(p.xpts||0):(p.xpts5!=null?p.xpts5:(p.xpts_h||0)*1.6)).toFixed(1)}</span></div>`;
+  const pitch=['GK','DEF','MID','FWD'].map(k=>rows[k].length?`<div class="xirow">${rows[k].map(card).join("")}</div>`:'').join("");
+  const bench=r.bench.map(p=>`<div class="benchrow"><span class="bnm">${p.name}<span class="bpos">${p.pos}</span></span>
+    <span class="bxp">${(FH?(p.xpts||0):(p.xpts5!=null?p.xpts5:(p.xpts_h||0)*1.6)).toFixed(1)}</span></div>`).join("");
+  const xiTot=r.xi.reduce((a,p)=>a+(FH?(p.xpts||0):(p.xpts5!=null?p.xpts5:(p.xpts_h||0)*1.6)),0);
+  return `<div class="h" style="margin-top:14px"><span class="no">·</span><span class="t">Proponowana XI + ławka</span>
+      <span class="d">formacja ${r.form} · ${FH?'prognoza nast. GW':'prognoza /5 GW'} ${xiTot.toFixed(1)} (kapitan: ${cap.name})</span></div>
+    <div class="xiwrap"><div class="xibar"><span class="xiform">Formacja ${r.form}</span>
+      <span class="xisum">${xiTot.toFixed(1)} <small>${FH?'xPts nast. GW':'xPts /5 GW'}</small></span></div>
+      <div class="xipitch">${pitch}</div></div>
+    <div class="card" style="margin-top:8px"><div class="benchhdr">Ławka (kolejność)</div>${bench}</div>`;
+}
 function buildAll(){ return [...BUILD.GK,...BUILD.DEF,...BUILD.MID,...BUILD.FWD]; }
 function buildCost(){ return buildAll().reduce((a,p)=>a+p.price,0); }
 function buildClubs(){ const c={}; buildAll().forEach(p=>c[p.team]=(c[p.team]||0)+1); return c; }
@@ -1568,6 +1623,7 @@ function renderBuilder(){
       <button class="editbtn ghost" id="bClear">Wyczyść</button>
     </div>
     <div class="card">${["GK","DEF","MID","FWD"].map(posRow).join("")}</div>
+    ${complete?builderXIhtml(all,FH):''}
     <div id="bPicker"></div>
     <div class="foot" style="margin-top:12px;border:0">${FH?'<b>Free Hit:</b> najlepszy skład tylko na najbliższą kolejkę — po niej wracasz do swojego. Premia za podwójne mecze (×2), ale z uwzględnieniem minut i przeciwników. ':'<b>Wildcard:</b> najlepszy skład na horyzont 5 kolejek (forma, minuty, dostępność, prognoza). '}Budżet = ${DATA.budget&&DATA.budget.estimated?'<b>szacowany</b> z cen bieżących':'realne ceny sprzedaży + bank'}. Heurystyka zachłanna — zawsze 2-5-5-3, ≤budżet, ≤3/klub.</div>`;
   el("bModeWC").onclick=()=>{BUILD_MODE="wildcard";renderBuilder();};
@@ -1809,19 +1865,33 @@ function planTransfersJS(squad, pool, bankTenths, startFt, gws){
         });
       });
       cand.sort((a,b)=>b[0]-a[0]);
-      const opts=[["hold",null]]; cand.slice(0,4).forEach(c=>opts.push(["move",[c[1],c[2]]]));
-      opts.forEach(([kind,mv])=>{
+      // opcje: hold (0), pojedyncze (1), oraz pary (2 transfery w jednym GW)
+      const opts=[[]];
+      cand.slice(0,4).forEach(c=>opts.push([[c[1],c[2]]]));
+      const singles=cand.slice(0,8);
+      for(let a=0;a<singles.length;a++){ for(let b2=a+1;b2<singles.length;b2++){
+        const A=singles[a],B=singles[b2];
+        if(A[1].id===B[1].id||A[2].id===B[2].id) continue;              // różni OUT i różni IN
+        if(A[2].price+B[2].price > st.bank+A[1].price+B[1].price+1e-9) continue;  // łączny budżet
+        opts.push([[A[1],A[2]],[B[1],B[2]]]);
+        if(opts.length>=9) break;
+      } if(opts.length>=9) break; }
+      opts.forEach(moves=>{
         const ns={squad:{...smap},bank:st.bank,ft:st.ft,cum:st.cum,hits:st.hits,log:[...st.log]};
-        let moved=[];
-        if(kind==="move"){ const[outp,inp]=mv; delete ns.squad[outp.id]; ns.squad[inp.id]=inp;
-          ns.bank=ns.bank+outp.price-inp.price; const hit=Math.max(0,1-ns.ft)*4;
-          ns.ft=Math.min(5,Math.max(0,ns.ft-1)+1); ns.cum-=hit; ns.hits+=hit;
-          moved=[{out:outp.name,in:inp.name,gain:Math.round((hznAll(inp,gi)-hznAll(outp,gi))*10)/10}];
-        } else ns.ft=Math.min(5,ns.ft+1);
+        const nmoves=moves.length; let moved=[];
+        for(const [outp,inp] of moves){
+          delete ns.squad[outp.id]; ns.squad[inp.id]=inp;
+          ns.bank=ns.bank+outp.price-inp.price;
+          moved.push({out:outp.name,in:inp.name,gain:Math.round((hznAll(inp,gi)-hznAll(outp,gi))*10)/10});
+        }
+        // walidacja 3/klub po zastosowaniu
+        const cc2={}; Object.values(ns.squad).forEach(p=>cc2[p.team]=(cc2[p.team]||0)+1);
+        if(Object.values(cc2).some(v=>v>3)) return;
+        const hit=Math.max(0,nmoves-st.ft)*4;
+        ns.ft=Math.min(5,Math.max(0,st.ft-nmoves)+1); ns.cum-=hit; ns.hits+=hit;
         const gwval=bestXiValueJS(Object.values(ns.squad),gw); ns.cum+=gwval;
-        ns.log.push({gw,action:kind==="move"?"transfer":"hold",moves:moved,ft_after:ns.ft,
-          bank_after:Math.round(ns.bank/10*10)/10,gw_xpts:Math.round(gwval*10)/10,
-          hit:(moved.length?Math.max(0,1-st.ft)*4:0)});
+        ns.log.push({gw,action:nmoves?"transfer":"hold",moves:moved,ft_after:ns.ft,
+          bank_after:Math.round(ns.bank/10*10)/10,gw_xpts:Math.round(gwval*10)/10,hit});
         nxt.push(ns);
       });
     });
