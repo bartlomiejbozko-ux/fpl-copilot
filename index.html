@@ -539,6 +539,7 @@
 
 <script>
 
+const APP_VERSION = "2026-09-16a";
 const FDR_LABEL = "Trudność rywala (FDR) z oficjalnego API FPL · xPts to model heurystyczny, nie oficjalny.";
 let DATA=null, CUR="squad", SEL=null, EDIT=false, BANK=0;
 
@@ -574,7 +575,7 @@ function effectiveSquad(){
       selected_by:pl.own, factors:(pl.factors||null), roadmap:(pl.roadmap||[]),
       floor:pl.floor, ceiling:pl.ceiling, haul:pl.haul, sd:pl.sd,
       pts_last2:pl.pts_last2, form:pl.form, rotation:pl.rotation, status:pl.status,
-      chance:pl.chance, price_pred:pl.price_pred, form5:null, swapped:true};
+      chance:pl.chance, price_pred:pl.price_pred, news:(pl.news||""), form5:null, swapped:true};
   });
   return sq;
 }
@@ -710,7 +711,7 @@ async function boot(){
   BANK = loadBank();
 
   el("tagline").textContent = `${DATA.entry.name||"Twój skład"} · ${DATA.gw.name}`;
-  el("fresh").textContent = "dane: "+new Date(DATA.generated_at).toLocaleString("pl-PL");
+  el("fresh").textContent = "dane: "+new Date(DATA.generated_at).toLocaleString("pl-PL")+" · build "+APP_VERSION;
   el("foot").textContent = DATA.note || FDR_LABEL;
   el("tabs").style.display="flex";
   el("tabs").querySelectorAll("button").forEach(b=>b.onclick=()=>{CUR=b.dataset.tab;
