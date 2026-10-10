@@ -122,7 +122,130 @@
           "in_actual": null
         }
       ]
+    },
+    "7": {
+      "players": {
+        "572": {
+          "name": "Tzolakis",
+          "pos": "GK",
+          "pred": 4.5,
+          "cap": false,
+          "actual": null
+        },
+        "115": {
+          "name": "De Cuyper",
+          "pos": "DEF",
+          "pred": 7.2,
+          "cap": false,
+          "actual": null
+        },
+        "8": {
+          "name": "Calafiori",
+          "pos": "DEF",
+          "pred": 4.8,
+          "cap": false,
+          "actual": null
+        },
+        "277": {
+          "name": "Egan",
+          "pos": "DEF",
+          "pred": 4.8,
+          "cap": false,
+          "actual": null
+        },
+        "391": {
+          "name": "Gvardiol",
+          "pos": "DEF",
+          "pred": 4.7,
+          "cap": false,
+          "actual": null
+        },
+        "40": {
+          "name": "Rogers",
+          "pos": "MID",
+          "pred": 4.4,
+          "cap": false,
+          "actual": null
+        },
+        "15": {
+          "name": "Ødegaard",
+          "pos": "MID",
+          "pred": 4.2,
+          "cap": false,
+          "actual": null
+        },
+        "480": {
+          "name": "Gibbs-White",
+          "pos": "MID",
+          "pred": 4.1,
+          "cap": false,
+          "actual": null
+        },
+        "154": {
+          "name": "Palmer",
+          "pos": "MID",
+          "pred": 3.8,
+          "cap": false,
+          "actual": null
+        },
+        "411": {
+          "name": "Haaland",
+          "pos": "FWD",
+          "pred": 9.6,
+          "cap": true,
+          "actual": null
+        },
+        "138": {
+          "name": "Kostoulas",
+          "pos": "FWD",
+          "pred": 3.9,
+          "cap": false,
+          "actual": null
+        }
+      },
+      "cap": "Haaland",
+      "cap_id": 411,
+      "bench": [
+        {
+          "id": 467,
+          "name": "Sels",
+          "pos": "GK",
+          "pred": 3.7,
+          "actual": null
+        },
+        {
+          "id": 367,
+          "name": "Gakpo",
+          "pos": "MID",
+          "pred": 0.0,
+          "actual": null
+        },
+        {
+          "id": 305,
+          "name": "Davis",
+          "pos": "DEF",
+          "pred": 2.6,
+          "actual": null
+        },
+        {
+          "id": 277,
+          "name": "Egan",
+          "pos": "DEF",
+          "pred": 4.8,
+          "actual": null
+        }
+      ],
+      "transfers": [
+        {
+          "out_id": 15,
+          "out_name": "Ødegaard",
+          "in_id": 542,
+          "in_name": "E.Le Fée",
+          "out_actual": null,
+          "in_actual": null
+        }
+      ]
     }
   },
-  "updated": "2026-10-10T04:19:44Z"
+  "updated": "2026-10-10T11:55:18Z"
 }
