@@ -135,14 +135,14 @@
         "115": {
           "name": "De Cuyper",
           "pos": "DEF",
-          "pred": 7.2,
+          "pred": 7.6,
           "cap": false,
           "actual": null
         },
         "8": {
           "name": "Calafiori",
           "pos": "DEF",
-          "pred": 4.8,
+          "pred": 5.4,
           "cap": false,
           "actual": null
         },
@@ -160,17 +160,17 @@
           "cap": false,
           "actual": null
         },
-        "40": {
-          "name": "Rogers",
-          "pos": "MID",
-          "pred": 4.4,
-          "cap": false,
-          "actual": null
-        },
         "15": {
           "name": "Ødegaard",
           "pos": "MID",
-          "pred": 4.2,
+          "pred": 4.8,
+          "cap": false,
+          "actual": null
+        },
+        "40": {
+          "name": "Rogers",
+          "pos": "MID",
+          "pred": 4.5,
           "cap": false,
           "actual": null
         },
@@ -178,13 +178,6 @@
           "name": "Gibbs-White",
           "pos": "MID",
           "pred": 4.1,
-          "cap": false,
-          "actual": null
-        },
-        "154": {
-          "name": "Palmer",
-          "pos": "MID",
-          "pred": 3.8,
           "cap": false,
           "actual": null
         },
@@ -198,7 +191,14 @@
         "138": {
           "name": "Kostoulas",
           "pos": "FWD",
-          "pred": 3.9,
+          "pred": 4.2,
+          "cap": false,
+          "actual": null
+        },
+        "165": {
+          "name": "João Pedro",
+          "pos": "FWD",
+          "pred": 4.1,
           "cap": false,
           "actual": null
         }
@@ -224,7 +224,7 @@
           "id": 305,
           "name": "Davis",
           "pos": "DEF",
-          "pred": 2.6,
+          "pred": 2.2,
           "actual": null
         },
         {
@@ -235,17 +235,8 @@
           "actual": null
         }
       ],
-      "transfers": [
-        {
-          "out_id": 15,
-          "out_name": "Ødegaard",
-          "in_id": 542,
-          "in_name": "E.Le Fée",
-          "out_actual": null,
-          "in_actual": null
-        }
-      ]
+      "transfers": []
     }
   },
-  "updated": "2026-10-10T11:55:18Z"
+  "updated": "2026-10-10T16:58:14Z"
 }
