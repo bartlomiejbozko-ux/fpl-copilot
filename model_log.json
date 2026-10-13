@@ -128,14 +128,21 @@
         "572": {
           "name": "Tzolakis",
           "pos": "GK",
-          "pred": 4.6,
+          "pred": 4.3,
           "cap": false,
           "actual": null
         },
         "115": {
           "name": "De Cuyper",
           "pos": "DEF",
-          "pred": 7.5,
+          "pred": 7.6,
+          "cap": false,
+          "actual": null
+        },
+        "391": {
+          "name": "Gvardiol",
+          "pos": "DEF",
+          "pred": 5.2,
           "cap": false,
           "actual": null
         },
@@ -146,38 +153,31 @@
           "cap": false,
           "actual": null
         },
-        "391": {
-          "name": "Gvardiol",
-          "pos": "DEF",
-          "pred": 4.9,
-          "cap": false,
-          "actual": null
-        },
         "277": {
           "name": "Egan",
           "pos": "DEF",
-          "pred": 4.8,
+          "pred": 4.5,
           "cap": false,
           "actual": null
         },
         "15": {
           "name": "Ødegaard",
           "pos": "MID",
-          "pred": 4.7,
+          "pred": 4.9,
           "cap": false,
           "actual": null
         },
         "40": {
           "name": "Rogers",
           "pos": "MID",
-          "pred": 4.5,
+          "pred": 4.8,
           "cap": false,
           "actual": null
         },
         "480": {
           "name": "Gibbs-White",
           "pos": "MID",
-          "pred": 4.1,
+          "pred": 4.0,
           "cap": false,
           "actual": null
         },
@@ -188,17 +188,17 @@
           "cap": true,
           "actual": null
         },
+        "165": {
+          "name": "João Pedro",
+          "pos": "FWD",
+          "pred": 4.5,
+          "cap": false,
+          "actual": null
+        },
         "138": {
           "name": "Kostoulas",
           "pos": "FWD",
           "pred": 4.3,
-          "cap": false,
-          "actual": null
-        },
-        "165": {
-          "name": "João Pedro",
-          "pos": "FWD",
-          "pred": 4.1,
           "cap": false,
           "actual": null
         }
@@ -210,7 +210,7 @@
           "id": 467,
           "name": "Sels",
           "pos": "GK",
-          "pred": 3.8,
+          "pred": 3.5,
           "actual": null
         },
         {
@@ -224,19 +224,19 @@
           "id": 305,
           "name": "Davis",
           "pos": "DEF",
-          "pred": 2.2,
+          "pred": 1.9,
           "actual": null
         },
         {
           "id": 277,
           "name": "Egan",
           "pos": "DEF",
-          "pred": 4.8,
+          "pred": 4.5,
           "actual": null
         }
       ],
       "transfers": []
     }
   },
-  "updated": "2026-10-13T02:25:15Z"
+  "updated": "2026-10-13T10:05:27Z"
 }
