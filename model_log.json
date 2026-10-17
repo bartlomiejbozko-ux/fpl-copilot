@@ -236,7 +236,130 @@
         }
       ],
       "transfers": []
+    },
+    "8": {
+      "players": {
+        "572": {
+          "name": "Tzolakis",
+          "pos": "GK",
+          "pred": 4.1,
+          "cap": false,
+          "actual": null
+        },
+        "115": {
+          "name": "De Cuyper",
+          "pos": "DEF",
+          "pred": 5.8,
+          "cap": false,
+          "actual": null
+        },
+        "8": {
+          "name": "Calafiori",
+          "pos": "DEF",
+          "pred": 5.7,
+          "cap": false,
+          "actual": null
+        },
+        "305": {
+          "name": "Davis",
+          "pos": "DEF",
+          "pred": 5.4,
+          "cap": false,
+          "actual": null
+        },
+        "277": {
+          "name": "Egan",
+          "pos": "DEF",
+          "pred": 4.3,
+          "cap": false,
+          "actual": null
+        },
+        "40": {
+          "name": "Rogers",
+          "pos": "MID",
+          "pred": 6.5,
+          "cap": false,
+          "actual": null
+        },
+        "154": {
+          "name": "Palmer",
+          "pos": "MID",
+          "pred": 5.2,
+          "cap": false,
+          "actual": null
+        },
+        "124": {
+          "name": "Groß",
+          "pos": "MID",
+          "pred": 5.2,
+          "cap": false,
+          "actual": null
+        },
+        "399": {
+          "name": "Cherki",
+          "pos": "MID",
+          "pred": 4.6,
+          "cap": false,
+          "actual": null
+        },
+        "411": {
+          "name": "Haaland",
+          "pos": "FWD",
+          "pred": 7.2,
+          "cap": true,
+          "actual": null
+        },
+        "165": {
+          "name": "João Pedro",
+          "pos": "FWD",
+          "pred": 5.8,
+          "cap": false,
+          "actual": null
+        }
+      },
+      "cap": "Haaland",
+      "cap_id": 411,
+      "bench": [
+        {
+          "id": 467,
+          "name": "Sels",
+          "pos": "GK",
+          "pred": 2.8,
+          "actual": null
+        },
+        {
+          "id": 480,
+          "name": "Gibbs-White",
+          "pos": "MID",
+          "pred": 3.1,
+          "actual": null
+        },
+        {
+          "id": 277,
+          "name": "Egan",
+          "pos": "DEF",
+          "pred": 4.3,
+          "actual": null
+        },
+        {
+          "id": 305,
+          "name": "Davis",
+          "pos": "DEF",
+          "pred": 5.4,
+          "actual": null
+        }
+      ],
+      "transfers": [
+        {
+          "out_id": 138,
+          "out_name": "Kostoulas",
+          "in_id": 249,
+          "in_name": "Barry",
+          "out_actual": null,
+          "in_actual": null
+        }
+      ]
     }
   },
-  "updated": "2026-10-17T07:41:09Z"
+  "updated": "2026-10-17T12:41:59Z"
 }
