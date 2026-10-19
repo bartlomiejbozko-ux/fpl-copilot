@@ -278,7 +278,7 @@
           "name": "Rogers",
           "pos": "MID",
           "pred": 6.5,
-          "cap": false,
+          "cap": true,
           "actual": null
         },
         "154": {
@@ -302,23 +302,23 @@
           "cap": false,
           "actual": null
         },
-        "411": {
-          "name": "Haaland",
-          "pos": "FWD",
-          "pred": 7.5,
-          "cap": true,
-          "actual": null
-        },
         "165": {
           "name": "João Pedro",
           "pos": "FWD",
           "pred": 6.1,
           "cap": false,
           "actual": null
+        },
+        "411": {
+          "name": "Haaland",
+          "pos": "FWD",
+          "pred": 5.6,
+          "cap": false,
+          "actual": null
         }
       },
-      "cap": "Haaland",
-      "cap_id": 411,
+      "cap": "Rogers",
+      "cap_id": 40,
       "bench": [
         {
           "id": 467,
@@ -361,5 +361,5 @@
       ]
     }
   },
-  "updated": "2026-10-19T12:07:31Z"
+  "updated": "2026-10-19T20:21:58Z"
 }
