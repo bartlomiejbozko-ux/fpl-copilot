@@ -242,7 +242,14 @@
         "572": {
           "name": "Tzolakis",
           "pos": "GK",
-          "pred": 4.2,
+          "pred": 4.1,
+          "cap": false,
+          "actual": null
+        },
+        "8": {
+          "name": "Calafiori",
+          "pos": "DEF",
+          "pred": 6.0,
           "cap": false,
           "actual": null
         },
@@ -253,17 +260,10 @@
           "cap": false,
           "actual": null
         },
-        "8": {
-          "name": "Calafiori",
-          "pos": "DEF",
-          "pred": 5.7,
-          "cap": false,
-          "actual": null
-        },
         "305": {
           "name": "Davis",
           "pos": "DEF",
-          "pred": 5.0,
+          "pred": 5.2,
           "cap": false,
           "actual": null
         },
@@ -298,7 +298,7 @@
         "399": {
           "name": "Cherki",
           "pos": "MID",
-          "pred": 4.6,
+          "pred": 4.3,
           "cap": false,
           "actual": null
         },
@@ -312,7 +312,7 @@
         "411": {
           "name": "Haaland",
           "pos": "FWD",
-          "pred": 5.6,
+          "pred": 5.0,
           "cap": false,
           "actual": null
         }
@@ -324,7 +324,7 @@
           "id": 467,
           "name": "Sels",
           "pos": "GK",
-          "pred": 2.7,
+          "pred": 2.6,
           "actual": null
         },
         {
@@ -345,7 +345,7 @@
           "id": 305,
           "name": "Davis",
           "pos": "DEF",
-          "pred": 5.0,
+          "pred": 5.2,
           "actual": null
         }
       ],
@@ -361,5 +361,5 @@
       ]
     }
   },
-  "updated": "2026-10-20T00:07:00Z"
+  "updated": "2026-10-20T08:11:26Z"
 }
