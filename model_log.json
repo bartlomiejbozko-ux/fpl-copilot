@@ -411,6 +411,13 @@
           "cap": false,
           "actual": null
         },
+        "399": {
+          "name": "Cherki",
+          "pos": "MID",
+          "pred": 4.1,
+          "cap": false,
+          "actual": null
+        },
         "480": {
           "name": "Gibbs-White",
           "pos": "MID",
@@ -418,17 +425,10 @@
           "cap": false,
           "actual": null
         },
-        "399": {
-          "name": "Cherki",
-          "pos": "MID",
-          "pred": 3.6,
-          "cap": false,
-          "actual": null
-        },
         "411": {
           "name": "Haaland",
           "pos": "FWD",
-          "pred": 6.8,
+          "pred": 6.5,
           "cap": true,
           "actual": null
         },
@@ -476,13 +476,13 @@
         {
           "out_id": 154,
           "out_name": "Palmer",
-          "in_id": 68,
-          "in_name": "Tavernier",
+          "in_id": 15,
+          "in_name": "Ødegaard",
           "out_actual": null,
           "in_actual": null
         }
       ]
     }
   },
-  "updated": "2026-10-24T10:17:29Z"
+  "updated": "2026-10-24T15:22:51Z"
 }
