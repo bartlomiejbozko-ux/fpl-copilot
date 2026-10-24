@@ -376,13 +376,6 @@
           "cap": false,
           "actual": null
         },
-        "8": {
-          "name": "Calafiori",
-          "pos": "DEF",
-          "pred": 4.4,
-          "cap": false,
-          "actual": null
-        },
         "277": {
           "name": "Egan",
           "pos": "DEF",
@@ -390,17 +383,17 @@
           "cap": false,
           "actual": null
         },
-        "40": {
-          "name": "Rogers",
-          "pos": "MID",
-          "pred": 6.2,
+        "8": {
+          "name": "Calafiori",
+          "pos": "DEF",
+          "pred": 3.3,
           "cap": false,
           "actual": null
         },
-        "154": {
-          "name": "Palmer",
+        "40": {
+          "name": "Rogers",
           "pos": "MID",
-          "pred": 4.8,
+          "pred": 5.8,
           "cap": false,
           "actual": null
         },
@@ -408,6 +401,13 @@
           "name": "Groß",
           "pos": "MID",
           "pred": 4.8,
+          "cap": false,
+          "actual": null
+        },
+        "154": {
+          "name": "Palmer",
+          "pos": "MID",
+          "pred": 4.7,
           "cap": false,
           "actual": null
         },
@@ -435,7 +435,7 @@
         "165": {
           "name": "João Pedro",
           "pos": "FWD",
-          "pred": 5.4,
+          "pred": 4.0,
           "cap": false,
           "actual": null
         }
@@ -474,6 +474,14 @@
       ],
       "transfers": [
         {
+          "out_id": 165,
+          "out_name": "João Pedro",
+          "in_id": 249,
+          "in_name": "Barry",
+          "out_actual": null,
+          "in_actual": null
+        },
+        {
           "out_id": 154,
           "out_name": "Palmer",
           "in_id": 15,
@@ -484,5 +492,5 @@
       ]
     }
   },
-  "updated": "2026-10-24T15:22:51Z"
+  "updated": "2026-10-24T20:12:38Z"
 }
