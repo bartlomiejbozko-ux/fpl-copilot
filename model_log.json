@@ -372,14 +372,14 @@
         "115": {
           "name": "De Cuyper",
           "pos": "DEF",
-          "pred": 4.5,
+          "pred": 4.6,
           "cap": false,
           "actual": null
         },
         "277": {
           "name": "Egan",
           "pos": "DEF",
-          "pred": 4.4,
+          "pred": 4.6,
           "cap": false,
           "actual": null
         },
@@ -397,15 +397,15 @@
           "cap": false,
           "actual": null
         },
-        "124": {
-          "name": "Groß",
+        "154": {
+          "name": "Palmer",
           "pos": "MID",
-          "pred": 4.8,
+          "pred": 4.7,
           "cap": false,
           "actual": null
         },
-        "154": {
-          "name": "Palmer",
+        "124": {
+          "name": "Groß",
           "pos": "MID",
           "pred": 4.7,
           "cap": false,
@@ -454,14 +454,14 @@
           "id": 138,
           "name": "Kostoulas",
           "pos": "FWD",
-          "pred": 3.4,
+          "pred": 3.9,
           "actual": null
         },
         {
           "id": 277,
           "name": "Egan",
           "pos": "DEF",
-          "pred": 4.4,
+          "pred": 4.6,
           "actual": null
         },
         {
@@ -484,13 +484,21 @@
         {
           "out_id": 154,
           "out_name": "Palmer",
-          "in_id": 15,
-          "in_name": "Ødegaard",
+          "in_id": 68,
+          "in_name": "Tavernier",
+          "out_actual": null,
+          "in_actual": null
+        },
+        {
+          "out_id": 40,
+          "out_name": "Rogers",
+          "in_id": 68,
+          "in_name": "Tavernier",
           "out_actual": null,
           "in_actual": null
         }
       ]
     }
   },
-  "updated": "2026-10-25T10:43:16Z"
+  "updated": "2026-10-25T15:32:55Z"
 }
