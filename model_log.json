@@ -397,15 +397,15 @@
           "cap": false,
           "actual": null
         },
-        "124": {
-          "name": "Groß",
+        "154": {
+          "name": "Palmer",
           "pos": "MID",
-          "pred": 4.8,
+          "pred": 4.7,
           "cap": false,
           "actual": null
         },
-        "154": {
-          "name": "Palmer",
+        "124": {
+          "name": "Groß",
           "pos": "MID",
           "pred": 4.7,
           "cap": false,
@@ -418,13 +418,6 @@
           "cap": false,
           "actual": null
         },
-        "480": {
-          "name": "Gibbs-White",
-          "pos": "MID",
-          "pred": 4.0,
-          "cap": false,
-          "actual": null
-        },
         "411": {
           "name": "Haaland",
           "pos": "FWD",
@@ -434,6 +427,13 @@
         },
         "165": {
           "name": "João Pedro",
+          "pos": "FWD",
+          "pred": 4.0,
+          "cap": false,
+          "actual": null
+        },
+        "138": {
+          "name": "Kostoulas",
           "pos": "FWD",
           "pred": 4.0,
           "cap": false,
@@ -454,7 +454,7 @@
           "id": 138,
           "name": "Kostoulas",
           "pos": "FWD",
-          "pred": 3.9,
+          "pred": 4.0,
           "actual": null
         },
         {
@@ -492,5 +492,5 @@
       ]
     }
   },
-  "updated": "2026-10-25T20:22:19Z"
+  "updated": "2026-10-25T23:01:06Z"
 }
