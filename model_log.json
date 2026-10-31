@@ -496,7 +496,7 @@
         "572": {
           "name": "Tzolakis",
           "pos": "GK",
-          "pred": 3.5,
+          "pred": 3.4,
           "cap": false,
           "actual": null
         },
@@ -507,10 +507,10 @@
           "cap": true,
           "actual": null
         },
-        "305": {
-          "name": "Davis",
+        "391": {
+          "name": "Gvardiol",
           "pos": "DEF",
-          "pred": 4.1,
+          "pred": 4.0,
           "cap": false,
           "actual": null
         },
@@ -521,24 +521,17 @@
           "cap": false,
           "actual": null
         },
-        "391": {
-          "name": "Gvardiol",
+        "305": {
+          "name": "Davis",
           "pos": "DEF",
-          "pred": 3.6,
+          "pred": 3.9,
           "cap": false,
           "actual": null
         },
         "277": {
           "name": "Egan",
           "pos": "DEF",
-          "pred": 3.5,
-          "cap": false,
-          "actual": null
-        },
-        "124": {
-          "name": "Groß",
-          "pos": "MID",
-          "pred": 5.7,
+          "pred": 3.6,
           "cap": false,
           "actual": null
         },
@@ -549,17 +542,24 @@
           "cap": false,
           "actual": null
         },
+        "124": {
+          "name": "Groß",
+          "pos": "MID",
+          "pred": 5.5,
+          "cap": false,
+          "actual": null
+        },
         "40": {
           "name": "Rogers",
           "pos": "MID",
-          "pred": 4.8,
+          "pred": 5.1,
           "cap": false,
           "actual": null
         },
         "154": {
           "name": "Palmer",
           "pos": "MID",
-          "pred": 4.0,
+          "pred": 4.6,
           "cap": false,
           "actual": null
         },
@@ -578,7 +578,7 @@
           "id": 467,
           "name": "Sels",
           "pos": "GK",
-          "pred": 2.9,
+          "pred": 2.8,
           "actual": null
         },
         {
@@ -592,28 +592,19 @@
           "id": 277,
           "name": "Egan",
           "pos": "DEF",
-          "pred": 3.5,
+          "pred": 3.6,
           "actual": null
         },
         {
           "id": 305,
           "name": "Davis",
           "pos": "DEF",
-          "pred": 4.1,
+          "pred": 3.9,
           "actual": null
         }
       ],
-      "transfers": [
-        {
-          "out_id": 391,
-          "out_name": "Gvardiol",
-          "in_id": 504,
-          "in_name": "Vuskovic",
-          "out_actual": null,
-          "in_actual": null
-        }
-      ]
+      "transfers": []
     }
   },
-  "updated": "2026-10-31T11:41:32Z"
+  "updated": "2026-10-31T16:49:18Z"
 }
