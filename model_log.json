@@ -490,7 +490,130 @@
           "in_actual": null
         }
       ]
+    },
+    "10": {
+      "players": {
+        "572": {
+          "name": "Tzolakis",
+          "pos": "GK",
+          "pred": 3.5,
+          "cap": false,
+          "actual": null
+        },
+        "115": {
+          "name": "De Cuyper",
+          "pos": "DEF",
+          "pred": 6.3,
+          "cap": true,
+          "actual": null
+        },
+        "305": {
+          "name": "Davis",
+          "pos": "DEF",
+          "pred": 4.1,
+          "cap": false,
+          "actual": null
+        },
+        "8": {
+          "name": "Calafiori",
+          "pos": "DEF",
+          "pred": 3.9,
+          "cap": false,
+          "actual": null
+        },
+        "391": {
+          "name": "Gvardiol",
+          "pos": "DEF",
+          "pred": 3.6,
+          "cap": false,
+          "actual": null
+        },
+        "277": {
+          "name": "Egan",
+          "pos": "DEF",
+          "pred": 3.5,
+          "cap": false,
+          "actual": null
+        },
+        "124": {
+          "name": "Groß",
+          "pos": "MID",
+          "pred": 5.7,
+          "cap": false,
+          "actual": null
+        },
+        "68": {
+          "name": "Tavernier",
+          "pos": "MID",
+          "pred": 5.7,
+          "cap": false,
+          "actual": null
+        },
+        "40": {
+          "name": "Rogers",
+          "pos": "MID",
+          "pred": 4.8,
+          "cap": false,
+          "actual": null
+        },
+        "154": {
+          "name": "Palmer",
+          "pos": "MID",
+          "pred": 4.0,
+          "cap": false,
+          "actual": null
+        },
+        "411": {
+          "name": "Haaland",
+          "pos": "FWD",
+          "pred": 6.3,
+          "cap": false,
+          "actual": null
+        }
+      },
+      "cap": "De Cuyper",
+      "cap_id": 115,
+      "bench": [
+        {
+          "id": 467,
+          "name": "Sels",
+          "pos": "GK",
+          "pred": 2.9,
+          "actual": null
+        },
+        {
+          "id": 165,
+          "name": "João Pedro",
+          "pos": "FWD",
+          "pred": 0.0,
+          "actual": null
+        },
+        {
+          "id": 277,
+          "name": "Egan",
+          "pos": "DEF",
+          "pred": 3.5,
+          "actual": null
+        },
+        {
+          "id": 305,
+          "name": "Davis",
+          "pos": "DEF",
+          "pred": 4.1,
+          "actual": null
+        }
+      ],
+      "transfers": [
+        {
+          "out_id": 391,
+          "out_name": "Gvardiol",
+          "in_id": 504,
+          "in_name": "Vuskovic",
+          "out_actual": null,
+          "in_actual": null
+        }
+      ]
     }
   },
-  "updated": "2026-10-31T04:01:55Z"
+  "updated": "2026-10-31T11:41:32Z"
 }
