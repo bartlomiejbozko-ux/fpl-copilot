@@ -617,7 +617,7 @@
         "115": {
           "name": "De Cuyper",
           "pos": "DEF",
-          "pred": 5.3,
+          "pred": 5.8,
           "cap": false,
           "actual": null
         },
@@ -635,22 +635,22 @@
           "cap": false,
           "actual": null
         },
-        "391": {
-          "name": "Gvardiol",
-          "pos": "DEF",
-          "pred": 3.6,
-          "cap": false,
-          "actual": null
-        },
         "68": {
           "name": "Tavernier",
           "pos": "MID",
-          "pred": 6.0,
+          "pred": 6.3,
           "cap": false,
           "actual": null
         },
         "40": {
           "name": "Rogers",
+          "pos": "MID",
+          "pred": 5.4,
+          "cap": false,
+          "actual": null
+        },
+        "124": {
+          "name": "Groß",
           "pos": "MID",
           "pred": 5.2,
           "cap": false,
@@ -659,14 +659,7 @@
         "154": {
           "name": "Palmer",
           "pos": "MID",
-          "pred": 4.9,
-          "cap": false,
-          "actual": null
-        },
-        "124": {
-          "name": "Groß",
-          "pos": "MID",
-          "pred": 4.5,
+          "pred": 4.7,
           "cap": false,
           "actual": null
         },
@@ -680,7 +673,14 @@
         "379": {
           "name": "Isak",
           "pos": "FWD",
-          "pred": 4.7,
+          "pred": 5.2,
+          "cap": false,
+          "actual": null
+        },
+        "166": {
+          "name": "N.Jackson",
+          "pos": "FWD",
+          "pred": 4.4,
           "cap": false,
           "actual": null
         }
@@ -699,7 +699,7 @@
           "id": 124,
           "name": "Groß",
           "pos": "MID",
-          "pred": 4.5,
+          "pred": 5.2,
           "actual": null
         },
         {
@@ -719,23 +719,23 @@
       ],
       "transfers": [
         {
-          "out_id": 57,
-          "out_name": "Petrović",
-          "in_id": 109,
-          "in_name": "Verbruggen",
-          "out_actual": null,
-          "in_actual": null
-        },
-        {
           "out_id": 31,
           "out_name": "Konsa",
           "in_id": 112,
           "in_name": "Van Hecke",
           "out_actual": null,
           "in_actual": null
+        },
+        {
+          "out_id": 57,
+          "out_name": "Petrović",
+          "in_id": 496,
+          "in_name": "Kinsky",
+          "out_actual": null,
+          "in_actual": null
         }
       ]
     }
   },
-  "updated": "2026-11-08T12:45:38Z"
+  "updated": "2026-11-08T19:19:42Z"
 }
