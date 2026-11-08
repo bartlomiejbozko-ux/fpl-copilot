@@ -628,17 +628,17 @@
           "cap": false,
           "actual": null
         },
-        "391": {
-          "name": "Gvardiol",
-          "pos": "DEF",
-          "pred": 4.8,
-          "cap": false,
-          "actual": null
-        },
         "31": {
           "name": "Konsa",
           "pos": "DEF",
-          "pred": 4.1,
+          "pred": 4.0,
+          "cap": false,
+          "actual": null
+        },
+        "391": {
+          "name": "Gvardiol",
+          "pos": "DEF",
+          "pred": 3.6,
           "cap": false,
           "actual": null
         },
@@ -706,7 +706,7 @@
           "id": 391,
           "name": "Gvardiol",
           "pos": "DEF",
-          "pred": 4.8,
+          "pred": 3.6,
           "actual": null
         },
         {
@@ -737,5 +737,5 @@
       ]
     }
   },
-  "updated": "2026-11-07T21:27:09Z"
+  "updated": "2026-11-08T04:27:21Z"
 }
