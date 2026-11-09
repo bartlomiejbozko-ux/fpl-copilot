@@ -498,77 +498,77 @@
           "pos": "GK",
           "pred": 3.2,
           "cap": false,
-          "actual": null
+          "actual": 6
         },
         "115": {
           "name": "De Cuyper",
           "pos": "DEF",
           "pred": 6.2,
           "cap": true,
-          "actual": null
+          "actual": 6
         },
         "8": {
           "name": "Calafiori",
           "pos": "DEF",
           "pred": 5.3,
           "cap": false,
-          "actual": null
+          "actual": 6
         },
         "305": {
           "name": "Davis",
           "pos": "DEF",
           "pred": 3.9,
           "cap": false,
-          "actual": null
+          "actual": -1
         },
         "391": {
           "name": "Gvardiol",
           "pos": "DEF",
           "pred": 3.7,
           "cap": false,
-          "actual": null
+          "actual": 0
         },
         "277": {
           "name": "Egan",
           "pos": "DEF",
           "pred": 3.3,
           "cap": false,
-          "actual": null
+          "actual": 2
         },
         "68": {
           "name": "Tavernier",
           "pos": "MID",
           "pred": 5.7,
           "cap": false,
-          "actual": null
+          "actual": 3
         },
         "40": {
           "name": "Rogers",
           "pos": "MID",
           "pred": 5.4,
           "cap": false,
-          "actual": null
+          "actual": 2
         },
         "124": {
           "name": "Groß",
           "pos": "MID",
           "pred": 5.4,
           "cap": false,
-          "actual": null
+          "actual": 10
         },
         "154": {
           "name": "Palmer",
           "pos": "MID",
           "pred": 5.0,
           "cap": false,
-          "actual": null
+          "actual": 2
         },
         "411": {
           "name": "Haaland",
           "pos": "FWD",
           "pred": 6.0,
           "cap": false,
-          "actual": null
+          "actual": 2
         }
       },
       "cap": "De Cuyper",
@@ -579,28 +579,28 @@
           "name": "Sels",
           "pos": "GK",
           "pred": 3.0,
-          "actual": null
+          "actual": 2
         },
         {
           "id": 165,
           "name": "João Pedro",
           "pos": "FWD",
           "pred": 0.0,
-          "actual": null
+          "actual": 0
         },
         {
           "id": 277,
           "name": "Egan",
           "pos": "DEF",
           "pred": 3.3,
-          "actual": null
+          "actual": 2
         },
         {
           "id": 305,
           "name": "Davis",
           "pos": "DEF",
           "pred": 3.9,
-          "actual": null
+          "actual": -1
         }
       ],
       "transfers": []
@@ -617,40 +617,40 @@
         "115": {
           "name": "De Cuyper",
           "pos": "DEF",
-          "pred": 5.7,
+          "pred": 5.5,
           "cap": false,
           "actual": null
         },
         "8": {
           "name": "Calafiori",
           "pos": "DEF",
-          "pred": 4.7,
+          "pred": 4.3,
           "cap": false,
           "actual": null
         },
         "31": {
           "name": "Konsa",
           "pos": "DEF",
-          "pred": 4.0,
+          "pred": 3.7,
           "cap": false,
           "actual": null
         },
         "68": {
           "name": "Tavernier",
           "pos": "MID",
-          "pred": 6.2,
-          "cap": false,
-          "actual": null
-        },
-        "124": {
-          "name": "Groß",
-          "pos": "MID",
-          "pred": 5.0,
+          "pred": 5.9,
           "cap": false,
           "actual": null
         },
         "40": {
           "name": "Rogers",
+          "pos": "MID",
+          "pred": 4.9,
+          "cap": false,
+          "actual": null
+        },
+        "124": {
+          "name": "Groß",
           "pos": "MID",
           "pred": 4.9,
           "cap": false,
@@ -666,21 +666,21 @@
         "411": {
           "name": "Haaland",
           "pos": "FWD",
-          "pred": 7.1,
+          "pred": 7.0,
           "cap": true,
           "actual": null
         },
         "379": {
           "name": "Isak",
           "pos": "FWD",
-          "pred": 5.9,
+          "pred": 5.4,
           "cap": false,
           "actual": null
         },
         "166": {
           "name": "N.Jackson",
           "pos": "FWD",
-          "pred": 4.7,
+          "pred": 4.3,
           "cap": false,
           "actual": null
         }
@@ -699,14 +699,14 @@
           "id": 124,
           "name": "Groß",
           "pos": "MID",
-          "pred": 5.0,
+          "pred": 4.9,
           "actual": null
         },
         {
           "id": 391,
           "name": "Gvardiol",
           "pos": "DEF",
-          "pred": 3.5,
+          "pred": 3.2,
           "actual": null
         },
         {
@@ -719,23 +719,23 @@
       ],
       "transfers": [
         {
-          "out_id": 57,
-          "out_name": "Petrović",
-          "in_id": 496,
-          "in_name": "Kinsky",
+          "out_id": 31,
+          "out_name": "Konsa",
+          "in_id": 504,
+          "in_name": "Vuskovic",
           "out_actual": null,
           "in_actual": null
         },
         {
-          "out_id": 31,
-          "out_name": "Konsa",
-          "in_id": 112,
-          "in_name": "Van Hecke",
+          "out_id": 57,
+          "out_name": "Petrović",
+          "in_id": 109,
+          "in_name": "Verbruggen",
           "out_actual": null,
           "in_actual": null
         }
       ]
     }
   },
-  "updated": "2026-11-09T10:53:41Z"
+  "updated": "2026-11-09T21:55:24Z"
 }
