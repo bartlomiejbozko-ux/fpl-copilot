@@ -849,7 +849,146 @@
         }
       ],
       "transfers": []
+    },
+    "13": {
+      "players": {
+        "572": {
+          "name": "Tzolakis",
+          "pos": "GK",
+          "pred": 5.2,
+          "cap": false,
+          "actual": null
+        },
+        "112": {
+          "name": "Van Hecke",
+          "pos": "DEF",
+          "pred": 5.3,
+          "cap": false,
+          "actual": null
+        },
+        "115": {
+          "name": "De Cuyper",
+          "pos": "DEF",
+          "pred": 4.7,
+          "cap": false,
+          "actual": null
+        },
+        "504": {
+          "name": "Vuskovic",
+          "pos": "DEF",
+          "pred": 4.2,
+          "cap": false,
+          "actual": null
+        },
+        "40": {
+          "name": "Rogers",
+          "pos": "MID",
+          "pred": 5.8,
+          "cap": false,
+          "actual": null
+        },
+        "366": {
+          "name": "Wirtz",
+          "pos": "MID",
+          "pred": 5.0,
+          "cap": false,
+          "actual": null
+        },
+        "68": {
+          "name": "Tavernier",
+          "pos": "MID",
+          "pred": 5.0,
+          "cap": false,
+          "actual": null
+        },
+        "124": {
+          "name": "Groß",
+          "pos": "MID",
+          "pred": 4.7,
+          "cap": false,
+          "actual": null
+        },
+        "411": {
+          "name": "Haaland",
+          "pos": "FWD",
+          "pred": 5.9,
+          "cap": true,
+          "actual": null
+        },
+        "79": {
+          "name": "Evanilson",
+          "pos": "FWD",
+          "pred": 4.6,
+          "cap": false,
+          "actual": null
+        },
+        "166": {
+          "name": "N.Jackson",
+          "pos": "FWD",
+          "pred": 3.7,
+          "cap": false,
+          "actual": null
+        }
+      },
+      "cap": "Haaland",
+      "cap_id": 411,
+      "bench": [
+        {
+          "id": 572,
+          "name": "Tzolakis",
+          "pos": "GK",
+          "pred": 5.2,
+          "actual": null
+        },
+        {
+          "id": 504,
+          "name": "Vuskovic",
+          "pos": "DEF",
+          "pred": 4.2,
+          "actual": null
+        },
+        {
+          "id": 53,
+          "name": "Manzambi",
+          "pos": "MID",
+          "pred": 2.9,
+          "actual": null
+        },
+        {
+          "id": 8,
+          "name": "Calafiori",
+          "pos": "DEF",
+          "pred": 3.3,
+          "actual": null
+        }
+      ],
+      "transfers": [
+        {
+          "out_id": 332,
+          "out_name": "Justin",
+          "in_id": 4,
+          "in_name": "Gabriel",
+          "out_actual": null,
+          "in_actual": null
+        },
+        {
+          "out_id": 40,
+          "out_name": "Rogers",
+          "in_id": 427,
+          "in_name": "Mbeumo",
+          "out_actual": null,
+          "in_actual": null
+        },
+        {
+          "out_id": 79,
+          "out_name": "Evanilson",
+          "in_id": 379,
+          "in_name": "Isak",
+          "out_actual": null,
+          "in_actual": null
+        }
+      ]
     }
   },
-  "updated": "2026-11-27T16:07:37Z"
+  "updated": "2026-11-28T01:04:47Z"
 }
